@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+}
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+String restApiGeneratorPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\restApiGenerator\\'+
+                             'RestApiGenerator\\build\\libs\\RestApiGenerator-18.0.jar'
+String buildDirectoryPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\restApiGenerator\\'+
+                             'RestApiGenerator\\TestOfWorkingRestApiGenerator\\build\\'
+dependencies {
+    compileOnly files(restApiGeneratorPath)
+    annotationProcessor files(restApiGeneratorPath)
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+
+    testCompileOnly "org.projectlombok:lombok:1.18.26"
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testImplementation 'com.google.truth:truth:1.1'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.jvmArgs += [
+            '--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED',
+    ]
+}
+task decompileJar(type: JavaExec) {
+    dependencies {
+        implementation 'org.jboss.windup.decompiler.fernflower:fernflower:2.5.0.Final'
+    }
+    mustRunAfter(classes)
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler'
+    args buildDirectoryPath+'classes\\java\\main', buildDirectoryPath+'generated\\sources\\annotationProcessor\\java\\main'
+}
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.example.Main',
+        )
+    }
+    duplicatesStrategy = "exclude"
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
