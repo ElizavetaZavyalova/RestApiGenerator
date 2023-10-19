@@ -3,15 +3,16 @@ plugins {
 }
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+
+
 repositories {
     mavenCentral()
     mavenLocal()
 }
+String restApiGeneratorProjectPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\'
+String restApiGeneratorPath=restApiGeneratorProjectPath+'RestApiGenerator\\build\\libs\\RestApiGenerator-18.0.jar'
+String buildDirectoryPath=restApiGeneratorProjectPath+ 'RestApiGenerator\\TestOfWorkingRestApiGenerator\\build\\'
 
-String restApiGeneratorPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\restApiGenerator\\'+
-                             'RestApiGenerator\\build\\libs\\RestApiGenerator-18.0.jar'
-String buildDirectoryPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\restApiGenerator\\'+
-                             'RestApiGenerator\\TestOfWorkingRestApiGenerator\\build\\'
 dependencies {
     compileOnly files(restApiGeneratorPath)
     annotationProcessor files(restApiGeneratorPath)

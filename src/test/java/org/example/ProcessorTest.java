@@ -11,7 +11,7 @@ import static com.google.testing.compile.Compiler.javac;
 @Log
 class ProcessorTest {
     record Creation(){
-        static String FILE_RESOURSE_DIR="P:\\Projects\\JetBrains\\IntelliJIDEA\\restApiGenerator\\"+
+        static String FILE_RESOURSE_DIR="P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\"+
                                          "RestApiGenerator\\TestOfWorkingRestApiGenerator\\src\\main\\java\\";
         static JavaFileObject createJavaFileObject(String name) throws MalformedURLException {
             return JavaFileObjects.forResource(new File(FILE_RESOURSE_DIR+name).toURI().toURL());
