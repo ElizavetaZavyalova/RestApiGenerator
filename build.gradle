@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'org.example'
-version = '18.0'
+version = 'Java_18.0'
 
 repositories {
     mavenCentral()
@@ -30,6 +30,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    //Запуск .jar если используются библиотеки внутренего апи лишние потом удалю
     jvmArgs += [
             '--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
             '--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
@@ -45,6 +46,7 @@ test {
     ]
 }
 compileJava {
+    //Позволяет градл видить библиотеки внутренего апи
     options.compilerArgs = [
             '--add-exports', 'jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED',
             '--add-exports', 'jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED',
@@ -54,6 +56,7 @@ compileJava {
     ]
 }
 compileTestJava {
+    //Позволяет градл видить библиотеки внутренего апи
     options.compilerArgs = [
             '--add-exports', 'jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED',
             '--add-exports', 'jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED',
@@ -63,6 +66,7 @@ compileTestJava {
     ]
 }
 tasks.withType(JavaCompile).configureEach {
+    //Запуск .jar если используются библиотеки внутренего апи лишние потом удалю
     options.fork = true
     options.forkOptions.jvmArgs += [
             '--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
