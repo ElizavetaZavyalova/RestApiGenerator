@@ -18,10 +18,6 @@ q
 ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782705bcfd3d488e139f52748fdb704d1e3
 k
 ;src/main/java/org/example/processors/ASTTreeComponents.java,0\d\0d6b237cabd89a7b1bcde36280e9442df723bb4c
-g
-7src/main/java/org/example/processors/MainProcessor.java,7\8\78eefeeb75d23597c52b9cc706089f52834d4d9c
-a
-1src/test/java/org/example/RequestAnalyzeTest.java,4\b\4bad3ae067788161ea8ec5b11ba6e0575a2c13cc
 m
 =src/main/java/org/example/analize/connections/Connection.java,4\c\4c4ce863da9db28109dd0186c388ca4277bf480e
 \
@@ -48,3 +44,7 @@ k
 ;src/main/java/org/example/analize/requests/TypeAnalyze.java,a\0\a050aa06de12d593a8e47fc5a18a2a186e07d3ef
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+g
+7src/main/java/org/example/processors/MainProcessor.java,7\8\78eefeeb75d23597c52b9cc706089f52834d4d9c
+a
+1src/test/java/org/example/RequestAnalyzeTest.java,4\b\4bad3ae067788161ea8ec5b11ba6e0575a2c13cc

@@ -24,14 +24,10 @@ Z
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 \
 ,src/test/java/org/example/ProcessorTest.java,0\1\01a99a69e560fd357038a772c6fd80d4b9f4e2ea
-a
-1src/test/java/org/example/RequestAnalyzeTest.java,4\b\4bad3ae067788161ea8ec5b11ba6e0575a2c13cc
 k
 ;src/main/java/org/example/processors/ASTTreeComponents.java,0\d\0d6b237cabd89a7b1bcde36280e9442df723bb4c
 g
 7src/main/java/org/example/processors/BaseProcessor.java,4\4\448d00e5f9b295dbeac2e060cea503974eeade3e
-g
-7src/main/java/org/example/processors/MainProcessor.java,7\8\78eefeeb75d23597c52b9cc706089f52834d4d9c
 j
 :src/main/java/org/example/processors/RestApiGenerator.java,2\3\2372ebcdb78e4f2993717ba248ae088a3975c558
 p
@@ -48,3 +44,7 @@ k
 ;src/main/java/org/example/analize/requests/TypeAnalyze.java,a\0\a050aa06de12d593a8e47fc5a18a2a186e07d3ef
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+g
+7src/main/java/org/example/processors/MainProcessor.java,7\8\78eefeeb75d23597c52b9cc706089f52834d4d9c
+a
+1src/test/java/org/example/RequestAnalyzeTest.java,4\b\4bad3ae067788161ea8ec5b11ba6e0575a2c13cc
