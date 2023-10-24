@@ -8,7 +8,10 @@ class RequestAnalyzeTest {
     //static BaseRequestsAnalyze baseRequestsAnalyze=new BaseRequestsAnalyze();
     @Test
     void testSplitFunkTableFieldId(){
-        String request="table/{id}/next/table/{id}";
+        String request="table/name/address?{@year}&{name}/age-date-{@current}";
+        String test="=Year";
+        String[] input=test.split("=");
+        log.info("debug");
        // BaseRequestsAnalyze baseRequestsAnalyze;
         //String[] strings=baseRequestsAnalyze.splitString(request);
         //List<TypeAnalyze> type=baseRequestsAnalyze.makeTypeAnalyzes(strings);

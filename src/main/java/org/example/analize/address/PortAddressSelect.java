@@ -79,7 +79,7 @@ public class PortAddressSelect implements SelectInterpret{
         return id.substring(1, id.length());
     }
     boolean isIdNext(String id){
-        return id.charAt(0)=='>';
+        return id.charAt(0)=='<';
     }
     boolean isId(String id){
         return id.charAt(0)=='=';

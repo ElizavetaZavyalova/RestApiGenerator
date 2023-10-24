@@ -72,16 +72,18 @@ public class OperationCondition implements ConditionInterpret {
     OperationCondition(String request, Variables variables) {
         for (Operation operation : Operation.values()) {
             String[] input = request.split(operation.getValue());
-            if (input.length == 3) {
+            if (input.length == 3||input.length==2) {
                 this.operation = operation;
-                this.field =variables.addVariableField(input[PORT.FIELD]);
                 this.value = variables.addVariableValue(input[PORT.VALUE],isOnlyString());
+                this.field =(input.length==3)?
+                        (variables.addVariableField(input[PORT.FIELD])):
+                        variables.makeString(variables.makeVariableFromString(value));
                 return;
             }
-
         }
-        log.debug("NOT_CORRECT_REQUEST:" + request);
-        //TODO No operation
+        this.operation = Operation.EQ;
+        this.value = variables.addVariableValue(request,isOnlyString());
+        this.field = variables.makeString(variables.makeVariableFromString(value));
     }
     boolean isOnlyString(){
         return operation==Operation.LIKE||operation==Operation.NOT_LIKE;
