@@ -17,6 +17,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation 'ch.qos.logback:logback-classic:1.4.5'
     implementation 'com.squareup:javapoet:1.13.0'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'org.jooq:jooq:3.17.8'
 
     testCompileOnly "org.projectlombok:lombok:1.18.26"
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'

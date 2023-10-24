@@ -22,8 +22,6 @@ k
 ,src/test/java/org/example/ProcessorTest.java,0\1\01a99a69e560fd357038a772c6fd80d4b9f4e2ea
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
-Z
-*TestOfWorkingRestApiGenerator/build.gradle,e\1\e106ee998dbd02704e835f478aa844c348deeb6c
 g
 7src/main/java/org/example/processors/BaseProcessor.java,4\4\448d00e5f9b295dbeac2e060cea503974eeade3e
 j
@@ -32,5 +30,3 @@ p
 @src/main/java/org/example/processors/WriterOfDiagnosticLogs.java,3\e\3e0c4625c13caf58ae7ed642398d23545886ec34
 x
 Hsrc/main/java/org/example/processors/Package/RenamePackageProcessor.java,f\1\f139d727c8905141015436d936e885d0cef69486
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35

@@ -16,8 +16,6 @@ z
 JTestOfWorkingRestApiGenerator/src/test/java/GenerationApplicationTest.java,7\d\7da405421748bd2e549f33645787adffd21c097d
 q
 ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782705bcfd3d488e139f52748fdb704d1e3
-Z
-*TestOfWorkingRestApiGenerator/build.gradle,e\1\e106ee998dbd02704e835f478aa844c348deeb6c
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 \
@@ -32,5 +30,3 @@ p
 @src/main/java/org/example/processors/WriterOfDiagnosticLogs.java,3\e\3e0c4625c13caf58ae7ed642398d23545886ec34
 x
 Hsrc/main/java/org/example/processors/Package/RenamePackageProcessor.java,f\1\f139d727c8905141015436d936e885d0cef69486
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
