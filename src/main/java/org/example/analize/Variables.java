@@ -2,7 +2,7 @@ package org.example.analize;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.analize.connections.OperationInterpret;
+
 
 import java.util.Map;
 import java.util.TreeMap;
