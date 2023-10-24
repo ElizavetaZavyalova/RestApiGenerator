@@ -2,6 +2,7 @@ package org.example.analize.connections;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.Variables;
 import org.jooq.Condition;
@@ -66,17 +67,18 @@ public class OperationInterpret implements ConditionInterpret {
                 return DSL.field(field).greaterOrEqual(value);
             }
         }
+        return DSL.field(field).eq(value);
         //TODO no opiration
-        throw new IllegalArgumentException("not correct Operation"+ operation);
+        //throw new IllegalArgumentException("not correct Operation"+ operation);
     }
 
     OperationInterpret(String request, Variables variables) {
         for (Operation operation : Operation.values()) {
             String[] input = request.split(operation.getValue());
             if (input.length == 3) {
-                this.field = variables.addVariableAndMakeItCorrectView(input[PORT.FIELD]);
                 this.operation = operation;
-                this.value = variables.addVariableAndMakeItCorrectView(input[PORT.VALUE]);
+                this.field =variables.addVariableField(input[PORT.FIELD]);
+                this.value = variables.addVariableValue(input[PORT.VALUE],isOnlyString());
                 return;
             }
 
@@ -84,4 +86,8 @@ public class OperationInterpret implements ConditionInterpret {
         log.debug("NOT_CORRECT_REQUEST:" + request);
         //TODO No operation
     }
+    boolean isOnlyString(){
+        return operation==Operation.LIKE||operation==Operation.NOT_LIKE;
+    }
+
 }
