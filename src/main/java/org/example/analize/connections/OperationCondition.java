@@ -2,7 +2,6 @@ package org.example.analize.connections;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.Variables;
 import org.jooq.Condition;
@@ -10,10 +9,8 @@ import org.jooq.DSLContext;
 
 import org.jooq.impl.DSL;
 
-import java.util.Map;
-
 @Slf4j
-public class OperationInterpret implements ConditionInterpret {
+public class OperationCondition implements ConditionInterpret {
     private static class PORT {
         static int FIELD = 0;
         static int VALUE = 2;
@@ -72,7 +69,7 @@ public class OperationInterpret implements ConditionInterpret {
         //throw new IllegalArgumentException("not correct Operation"+ operation);
     }
 
-    OperationInterpret(String request, Variables variables) {
+    OperationCondition(String request, Variables variables) {
         for (Operation operation : Operation.values()) {
             String[] input = request.split(operation.getValue());
             if (input.length == 3) {

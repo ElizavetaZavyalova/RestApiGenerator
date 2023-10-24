@@ -6,7 +6,8 @@ import org.example.analize.Variables;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 
-public class WhenExpressionInterpret implements ConditionInterpret {
+public class WhenCondition implements ConditionInterpret {
+
     //TODO condition OR ()
     private static class PORT {
         static int OPERATION = 0;
@@ -30,13 +31,13 @@ public class WhenExpressionInterpret implements ConditionInterpret {
         }
         return operation.makeCondition(dsl).and(conditionNext.makeCondition(dsl));
     }
-    WhenExpressionInterpret(String request, Variables variables) {
+    public WhenCondition(String request, Variables variables) {
         condition=ConditionOperand.ADD;
-        String input[]=request.split(ConditionOperand.ADD.value,2);
+        String[] input=request.split(ConditionOperand.ADD.value,2);
         if(input.length==2){
-            operation=new OperationInterpret(input[PORT.OPERATION],variables);
-            conditionNext=new WhenExpressionInterpret(input[PORT.WHEN_NEXT],variables);
+            operation=new OperationCondition(input[PORT.OPERATION],variables);
+            conditionNext=new WhenCondition(input[PORT.WHEN_NEXT],variables);
         }
-        operation=new OperationInterpret(request,variables);
+        operation=new OperationCondition(request,variables);
     }
 }

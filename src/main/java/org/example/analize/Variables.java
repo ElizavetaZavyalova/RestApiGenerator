@@ -33,7 +33,7 @@ public class Variables {
         return value.substring(1, value.length() - 1);
     }
 
-    private static String makeString(String string) {
+    public  String makeString(String string) {
         return "\"" + string + "\"";
     }
 
@@ -64,6 +64,25 @@ public class Variables {
          }
          //TODO exception
          return value;
+    }
+    public String makeVariableFromString(String value){
+        if((value.charAt(0) == '\"') && (value.charAt(value.length() - 1) == '\"')){
+            return makeVariable(value);
+        }
+        return value;
+    }
+    String makeTableFromId(String id){
+        id=makeVariableFromString(id);
+       return id.substring(0, id.length() - 2);
+    }
+    public String makeTableName(String id,String idNext){
+        if(idNext!=null){
+            return makeString(makeTableFromId(id)+"And"+makeTableFromId(idNext));
+        }
+        return null;
+        //TODO exception
+        //value.substring(1, value.length() - 1)
+
     }
 
 
