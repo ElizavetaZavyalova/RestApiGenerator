@@ -59,7 +59,9 @@ public class PortAddressSelect implements SelectInterpret{
         else if(conditionInterpret!=null){
             string=  select+ ".where("+conditionInterpret.makeCondition()+")"+addGroupByAndLimit();
         }
-        string=  select+addGroupByAndLimit();
+        else {
+            string = select + addGroupByAndLimit();
+        }
         log.debug("interprit:"+string);
         return string;
     }

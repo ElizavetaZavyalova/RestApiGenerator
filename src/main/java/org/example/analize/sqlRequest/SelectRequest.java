@@ -62,7 +62,7 @@ public class SelectRequest implements SqlInterpret {
             string= conditionInterpret.makeCondition();
         }
         log.debug(string);
-        return "";
+        return string;
     }
     @Override
     public String interpret(){
@@ -72,7 +72,9 @@ public class SelectRequest implements SqlInterpret {
         if(!condition.equals("")){
             string= "dsl.select("+fieldOrAsterisks+").from("+tableName+").where("+condition+")"+addGroupByAndLimit()+";";
         }
-        string= "dsl.select("+fieldOrAsterisks+").from("+tableName+")"+addGroupByAndLimit()+";";
+        else {
+            string = "dsl.select(" + fieldOrAsterisks + ").from(" + tableName + ")" + addGroupByAndLimit() + ";";
+        }
         log.debug("interprit:"+string);
         return string;
     }

@@ -39,7 +39,9 @@ public class WhenCondition implements ConditionInterpret {
         if(conditionNext==null) {
             string= operation.makeCondition();
         }
-       string=   operation.makeCondition()+".and("+conditionNext.makeCondition()+")";
+        else {
+            string = operation.makeCondition() + ".and(" + conditionNext.makeCondition() + ")";
+        }
         log.debug("interprit:"+string);
         return string;
     }
