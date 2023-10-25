@@ -31,6 +31,15 @@ public class WhenCondition implements ConditionInterpret {
         }
         return operation.makeCondition(dsl).and(conditionNext.makeCondition(dsl));
     }
+
+    @Override
+    public String makeCondition() {
+        if(conditionNext==null) {
+            return operation.makeCondition();
+        }
+        return   operation.makeCondition()+".and("+conditionNext.makeCondition()+")";
+    }
+
     public WhenCondition(String request, Variables variables) {
         condition=ConditionOperand.ADD;
         String[] input=request.split(ConditionOperand.ADD.value,2);

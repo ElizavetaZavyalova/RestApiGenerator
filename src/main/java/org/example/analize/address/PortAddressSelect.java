@@ -32,20 +32,38 @@ public class PortAddressSelect implements SelectInterpret{
     @Override
     public Select makeSelect(DSLContext dsl) {
         if(previousSelect!=null&&conditionInterpret!=null){
-            return dsl.select(makeFieldId()).from(tableName).
+            return dsl.select(makeFieldId(id)).from(tableName).
                     where(DSL.field(idNext).in(previousSelect.makeSelect(dsl)).and(conditionInterpret.makeCondition(dsl)));
         }
         else if(previousSelect!=null){
-            return dsl.select(makeFieldId()).from(tableName).
+            return dsl.select(makeFieldId(id)).from(tableName).
                     where(DSL.field(idNext).in(previousSelect.makeSelect(dsl)));
         }
         else if(conditionInterpret!=null){
-            return dsl.select(makeFieldId()).from(tableName).
-                    where(conditionInterpret.makeCondition(dsl));
+            return dsl.select(makeFieldId(id)).from(tableName).
+                    where(conditionInterpret.makeCondition(dsl)).groupBy(DSL.field());
         }
-        return dsl.select(makeFieldId()).from(tableName);
+        return dsl.select(makeFieldId(id)).from(tableName);
     }
-    Field makeFieldId(){
+    @Override
+    public String makeSelect(){
+        String select="dsl.select("+makeField(id)+").from("+tableName+")";
+        if(previousSelect!=null&&conditionInterpret!=null){
+            return select+ ".where(DSL.field("+idNext+").in("+previousSelect.makeSelect()+
+                    ").and("+conditionInterpret.makeCondition()+"))";
+        }
+        else if(previousSelect!=null){
+            return select+ ".where(" +conditionInterpret.makeCondition()+")";
+        }
+        else if(conditionInterpret!=null){
+            return select+ ".where("+conditionInterpret.makeCondition()+")";
+        }
+        return select;
+    }
+    String addGroupBy(){
+        return
+    }
+    Field makeFieldId(String id){
         if(maxOrMin==MaxMin.MAX){
             return DSL.max(DSL.field(id));
         }
@@ -54,6 +72,15 @@ public class PortAddressSelect implements SelectInterpret{
         }
 
         return DSL.field(id);
+    }
+    String makeField(String id){
+        if(maxOrMin==MaxMin.MAX){
+            return "DSL.max(DSL.field("+id+"))";
+        }
+        else if(MaxMin.MIN == maxOrMin){
+            return "DSL.min(DSL.field("+id+"))";
+        }
+        return "DSL.field("+id+")";
     }
     PortAddressSelect(String request, Variables variables,PortAddressSelect previousSelect){
         this.previousSelect=previousSelect;

@@ -5,5 +5,6 @@ import org.jooq.DSLContext;
 
 public interface ConditionInterpret {
     Condition makeCondition(DSLContext dsl);
+    String makeCondition();
 
 }

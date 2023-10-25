@@ -63,6 +63,42 @@ public class OperationCondition implements ConditionInterpret {
         }
         return DSL.field(field).eq(value);
     }
+    String makeField(){
+        return "DSL.field("+field+").";
+    }
+
+    @Override
+    public String makeCondition() {
+        switch (operation) {
+            case LIKE -> {
+                return makeField()+".like("+value+")";
+            }
+            case NOT_LIKE -> {
+                return makeField()+".notLike("+value+")";
+            }
+            case LESS_THEN -> {
+                return makeField()+".lessThan("+value+")";
+
+            }
+            case NOT_EQUAL -> {
+                return makeField()+".notEqual("+value+")";
+
+            }
+            case LESS_OR_EQUAL -> {
+                return makeField()+".lessOrEqual("+value+")";
+
+            }
+            case GREATER_THEN -> {
+                return makeField()+".greaterThan("+value+")";
+
+            }
+            case GREATER_OR_EQUAL -> {
+                return makeField()+".greaterOrEqual("+value+")";
+
+            }
+        }
+        return makeField()+".eq("+value+")";
+    }
 
     OperationCondition(String request, Variables variables) {
         for (Operation operation : Operation.values()) {

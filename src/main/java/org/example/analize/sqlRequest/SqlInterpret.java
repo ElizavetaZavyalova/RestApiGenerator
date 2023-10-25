@@ -1,4 +1,5 @@
 package org.example.analize.sqlRequest;
 
-public class SqlInterpret {
+public interface SqlInterpret {
+    String interpret();
 }
