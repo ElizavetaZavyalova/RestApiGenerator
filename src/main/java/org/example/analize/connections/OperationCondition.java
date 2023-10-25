@@ -39,9 +39,6 @@ public class OperationCondition implements ConditionInterpret {
     @Override
     public Condition makeCondition(DSLContext dsl) {
         switch (operation) {
-            case EQ -> {
-                return DSL.field(field).eq(value);
-            }
             case LIKE -> {
                 return DSL.field(field).like(value);
             }
@@ -65,8 +62,6 @@ public class OperationCondition implements ConditionInterpret {
             }
         }
         return DSL.field(field).eq(value);
-        //TODO no opiration
-        //throw new IllegalArgumentException("not correct Operation"+ operation);
     }
 
     OperationCondition(String request, Variables variables) {

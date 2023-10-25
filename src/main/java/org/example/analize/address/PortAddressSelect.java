@@ -13,7 +13,7 @@ import java.text.Format;
 
 public class PortAddressSelect implements SelectInterpret{
 
-    //GROUPBY LIMIT
+    //TODO GROUPBY LIMIT
     private static class MaxMin {
         private static final int MAX=1;
         private static final int MIN=-1;
@@ -122,7 +122,7 @@ public class PortAddressSelect implements SelectInterpret{
         return limit.charAt(0)=='%';
     }
     boolean isGroupBy(String field){
-        return limit.charAt(0)=='$';
+        return limit.charAt(0)=='#';
     }
     boolean isMax(String max){
         return max.equals(">");
