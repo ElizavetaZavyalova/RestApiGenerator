@@ -10,6 +10,7 @@ import org.jooq.impl.DSL;
 
 public abstract class BaseRequest {
     protected  FullAddressSelect fullAddressSelect;
+    @Getter
     protected DSLContext dslContext;
     @Getter
     protected SQLDialect dialect;

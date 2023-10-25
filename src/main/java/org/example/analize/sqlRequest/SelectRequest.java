@@ -69,7 +69,7 @@ public class SelectRequest implements SqlInterpret {
         if (!condition.isEmpty()) {
             requestGet.append(".where(").append(condition).append(")");
         }
-        requestGet.append(addGroupByAndLimit()).append(";");
+        requestGet.append(addGroupByAndLimit()).append(".fetch().formatJSON();");
         log.debug("interpret:" + requestGet.toString());
         return requestGet.toString();
     }
