@@ -58,6 +58,12 @@ public class Variables {
         }
         return makeString(variable);
     }
+    public String addVariableLong(String variable) {
+        if (isVariable(variable)) {
+            addVariable(variable, Type.LONG);
+        }
+        return variable;
+    }
     private static String makeLongVariable(String value, boolean isOnlyString) {
          if(!isOnlyString){
              return makeLongVariable(value);
