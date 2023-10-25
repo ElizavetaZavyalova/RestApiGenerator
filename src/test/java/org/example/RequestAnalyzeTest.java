@@ -13,15 +13,13 @@ class RequestAnalyzeTest {
     @Test
     void testSplitFunkTableFieldId(){
 
-        String request= "table:&{id1}:|{rev}:%10:#value?{name}&value!={@value}/name:>/age:</year:={year1}:%10?{myname}";
+        String request= "id:#{name}:%100?{@id}&age<{age}/table:={name}:={age}";
         BaseRequest baseRequest=new GetRequest(request, SQLDialect.MYSQL);
         SelectRequest selectRequest=(SelectRequest) baseRequest.getInterpret();
         log.info(selectRequest.interpret());
 
         log.info("debug");
-       // BaseRequestsAnalyze baseRequestsAnalyze;
-        //String[] strings=baseRequestsAnalyze.splitString(request);
-        //List<TypeAnalyze> type=baseRequestsAnalyze.makeTypeAnalyzes(strings);
+
     }
 
 

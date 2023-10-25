@@ -11,7 +11,7 @@ import org.jooq.impl.DSL;
 
 @Slf4j
 public class OperationCondition implements ConditionInterpret {
-   record PORT() {
+    record PORT() {
         static int FIELD = 0;
         static int VALUE = 1;
     }
@@ -34,6 +34,7 @@ public class OperationCondition implements ConditionInterpret {
     String field = null;
     String value = null;
     Operation operation = null;
+    String request="";
 
 
     @Override
@@ -63,66 +64,49 @@ public class OperationCondition implements ConditionInterpret {
         }
         return DSL.field(field).eq(value);
     }
-    String makeField(){
-        return "DSL.field("+field+")";
+
+    String makeField() {
+        return "DSL.field(" + field + ")";
     }
 
     @Override
     public String makeCondition() {
-        String string;
+        StringBuilder condition = new StringBuilder();
+        condition.append(makeField());
         switch (operation) {
-            case LIKE -> {
-                string=  makeField()+".like("+value+")";
-
-            }
-            case NOT_LIKE -> {
-                string= makeField()+".notLike("+value+")";
-            }
-            case LESS_THEN -> {
-                string= makeField()+".lessThan("+value+")";
-
-            }
-            case NOT_EQUAL -> {
-                string= makeField()+".notEqual("+value+")";
-
-            }
-            case LESS_OR_EQUAL -> {
-                string= makeField()+".lessOrEqual("+value+")";
-
-            }
-            case GREATER_THEN -> {
-                string=makeField()+".greaterThan("+value+")";
-
-            }
-            case GREATER_OR_EQUAL -> {
-                string= makeField()+".greaterOrEqual("+value+")";
-
-            }
+            case LIKE -> condition.append(".like(");
+            case NOT_LIKE -> condition.append(".notLike(");
+            case LESS_THEN -> condition.append(".lessThan(");
+            case NOT_EQUAL -> condition.append(".notEqual(");
+            case LESS_OR_EQUAL -> condition.append(".lessOrEqual(");
+            case GREATER_THEN -> condition.append(".greaterThan(");
+            case GREATER_OR_EQUAL -> condition.append(".greaterOrEqual(");
+            case EQ -> condition.append(".eq(");
         }
-        string= makeField()+".eq("+value+")";
-        log.debug("interprit:"+string);
-        return string;
+        condition.append(value).append(")");
+        log.debug("makeCondition :" + condition.toString() + " field:" + field + " opiration:" + operation + " value:" + value);
+        return condition.toString();
     }
-
     OperationCondition(String request, Variables variables) {
-        log.debug("request:"+request);
+        log.debug("request:" + request);
         for (Operation operation : Operation.values()) {
             String[] input = request.split(operation.getValue());
             if (input.length == 2) {
                 this.operation = operation;
-                this.value = variables.addVariableValue(input[PORT.VALUE],isOnlyString());
-                this.field =(!input[PORT.FIELD].isEmpty())?
-                        (variables.addVariableField(input[PORT.FIELD])):
-                        variables.makeString(variables.makeVariableFromString(value));
+                this.value = variables.addVariableValue(input[PORT.VALUE], isOnlyString());
+                this.field = (!input[PORT.FIELD].isEmpty()) ?
+                        (variables.makeFieldFromVariable(input[PORT.VALUE])) :
+                        variables.makeString(Variables.makeVariableFromString(value));
                 return;
             }
         }
         this.operation = Operation.EQ;
-        this.value = variables.addVariableValue(request,isOnlyString());
-        this.field = variables.makeString(variables.makeVariableFromString(value));
+        this.value = variables.addVariableValue(request, isOnlyString());
+        this.field = variables.makeFieldFromVariable(request);
     }
-    boolean isOnlyString(){
-        return operation==Operation.LIKE||operation==Operation.NOT_LIKE;
+
+    boolean isOnlyString() {
+        return operation == Operation.LIKE || operation == Operation.NOT_LIKE;
     }
 
 }

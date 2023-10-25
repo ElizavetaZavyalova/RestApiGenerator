@@ -22,7 +22,5 @@ k
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 j
 :src/main/java/org/example/processors/RestApiGenerator.java,2\3\2372ebcdb78e4f2993717ba248ae088a3975c558
-p
-@src/main/java/org/example/processors/WriterOfDiagnosticLogs.java,3\e\3e0c4625c13caf58ae7ed642398d23545886ec34
 x
 Hsrc/main/java/org/example/processors/Package/RenamePackageProcessor.java,f\1\f139d727c8905141015436d936e885d0cef69486

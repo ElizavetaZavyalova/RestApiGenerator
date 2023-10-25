@@ -9,7 +9,7 @@ import org.jooq.DSLContext;
 @Slf4j
 public class WhenCondition implements ConditionInterpret {
 
-    //TODO condition OR ()
+    //TODO condition OR  and ()
    record PORT() {
         static int OPERATION = 0;
         static int WHEN_NEXT = 1;
@@ -19,7 +19,6 @@ public class WhenCondition implements ConditionInterpret {
         ADD("&");
         @Getter
         private String value = null;
-
     }
     ConditionInterpret operation;
     ConditionInterpret conditionNext=null;
@@ -35,16 +34,16 @@ public class WhenCondition implements ConditionInterpret {
 
     @Override
     public String makeCondition() {
-        String string;
-        if(conditionNext==null) {
-            string= operation.makeCondition();
+        StringBuilder condition=new StringBuilder();
+        condition.append(operation.makeCondition());
+        if(conditionNext!=null) {
+            condition.append(".and(").append(conditionNext.makeCondition()).append(")");
         }
-        else {
-            string = operation.makeCondition() + ".and(" + conditionNext.makeCondition() + ")";
-        }
-        log.debug("interprit:"+string);
-        return string;
+
+        log.debug("makeCondition:"+condition.toString());
+        return condition.toString();
     }
+    String request;
 
     public WhenCondition(String request, Variables variables) {
         log.debug("request:"+request);

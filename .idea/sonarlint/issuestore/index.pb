@@ -22,7 +22,5 @@ k
 ;src/main/java/org/example/processors/ASTTreeComponents.java,0\d\0d6b237cabd89a7b1bcde36280e9442df723bb4c
 j
 :src/main/java/org/example/processors/RestApiGenerator.java,2\3\2372ebcdb78e4f2993717ba248ae088a3975c558
-p
-@src/main/java/org/example/processors/WriterOfDiagnosticLogs.java,3\e\3e0c4625c13caf58ae7ed642398d23545886ec34
 x
 Hsrc/main/java/org/example/processors/Package/RenamePackageProcessor.java,f\1\f139d727c8905141015436d936e885d0cef69486

@@ -18,11 +18,16 @@ public class Variables {
 
     Map<String, Type> variables = new TreeMap<>();
 
-    private void addVariable(String variable, Type type) {
+    private String addVariable(String variable, Type type) {
         if (variables.containsKey(variable)) {
-            //TODO exeption
+            int count=0;
+           while(variables.containsKey(variable+count)){
+               count++;
+           }
+           variable=variable+count;
         }
         variables.put(variable, type);
+        return variable;
     }
 
     private static boolean isVariable(String value) {
@@ -31,6 +36,12 @@ public class Variables {
 
     private static String makeVariable(String value) {
         return value.substring(1, value.length() - 1);
+    }
+    public String makeFieldFromVariable(String value) {
+        if(isVariable(value)){
+            return makeString(makeLongVariable(makeVariable(value)));
+        }
+        return value;
     }
 
     public  String makeString(String string) {
@@ -53,14 +64,16 @@ public class Variables {
 
     public String addVariableField(String variable) {
         if (isVariable(variable)) {
-            addVariable(variable, Type.STRING);
+            variable = makeVariable(variable);
+            variable=addVariable(variable, Type.STRING);
             return variable;
         }
         return makeString(variable);
     }
     public String addVariableLong(String variable) {
         if (isVariable(variable)) {
-            addVariable(variable, Type.LONG);
+            variable = makeVariable(variable);
+            variable=addVariable(variable, Type.LONG);
         }
         return variable;
     }
@@ -71,7 +84,7 @@ public class Variables {
          //TODO exception
          return value;
     }
-    public String makeVariableFromString(String value){
+    public static String makeVariableFromString(String value){
         if((value.charAt(0) == '\"') && (value.charAt(value.length() - 1) == '\"')){
             return makeVariable(value);
         }
@@ -99,8 +112,7 @@ public class Variables {
             if (type == Type.LONG) {
                 variable = makeLongVariable(variable,isOnlyString);
             }
-            addVariable(variable, type);
-            return variable;
+            return  addVariable(variable, type);
         }
         if (makeType(variable) == Type.LONG) {
             variable = makeLongVariable(variable,isOnlyString);

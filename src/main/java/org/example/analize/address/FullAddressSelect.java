@@ -17,9 +17,9 @@ public class FullAddressSelect implements SelectInterpret {
 
     @Override
     public String makeSelect() {
-        String string= portAddressSelect.makeSelect();
-        log.debug("interprit:"+string);
-        return string;
+        String select= portAddressSelect.makeSelect();
+        log.debug("makeSelect:"+select);
+        return select;
     }
 
     public FullAddressSelect(String[] requests, Variables variables){

@@ -47,33 +47,53 @@ public class PortAddressSelect implements SelectInterpret{
     }
     @Override
     public String makeSelect(){
-         String string;
-        String select="dsl.select("+makeField(id)+").from("+tableName+")";
+        StringBuilder select=new StringBuilder();
+        select.append("dsl.select(").append(makeField(id)).append(").from(").append(tableName).append(")");
+       // String select="dsl.select("+makeField(id)+").from("+tableName+")";
         if(previousSelect!=null&&conditionInterpret!=null){
-            string= select+ ".where(DSL.field("+idNext+").in("+previousSelect.makeSelect()+
-                    ").and("+conditionInterpret.makeCondition()+"))"+addGroupByAndLimit();
+             select.append(".where(DSL.field(").append(idNext).append(").in(")
+                     .append(previousSelect.makeSelect()).append(").and(")
+                     .append(conditionInterpret.makeCondition()).append("))").append(addGroupByAndLimit());
         }
         else if(previousSelect!=null){
-            string=  select+ ".where(DSL.field(\"+idNext+\").in(" +previousSelect.makeSelect()+"))"+addGroupByAndLimit();
+             select.append(".where(DSL.field(").append(idNext).append(").in(")
+                    .append(previousSelect.makeSelect()).append("))")
+                    .append(addGroupByAndLimit());
         }
         else if(conditionInterpret!=null){
-            string=  select+ ".where("+conditionInterpret.makeCondition()+")"+addGroupByAndLimit();
+            select.append(".where(").append(conditionInterpret.makeCondition())
+                    .append(")").append(addGroupByAndLimit());
         }
         else {
-            string = select + addGroupByAndLimit();
+            select.append(addGroupByAndLimit());
         }
-        log.debug("interprit:"+string);
-        return string;
+        log.debug("makeSelect:"+select.toString());
+        return select.toString();
     }
     String addGroupByAndLimit(){
         StringBuilder stringBuilder=new StringBuilder();
          if(groupBy!=null){
-             stringBuilder.append(".groupBy("+makeField(groupBy)+")");
+             stringBuilder.append(".groupBy(").append(makeField(groupBy)).append(")");
          }
         if(limit!=null){
-            stringBuilder.append(".limit("+limit+")");
+            stringBuilder.append(".limit(").append(limit).append(")");
         }
+        log.debug("addGroupByAndLimit |"+stringBuilder.toString());
         return stringBuilder.toString();
+    }
+    String makeField(String id){
+        StringBuilder field=new StringBuilder();
+        if(maxOrMin==MaxMin.MAX){
+            field.append("DSL.max(DSL.field(").append(id).append("))");
+        }
+        else if(MaxMin.MIN == maxOrMin){
+            field.append("DSL.min(DSL.field(").append(id).append("))");
+        }
+        else{
+            field.append("DSL.field(").append(id).append(")");
+        }
+        log.debug("makeField id:"+id+" |"+field.toString());
+        return  field.toString();
     }
     Field makeFieldId(String id){
         if(maxOrMin==MaxMin.MAX){
@@ -85,15 +105,7 @@ public class PortAddressSelect implements SelectInterpret{
 
         return DSL.field(id);
     }
-    String makeField(String id){
-        if(maxOrMin==MaxMin.MAX){
-            return "DSL.max(DSL.field("+id+"))";
-        }
-        else if(MaxMin.MIN == maxOrMin){
-            return "DSL.min(DSL.field("+id+"))";
-        }
-        return "DSL.field("+id+")";
-    }
+
     PortAddressSelect(String request, Variables variables,PortAddressSelect previousSelect){
         log.debug("request:"+request);
         this.previousSelect=previousSelect;
@@ -101,7 +113,6 @@ public class PortAddressSelect implements SelectInterpret{
         if(input.length>6||input.length<1){
             return;
         }
-
         input[input.length-1]=parseWhere(input[input.length-1],variables);
         for(String port:input){
             if(isIdNext(port)){
