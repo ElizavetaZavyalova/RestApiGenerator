@@ -45,7 +45,7 @@ public class Variables {
     }
 
     private static Type makeType(String value) {
-        if ((value.charAt(1) == '@')) {
+        if ((value.charAt(0) == '@')) {
             return Type.LONG;
         }
         return Type.STRING;

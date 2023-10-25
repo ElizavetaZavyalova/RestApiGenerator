@@ -11,9 +11,9 @@ import org.jooq.impl.DSL;
 
 @Slf4j
 public class OperationCondition implements ConditionInterpret {
-    private static class PORT {
+   record PORT() {
         static int FIELD = 0;
-        static int VALUE = 2;
+        static int VALUE = 1;
     }
 
     @AllArgsConstructor
@@ -64,49 +64,54 @@ public class OperationCondition implements ConditionInterpret {
         return DSL.field(field).eq(value);
     }
     String makeField(){
-        return "DSL.field("+field+").";
+        return "DSL.field("+field+")";
     }
 
     @Override
     public String makeCondition() {
+        String string;
         switch (operation) {
             case LIKE -> {
-                return makeField()+".like("+value+")";
+                string=  makeField()+".like("+value+")";
+
             }
             case NOT_LIKE -> {
-                return makeField()+".notLike("+value+")";
+                string= makeField()+".notLike("+value+")";
             }
             case LESS_THEN -> {
-                return makeField()+".lessThan("+value+")";
+                string= makeField()+".lessThan("+value+")";
 
             }
             case NOT_EQUAL -> {
-                return makeField()+".notEqual("+value+")";
+                string= makeField()+".notEqual("+value+")";
 
             }
             case LESS_OR_EQUAL -> {
-                return makeField()+".lessOrEqual("+value+")";
+                string= makeField()+".lessOrEqual("+value+")";
 
             }
             case GREATER_THEN -> {
-                return makeField()+".greaterThan("+value+")";
+                string=makeField()+".greaterThan("+value+")";
 
             }
             case GREATER_OR_EQUAL -> {
-                return makeField()+".greaterOrEqual("+value+")";
+                string= makeField()+".greaterOrEqual("+value+")";
 
             }
         }
-        return makeField()+".eq("+value+")";
+        string= makeField()+".eq("+value+")";
+        log.debug("interprit:"+string);
+        return string;
     }
 
     OperationCondition(String request, Variables variables) {
+        log.debug("request:"+request);
         for (Operation operation : Operation.values()) {
             String[] input = request.split(operation.getValue());
-            if (input.length == 3||input.length==2) {
+            if (input.length == 2) {
                 this.operation = operation;
                 this.value = variables.addVariableValue(input[PORT.VALUE],isOnlyString());
-                this.field =(input.length==3)?
+                this.field =(!input[PORT.FIELD].isEmpty())?
                         (variables.addVariableField(input[PORT.FIELD])):
                         variables.makeString(variables.makeVariableFromString(value));
                 return;

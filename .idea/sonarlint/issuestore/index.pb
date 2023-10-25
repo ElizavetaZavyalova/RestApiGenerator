@@ -20,8 +20,6 @@ ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 k
 ;src/main/java/org/example/processors/ASTTreeComponents.java,0\d\0d6b237cabd89a7b1bcde36280e9442df723bb4c
-g
-7src/main/java/org/example/processors/BaseProcessor.java,4\4\448d00e5f9b295dbeac2e060cea503974eeade3e
 j
 :src/main/java/org/example/processors/RestApiGenerator.java,2\3\2372ebcdb78e4f2993717ba248ae088a3975c558
 p

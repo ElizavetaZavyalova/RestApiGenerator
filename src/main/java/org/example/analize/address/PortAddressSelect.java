@@ -1,6 +1,7 @@
 package org.example.analize.address;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.example.analize.Variables;
 import org.example.analize.connections.ConditionInterpret;
 import org.example.analize.connections.WhenCondition;
@@ -10,11 +11,11 @@ import org.jooq.Select;
 import org.jooq.impl.DSL;
 
 import java.text.Format;
-
+@Slf4j
 public class PortAddressSelect implements SelectInterpret{
 
     //TODO GROUPBY LIMIT
-    private static class MaxMin {
+    record MaxMin() {
         private static final int MAX=1;
         private static final int MIN=-1;
 
@@ -22,7 +23,6 @@ public class PortAddressSelect implements SelectInterpret{
     ConditionInterpret conditionInterpret=null;
     PortAddressSelect previousSelect=null;
     String id="\"Id\"";
-
     String limit=null;
     String groupBy=null;
     int maxOrMin=0;
@@ -41,27 +41,37 @@ public class PortAddressSelect implements SelectInterpret{
         }
         else if(conditionInterpret!=null){
             return dsl.select(makeFieldId(id)).from(tableName).
-                    where(conditionInterpret.makeCondition(dsl)).groupBy(DSL.field());
+                    where(conditionInterpret.makeCondition(dsl));
         }
         return dsl.select(makeFieldId(id)).from(tableName);
     }
     @Override
     public String makeSelect(){
+         String string;
         String select="dsl.select("+makeField(id)+").from("+tableName+")";
         if(previousSelect!=null&&conditionInterpret!=null){
-            return select+ ".where(DSL.field("+idNext+").in("+previousSelect.makeSelect()+
-                    ").and("+conditionInterpret.makeCondition()+"))";
+            string= select+ ".where(DSL.field("+idNext+").in("+previousSelect.makeSelect()+
+                    ").and("+conditionInterpret.makeCondition()+"))"+addGroupByAndLimit();
         }
         else if(previousSelect!=null){
-            return select+ ".where(" +conditionInterpret.makeCondition()+")";
+            string=  select+ ".where(DSL.field(\"+idNext+\").in(" +previousSelect.makeSelect()+"))"+addGroupByAndLimit();
         }
         else if(conditionInterpret!=null){
-            return select+ ".where("+conditionInterpret.makeCondition()+")";
+            string=  select+ ".where("+conditionInterpret.makeCondition()+")"+addGroupByAndLimit();
         }
-        return select;
+        string=  select+addGroupByAndLimit();
+        log.debug("interprit:"+string);
+        return string;
     }
-    String addGroupBy(){
-        return
+    String addGroupByAndLimit(){
+        StringBuilder stringBuilder=new StringBuilder();
+         if(groupBy!=null){
+             stringBuilder.append(".groupBy("+makeField(groupBy)+")");
+         }
+        if(limit!=null){
+            stringBuilder.append(".limit("+limit+")");
+        }
+        return stringBuilder.toString();
     }
     Field makeFieldId(String id){
         if(maxOrMin==MaxMin.MAX){
@@ -83,11 +93,13 @@ public class PortAddressSelect implements SelectInterpret{
         return "DSL.field("+id+")";
     }
     PortAddressSelect(String request, Variables variables,PortAddressSelect previousSelect){
+        log.debug("request:"+request);
         this.previousSelect=previousSelect;
         String[] input=request.split(":");
         if(input.length>6||input.length<1){
             return;
         }
+
         input[input.length-1]=parseWhere(input[input.length-1],variables);
         for(String port:input){
             if(isIdNext(port)){
@@ -114,19 +126,21 @@ public class PortAddressSelect implements SelectInterpret{
             }
         }
         if(previousSelect!=null&&idNext==null){
-            idNext=variables.makeString(variables.makeVariableFromString(previousSelect.previousSelect.tableName)+"Id");
+            idNext=variables.makeString(variables.makeVariableFromString(previousSelect.getTableName())+"Id");
         }
         if(tableName==null){
             tableName=variables.makeTableName(id,idNext);
         }
     }
-    static private class Port{
+    record Port(){
         static final int TABLE=0;
         static final int WHEN=1;
     }
+
     String parseWhere(String request,Variables variables){
+        log.debug("request:"+request);
         String[] input=request.split("\\?");
-        if(input.length==0){
+        if(input.length==1){
             return request;
         }
         if(input.length!=2){
@@ -140,16 +154,16 @@ public class PortAddressSelect implements SelectInterpret{
         return id.substring(1, id.length());
     }
     boolean isIdNext(String id){
-        return id.charAt(0)=='<';
+        return id.charAt(0)=='&';
     }
     boolean isId(String id){
-        return id.charAt(0)=='=';
+        return id.charAt(0)=='|';
     }
     boolean isLimit(String limit){
         return limit.charAt(0)=='%';
     }
     boolean isGroupBy(String field){
-        return limit.charAt(0)=='#';
+        return  field.charAt(0)=='#';
     }
     boolean isMax(String max){
         return max.equals(">");

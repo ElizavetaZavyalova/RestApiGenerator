@@ -1,32 +1,18 @@
 package org.example.analize.requests;
-
-import org.example.analize.connections.ConditionInterpret;
-import org.jooq.Condition;
+import org.example.analize.sqlRequest.SelectRequest;
 import org.jooq.SQLDialect;
-
-import javax.annotation.meta.When;
 
 public class GetRequest extends BaseRequest{
 
-    GetRequest(String request, SQLDialect dialect) {
+    public GetRequest(String request, SQLDialect dialect) {
         super(request, dialect);
     }
-    protected  ConditionInterpret conditionInterpret;
-    String tableName;
-    String[]fields;
+
 
     @Override
     protected void parse(String request) {
-        String[]input=request.split("\\?");
-        if(input.length==2){
-
-        }
-
-
-
+        this.interpret=new SelectRequest(request,variables,fullAddressSelect);
     }
-    void parseFields(String tableName){
 
-    }
 
 }
