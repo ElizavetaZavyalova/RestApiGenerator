@@ -16,8 +16,6 @@ z
 JTestOfWorkingRestApiGenerator/src/test/java/GenerationApplicationTest.java,7\d\7da405421748bd2e549f33645787adffd21c097d
 q
 ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782705bcfd3d488e139f52748fdb704d1e3
-k
-;src/main/java/org/example/processors/ASTTreeComponents.java,0\d\0d6b237cabd89a7b1bcde36280e9442df723bb4c
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 j

@@ -1,12 +1,10 @@
 package org.example;
 
 import lombok.extern.java.Log;
-import org.example.analize.Variables;
 import org.example.analize.requests.BaseRequest;
 import org.example.analize.requests.GetRequest;
 import org.example.analize.sqlRequest.SelectRequest;
 import org.jooq.SQLDialect;
-import org.jooq.conf.ParamType;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +18,8 @@ class RequestAnalyzeTest {
         SelectRequest selectRequest=(SelectRequest) baseRequest.getInterpret();
         log.info(selectRequest.interpret());
         var dsl=baseRequest.getDslContext();
+        var res= dsl.insertInto(DSL.table("table")).defaultValues().returning(DSL.field("id"));
+        //log.info( dsl.insertInto(DSL.table("table"))..returning(DSL.field("id")).getSQL());
         log.info(selectRequest.makeSelect(dsl).getSQL());
     }
 
