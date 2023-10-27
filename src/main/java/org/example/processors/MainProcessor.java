@@ -13,15 +13,15 @@ public class MainProcessor extends BaseProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        WriterOfDiagnosticLogs.initClass("MainProcessor", ast.getMessager());
+        WriterOfDiagnosticLogs.initClass("MainProcessor", AST.instance().getMessager());
     }
     /**
      * Process AST
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        ast.setRoundEnvironment(roundEnv);
-        RenamePackageProcessor.renamePackage(ast);
+        AST.instance().setRoundEnvironment(roundEnv);
+
         return true;//стоп
     }
 

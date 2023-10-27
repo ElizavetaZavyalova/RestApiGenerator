@@ -10,12 +10,12 @@ import java.util.Optional;
 
 @Slf4j
 public abstract class BaseProcessor extends AbstractProcessor {
-    ASTTreeComponents ast=null;
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         processingEnv = jbUnwrap(ProcessingEnvironment.class, processingEnv);
         super.init(processingEnv);
-        ast=new ASTTreeComponents(processingEnv);
+        AST.setAst(new AST(processingEnv));
         log.debug("------ASTTreeComponents was init-----");
     }
     @Override

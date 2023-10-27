@@ -1,9 +1,9 @@
 package org.example;
 
 import lombok.extern.java.Log;
-import org.example.analize.requests.BaseRequest;
-import org.example.analize.requests.GetRequest;
-import org.example.analize.sqlRequest.SelectRequest;
+import org.example.analize.remove.requests.BaseRequest;
+import org.example.analize.remove.requests.GetRequest;
+import org.example.analize.remove.sqlRequest.SelectRequest;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
