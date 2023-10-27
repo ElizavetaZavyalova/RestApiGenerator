@@ -5,7 +5,6 @@ import org.example.analize.analize.BaseVariables;
 import org.example.analize.analize.condition.BaseConditionParser;
 import org.example.analize.analize.condition.StringCondition;
 import org.example.analize.analize.select.BaseSelectParser;
-import org.jooq.impl.DSL;
 
 @Slf4j
 public class StringWhen extends BaseWhenParser<String,String>{
