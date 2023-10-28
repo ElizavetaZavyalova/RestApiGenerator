@@ -1,19 +1,20 @@
 package org.example.analize.rewrite.where;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.analize.BaseVariables;
-import org.example.analize.analize.Interpretation;
-import org.example.analize.analize.condition.BaseConditionParser;
-import org.example.analize.analize.select.BaseSelectParser;
+import org.example.analize.rewrite.Interpretation;
+import org.example.analize.rewrite.Variables;
+import org.example.analize.rewrite.condition.BaseConditionParser;
+import org.example.analize.rewrite.premetive.field.BaseField;
+import org.example.analize.rewrite.select.BaseSelectParser;
 
 @Slf4j
-public abstract class BaseWhereParser<Condition, Select,Field> implements Interpretation<Condition> {
+public abstract class BaseWhereParser<Condition, Select,Table,Field> implements Interpretation<Condition> {
     BaseConditionParser<Condition> condition = null;
-    BaseSelectParser<Condition, Select> select = null;
-    Interpretation<Field> idIn = null;
-
-    BaseWhereParser(String request, BaseVariables variables,
-                   BaseSelectParser<Condition, Select> selectPrevious, String idIn, String tableName) {
+    BaseSelectParser<Condition, Select,Table,Field> select = null;
+    BaseField<Field> idIn = null;
+    BaseWhereParser(String request, Variables variables,
+                    BaseSelectParser<Condition, Select,Table,Field> selectPrevious,
+                    BaseField<Field> idIn, String tableName) {
         log.debug("BaseWhereParser:" + request);
         makeIdIn(idIn,tableName);
         this.select = selectPrevious;
@@ -22,12 +23,12 @@ public abstract class BaseWhereParser<Condition, Select,Field> implements Interp
         }
 
     }
-    abstract  Interpretation<Field> makeIdIn(String idIn, String tableName);
-    BaseWhereParser(String request, BaseVariables variables, String idIn, String tableName) {
+    abstract  BaseField<Field> makeIdIn( BaseField<Field> idIn, String tableName);
+    BaseWhereParser(String request, Variables variables,  BaseField<Field> idIn, String tableName) {
         this(request, variables, null, idIn,tableName);
         log.debug("no previous select BaseWhenParser");
     }
 
-    abstract BaseConditionParser<Condition> makeCondition(String request, BaseVariables variables);
+    abstract BaseConditionParser<Condition> makeCondition(String request, Variables variables);
 
 }

@@ -1,5 +1,6 @@
 package org.example.analize.rewrite.premetive.field;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.rewrite.Debug;
 import org.example.analize.rewrite.Interpretation;
@@ -7,6 +8,7 @@ import org.example.analize.rewrite.Variables;
 import org.jooq.impl.DSL;
 @Slf4j
 public  abstract class BaseField<FieldName> implements Interpretation<FieldName> {
+    @Getter
     String field=null;
     String tableName=null;
 

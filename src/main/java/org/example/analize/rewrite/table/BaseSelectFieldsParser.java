@@ -1,24 +1,23 @@
-package org.example.analize.analize.selectInformation;
+package org.example.analize.rewrite.table;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.analize.BaseVariables;
-import org.example.analize.analize.Interpretation;
-import org.jooq.Select;
-import org.jooq.impl.DSL;
+
+import org.example.analize.rewrite.Debug;
+import org.example.analize.rewrite.Interpretation;
+import org.example.analize.rewrite.Variables;
+import org.example.analize.rewrite.premetive.field.BaseField;
+import org.example.analize.rewrite.premetive.table.BaseTable;
 
 @Slf4j
-public abstract class BaseSelectFieldsParser<Select> implements Interpretation<Select> {
+public abstract class BaseSelectFieldsParser<Select,Table,Field> implements Interpretation<Select> {
 
     @Getter
-    protected String table;
-
-    protected BaseSelectFieldsParser(String request, BaseVariables variables) {
+    protected BaseTable<Table> table;
+    protected BaseSelectFieldsParser(String request, Variables variables) {
         log.debug(request);
         String[] input = request.split(":");
-        DSL.select()
         for (String port : input) {
-
             if (Type.isTable(port)) {
                 table = addTable(Type.makeValue(port), variables);
             } else if (!add(port, variables)) {
@@ -27,22 +26,15 @@ public abstract class BaseSelectFieldsParser<Select> implements Interpretation<S
         }
     }
 
-    public abstract String getIdIn();
+    public abstract  BaseField<Field> getIdIn();
 
-    protected record debug() {
-        public static String debugString(String information, String result) {
-            if (log.isDebugEnabled()) {
-                log.debug(information + ": " + result);
-            }
-            return result;
-        }
-    }
 
-    protected abstract boolean add(String port, BaseVariables variables);
 
-    protected abstract String addField(String field, BaseVariables variables);
+    protected abstract boolean add(String port, Variables variables);
 
-    protected abstract String addTable(String table, BaseVariables variables);
+    protected abstract BaseField<Field> addField(String field, Variables variables);
+
+    protected abstract BaseTable<Table> addTable(String table, Variables variables);
 
     protected record Type() {
         record debug() {
@@ -67,42 +59,42 @@ public abstract class BaseSelectFieldsParser<Select> implements Interpretation<S
         }
 
         public static boolean isIdNext(String value) {
-            return debug.debugResult("isIdNext", value,
+            return Debug.debugResult(log,"isIdNext", value,
                     value.charAt(0) == 'N');
         }
 
         public static boolean isId(String value) {
-            return debug.debugResult("isId", value,
+            return Debug.debugResult(log,"isId", value,
                     value.charAt(0) == 'I');
         }
 
         static boolean isLimit(String value) {
-            return debug.debugResult("isLimit", value,
+            return Debug.debugResult(log,"isLimit", value,
                     value.charAt(0) == 'L');
         }
 
         static boolean isTable(String value) {
-            return debug.debugResult("isTable", value,
+            return Debug.debugResult(log,"isTable", value,
                     value.charAt(0) == 'T');
         }
 
         static boolean isGroupBy(String value) {
-            return debug.debugResult("isGroupBy", value,
+            return Debug.debugResult(log,"isGroupBy", value,
                     value.charAt(0) == 'G');
         }
 
         public static boolean isMax(String value) {
-            return debug.debugResult("isMax", value,
+            return Debug.debugResult(log,"isMax", value,
                     value.equals("M"));
         }
 
         public static boolean isMin(String value) {
-            return debug.debugResult("isMin", value,
+            return Debug.debugResult(log,"isMin", value,
                     value.equals("m"));
         }
 
         static String makeValue(String value) {
-            return debug.debugResult("makeValue", value,
+            return Debug.debugResult(log,"makeValue", value,
                     value.substring(1));
         }
     }

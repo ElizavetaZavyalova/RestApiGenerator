@@ -3,8 +3,9 @@ package org.example.analize.rewrite.condition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.analize.BaseVariables;
+
 import org.example.analize.rewrite.Interpretation;
+import org.example.analize.rewrite.Variables;
 
 @Slf4j
 public abstract class BaseConditionParser<Condition> implements Interpretation<Condition> {
@@ -37,7 +38,7 @@ public abstract class BaseConditionParser<Condition> implements Interpretation<C
     Interpretation<Condition> conditionNext = null;
     ConditionOperand operand = ConditionOperand.NO;
 
-    BaseConditionParser(String request, BaseVariables variables, String tableName) {
+    BaseConditionParser(String request, Variables variables, String tableName) {
         //[(&|]
         log.debug("request:" + request);
         String[] input = request.split("[(&|]", PORT.PORT_CONT);
@@ -57,7 +58,7 @@ public abstract class BaseConditionParser<Condition> implements Interpretation<C
         log.debug("port of comparison is " + request);
     }
 
-    boolean parseBrackets(String[] input, BaseVariables variables, String tableName) {
+    boolean parseBrackets(String[] input, Variables variables, String tableName) {
         log.debug("parseBrackets");
         if (operand == ConditionOperand.LEFT_BRACKET) {
             log.debug("parseBrackets operand:" + operand.value);
@@ -101,8 +102,8 @@ public abstract class BaseConditionParser<Condition> implements Interpretation<C
         return false;
     }
 
-    abstract Interpretation<Condition> makeComparison(String request, BaseVariables variables, String tableName);
+    abstract Interpretation<Condition> makeComparison(String request, Variables variables, String tableName);
 
-    abstract Interpretation<Condition> makeConditionNext(String request, BaseVariables variables, String tableName);
+    abstract Interpretation<Condition> makeConditionNext(String request, Variables variables, String tableName);
 
 }

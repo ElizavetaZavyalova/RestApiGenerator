@@ -1,13 +1,14 @@
-package org.example.analize.analize.selectInformation.selectId;
+package org.example.analize.rewrite.table.selectId;
 
 import lombok.Getter;
-import org.example.analize.analize.BaseVariables;
-import org.example.analize.analize.selectInformation.BaseSelectFieldsParser;
-import org.jooq.DSLContext;
+import org.example.analize.rewrite.Variables;
+import org.example.analize.rewrite.premetive.field.BaseField;
+import org.example.analize.rewrite.table.BaseSelectFieldsParser;
+import org.jooq.Table;
 
-public abstract class BaseSelectIdParser<Select> extends BaseSelectFieldsParser<Select> {
-    String id = "id";
-    String idNext = null;
+public abstract class BaseSelectIdParser<Select,Table,Field> extends BaseSelectFieldsParser<Select, Table,Field> {
+    BaseField<Field> id;
+    BaseField<Field> idNext = null;
 
     protected static class MAX_MIN {
         @Getter
@@ -20,17 +21,16 @@ public abstract class BaseSelectIdParser<Select> extends BaseSelectFieldsParser<
 
     protected int maxMin = MAX_MIN.NO;
 
-    protected BaseSelectIdParser(String request, BaseVariables variables) {
+    protected BaseSelectIdParser(String request, Variables variables) {
         super(request, variables);
     }
 
     @Override
-    public String getIdIn() {
+    public BaseField<Field> getIdIn() {
         return idNext;
     }
-
     @Override
-    protected boolean add(String port, BaseVariables variables) {
+    protected boolean add(String port, Variables variables) {
         if (Type.isId(port)) {
             id = addField(port, variables);
             return true;

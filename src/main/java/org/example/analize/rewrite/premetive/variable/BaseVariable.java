@@ -10,6 +10,7 @@ public abstract class BaseVariable<VariableName> implements Interpretation<Varia
         log.debug("BaseVariable: variable:"+variable);
         if(variable.isEmpty()){
             variable="null";
+
         }
         this.variable=makeVariable(variable,variables);
         log.debug("BaseVariable: this.variable:"+this.variable);
