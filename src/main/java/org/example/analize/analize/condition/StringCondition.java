@@ -5,8 +5,9 @@ import org.example.analize.analize.BaseVariables;
 import org.example.analize.analize.Interpretation;
 
 import org.example.analize.analize.compison.StringComparison;
+
 @Slf4j
-public class StringCondition extends BaseConditionParser<String>{
+public class StringCondition extends BaseConditionParser<String> {
     public StringCondition(String request, BaseVariables variables) {
         super(request, variables);
     }

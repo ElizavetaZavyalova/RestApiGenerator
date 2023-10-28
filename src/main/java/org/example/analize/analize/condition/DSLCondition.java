@@ -5,7 +5,7 @@ import org.example.analize.analize.Interpretation;
 import org.example.analize.analize.compison.DSLComparison;
 import org.jooq.Condition;
 
-public class DSLCondition extends BaseConditionParser<Condition>{
+public class DSLCondition extends BaseConditionParser<Condition> {
     public DSLCondition(String request, BaseVariables variables) {
         super(request, variables);
     }

@@ -31,7 +31,7 @@ public abstract class BaseComparisonParser<Condition > implements Interpretation
         static final int VALUE = 1;
         static final int PORT_CONT=2;
     }
-    BaseComparisonParser(String request, BaseVariables variables) {
+    BaseComparisonParser(String request, BaseVariables variables,String tableName) {
         log.debug("BaseComparisonParser of:" + request);
         log.debug("request:" + request);
         for (Operation operation : Operation.values()) {
@@ -42,8 +42,8 @@ public abstract class BaseComparisonParser<Condition > implements Interpretation
                 this.value = addValue(input[PORT.VALUE],variables);
                 log.debug("value is:"+operation.value);
                 this.field = (!input[PORT.FIELD].isEmpty()) ?
-                        addField(input[PORT.FIELD],variables,false) :
-                        addField(input[PORT.VALUE],variables,true);
+                        addField(input[PORT.FIELD],variables,tableName,false) :
+                        addField(input[PORT.VALUE],variables,tableName,true);
                 log.debug("field is:"+operation.value);
                 return;
             }
@@ -54,7 +54,7 @@ public abstract class BaseComparisonParser<Condition > implements Interpretation
         log.debug("operation is:"+operation.value);
         this.value =addValue(request,variables);
         log.debug("value is:"+operation.value);
-        this.field =  addField(request,variables,true);
+        this.field =  addField(request,variables,tableName,true);
         log.debug("field is:"+operation.value);
     }
     record debug(){
@@ -66,5 +66,5 @@ public abstract class BaseComparisonParser<Condition > implements Interpretation
         }
     }
     abstract String addValue(String value, BaseVariables baseVariables);
-    abstract String addField(String value, BaseVariables baseVariables,boolean isFromVariable);
+    abstract String addField(String value, BaseVariables baseVariables,String tableName,boolean isFromVariable);
 }

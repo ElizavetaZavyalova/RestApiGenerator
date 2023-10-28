@@ -5,8 +5,8 @@ import org.jooq.Condition;
 import org.jooq.impl.DSL;
 
 public class DSLComparison extends BaseComparisonParser<Condition> {
-    public DSLComparison(String request, BaseVariables variables) {
-        super(request, variables);
+    public DSLComparison(String request, BaseVariables variables,String tableName) {
+        super(request, variables,tableName);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DSLComparison extends BaseComparisonParser<Condition> {
     }
 
     @Override
-    String addField(String value, BaseVariables baseVariables,boolean isFromVariable) {
+    String addField(String value, BaseVariables baseVariables, String tableName,boolean isFromVariable) {
         return BaseVariables.make.makeWriteVariable(value);
     }
 }

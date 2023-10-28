@@ -7,27 +7,27 @@ import org.example.analize.analize.condition.StringCondition;
 import org.example.analize.analize.select.BaseSelectParser;
 
 @Slf4j
-public class StringWhen extends BaseWhenParser<String,String>{
-    public StringWhen(String request, BaseVariables variables, BaseSelectParser selectPrevious, String idIn) {
+public class StringWhen extends BaseWhenParser<String, String> {
+    public StringWhen(String request, BaseVariables variables,
+                      BaseSelectParser<String, String> selectPrevious, String idIn) {
         super(request, variables, selectPrevious, idIn);
     }
-
     public StringWhen(String request, BaseVariables variables, String idIn) {
         super(request, variables, idIn);
     }
 
     @Override
     public String interpret() {
-        StringBuilder stringBuilder=new StringBuilder();
-        if(condition!=null){
+        StringBuilder stringBuilder = new StringBuilder();
+        if (condition != null) {
             log.debug("StringWHEN:interpret condition!= null");
             stringBuilder.append(condition.interpret());
-            if(select!=null){
+            if (select != null) {
                 log.debug("StringWHEN:interpret select!= null");
                 stringBuilder.append(".and(DSL.field(").append(idIn)
                         .append(").in(").append(select.interpret()).append("))");
             }
-            return debug.debugString("StringWhen",stringBuilder.toString());
+            return debug.debugString("StringWhen", stringBuilder.toString());
         }
         if (select != null) {
             log.debug("StringWHEN:interpret condition null");
@@ -41,18 +41,18 @@ public class StringWhen extends BaseWhenParser<String,String>{
 
     @Override
     void setIdIn(String idIn) {
-        log.debug("setIdIn:"+idIn);
-        if(idIn==null&&select!=null){
-            idIn= BaseVariables.make.makeVariableFromString(select.getTableName())+"Id";
-            idIn=BaseVariables.make.makeOnlyString(idIn);
+        log.debug("setIdIn:" + idIn);
+        if (idIn == null && select != null) {
+            idIn = BaseVariables.make.makeVariableFromString(select.getTableName()) + "Id";
+            idIn = BaseVariables.make.makeOnlyString(idIn);
         }
-        log.debug("setIdIn:"+idIn);
-        this.idIn=idIn;
+        log.debug("setIdIn:" + idIn);
+        this.idIn = idIn;
     }
 
     @Override
     BaseConditionParser<String> makeCondition(String request, BaseVariables variables) {
-        log.debug("makeCondition :"+request);
-        return new StringCondition(request,variables);
+        log.debug("makeCondition :" + request);
+        return new StringCondition(request, variables);
     }
 }

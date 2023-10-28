@@ -10,19 +10,20 @@ import org.jooq.DSLContext;
 import org.jooq.Select;
 import org.jooq.SelectJoinStep;
 
-public class DSLSelect extends BaseSelectParser<Condition, Select>{
+public class DSLSelect extends BaseSelectParser<Condition, Select> {
     DSLContext dslContext;
+
     DSLSelect(String request, BaseVariables variables,
-              BaseSelectParser<Condition, Select> selectPrevious,DSLContext dslContext) {
+              BaseSelectParser<Condition, Select> selectPrevious, DSLContext dslContext) {
         super(request, variables, selectPrevious);
-        this.dslContext=dslContext;
+        this.dslContext = dslContext;
 
     }
 
     @Override
     public Select interpret() {
-        Condition condition= when.interpret();
-        if(condition!=null){
+        Condition condition = when.interpret();
+        if (condition != null) {
             return ((SelectJoinStep) select.interpret()).where(condition);
         }
         return select.interpret();
@@ -35,7 +36,7 @@ public class DSLSelect extends BaseSelectParser<Condition, Select>{
 
     @Override
     BaseSelectIdParser<Select> makeSelect(String request, BaseVariables variables) {
-        return new DSLSelectId(request,variables,dslContext);
+        return new DSLSelectId(request, variables, dslContext);
     }
 
     @Override
@@ -43,6 +44,6 @@ public class DSLSelect extends BaseSelectParser<Condition, Select>{
                                                          BaseVariables variables,
                                                          BaseSelectParser<Condition, Select> selectPrevious) {
         //select.getIdIn()
-        return new DSLWhen(request,variables,selectPrevious,select.getIdIn());
+        return new DSLWhen(request, variables, selectPrevious, select.getIdIn());
     }
 }

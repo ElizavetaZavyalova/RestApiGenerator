@@ -13,7 +13,7 @@ class RequestAnalyzeTest {
     //static BaseRequestsAnalyze baseRequestsAnalyze=new BaseRequestsAnalyze();
     @Test
     void testSplitFunkTableFieldId(){
-        String request= "id:#{name}:%100?{@id}&age<{@age}/age/hert/table:={name}:={age}?{value}&age>={age}";
+        String request= "id:#{name}:%100?{@id}&age<{@age}/age/hert/table:={name}:={age}?{value}&>={age}";
         BaseRequest baseRequest=new GetRequest(request, SQLDialect.POSTGRES);
         SelectRequest selectRequest=(SelectRequest) baseRequest.getInterpret();
         log.info(selectRequest.interpret());

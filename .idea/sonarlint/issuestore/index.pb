@@ -20,8 +20,6 @@ ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 Z
 *TestOfWorkingRestApiGenerator/build.gradle,e\1\e106ee998dbd02704e835f478aa844c348deeb6c
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 k
 ;src/main/java/org/example/analize/requests/PostRequest.java,4\8\481593e896d6c6bf21c193dfd31927e734ccfad9
 p

@@ -12,17 +12,17 @@ import org.jooq.impl.DSL;
 @Slf4j
 public class DSLWhen extends BaseWhenParser<Condition, Select> {
     public DSLWhen(String request, BaseVariables variables, BaseSelectParser<Condition, Select> selectPrevious, String idIn) {
-        super(request, variables, selectPrevious,idIn);
+        super(request, variables, selectPrevious, idIn);
     }
 
     @Override
     void setIdIn(String idIn) {
-        log.debug("setIdIn:"+idIn);
-        if(idIn==null&&select!=null){
-            idIn= select.getTableName()+"Id";
+        log.debug("setIdIn:" + idIn);
+        if (idIn == null && select != null) {
+            idIn = select.getTableName() + "Id";
         }
-        log.debug("setIdIn:"+idIn);
-        this.idIn=idIn;
+        log.debug("setIdIn:" + idIn);
+        this.idIn = idIn;
     }
 
     @Override

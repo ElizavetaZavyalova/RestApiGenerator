@@ -7,8 +7,6 @@ import org.jooq.SelectJoinStep;
 import org.jooq.impl.DSL;
 
 public class DSLSelectId extends BaseSelectIdParser<Select> {
-    String id = "id";
-    String idNext = null;
     DSLContext dslContext;
 
     public DSLSelectId(String request, BaseVariables variables, DSLContext dslContext) {
