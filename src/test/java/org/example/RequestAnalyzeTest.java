@@ -13,7 +13,7 @@ class RequestAnalyzeTest {
     //static BaseRequestsAnalyze baseRequestsAnalyze=new BaseRequestsAnalyze();
     @Test
     void testSplitFunkTableFieldId(){
-        String request= "id:#{name}:%100?{@id}&age<{@age}/age/hert/table:={name}:={age}?{value}&>={age}";
+        String request= "id:#{name}:%100?{@id}&age<{@age}/age/hert/table:={name}:={age}?{value}&>={age}&{name}";
         BaseRequest baseRequest=new GetRequest(request, SQLDialect.POSTGRES);
         SelectRequest selectRequest=(SelectRequest) baseRequest.getInterpret();
         log.info(selectRequest.interpret());
@@ -22,6 +22,24 @@ class RequestAnalyzeTest {
         //log.info( dsl.insertInto(DSL.table("table"))..returning(DSL.field("id")).getSQL());
         log.info(selectRequest.makeSelect(dsl).getSQL());
     }
+    @Test
+    void splitTest(){
+
+        String request="\\|?н\\=>н?\\?";
 
 
+
+
+
+        String regex = "(?<!\\\\)(!=)";
+
+
+        String[] parts = request.split(regex);//pattern.split(input);
+
+
+        for (String part : parts) {
+            System.out.println(part.trim());
+        }
+        log.info("hello");
+    }
 }
