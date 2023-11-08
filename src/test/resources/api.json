@@ -1,8 +1,8 @@
 {
   "db": {
     "controller": "name",
-  "config": "path",
-    "endpoints":{
+    "config": "path",
+    "endpoints": {
       "endpoint": {
         "type": "GET",
         "swagger": "swagger-endpoint",
@@ -17,7 +17,6 @@
         "HTTP_STATUS_OK": 200,
         "HTTP_STATUS_EXETION": 404
       }
-
-        }
+    }
   }
 }
