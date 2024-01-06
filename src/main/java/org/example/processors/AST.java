@@ -8,9 +8,12 @@ import com.sun.tools.javac.util.Names;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 
 @Getter
 public class AST {
@@ -23,12 +26,18 @@ public class AST {
     protected TreeMaker treeMaker; // Encapsulates some methods of creating AST nodes
     protected Names names;
     protected Context context;
+    protected ProcessingEnvironment processingEnv;
+    protected Filer filer;
+
     AST(ProcessingEnvironment processingEnv){
         this.context = ((JavacProcessingEnvironment) processingEnv).getContext();
         this.messager = processingEnv.getMessager();
         this.trees = JavacTrees.instance(processingEnv);
         this.treeMaker = TreeMaker.instance(context);
         this.names = Names.instance(context);
+        this.processingEnv=processingEnv;
+        this.filer= processingEnv.getFiler();
+
     }
     public static AST instance(){
         return ast;

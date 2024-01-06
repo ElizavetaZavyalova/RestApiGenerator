@@ -1,14 +1,16 @@
 plugins {
     id 'java'
+
+
 }
 group = 'org.example'
 version = '1.0-SNAPSHOT'
-
 
 repositories {
     mavenCentral()
     mavenLocal()
 }
+compileJava.mustRunAfter(processResources)
 String restApiGeneratorProjectPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\'
 String restApiGeneratorPath=restApiGeneratorProjectPath+'RestApiGenerator\\build\\libs\\RestApiGenerator-Java_18.0.jar'
 
@@ -30,7 +32,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
 tasks.withType(JavaCompile).configureEach {
     //Запуск .jar если используются библиотеки внутренего
     // апи(Нужно для запуска .jar препроцессора анотаций) лишние потом удалю
@@ -50,22 +51,17 @@ tasks.withType(JavaCompile).configureEach {
     ]
 }
 
-task decompileJar(type: JavaExec) {
-    //хз понадобится или нет task конвентирует файлы .class в .java
-    String buildDirectoryPath=restApiGeneratorProjectPath+ 'RestApiGenerator\\TestOfWorkingRestApiGenerator\\build\\'
-    dependencies {
-        //библиотека конверта .class в .java
-        implementation 'org.jboss.windup.decompiler.fernflower:fernflower:2.5.0.Final'
-    }
-    mustRunAfter(classes)
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler'
-    args buildDirectoryPath+'classes\\java\\main', buildDirectoryPath+'generated\\sources\\annotationProcessor\\java\\main'
-}
-
 jar {
-    duplicatesStrategy = "exclude"
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    def jars=configurations.runtimeClasspath.files.collect {
+        "lib/${it.name}"
+    }
+    manifest {
+        attributes 'Main-Class': 'org.example.Main',
+        'Class-Path':jars.join(' ')
     }
 }
+tasks.register('copyAllDependencies', Copy) {
+    from(configurations.runtimeClasspath.files)
+    into("${buildDir}/libs/lib")
+}
+jar.dependsOn('copyAllDependencies')

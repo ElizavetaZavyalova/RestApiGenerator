@@ -85,13 +85,17 @@ tasks.withType(JavaCompile).configureEach {
     ]
 }
 jar {
-    manifest {
-        attributes(
-                'Main-Class': 'org.example.Main',
-        )
+
+    def jars=configurations.runtimeClasspath.files.collect {
+        "lib/${it.name}"
     }
-    duplicatesStrategy = "exclude"
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest {
+        attributes 'Main-Class': 'org.example.Main',
+                'Class-Path':jars.join(' ')
     }
 }
+tasks.register('copyAllDependencies', Copy) {
+    from(configurations.runtimeClasspath.files)
+    into("${buildDir}/libs/lib")
+}
+jar.dependsOn('copyAllDependencies')
