@@ -43,6 +43,7 @@ public class MainProcessor extends BaseProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         AST.instance().setRoundEnvironment(roundEnv);
+
         writePath();
 
         return true;//стоп

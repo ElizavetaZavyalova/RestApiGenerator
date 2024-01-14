@@ -19,6 +19,9 @@ dependencies {
     implementation 'com.squareup:javapoet:1.13.0'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'org.jooq:jooq:3.17.8'
+    // json jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 
     testCompileOnly "org.projectlombok:lombok:1.18.26"
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
@@ -84,8 +87,8 @@ tasks.withType(JavaCompile).configureEach {
             '--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED',
     ]
 }
-jar {
 
+jar {
     def jars=configurations.runtimeClasspath.files.collect {
         "lib/${it.name}"
     }

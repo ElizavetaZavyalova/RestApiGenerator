@@ -1,0 +1,27 @@
+[
+  {
+    "config_bd": {
+        "dialect": "POSTGRES",
+      "bd_name": "bd_name",
+        "url": "url",
+        "password": "pas",
+        "user": "user",
+        "perms": true
+     },
+    "http": {
+      "endpoint1": {
+        "types": "GET|POST",
+        "request": "user/{id}",
+        "perms": true,
+        "swagger": "use to correct"
+      },
+      "endpoint2": {
+        "types": "GET|POST",
+        "request": "hello",
+        "perms": false,
+        "swagger": "name"
+      }
+    }
+
+  }
+]

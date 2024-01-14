@@ -1,7 +1,5 @@
 plugins {
     id 'java'
-
-
 }
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -32,6 +30,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+
 tasks.withType(JavaCompile).configureEach {
     //Запуск .jar если используются библиотеки внутренего
     // апи(Нужно для запуска .jar препроцессора анотаций) лишние потом удалю

@@ -16,11 +16,9 @@
     <root level="ERROR">
         <appender-ref ref="CONSOLE"/>
     </root>
-    <!--
-    <root level="DEBUG">
+    <root name="org.example" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>
-    -->
 
 
 </configuration>
