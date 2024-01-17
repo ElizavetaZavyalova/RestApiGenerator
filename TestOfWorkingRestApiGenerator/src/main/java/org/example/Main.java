@@ -4,7 +4,7 @@ import org.example.processors.RestApiGenerator;
 
 
 @Slf4j
-@RestApiGenerator(jsonPath = "api.json")
+@RestApiGenerator(jsonPath = "resources/api.json")
 public class Main {
     public static void main(String[] args) {
            log.info("hello-world");

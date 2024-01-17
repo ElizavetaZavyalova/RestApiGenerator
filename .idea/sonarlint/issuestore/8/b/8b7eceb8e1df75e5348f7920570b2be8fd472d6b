@@ -1,0 +1,14 @@
+
+^
+java:S6355"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš
+P
+java:S1133"5Do not forget to remove this deprecated code someday.(„”¥Æûÿÿÿÿ
+C
+java:S1123"(Add the missing @deprecated Javadoc tag.(„”¥Æûÿÿÿÿ
+V	java:S125$"<This block of commented-out lines of code should be removed.(»±–Ïûÿÿÿÿ
+X
+java:S1854-"=Remove this useless assignment to local variable "parseJson".(µ§¡®úÿÿÿÿ
+I
+java:S1481-".Remove this unused "parseJson" local variable.(µ§¡®úÿÿÿÿ
+L
+java:S1874/"1Remove this use of "writePath"; it is deprecated.(½ŠÖÚùÿÿÿÿ

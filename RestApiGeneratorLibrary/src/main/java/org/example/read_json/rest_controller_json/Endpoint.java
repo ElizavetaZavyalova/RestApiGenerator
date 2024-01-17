@@ -1,0 +1,105 @@
+package org.example.read_json.rest_controller_json;
+
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.example.read_json.rest_controller_json.filter.EndpointFilters;
+import org.example.read_json.rest_controller_json.filter.Filters;
+import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
+import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
+import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.example.read_json.rest_controller_json.Endpoint.KeyWords.*;
+@Slf4j
+public class Endpoint {
+    String request;
+    Set<RequestType> requestTypes = new HashSet<>();
+    Boolean perms = false;
+    String call;
+    String requestBd;
+    String swagger;
+    Filters filters;
+    Pseudonyms pseudonyms;
+    @Getter
+    Endpoints parent;
+    Endpoint(Map<String, Object> enpointMap,Endpoints parent) {
+        try {
+            this.parent=parent;
+            makeRequest(enpointMap);
+            perms = MakeCast.makeBoolean(enpointMap, PERMS, false);
+            requestTypes = parseRequestTypes(MakeCast.makeString(enpointMap, TYPES, true));
+            swagger = MakeCast.makeString(enpointMap, SWAGGER, true);
+            filters=new EndpointFilters(MakeCast.makeStringMap(enpointMap,FILTERS,false),this);
+            pseudonyms=new EndpointPseudonyms(MakeCast.makeMapOfMapOfList(enpointMap,PSEUDONYMS,false),this);
+        } catch (IllegalArgumentException ex) {
+            log.debug(ex.getMessage());
+            //TODO stop compile
+        }
+    }
+    public Filtering<String> getFilter(String key) throws  IllegalArgumentException{
+        if(filters.isFilterExist(key)){
+            return filters.getFilterIfExist(key);
+        }
+        return parent.getParent().getFilters().getFilterIfExist(key);
+    }
+
+    public String getRealTableName(String key) {
+        if (pseudonyms.isContainsTablePseudonym(key)) {
+            return pseudonyms.getRealTableName(key);
+        }
+        if(parent.getParent().getPseudonyms().isContainsTablePseudonym(key)){
+            return parent.getParent().getPseudonyms().getRealTableName(key);
+        }
+        return key;
+    }
+
+    public String getRealFieldName(String key) {
+        if (pseudonyms.isContainsFieldPseudonym(key)) {
+            return pseudonyms.getRealFieldName(key);
+        }
+        if(parent.getParent().getPseudonyms().isContainsFieldPseudonym(key)){
+            return parent.getParent().getPseudonyms().getRealFieldName(key);
+        }
+        return key;
+    }
+    void makeRequest(Map<String, Object> enpointMap){
+        request = MakeCast.makeString(enpointMap, REQUEST,true);
+        requestBd=MakeCast.makeString(enpointMap, REQUEST_BD, false);
+        if(requestBd.isEmpty()){
+            requestBd=request;
+            request=null;
+        }
+        else if(requestBd.startsWith(CALL)){
+            call=requestBd.replace(CALL,"");
+            requestBd=CALL;
+        }
+    }
+
+    Set<RequestType> parseRequestTypes(String types) throws IllegalArgumentException {
+        return Arrays.stream(types.split(Regexp.REQUEST_TYPE_SEPARATOR))
+                .map(RequestType::fromName).collect(Collectors.toSet());
+    }
+
+    record KeyWords() {
+        static String REQUEST = "request";
+        static String PERMS = "perms";
+        static String TYPES = "types";
+        static String REQUEST_BD="request_bd";
+        static String CALL="call:";
+        static String FILTERS="filters";
+        static  String PSEUDONYMS="pseudonyms";
+
+
+        record Regexp() {
+            static String REQUEST_TYPE_SEPARATOR = "\\|";
+        }
+        static String SWAGGER = "swagger";
+    }
+
+}

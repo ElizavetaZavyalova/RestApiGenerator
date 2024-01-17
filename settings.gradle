@@ -1,2 +1,4 @@
-rootProject.name = 'RestApiGenerator' 
+rootProject.name = 'RestApiGenerator'
+include 'RestApiGeneratorLibrary'
+include 'TestOfWorkingRestApiGenerator'
 
