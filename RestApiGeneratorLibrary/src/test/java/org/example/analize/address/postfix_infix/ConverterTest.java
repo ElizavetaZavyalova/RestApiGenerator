@@ -2,12 +2,13 @@ package org.example.analize.address.postfix_infix;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.address.condition.DSLCondition;
+import org.example.analize.postfix_infix.Converter;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static org.example.analize.address.postfix_infix.Converter.RegExp.*;
+import static org.example.analize.postfix_infix.Converter.RegExp.*;
 @Slf4j
 public class ConverterTest {
 

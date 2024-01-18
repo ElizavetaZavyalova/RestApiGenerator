@@ -43,9 +43,8 @@ class ReadJsonTest {
         List<Condition> c1=new ArrayList<>();
 
             if(f.equals("f")){
-                c1.add(DSL.field(f).eq("k"));
-                c1.add(DSL.field(f).eq(2));
-                c1.add(DSL.field(f).eq(6).or(DSL.field(f).eq(61)));
+                boolean add = c1.add((DSL.table("y").field("f")).eq("d")));
+                log.debug("shoe");
             }
 
 

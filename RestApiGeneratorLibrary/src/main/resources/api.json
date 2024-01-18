@@ -15,12 +15,15 @@
       },
       "fields": {
         "id": ["ides"]
+      },
+      "joins": {
+        "table1:table2": ["id","id2"]
       }
     },
     "http": {
       "endpoint3": {
         "type": "GET",
-        "request": ":user/( {i:eq_id}|[userFilter]&{b:=is_name} )/:name/",
+        "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/",
         "perms": true,
         "swagger": "use to correct",
         "filters": {
@@ -32,7 +35,7 @@
       },
       "endpoint2": {
         "type": "GET",
-        "request":":user/( {i:eq_id}|[userFilter]&{b:=is_name} )/:name1/",
+        "request":"user/( {i:eq_id}|[userFilter]&{b:=is_name} )/name1/",
         "perms": false,
         "swagger": "name"
       }

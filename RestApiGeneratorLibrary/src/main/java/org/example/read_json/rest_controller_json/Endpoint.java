@@ -9,10 +9,7 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.example.read_json.rest_controller_json.Endpoint.KeyWords.*;
@@ -67,6 +64,16 @@ public class Endpoint {
             return parent.getParent().getPseudonyms().getRealFieldName(key);
         }
         return key;
+    }
+    public List<String> getRealJoinName(String t1, String t2) {
+        String key=t1+":"+t2;
+        if (pseudonyms.isContainsJoinPseudonym(key)) {
+            return pseudonyms.getRealJoinsName(key);
+        }
+        if(parent.getParent().getPseudonyms().isContainsJoinPseudonym(key)){
+            return parent.getParent().getPseudonyms().getRealJoinsName(key);
+        }
+        return List.of();
     }
     void makeRequest(Map<String, Object> enpointMap){
         request = MakeCast.makeString(enpointMap, REQUEST,true);
