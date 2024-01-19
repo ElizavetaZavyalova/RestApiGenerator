@@ -4,7 +4,7 @@ import org.example.analize.condition.StringOperand;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
-import org.example.analize.premetive.fields.StringFields;
+import org.example.analize.premetive.fields.StringField;
 import org.example.analize.premetive.filters.StringFilter;
 import org.example.read_json.rest_controller_json.Endpoint;
 
@@ -34,7 +34,7 @@ public class StringWhere extends BaseWhere<String,String> {
 
     @Override
     Interpretation<String> makePrimitive(String primitive, String table, Endpoint parent) {
-        return new StringFields(primitive,table,parent);
+        return new StringField(primitive,table,parent);
     }
 
     @Override

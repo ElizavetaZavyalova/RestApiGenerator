@@ -43,7 +43,7 @@ public abstract class Filters {
     void addFilter(String key, String val) throws IllegalArgumentException{
         if(key.endsWith(SQL.getName())){
             key= key.substring(0, key.length()-SQL.length());
-            addKeyValToFilters(key,new SqlFilter(val,makeFilterVoidName(key));
+            addKeyValToFilters(key,new SqlFilter(val,makeFilterVoidName(key)));
             return;
         }
         else if(key.endsWith(OR.getName())){

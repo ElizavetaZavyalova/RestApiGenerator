@@ -49,7 +49,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         EQ("eq"),
         NE("ne"),
         LIKE("like"),
-        NOT_LIKE("notLike"),
+        NOT_LIKE("not_like"),
         GE("ge"),
         GT("gt"),
         LE("le"),
@@ -93,8 +93,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         if (type.equals(BaseField.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
             throw new IllegalArgumentException("TYPE BOOLEAN MUST BE EQ OR NE");
         }
-        if (type.equals(BaseField.Type.INTEGER) && (action.equals(LIKE) || !action.equals(NOT_LIKE))) {
-            throw new IllegalArgumentException("TYPE STRING CAN BE  ONLY LIKE");
+        if (type.equals(Type.INTEGER) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {
+            throw new IllegalArgumentException("TYPE INTEGER CAN NOT BE LIKE OR NOT_LIKE");
         }
     }
 }

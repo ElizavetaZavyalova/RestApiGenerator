@@ -1,4 +1,5 @@
 package org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter;
+
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -25,22 +26,23 @@ public class ListStringFilter extends ListFilter<String> {
             func = "and";
         }
     }
-    MethodSpec makeFilterMethod(Endpoint parent)throws IllegalArgumentException {
+
+    MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("myMethod")
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), REQUEST_PARAM_MAP_IN_FILTER)
                 .addParameter(TypeName.get(String.class), TABLE_NAME_IN_FILTER)
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
                 .returns(CONDITION_CLASS)
-                .addStatement("$T<Condition> "+CONDITION_LIST_IN_FILTER+"=new $T<>()", List.class, ArrayList.class);
+                .addStatement("$T<Condition> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", List.class, ArrayList.class);
         val.forEach(v -> methodBuilder.addCode(new StringFilterField(v, parent).interpret()));
-        methodBuilder.addStatement("return "+CONDITION_LIST_IN_FILTER+".stream().reduce(Condition::" + func + ")\n" +
-                ".ofNullable("+DEFAULT_CONDITION_IN_FILTER+").get()");
+        methodBuilder.addStatement("return " + CONDITION_LIST_IN_FILTER + ".stream().reduce(Condition::" + func + ")\n" +
+                ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()");
         return methodBuilder.build();
     }
 
     @Override
     public String makeFilter(Object... args) {
-        return filter + "("+REQUEST_PARAM_MAP_IN_FILTER+"," + (String) args[0] + "," + (String) args[1] + ")";
+        return filter + "(" + REQUEST_PARAM_MAP_IN_FILTER + ", \"" + (String) args[0] + "\", " + (String) args[1] + ")";
     }
 }

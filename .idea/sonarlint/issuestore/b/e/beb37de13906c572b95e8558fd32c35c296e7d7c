@@ -1,5 +1,3 @@
 
-s
-java:S2159]"VRemove this call to "equals"; comparisons between unrelated types always return false.(‘×ˆÙ8ôóÒ1
-s
-java:S2159`"VRemove this call to "equals"; comparisons between unrelated types always return false.(—úºÌ8 ôóÒ1
+o
+java:S3252]"RUse static access with "org.example.analize.premetive.BaseFieldParser" for "Type".(‘×ˆÙ8æøÙœÒ1

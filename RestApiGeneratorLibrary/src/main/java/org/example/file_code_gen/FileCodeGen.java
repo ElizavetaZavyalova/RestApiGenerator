@@ -1,8 +1,5 @@
 package org.example.file_code_gen;
 
-import org.jooq.Condition;
-
-import java.util.List;
 
 public class FileCodeGen {
 

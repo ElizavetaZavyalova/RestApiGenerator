@@ -1,11 +1,10 @@
 package org.example.analize.premetive.fields;
 
-import org.example.analize.premetive.fields.BaseField;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 
-public class StringFields extends BaseField<String> {
-    public StringFields(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
+public class StringField extends BaseField<String> {
+    public StringField(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
         super(variable, tableName, parent);
     }
 

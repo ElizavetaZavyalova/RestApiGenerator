@@ -1,15 +1,10 @@
-package org.example.analize.address.postfix_infix;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
+package org.example.analize.postfix_infix;
+
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import org.example.analize.postfix_infix.Converter;
 import org.junit.jupiter.api.Test;
 
-import javax.lang.model.element.Modifier;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
