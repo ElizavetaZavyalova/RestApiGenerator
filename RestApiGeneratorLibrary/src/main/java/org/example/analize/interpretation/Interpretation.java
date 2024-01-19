@@ -1,4 +1,4 @@
 package org.example.analize.interpretation;
 
-public abstract class Interpretation<R> implements InterpretationParams, InterpretationBd<R>, InterpretationOfRequest {
+public interface Interpretation<R> extends InterpretationParams, InterpretationBd<R>, InterpretationOfRequest {
 }

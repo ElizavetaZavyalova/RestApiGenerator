@@ -1,5 +1,6 @@
 [
   {
+    "location": "def",
     "config_bd": {
         "dialect": "POSTGRES",
       "bd_name": "bd_name",

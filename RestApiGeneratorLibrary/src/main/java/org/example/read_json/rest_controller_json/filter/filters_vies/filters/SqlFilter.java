@@ -5,8 +5,8 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.StringFilt
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.SQL;
 
 public class SqlFilter extends StringFilter<String> {
-    public SqlFilter(String val) {
-        super(SQL, val);
+    public SqlFilter(String val,String filter) {
+        super(SQL, val,filter);
     }
 
     @Override

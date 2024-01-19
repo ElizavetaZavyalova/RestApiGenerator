@@ -10,6 +10,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.TypeElement;
 import javax.tools.StandardLocation;
+import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
@@ -42,6 +43,9 @@ public class MainProcessor extends BaseProcessor {
         for(var element:roundEnv.getElementsAnnotatedWith(RestApiGenerator.class)){
             RestApiGenerator restApiGenerator=element.getAnnotation(RestApiGenerator.class);
             String jsonFileName=restApiGenerator.jsonPath();
+            String packageName=restApiGenerator.packagePath().isEmpty()?
+                    (new File(jsonFileName).getName().replace(".json","")):
+                    restApiGenerator.packagePath();
             ParseJson parseJson=new ParseJson(jsonFileName);
         }
         writePath();

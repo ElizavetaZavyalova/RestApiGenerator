@@ -1,8 +1,0 @@
-
-n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(æ²óûÿÿÿÿ8ÖçëÊĞ1
-m
-java:S3008"QRename this field "CONFIG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄĞÈ68ÙçëÊĞ1
-q
-java:S3008"ORename this field "HTTP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı“°Ãüÿÿÿÿ8ÙçëÊĞ1
-N
-java:S1135"2Complete the task associated to this TODO comment.(èŠÀM8İçëÊĞ1

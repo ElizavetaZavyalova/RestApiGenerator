@@ -14,9 +14,9 @@ import static org.example.analize.postfix_infix.Converter.RegExp.NOT_DELETE_EMPT
 @Slf4j
 @UtilityClass
 public class Converter {
-    record RegExp() {
+    public record RegExp() {
         static final int NOT_DELETE_EMPTY_STRING_ON_END = -1;
-        static final String FIND_OPERATOR_OR_BRACKET = "(?<!\\\\)([|)&(])";
+        public static final String FIND_OPERATOR_OR_BRACKET = "(?<!\\\\)([|)&(])";
     }
 
     record Operand() {
@@ -30,11 +30,11 @@ public class Converter {
         return isAND(operator) || isOR(operator);
     }
 
-    static boolean isAND(String operator) {
+    static  public boolean isAND(String operator) {
         return operator.equals(AND);
     }
 
-    static boolean isOR(String operator) {
+    static  public boolean isOR(String operator) {
         return operator.equals(OR);
     }
 

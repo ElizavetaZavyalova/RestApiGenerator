@@ -8,14 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/TestOfWorkingRestApiGenerator" />
-        <option name="gradleHome" value="" />
-        <option name="modules">
-          <set>
+            <option value="$PROJECT_DIR$/RestApiGeneratorLibrary" />
             <option value="$PROJECT_DIR$/TestOfWorkingRestApiGenerator" />
           </set>
         </option>

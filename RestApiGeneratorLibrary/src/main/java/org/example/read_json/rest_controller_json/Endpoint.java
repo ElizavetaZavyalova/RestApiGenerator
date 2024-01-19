@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 import static org.example.read_json.rest_controller_json.Endpoint.KeyWords.*;
 @Slf4j
 public class Endpoint {
+    @Getter
+    String funcName;
     String request;
     Set<RequestType> requestTypes = new HashSet<>();
     Boolean perms = false;

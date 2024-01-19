@@ -1,0 +1,20 @@
+
+r
+java:S1149*"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ƒÿƒ—ùÿÿÿÿ8íÆ¾’Ò1
+m
+java:S1149E"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¹óÅ‘8îÆ¾’Ò1
+r
+java:S1149O"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÄÉä†ÿÿÿÿÿ8îÆ¾’Ò1
+r
+java:S1149X"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(Ããæóüÿÿÿÿ8îÆ¾’Ò1
+m
+java:S1149b"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(•Ð¡…8îÆ¾’Ò1
+m
+java:S1149p"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¤©Õš8ïÆ¾’Ò1
+a
+java:S1124!"EReorder the modifiers to comply with the Java Language Specification.(û±—8ôÆ¾’Ò1
+a
+java:S1124%"EReorder the modifiers to comply with the Java Language Specification.(Ýî«8ƒ¨Š“Ò1
+a
+java:S1124)"EReorder the modifiers to comply with the Java Language Specification.(Ž¶šB8…¨Š“Ò1
+X	java:S125:"<This block of commented-out lines of code should be removed.(‚öî8÷Æ¾’Ò1

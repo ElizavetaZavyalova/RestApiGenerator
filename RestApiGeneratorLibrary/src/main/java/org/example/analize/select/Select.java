@@ -1,16 +1,16 @@
 package org.example.analize.select;
 
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.where.Where;
+import org.example.analize.where.BaseWhere;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 import java.util.List;
 
 import static org.example.analize.select.Select.RegExp.*;
 
-public abstract class Select<R> extends Interpretation<R> {
-    protected final Select<R> selectNext;
-    protected Where<R> where;
+public abstract class Select<R,C> implements Interpretation<R> {
+    protected final Select<R,C> selectNext;
+    protected BaseWhere<R,C> where;
     protected final String tableName;
     protected final String realTableName;
     protected String id="id";
@@ -25,7 +25,7 @@ public abstract class Select<R> extends Interpretation<R> {
         static final int JOIN_CURRENT_REF_PORT=1;
         static final int JOIN_PREVIOUS_REF_PORT =0;
     }
-    Select(String request, Select<R> select, Endpoint parent){
+    Select(String request, Select<R,C> select, Endpoint parent){
         String[] requestPorts=request.split(SPLIT,SPLIT_LIMIT);
         tableName=requestPorts[TABLE_PORT];
         realTableName=parent.getRealTableName(tableName);
@@ -52,6 +52,18 @@ public abstract class Select<R> extends Interpretation<R> {
         ref=joins.get(JOIN_CURRENT_REF_PORT).equals(JOIN_SPLIT)?
                 (selectNext.realTableName+"_"+selectNext.id):joins.get(JOIN_CURRENT_REF_PORT);
     }
+    @Override
+    public String requestInterpret() {
+        StringBuilder builder=new StringBuilder();
+        if(selectNext!=null){
+            builder.append(selectNext.requestInterpret()).append("/");
+        }
+        builder.append(tableName).append("/");
+        if(where!=null){
+            builder.append(where.requestInterpret());
+        }
+        return builder.toString();
+    }
 
-    abstract Where<R> makeWhere(String request, String tableName,Endpoint parent);
+    abstract BaseWhere<R,C> makeWhere(String request, String tableName, Endpoint parent);
 }

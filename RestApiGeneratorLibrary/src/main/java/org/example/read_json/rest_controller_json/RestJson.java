@@ -13,13 +13,14 @@ import static org.example.read_json.rest_controller_json.RestJson.KeyWords.*;
 
 @Slf4j
 public class RestJson {
-    @UtilityClass
-    static class KeyWords{
+
+   record KeyWords(){
         static String CONFIG="config_bd";
         static String HTTP="http";
         static  String PSEUDONYMS="pseudonyms";
         static String FILTERS="filters";
     }
+    String location;
 
     ConfigBd config;
     Endpoints http;
@@ -28,8 +29,9 @@ public class RestJson {
     @Getter
     RestJsonFilters filters;
 
-    public RestJson(Map<String,Object> map) {
+    public RestJson(Map<String,Object> map,String location) {
         try {
+            this.location=location;
             config=new ConfigBd(MakeCast.makeMapAndCheckKey(map,CONFIG),this);
             http=new Endpoints(MakeCast.makeMapAndCheckKey(map,HTTP),this);
             pseudonyms=new RestJsonPseudonyms(MakeCast.makeMapOfMapOfList(map,PSEUDONYMS,false),this);

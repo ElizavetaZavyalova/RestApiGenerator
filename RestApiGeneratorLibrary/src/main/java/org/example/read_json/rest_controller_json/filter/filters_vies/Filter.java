@@ -5,7 +5,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public abstract class Filter<Result> implements Filtering<Result> {
-    public  FilterNames names;
+    protected   FilterNames names;
+    protected String filter;
     public enum FilterNames{
         AND(":and"),OR(":or"),CALL(":call"),SQL(":sql");
         @Getter

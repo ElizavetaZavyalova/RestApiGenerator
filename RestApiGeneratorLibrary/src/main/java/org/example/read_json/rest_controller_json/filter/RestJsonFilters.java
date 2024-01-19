@@ -6,8 +6,14 @@ import java.util.Map;
 
 public class RestJsonFilters extends Filters{
     RestJson parent;
+
     public RestJsonFilters(Map<String, String> filters, RestJson parent) throws IllegalArgumentException {
         super(filters);
         this.parent=parent;
+    }
+
+    @Override
+    String makeFilterVoidName(String key) {
+        return key;
     }
 }
