@@ -30,7 +30,6 @@ public abstract class BaseWhere<R,C> implements Interpretation<R> {
             }
         }
     }
-    String operator;
     Interpretation<R> makePort(String port,String table,Endpoint parent){
         Queue<String> postfix= Converter.toPostfix(port);
         Stack<Interpretation<R>> stack=new Stack<>();
@@ -54,7 +53,7 @@ public abstract class BaseWhere<R,C> implements Interpretation<R> {
         if(port.endsWith(RIGHT_CURLY_BRACKET)&&port.startsWith(LEFT_CURLY_BRACKET)){
             return makePrimitive(port.substring(LEFT_CURLY_BRACKET.length(), port.length() - RIGHT_CURLY_BRACKET.length()),table,parent);
         }
-        throw new IllegalArgumentException("FILTER MUST BE IN:"+LEFT_SQUARE_BRACKET+RIGHT_SQUARE_BRACKET+" OR" +
+        throw new IllegalArgumentException("FILTER MUST BE IN:"+LEFT_SQUARE_BRACKET+RIGHT_SQUARE_BRACKET+" OR " +
                 "PRIMITIVE MUST BE IN:"+LEFT_CURLY_BRACKET+RIGHT_CURLY_BRACKET);
     }
     @Override

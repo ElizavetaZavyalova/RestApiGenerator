@@ -1,7 +1,6 @@
 package org.example.analize.premetive.filters;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.premetive.fields.StringField;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.SqlFilter;

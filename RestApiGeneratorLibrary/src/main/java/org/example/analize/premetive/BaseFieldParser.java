@@ -1,7 +1,7 @@
 package org.example.analize.premetive;
 
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.fields.BaseField;
+import org.example.analize.premetive.fieldsCond.BaseFieldCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 import static org.example.analize.premetive.BaseFieldParser.Action.*;
@@ -90,7 +90,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
     }
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {
-        if (type.equals(BaseField.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
+        if (type.equals(BaseFieldCondition.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
             throw new IllegalArgumentException("TYPE BOOLEAN MUST BE EQ OR NE");
         }
         if (type.equals(Type.INTEGER) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {

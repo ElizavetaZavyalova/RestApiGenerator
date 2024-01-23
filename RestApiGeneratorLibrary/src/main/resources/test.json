@@ -1,0 +1,73 @@
+{
+  "config_bd": {
+    "dialect": "POSTGRES",
+    "bd_name": "bd_name",
+    "url": "url",
+    "password": "pas",
+    "user": "user",
+    "perms": true,
+    "use_args_filters": true
+  },
+  "http": {
+    "getEndpoint": {
+      "type": "get:user|id|name",
+      "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
+      "perms": true,
+      "swagger1": "получить",
+      "filters": {
+        "userFilter:or": "s:!=name|i:=age",
+        "f3:and": "hello",
+        "f2:sql": "name='Hello' or age=17",
+        "f4:call": "name.age()"
+      },
+      "postEndpoint": {
+        "type": "post:age",
+        "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/",
+        "perms": true,
+        "swagger1": "отправить",
+        "filters": {
+          "userFilter:or": "s:!=name|i:=age",
+          "f3:and": "hello",
+          "f2:sql": "name='Hello' or age=17",
+          "f4:call": "name.age()"
+        }
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
+        "perms": true,
+        "swagger1": "удалить",
+        "filters": {
+          "userFilter:or": "s:!=name|i:=age",
+          "f3:and": "hello",
+          "f2:sql": "name='Hello' or age=17",
+          "f4:call": "name.age()"
+        },
+        "patchEndpoint": {
+          "type": "patch:nick",
+          "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
+          "perms": true,
+          "swagger1": "изменить",
+          "filters": {
+            "userFilter:or": "s:!=name|i:=age",
+            "f3:and": "hello",
+            "f2:sql": "name='Hello' or age=17",
+            "f4:call": "name.age()"
+          }
+        },
+        "putEndpoint": {
+          "type": "put:nick|name",
+          "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )|[f2]/name/{s:id}/{s:nick}",
+          "perms": true,
+          "swagger1": "изменить целиком",
+          "filters": {
+            "userFilter:or": "s:!=name|i:=age",
+            "f3:and": "hello",
+            "f2:sql": "name='Hello' or age=17",
+            "f4:call": "name.age()"
+          }
+        }
+      }
+    }
+  }
+}

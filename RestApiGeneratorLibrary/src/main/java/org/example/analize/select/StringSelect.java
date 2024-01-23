@@ -1,11 +1,12 @@
 package org.example.analize.select;
 
+import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
 import org.example.read_json.rest_controller_json.Endpoint;
 
-public class StringSelect extends Select<String,String> {
-    public StringSelect(String request, Select<String,String> select, Endpoint parent) {
+public class StringSelect extends PortRequestWithCondition<String,String> {
+    public StringSelect(String request, PortRequestWithCondition<String,String> select, Endpoint parent) {
         super(request, select, parent);
     }
 
@@ -14,9 +15,12 @@ public class StringSelect extends Select<String,String> {
         StringBuilder selectBuilder = new StringBuilder()
                 .append("context.select(DSL.field(")
                 .append(toString(tableName + "." + id))
-                .append(").from(").append(toString(realTableName))
-                .append(").as(").append(toString(tableName))
+                .append(")\n.from(").append(toString(realTableName))
                 .append(")");
+        if(!realTableName.equals(tableName)){
+            selectBuilder.append(".as(").append(toString(tableName)).append(")");
+        }
+        selectBuilder.append(")");
         String whereString = makeWhere();
         if (!whereString.isEmpty()) {
             selectBuilder.append(".where(").append(makeWhere()).append(")");
@@ -26,14 +30,14 @@ public class StringSelect extends Select<String,String> {
 
     String makeWhere() {
         if (where != null && selectNext != null) {
-            return where.interpret() + "\n.and(DSL.field(" + toString(tableName + "." + ref) + ").\nin(" +
-                    selectNext.interpret() + "))";
+            return "DSL.field(" + toString(tableName + "." + ref) + ")\n.in(" +
+                    selectNext.interpret() + ")\n.and("+where.interpret()+")";
         }
         if (where != null) {
             return where.interpret();
         }
         if (selectNext != null) {
-            return "DSL.field(" + toString(tableName + "." + ref) + ").\nin(" +
+            return "DSL.field(" + toString(tableName + "." + ref) + ")\n.in(" +
                     selectNext.interpret() + ")";
         }
         return "";
@@ -49,7 +53,7 @@ public class StringSelect extends Select<String,String> {
     }
 
     @Override
-    BaseWhere<String,String> makeWhere(String request, String tableName, Endpoint parent) {
+    protected BaseWhere<String,String> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
     }
 }

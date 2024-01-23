@@ -18,7 +18,7 @@ public class Endpoint {
     @Getter
     String funcName;
     String request;
-    Set<RequestType> requestTypes = new HashSet<>();
+     Type type;
     Boolean perms = false;
     String call;
     String requestBd;
@@ -32,7 +32,7 @@ public class Endpoint {
             this.parent=parent;
             makeRequest(enpointMap);
             perms = MakeCast.makeBoolean(enpointMap, PERMS, false);
-            requestTypes = parseRequestTypes(MakeCast.makeString(enpointMap, TYPES, true));
+            type =  new Type(MakeCast.makeString(enpointMap, TYPES, true));
             swagger = MakeCast.makeString(enpointMap, SWAGGER, true);
             filters=new EndpointFilters(MakeCast.makeStringMap(enpointMap,FILTERS,false),this);
             pseudonyms=new EndpointPseudonyms(MakeCast.makeMapOfMapOfList(enpointMap,PSEUDONYMS,false),this);
@@ -88,11 +88,6 @@ public class Endpoint {
             call=requestBd.replace(CALL,"");
             requestBd=CALL;
         }
-    }
-
-    Set<RequestType> parseRequestTypes(String types) throws IllegalArgumentException {
-        return Arrays.stream(types.split(Regexp.REQUEST_TYPE_SEPARATOR))
-                .map(RequestType::fromName).collect(Collectors.toSet());
     }
 
     record KeyWords() {

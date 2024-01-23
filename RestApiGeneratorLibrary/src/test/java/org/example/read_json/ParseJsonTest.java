@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class ParseJsonTest {
     @Test
     void testParseJson(){
-        ParseJson parseJson=new ParseJson(JsonPath.FILE_NAME);
+        ParseJson parseJson=new ParseJson("dd");
         log.info("OK");
     }
 }

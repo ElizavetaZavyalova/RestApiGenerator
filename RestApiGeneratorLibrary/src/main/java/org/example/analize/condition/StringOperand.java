@@ -9,12 +9,13 @@ public class StringOperand extends BaseOperand<String> {
 
     @Override
     public String interpret() {
-        StringBuilder builder = new StringBuilder(left.interpret());
+        StringBuilder builder = new StringBuilder("\nDSL.");
         switch (operand) {
-            case OR -> builder.append("\n.or(");
-            case AND -> builder.append("\n.and(");
+            case OR -> builder.append("or(");
+            case AND -> builder.append("and(");
         }
-        return builder.append(right.interpret()).append(")").toString();
+        return builder.append(left.interpret()).append(", ")
+                .append(right.interpret()).append(")").toString();
     }
 
 

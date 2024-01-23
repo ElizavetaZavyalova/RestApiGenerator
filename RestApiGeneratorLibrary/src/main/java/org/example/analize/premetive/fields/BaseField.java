@@ -1,20 +1,17 @@
 package org.example.analize.premetive.fields;
 
-
-import org.example.analize.premetive.BaseFieldParser;
+import lombok.Getter;
+import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.Endpoint;
 
-
-public abstract class BaseField<R> extends BaseFieldParser<R> {
-    String tableName;
-
-    BaseField(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
-        super(variable, parent);
-        this.tableName = tableName;
-    }
-
-    @Override
-    public String requestInterpret() {
-        return "{" + this.fieldName + "}";
+public abstract class BaseField<R> implements Interpretation<R> {
+    @Getter
+    protected String name;
+    protected String realFieldName;
+    protected String tableName;
+    protected BaseField(String name, String tableName, Endpoint parent){
+        this.tableName=tableName;
+        this.name=name;
+        this.realFieldName=parent.getRealFieldName(name);
     }
 }

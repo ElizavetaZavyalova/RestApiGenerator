@@ -4,7 +4,7 @@ import org.example.analize.condition.StringOperand;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
-import org.example.analize.premetive.fields.StringField;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.filters.StringFilter;
 import org.example.read_json.rest_controller_json.Endpoint;
 
@@ -17,7 +17,13 @@ public class StringWhere extends BaseWhere<String,String> {
 
     @Override
     public String interpret() {
-        return "("+ports.stream().map(InterpretationBd::interpret).collect(Collectors.joining(")\n.and("))+")";
+        if(ports.size()==0) {
+            return "";
+        }
+        if(ports.size()>=2) {
+            return "DSL.and(" + ports.stream().map(InterpretationBd::interpret).collect(Collectors.joining(","))+")";
+        }
+        return ports.get(0).interpret();
     }
 
     @Override
@@ -34,7 +40,7 @@ public class StringWhere extends BaseWhere<String,String> {
 
     @Override
     Interpretation<String> makePrimitive(String primitive, String table, Endpoint parent) {
-        return new StringField(primitive,table,parent);
+        return new StringFieldCondition(primitive,table,parent);
     }
 
     @Override

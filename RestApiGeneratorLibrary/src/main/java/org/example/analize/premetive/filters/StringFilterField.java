@@ -15,8 +15,8 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder()
-                .beginControlFlow("if (" + REQUEST_PARAM_MAP_IN_FILTER + ".containsKey($S))", fieldName)
-                .addStatement(makeCondition(), realFieldName, fieldName)
+                .beginControlFlow("if (" + REQUEST_PARAM_MAP + ".containsKey($S))", fieldName)
+                .addStatement(makeCondition(), "." + realFieldName, fieldName)
                 .endControlFlow()
                 .build();
     }
@@ -25,8 +25,8 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
         return "\"" + string + "\"";
     }
 
-    String makeCondition() {
-        StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add(DSL.field(" + TABLE_NAME_IN_FILTER + ".$S).");
+    protected String makeCondition() {
+        StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add(DSL.field(" + TABLE_NAME_IN_FILTER + "+$S).");
         switch (action) {
             case EQ -> builder.append("eq");
             case NE -> builder.append("ne");
@@ -37,7 +37,7 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             case LIKE -> builder.append("like");
             case NOT_LIKE -> builder.append("not_like");
         }
-        return builder.append("(").append(REQUEST_PARAM_MAP_IN_FILTER + ".get($S)))").toString();
+            return builder.append("(").append(REQUEST_PARAM_MAP + ".get($S)))").toString();
     }
 
     @Override
