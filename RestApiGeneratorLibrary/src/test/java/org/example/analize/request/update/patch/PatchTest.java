@@ -20,7 +20,7 @@ public class PatchTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPatchRequest request=new  StringPatchRequest(req,par,endpoint);
-        log.info(request.interpret());
+        log.info(request.interpret().toString());
     }
     static public Stream<Arguments> constructorParams() {
         List<String> par=List.of(paramName1);

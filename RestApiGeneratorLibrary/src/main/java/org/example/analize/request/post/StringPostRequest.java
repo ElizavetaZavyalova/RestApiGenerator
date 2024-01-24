@@ -1,5 +1,6 @@
 package org.example.analize.request.post;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.BaseRequest;
@@ -10,7 +11,7 @@ import org.example.read_json.rest_controller_json.Endpoint;
 
 import java.util.List;
 
-public class StringPostRequest extends BasePostRequest<String,String> {
+public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
 
 
     protected StringPostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
@@ -18,7 +19,7 @@ public class StringPostRequest extends BasePostRequest<String,String> {
     }
 
     @Override
-    public String interpret() {
+    public CodeBlock interpret() {
         return this.insert.interpret();
     }
 
@@ -33,12 +34,12 @@ public class StringPostRequest extends BasePostRequest<String,String> {
     }
 
     @Override
-    protected BaseAddress<String, String> make(String url, Endpoint parent) {
+    protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {
         return new StringAddress(url,parent);
     }
 
     @Override
-    BaseInsertRequest<String, String> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<String, String> select, Endpoint parent) {
+    BaseInsertRequest<CodeBlock, String> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
         return new StringInsertRequest(request,fields,select,parent);
     }
 }

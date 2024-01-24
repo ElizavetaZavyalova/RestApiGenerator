@@ -1,16 +1,18 @@
 package org.example.analize.premetive.filters;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.premetive.filters.FilterCreation;
 import org.example.read_json.rest_controller_json.Endpoint;
+import org.jooq.Block;
 
-public class StringFilter implements Interpretation<String>, FilterCreation<String> {
+public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<String> {
     String result;
     String filterName;
 
     @Override
-    public String interpret() {
-        return result;
+    public CodeBlock interpret() {
+        return CodeBlock.builder().add(result).build();
     }
 
     public StringFilter(String filterName) {

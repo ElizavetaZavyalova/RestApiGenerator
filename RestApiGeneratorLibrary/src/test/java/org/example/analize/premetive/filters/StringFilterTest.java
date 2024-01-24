@@ -47,7 +47,7 @@ public class StringFilterTest {
         log.info(filterName);
         StringFilter filter=new StringFilter(filterName);
         filter.makeFilter(make(filterName),cond,tableName);
-        log.info(filter.interpret());
+        log.info(filter.interpret().toString());
 
     }
     @ParameterizedTest(name = "{arguments} test")

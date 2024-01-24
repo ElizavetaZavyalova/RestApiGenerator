@@ -37,7 +37,7 @@ public class StringWhereTest {
         Endpoint endpoint = makeEndpoint();
         StringWhere where = new StringWhere(req, table1, endpoint);
         log.info(req);
-        log.info("\n" + where.interpret());
+        log.info("\n" + where.interpret().toString());
         log.info("\n" + where.requestInterpret());
     }
 

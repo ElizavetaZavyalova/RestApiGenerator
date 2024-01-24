@@ -18,7 +18,7 @@ public class DeleteTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringDeleteRequest request=new StringDeleteRequest(req,endpoint);
-        log.info(request.interpret());
+        log.info(request.interpret().toString());
     }
     static public Stream<Arguments> constructorParams() {
         return Stream.of(

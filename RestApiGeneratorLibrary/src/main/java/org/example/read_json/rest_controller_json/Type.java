@@ -22,7 +22,7 @@ public class Type {
     Type(String param) throws IllegalArgumentException{
        String[] description=param.split(SPLIT_TYPE);
        if(description.length>MAX_COUNT){
-           throw new IllegalArgumentException(param+"MUST be type:param1|param2");
+           throw new IllegalArgumentException(param+"MUST be type:param1|param2...");
        }
         requestType=RequestType.fromName(description[TYPE_PORT]);
        if(!requestType.equals(RequestType.DELETE)){

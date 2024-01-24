@@ -1,27 +1,28 @@
 package org.example.analize.premetive.fieldsCond;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 
-public class StringFieldCondition extends BaseFieldCondition<String> {
+public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
     public StringFieldCondition(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
         super(variable, tableName, parent);
     }
 
     @Override
-    public String interpret() {
-        StringBuilder builder = new StringBuilder("\nDSL.field(" + toString(tableName + "." + realFieldName) + ").");
+    public CodeBlock interpret() {
+       var block=CodeBlock.builder().add("DSL.field($S)",tableName + "." + realFieldName);
         switch (action) {
-            case EQ -> builder.append("eq");
-            case NE -> builder.append("ne");
-            case LE -> builder.append("le");
-            case LT -> builder.append("lt");
-            case GE -> builder.append("ge");
-            case GT -> builder.append("gt");
-            case LIKE -> builder.append("like");
-            case NOT_LIKE -> builder.append("not_like");
+            case EQ -> block.add(".eq("+fieldName+")");
+            case NE -> block.add(".ne("+fieldName+")");
+            case LE -> block.add(".le("+fieldName+")");
+            case LT -> block.add(".lt("+fieldName+")");
+            case GE -> block.add(".ge("+fieldName+")");
+            case GT -> block.add(".gt("+fieldName+")");
+            case LIKE -> block.add("like("+fieldName+")");
+            case NOT_LIKE -> block.add("not_like("+fieldName+")");
         }
-        return builder.append("(").append(fieldName).append(")").toString();
+        return block.build();
     }
 
     String toString(String string) {

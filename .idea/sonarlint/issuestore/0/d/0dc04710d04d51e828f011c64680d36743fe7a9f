@@ -1,3 +1,6 @@
 
 r
-java:S1128"PRemove this unused import 'org.example.analize.interpretation.InterpretationBd'.(õâ¯íùÿÿÿÿ8ÑíòÓ1
+java:S1128"PRemove this unused import 'org.example.analize.interpretation.InterpretationBd'.(õâ¯íùÿÿÿÿ8¹¢†åÓ1
+Z
+java:S1128
+"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8¹¢†åÓ1

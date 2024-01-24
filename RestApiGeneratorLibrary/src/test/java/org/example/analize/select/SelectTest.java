@@ -19,7 +19,7 @@ public class SelectTest {
         Endpoint endpoint = makeEndpoint();
         StringSelect select=new StringSelect(req,null,endpoint);
         log.info(req);
-        log.info(select.interpret());
+        log.info(select.interpret().toString());
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams2Select")
@@ -27,9 +27,9 @@ public class SelectTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
         StringSelect select1=new StringSelect(req1,null,endpoint);
-        log.info(select1.interpret());
+        log.info(select1.interpret().toString());
         StringSelect select2=new StringSelect(req2,select1,endpoint);
-        log.info(select2.interpret());
+        log.info(select2.interpret().toString());
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsNoId")
@@ -37,9 +37,9 @@ public class SelectTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
         StringSelect select1=new StringSelect(req1,null,endpoint);
-        log.info(select1.interpret());
+        log.info(select1.interpret().toString());
         StringSelect select2=new StringSelect(req2,select1,endpoint);
-        log.info(select2.interpret());
+        log.info(select2.interpret().toString());
     }
     static public Stream<Arguments> constructorParams1Select() {
         return Stream.of(

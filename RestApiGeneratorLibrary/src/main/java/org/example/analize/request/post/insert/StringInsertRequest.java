@@ -1,5 +1,6 @@
 package org.example.analize.request.post.insert;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.interpretation.InterpretationParams;
 import org.example.analize.premetive.fields.BaseField;
@@ -12,69 +13,66 @@ import java.util.stream.Collectors;
 
 import static org.example.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_MAP;
 
-public class StringInsertRequest extends BaseInsertRequest<String,String>{
+public class StringInsertRequest extends BaseInsertRequest<CodeBlock,String>{
 
-    public StringInsertRequest(String request, List<String> fields, PortRequestWithCondition<String, String> select, Endpoint parent) {
+    public StringInsertRequest(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
         super(request, fields,select, parent);
 
     }
 
 
     @Override
-    protected BaseField<String> makeField(String name, String table, Endpoint parent) {
+    protected BaseField<CodeBlock> makeField(String name, String table, Endpoint parent) {
         return  new StringField(name,table,parent);
     }
 
     @Override
-    public String interpret() {
-       return  "context.insertInto(" + makeInsert() + ")" + makeValues();
+    public CodeBlock interpret() {
+       return  CodeBlock.builder().add("context.insertInto(").add(makeInsert()).add(")").add(makeValues()).build();
     }
-    String makeValues(){
+    CodeBlock  makeValues(){
+        var block=CodeBlock.builder();
         if (selectNext != null) {
-            StringBuilder builder=new StringBuilder("DSL.select(\n");
-            builder.append("DSL.field(").append(toString(tableName + "." + id)).append(")");
+            block.add("DSL.select(");
+            block.add("DSL.field($S)",tableName + "." + id);
             if(!fields.isEmpty()) {
-                 builder.append(",\n ").append(values());
+                block.add(",\n ").add(values());
 
             }
-            builder.append(")\n.from(").append(selectNext.interpret()).append(")");
-            return builder.toString();
+            block.add(").from(").add(selectNext.interpret()).add(")");
+            return block.build();
         }
         if(!fields.isEmpty()) {
-            StringBuilder builder = new StringBuilder("\n.values(").append(values()).append(")");
-            return builder.toString();
+            block.add(".values(").add(values()).add(")");
+            return block.build();
         }
-        return ".defaultValues()";
+        return block.add(".defaultValues()").build();
     }
-    String values(){
+    CodeBlock values(){
     return  fields.stream().map(BaseField::getName)
-                .map(name -> "DSL.val(Optional.ofNullable("+REQUEST_PARAM_MAP+".get(" + toString(name) + "))\n.orElse(DSL.defaultValue()))")
-            .collect(Collectors.joining(",\n "));
+                .map(name ->CodeBlock.builder().add("DSL.val(Optional.ofNullable("+REQUEST_PARAM_MAP+".get($S)).orElse(DSL.defaultValue()))",name)
+            .build()).reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
+                        .orElse(CodeBlock.builder().build());
     }
-    String makeInsert(){
-        StringBuilder insertBuilder = new StringBuilder("DSL.table(").append(toString(realTableName)).append(")");
+    CodeBlock makeInsert(){
+        var block=CodeBlock.builder().add("DSL.table($S)",realTableName);
         if(!realTableName.equals(tableName)){
-            insertBuilder.append(".as(").append(toString(tableName)).append(")");
+            block.add(".as($S)",tableName);
         }
         if (selectNext != null) {
-            insertBuilder.append(", DSL.field(").append(toString(tableName + "." + ref)).append(")");
+            block.add(", DSL.field($S)",tableName + "." + ref);
         }
         if(!fields.isEmpty()){
-            insertBuilder.append(", ").append(makeFields());
+            block.add(", ").add(makeFields());
         }
 
-        return insertBuilder.toString();
+        return block.build();
     }
 
     String makeFields(){
+        //TODO fields
         return fields.stream().map(InterpretationParams::getParams).collect(Collectors.joining(", "));
     }
-
-    String toString(String string) {
-        return "\"" + string + "\"";
-    }
-
-
     @Override
     public String requestInterpret() {
         return null;

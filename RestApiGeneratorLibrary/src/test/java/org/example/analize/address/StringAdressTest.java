@@ -21,7 +21,7 @@ public class StringAdressTest {
         log.info(req);
         StringAddress address=new StringAddress(req,endpoint);
         log.info(address.endUrl);
-        log.info(address.interpret());
+        log.info(address.interpret().toString());
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsThrow")

@@ -20,14 +20,14 @@ public class StringFieldConditionTest {
     @MethodSource("constructorParamsString")
     void ConstructorTestString(String name) {
         StringFieldCondition stringField = make(name);
-        log.info(stringField.interpret());
+        log.info(stringField.interpret().toString());
     }
 
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsInteger")
     void ConstructorTestInteger(String name) {
         StringFieldCondition stringField = make(name);
-        log.info(stringField.interpret());
+        log.info(stringField.interpret().toString());
     }
 
     @ParameterizedTest(name = "{arguments} test")
@@ -41,7 +41,7 @@ public class StringFieldConditionTest {
     @MethodSource("constructorParamsBoolean")
     void ConstructorTestBoolean(String name) {
         StringFieldCondition stringField = make(name);
-        log.info(stringField.interpret());
+        log.info(stringField.interpret().toString());
     }
 
     static StringFieldCondition make(String name) throws IllegalArgumentException {

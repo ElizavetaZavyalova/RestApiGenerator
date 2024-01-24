@@ -1,18 +1,19 @@
 package org.example.analize.request.delete;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.delete.delete.StringDelete;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
 
-public class StringDeleteRequest extends BaseDeleteRequest<String,String>{
+public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock,String>{
     protected StringDeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
     }
 
     @Override
-    public String interpret() {
+    public CodeBlock interpret() {
         return delete.interpret();
     }
 
@@ -27,11 +28,11 @@ public class StringDeleteRequest extends BaseDeleteRequest<String,String>{
     }
 
     @Override
-    protected BaseAddress<String, String> make(String url, Endpoint parent) {
+    protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {
         return new StringAddress(url,parent);
     }
     @Override
-    protected PortRequestWithCondition<String, String> makeDelete(String request, PortRequestWithCondition<String,String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock, String> makeDelete(String request, PortRequestWithCondition<CodeBlock,String> select, Endpoint parent) {
         return new StringDelete(request,select,parent);
     }
 }

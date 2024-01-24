@@ -1,7 +1,6 @@
 package org.example.analize.request.update.put;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.request.get.StringGetRequest;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,7 +20,7 @@ public class PutTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPutRequest request=new  StringPutRequest(req,par,endpoint);
-        log.info(request.interpret());
+        log.info(request.interpret().toString());
     }
     static public Stream<Arguments> constructorParams() {
         List<String> par=List.of(paramName1);

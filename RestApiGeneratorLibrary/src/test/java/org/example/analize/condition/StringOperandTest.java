@@ -34,7 +34,7 @@ class StringOperandTest {
         StringFieldCondition field1=new StringFieldCondition(f1,tableName,makeEndpoint());
         StringFieldCondition field2=new StringFieldCondition(f2,tableName,makeEndpoint());
         StringOperand operand=new StringOperand(field1,field2,op);
-        log.info("\n"+operand.interpret());
+        log.info("\n"+operand.interpret().toString());
         log.info(operand.requestInterpret());
         StringOperand operand2=new StringOperand(field1,makeStringFieldCondition(),op);
         log.info(operand2.requestInterpret());
