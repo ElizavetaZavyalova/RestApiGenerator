@@ -13,7 +13,7 @@ import org.example.read_json.rest_controller_json.Endpoint;
 import java.util.List;
 
 public class StringPatchRequest extends BaseUpdateRequest<CodeBlock,String> {
-    protected StringPatchRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
+    public StringPatchRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields, parent);
     }
 

@@ -8,18 +8,16 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
-String restApiGeneratorProjectPath='P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\'
-String restApiGeneratorPath=restApiGeneratorProjectPath+'RestApiGeneratorLibrary\\build\\libs\\RestApiGeneratorLibrary-Java_18.0.jar'
+
+String restApiGeneratorProjectPath=project.rootProject.rootDir
+String restApiGeneratorPath= restApiGeneratorProjectPath+'\\RestApiGeneratorLibrary\\build\\libs\\RestApiGeneratorLibrary-Java_18.0.jar'
 
 dependencies {
     compileOnly files(restApiGeneratorPath)
     annotationProcessor files(restApiGeneratorPath)
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
-
     implementation 'ch.qos.logback:logback-classic:1.4.5'
-
-
     testCompileOnly "org.projectlombok:lombok:1.18.26"
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
     testImplementation 'com.google.truth:truth:1.1'

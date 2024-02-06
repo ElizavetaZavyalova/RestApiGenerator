@@ -1,14 +1,14 @@
 package org.example.analize.select.port_request;
 
 import org.example.analize.interpretation.Interpretation;
+import org.example.analize.premetive.BaseFieldParser;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static java.lang.invoke.MethodHandles.throwException;
+
 import static org.example.analize.select.port_request.PortRequest.RegExp.*;
-import static org.example.analize.select.port_request.PortRequestWithCondition.RegExp.TABLE_PORT;
 
 public abstract class PortRequest<R, C> implements Interpretation<R> {
     protected PortRequestWithCondition<R, C> selectNext;
@@ -51,9 +51,10 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         }
     }
 
+
     protected void initTableName(String tableName, PortRequestWithCondition<R, C> select, Endpoint parent) throws IllegalArgumentException {
         throwException(tableName);
-        this.tableName = tableName;
+        this.tableName=tableName;
         realTableName = parent.getRealTableName(tableName);
         this.selectNext = select;
         if (select != null) {

@@ -1,18 +1,18 @@
 
 e
-java:S6355"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš8°…ŽöÑ1
+java:S6355"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš8°…ŽöÑ1
 W
-java:S1133"5Do not forget to remove this deprecated code someday.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
+java:S1133"5Do not forget to remove this deprecated code someday.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
 J
-java:S1123"(Add the missing @deprecated Javadoc tag.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
-]	java:S125%"<This block of commented-out lines of code should be removed.(»±–Ïûÿÿÿÿ8³…ŽöÑ1
+java:S1123"(Add the missing @deprecated Javadoc tag.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
+]	java:S125&"<This block of commented-out lines of code should be removed.(»±–Ïûÿÿÿÿ8³…ŽöÑ1
 _
-java:S18541"=Remove this useless assignment to local variable "parseJson".(µ§¡®úÿÿÿÿ8´…ŽöÑ1
+java:S18542"=Remove this useless assignment to local variable "parseJson".(µ§¡®úÿÿÿÿ8´…ŽöÑ1
 \
-java:S1854."?Remove this useless assignment to local variable "packageName".(ûõ»8û›öÑ1
+java:S1854/"?Remove this useless assignment to local variable "packageName".(ûõ»8û›öÑ1
 M
-java:S1481."0Remove this unused "packageName" local variable.(ûõ»8œöÑ1
+java:S1481/"0Remove this unused "packageName" local variable.(ûõ»8œöÑ1
 P
-java:S14811".Remove this unused "parseJson" local variable.(µ§¡®úÿÿÿÿ8Â…ŽöÑ1
+java:S14812".Remove this unused "parseJson" local variable.(µ§¡®úÿÿÿÿ8Â…ŽöÑ1
 S
-java:S18743"1Remove this use of "writePath"; it is deprecated.(½ŠÖÚùÿÿÿÿ8Â…ŽöÑ1
+java:S18744"1Remove this use of "writePath"; it is deprecated.(½ŠÖÚùÿÿÿÿ8Â…ŽöÑ1

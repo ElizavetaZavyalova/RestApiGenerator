@@ -63,7 +63,8 @@ public abstract class BaseWhere<R,C> implements Interpretation<R> {
     }
     void makeFilterResult(Interpretation<R> interpretation, C operand, String table, Endpoint parent) {
         if (interpretation instanceof FilterCreation) {
-            ((FilterCreation<C>) interpretation).makeFilter(parent, operand, table);
+            FilterCreation<C> filterCreation = (FilterCreation<C>) interpretation;
+            filterCreation.makeFilter(parent, operand, table);
         }
     }
     abstract Interpretation<R> makeFilter(String filter);

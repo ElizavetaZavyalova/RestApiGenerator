@@ -27,8 +27,8 @@ public class ListStringFilter extends ListFilter<String> {
         }
     }
 
-    MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("myMethod")
+    public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(filter)
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), REQUEST_PARAM_MAP)
                 .addParameter(TypeName.get(String.class), TABLE_NAME_IN_FILTER)

@@ -3,7 +3,6 @@ package org.example.analize.request.post;
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
-import org.example.analize.request.BaseRequest;
 import org.example.analize.request.post.insert.BaseInsertRequest;
 import org.example.analize.request.post.insert.StringInsertRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
@@ -14,7 +13,7 @@ import java.util.List;
 public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
 
 
-    protected StringPostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
+    public StringPostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
         super(url, params, parent);
     }
 

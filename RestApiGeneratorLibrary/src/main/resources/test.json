@@ -1,4 +1,5 @@
 {
+  "packageName":{
   "config_bd": {
     "dialect": "POSTGRES",
     "bd_name": "bd_name",
@@ -8,10 +9,15 @@
     "perms": true,
     "use_args_filters": true
   },
+    "pseudonyms": {
+      "tables": {
+        "users": ["user","current_user"]
+      }
+    },
   "http": {
     "getEndpoint": {
-      "type": "get:user|id|name",
-      "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
+      "type": "get:price|id|name",
+      "request": "user/({i:eq_id}|[userFilter]&{b:is_name})/name/{i:id}/{s:nick}",
       "perms": true,
       "swagger1": "получить",
       "filters": {
@@ -69,5 +75,6 @@
         }
       }
     }
+  }
   }
 }

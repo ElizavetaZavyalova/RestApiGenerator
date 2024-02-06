@@ -21,10 +21,6 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
                 .build();
     }
 
-    String toString(String string) {
-        return "\"" + string + "\"";
-    }
-
     protected String makeCondition() {
         StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add(DSL.field(" + TABLE_NAME_IN_FILTER + "+$S).");
         switch (action) {

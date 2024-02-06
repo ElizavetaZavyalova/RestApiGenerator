@@ -1,7 +1,6 @@
 package org.example.analize.request.update.patch;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.request.update.put.StringPutRequest;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

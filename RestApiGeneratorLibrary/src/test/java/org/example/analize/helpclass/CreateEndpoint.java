@@ -35,8 +35,8 @@ public record CreateEndpoint() {
         Mockito.doReturn(List.of(T2_id,id_T1)).when(endpoint).getRealJoinName( table2,table1);
         Mockito.doReturn(List.of(id_T2,":")).when(endpoint).getRealJoinName(table2,table3);
         Mockito.doReturn(List.of(":",id_T2)).when(endpoint).getRealJoinName( table3,table2);
-        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName( table1,table3);
-        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName( table3,table1);
+        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(table1,table3);
+        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(table3,table1);
 
         Mockito.doReturn(realFieldName1).when(endpoint).getRealFieldName(fieldName1);
         Mockito.doReturn(fieldName2).when(endpoint).getRealFieldName(fieldName2);

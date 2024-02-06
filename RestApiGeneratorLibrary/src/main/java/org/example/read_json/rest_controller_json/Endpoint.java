@@ -1,7 +1,20 @@
 package org.example.read_json.rest_controller_json;
 
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.interpretation.Interpretation;
+import org.example.analize.premetive.filters.StringFilterField;
+import org.example.analize.request.BaseRequest;
+import org.example.analize.request.delete.StringDeleteRequest;
+import org.example.analize.request.delete.delete.StringDelete;
+import org.example.analize.request.get.StringGetRequest;
+import org.example.analize.request.post.StringPostRequest;
+import org.example.analize.request.update.patch.StringPatchRequest;
+import org.example.analize.request.update.put.StringPutRequest;
 import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
@@ -9,24 +22,29 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
 
+import javax.lang.model.element.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.example.file_code_gen.DefaultsVariablesName.Filter.*;
 import static org.example.read_json.rest_controller_json.Endpoint.KeyWords.*;
 @Slf4j
 public class Endpoint {
     @Getter
     String funcName;
     String request;
-     Type type;
+    @Getter
+    Type type;
     Boolean perms = false;
     String call;
+    @Getter
     String requestBd;
     String swagger;
     Filters filters;
     Pseudonyms pseudonyms;
     @Getter
     Endpoints parent;
+    InterpretDb db;
     Endpoint(Map<String, Object> enpointMap,Endpoints parent) {
         try {
             this.parent=parent;
@@ -41,6 +59,23 @@ public class Endpoint {
             //TODO stop compile
         }
     }
+    public String getParams(){
+        //TODO get PARAMS is request Correct
+        return db.getInterpretation().getParams();
+    }
+    public String getRequest(){
+        if(request==null){
+            request=db.getInterpretation().requestInterpret();
+        }
+        return request;
+    }
+    public CodeBlock getDbInterpretation(){
+        if(request.equals(CALL)){
+            //TODO CALL
+        }
+        return db.getInterpretation().interpret();
+    }
+
     public Filtering<String> getFilter(String key) throws  IllegalArgumentException{
         if(filters.isFilterExist(key)){
             return filters.getFilterIfExist(key);

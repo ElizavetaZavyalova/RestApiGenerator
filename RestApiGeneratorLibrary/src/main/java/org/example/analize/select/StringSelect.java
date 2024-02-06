@@ -6,6 +6,7 @@ import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
 import org.example.read_json.rest_controller_json.Endpoint;
+import org.jooq.impl.DSL;
 
 public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
     public StringSelect(String request, PortRequestWithCondition<CodeBlock,String> select, Endpoint parent) {
@@ -15,7 +16,7 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
     @Override
     public CodeBlock interpret() {
         var block=CodeBlock.builder();
-                block.add("context.select(DSL.field($S)",tableName + "." + id)
+                block.add("context.select("+makeField("DSL.field($S)"),tableName + "." + id)
                         .add(".from($S)",realTableName);
         if(!realTableName.equals(tableName)){
             block.add(".as($S)",tableName);
@@ -23,6 +24,13 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
         block.add(")");
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
         return block.build();
+    }
+    String makeField(String choseField){
+        switch (aggregationFunction){
+            case MAX-> {return "DSL.max("+choseField+")";}
+            case MIN -> {return "DSL.min("+choseField+")";}
+            default -> {return choseField;}
+        }
     }
 
 

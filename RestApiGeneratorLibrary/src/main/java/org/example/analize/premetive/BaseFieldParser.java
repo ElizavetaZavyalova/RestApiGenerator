@@ -13,7 +13,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
     protected enum Type {
         STRING("s:"), BOOLEAN("b:"), INTEGER("i:");
-        String ident;
+        final String ident;
 
         Type(String ident) {
             this.ident = ident;
@@ -86,7 +86,6 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         this.fieldName = variable;
         this.realFieldName = parent.getRealFieldName(Action.deleteAction(variable, action));
         throwExceptionIfTypeAndActionIsNotCorrect();
-
     }
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {

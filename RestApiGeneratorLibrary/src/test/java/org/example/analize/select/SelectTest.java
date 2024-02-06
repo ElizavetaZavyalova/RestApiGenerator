@@ -12,6 +12,8 @@ import static org.example.analize.helpclass.CreateEndpoint.*;
 
 @Slf4j
 public class SelectTest {
+    static String max="max_";
+    static String min="min_";
 
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams1Select")
@@ -24,6 +26,16 @@ public class SelectTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams2Select")
     void ConstructorParams2SelectTest(String req1,String req2) {
+        Endpoint endpoint = makeEndpoint();
+        log.info(req1+"/"+req2);
+        StringSelect select1=new StringSelect(req1,null,endpoint);
+        log.info(select1.interpret().toString());
+        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        log.info(select2.interpret().toString());
+    }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("constructorParamsMaxMin")
+    void ConstructorParamsMaxMin(String req1,String req2) {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
         StringSelect select1=new StringSelect(req1,null,endpoint);
@@ -55,6 +67,11 @@ public class SelectTest {
                 Arguments.of(table1,table2+"/{"+fieldName2+"}"),
                 Arguments.of(table1+"/{"+fieldName1+"}",table2+"/{"+fieldName2+"}"),
                 Arguments.of(table1+"/{"+fieldName2+"}/{"+fieldName1+"}/",table2+"/{"+fieldName2+"}"));
+    }
+    static public Stream<Arguments> constructorParamsMaxMin() {
+        return Stream.of(
+                Arguments.of(max+table1,min+table2),
+                Arguments.of(table1,table2));
     }
     static public Stream<Arguments> constructorParamsNoId() {
         return Stream.of(

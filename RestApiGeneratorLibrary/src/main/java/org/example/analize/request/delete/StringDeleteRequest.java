@@ -8,7 +8,7 @@ import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock,String>{
-    protected StringDeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {
+    public StringDeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
     }
 

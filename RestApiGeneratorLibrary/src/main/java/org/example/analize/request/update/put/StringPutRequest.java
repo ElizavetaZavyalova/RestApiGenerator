@@ -11,7 +11,7 @@ import org.example.read_json.rest_controller_json.Endpoint;
 import java.util.List;
 
 public class StringPutRequest extends BaseUpdateRequest<CodeBlock,String> {
-    protected StringPutRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
+    public StringPutRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields, parent);
     }
 

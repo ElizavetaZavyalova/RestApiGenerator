@@ -9,7 +9,7 @@ import org.example.read_json.rest_controller_json.Endpoint;
 import java.util.List;
 
 public class StringGetRequest extends BaseGetRequest<CodeBlock,String>{
-    protected StringGetRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
+    public StringGetRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields, parent);
     }
 

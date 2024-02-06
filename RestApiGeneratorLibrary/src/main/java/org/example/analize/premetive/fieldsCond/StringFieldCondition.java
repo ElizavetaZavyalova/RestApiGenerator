@@ -25,9 +25,6 @@ public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
         return block.build();
     }
 
-    String toString(String string) {
-        return "\"" + string + "\"";
-    }
 
     @Override
     public String getParams() {

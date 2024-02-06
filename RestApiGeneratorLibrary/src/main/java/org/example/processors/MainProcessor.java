@@ -2,6 +2,7 @@ package org.example.processors;
 
 import com.google.auto.service.AutoService;
 import lombok.extern.slf4j.Slf4j;
+import org.example.processors.annotations.RestApiGenerator;
 import org.example.read_json.ParseJson;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -14,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-@SupportedAnnotationTypes("org.example.processors.RestApiGenerator")
+@SupportedAnnotationTypes("org.example.processors.annotations.RestApiGenerator")
 @AutoService(Processor.class)
 @Slf4j
 public class MainProcessor extends BaseProcessor {

@@ -1,12 +1,11 @@
 package org.example.analize.select.port_request;
 
 import com.squareup.javapoet.CodeBlock;
-import lombok.experimental.UtilityClass;
 import org.example.analize.where.BaseWhere;
 
 
 public record StringWereInterpret() {
-    static public CodeBlock makeWhere(BaseWhere< CodeBlock,String> where,PortRequestWithCondition<CodeBlock,String> selectNext,String tableName,String ref) {
+    public static CodeBlock makeWhere(BaseWhere< CodeBlock,String> where,PortRequestWithCondition<CodeBlock,String> selectNext,String tableName,String ref) {
         var block= CodeBlock.builder().add(".where(");
         if (where != null && selectNext != null) {
             return block.add("DSL.field($S)",tableName + "." + ref)
