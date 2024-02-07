@@ -1,5 +1,7 @@
 package org.example.analize.request.update.patch;
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.request.update.update.StringUpdate;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
@@ -20,8 +22,8 @@ public class StringPatch extends StringUpdate {
         if(fields.isEmpty()){
             return   block.add("))").build();
         }
-        block.add(fields.stream().map(name-> CodeBlock.builder().add(name.getParams()+", "+
-                        REQUEST_PARAM_MAP+".get($S)==null?"+name.getParams()+":DSL.val("+REQUEST_PARAM_MAP+".get($S))", name.getName(),name.getName()).build())
+        block.add(fields.stream().map(name-> CodeBlock.builder().add(name.interpret()+", "+
+                        REQUEST_PARAM_MAP+".get($S)==null?"+name.interpret()+":DSL.val("+REQUEST_PARAM_MAP+".get($S))", name.getName(),name.getName()).build())
                .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                .orElse(CodeBlock.builder().add(fields.get(0).interpret()).build()));
         block.add("))");

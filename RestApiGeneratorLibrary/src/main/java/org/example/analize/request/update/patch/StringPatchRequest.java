@@ -1,8 +1,10 @@
 package org.example.analize.request.update.patch;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.request.get.select.StringGetSelect;
 import org.example.analize.request.update.BaseUpdateRequest;

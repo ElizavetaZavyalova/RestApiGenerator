@@ -4,6 +4,8 @@ import org.example.analize.interpretation.Interpretation;
 import org.example.analize.premetive.fieldsCond.BaseFieldCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
 
+import java.util.Optional;
+
 import static org.example.analize.premetive.BaseFieldParser.Action.*;
 import static org.example.analize.premetive.BaseFieldParser.Action.NOT_LIKE;
 
@@ -11,7 +13,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String fieldName;
     protected String realFieldName;
 
-    protected enum Type {
+    public enum Type {
         STRING("s:"), BOOLEAN("b:"), INTEGER("i:");
         final String ident;
 
@@ -84,9 +86,12 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         variable =  Type.deleteType(variable, type);
         action =  Action.getAction(variable);
         this.fieldName = variable;
-        this.realFieldName = parent.getRealFieldName(Action.deleteAction(variable, action));
+        this.realFieldName=Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
+                .orElse(fieldName);
         throwExceptionIfTypeAndActionIsNotCorrect();
     }
+
+
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {
         if (type.equals(BaseFieldCondition.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {

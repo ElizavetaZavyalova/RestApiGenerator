@@ -1,9 +1,11 @@
 package org.example.analize.request.get.select;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringField;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
@@ -11,7 +13,7 @@ import org.example.analize.where.StringWhere;
 import org.example.read_json.rest_controller_json.Endpoint;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
     public StringGetSelect(String request, PortRequestWithCondition<CodeBlock, String> select, List<String> fields, Endpoint parent) {
@@ -48,13 +50,20 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
                 .orElse(fields.get(0).interpret()).toBuilder().build();
     }
 
-    @Override
-    public String getParams() {
-        return null;
-    }
+
 
     @Override
     protected BaseWhere<CodeBlock,String> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
+    }
+
+    @Override
+    public void addParams(List<VarInfo> params) {
+           if(this.where!=null){
+               where.addParams(params);
+           }
+        if(this.selectNext!=null){
+            selectNext.addParams(params);
+        }
     }
 }

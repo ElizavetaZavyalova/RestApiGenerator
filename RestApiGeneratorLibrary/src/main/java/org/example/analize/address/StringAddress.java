@@ -1,9 +1,14 @@
 package org.example.analize.address;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.StringSelect;
 import org.example.read_json.rest_controller_json.Endpoint;
+
+import java.util.List;
 
 public class StringAddress extends BaseAddress<CodeBlock,String>{
     public StringAddress(String url, Endpoint parent) {
@@ -31,8 +36,11 @@ public class StringAddress extends BaseAddress<CodeBlock,String>{
         return "";
     }
 
+
     @Override
-    public String getParams() {
-        return null;
+    public void addParams(List<VarInfo> params) {
+            if(this.selectCurrent!=null){
+                selectCurrent.addParams(params);
+            }
     }
 }

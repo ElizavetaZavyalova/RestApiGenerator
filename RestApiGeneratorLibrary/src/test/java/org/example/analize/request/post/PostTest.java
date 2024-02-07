@@ -1,12 +1,16 @@
 package org.example.analize.request.post;
 
+import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.example.analize.helpclass.CreateEndpoint.*;
@@ -21,6 +25,9 @@ public class PostTest {
         log.info(req);
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
         log.info(request.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        request.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {
         List<String> par=List.of(paramName1);

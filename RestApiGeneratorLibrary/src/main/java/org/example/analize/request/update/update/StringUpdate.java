@@ -1,8 +1,12 @@
 package org.example.analize.request.update.update;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringField;
+import org.example.analize.premetive.fields.StringFieldReal;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
@@ -27,19 +31,24 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock,String>{
         block.add(")");
         block.add(makeChooseFields());
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
-        return block.build();
+        return block.add(".execute();").build();
     }
 
     protected abstract CodeBlock makeChooseFields();
 
-    @Override
-    public String getParams() {
-        return null;
-    }
 
     @Override
     protected BaseField<CodeBlock> makeField(String name, String table, Endpoint parent) {
-        return  new StringField(name,table,parent);
+        return  new StringFieldReal(name,table,parent);
+    }
+    @Override
+    public void addParams(List<VarInfo> params) {
+        if(this.where!=null){
+            where.addParams(params);
+        }
+        if(this.selectNext!=null){
+            selectNext.addParams(params);
+        }
     }
 
     @Override

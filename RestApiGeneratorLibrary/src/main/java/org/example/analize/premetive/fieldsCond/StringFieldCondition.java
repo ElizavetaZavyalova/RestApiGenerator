@@ -1,8 +1,14 @@
 package org.example.analize.premetive.fieldsCond;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.TypeName;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 
+import java.util.List;
+
+import static org.example.file_code_gen.DefaultsVariablesName.Filter.PATH_VARIABLE_ANNOTATION;
 
 public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
     public StringFieldCondition(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
@@ -19,15 +25,12 @@ public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
             case LT -> block.add(".lt("+fieldName+")");
             case GE -> block.add(".ge("+fieldName+")");
             case GT -> block.add(".gt("+fieldName+")");
-            case LIKE -> block.add("like("+fieldName+")");
-            case NOT_LIKE -> block.add("not_like("+fieldName+")");
+            case LIKE -> block.add(".like("+fieldName+")");
+            case NOT_LIKE -> block.add(".not_like("+fieldName+")");
         }
         return block.build();
     }
-
-
-    @Override
-    public String getParams() {
-        return "";
+    public void addParams(List<VarInfo> params) {
+        params.add(new VarInfo(this.type,this.fieldName));
     }
 }

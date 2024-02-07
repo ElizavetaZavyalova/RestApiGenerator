@@ -1,15 +1,17 @@
 package org.example.analize.where;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.condition.StringOperand;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.filters.StringFilter;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class StringWhere extends BaseWhere<CodeBlock,String> {
     public StringWhere(String where, String table, Endpoint parent) {
@@ -30,11 +32,7 @@ public class StringWhere extends BaseWhere<CodeBlock,String> {
 
     }
 
-    @Override
-    public String getParams() {
-        return null;
-        //TODO make params
-    }
+
 
     @Override
     Interpretation<CodeBlock> makeFilter(String filter) {
@@ -53,5 +51,10 @@ public class StringWhere extends BaseWhere<CodeBlock,String> {
         makeFilterResult(left,def,table,parent);
         makeFilterResult(right,def,table,parent);
         return new StringOperand(left,right,operand);
+    }
+
+    @Override
+    public void addParams(List<VarInfo> params) {
+            ports.forEach(port->port.addParams(params));
     }
 }

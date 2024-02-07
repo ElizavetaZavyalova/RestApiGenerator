@@ -1,10 +1,16 @@
 package org.example.analize.address;
 
+import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.example.analize.helpclass.CreateEndpoint.*;
@@ -22,6 +28,9 @@ public class StringAdressTest {
         StringAddress address=new StringAddress(req,endpoint);
         log.info(address.endUrl);
         log.info(address.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        address.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsThrow")

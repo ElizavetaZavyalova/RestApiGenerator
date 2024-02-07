@@ -1,14 +1,21 @@
 package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.interpretation.Interpretation;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.filters.FilterCreation;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.jooq.Block;
+
+import java.util.List;
+import java.util.Optional;
 
 public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<String> {
     String result;
     String filterName;
+
 
     @Override
     public CodeBlock interpret() {
@@ -21,8 +28,8 @@ public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<S
 
     @Override
     public void makeFilter(Endpoint parent, String def, String table) {
-        def = (def == null ? "DSL.trueCondition()" : def);
-        result = parent.getFilter(filterName).makeFilter(table, def);
+        def = Optional.ofNullable(def).orElse("DSL.trueCondition()");
+        result = parent.getFilter(filterName).makeFilter(parent.getFuncName(),table, def);
     }
 
     @Override
@@ -31,7 +38,7 @@ public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<S
     }
 
     @Override
-    public String getParams() {
-        return null;
+    public void addParams(List<VarInfo> params) {
+        params.add(new VarInfo(filterName));
     }
 }

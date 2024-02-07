@@ -1,7 +1,9 @@
 package org.example.analize.condition;
 
+import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,6 +11,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -36,12 +41,27 @@ class StringOperandTest {
         StringOperand operand=new StringOperand(field1,field2,op);
         log.info("\n"+operand.interpret().toString());
         log.info(operand.requestInterpret());
+        List<VarInfo> list=new ArrayList<>();
+        operand.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+
         StringOperand operand2=new StringOperand(field1,makeStringFieldCondition(),op);
         log.info(operand2.requestInterpret());
+        List<ParameterSpec> list2=new ArrayList<>();
+        operand2.addParams(list);
+        log.info(list2.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+
         StringOperand operand3=new StringOperand(makeStringFieldCondition(),field2,op);
         log.info(operand3.requestInterpret());
+        List<ParameterSpec> list3=new ArrayList<>();
+        operand3.addParams(list);
+        log.info(list3.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+
         StringOperand operand4=new StringOperand(makeStringFieldCondition(),makeStringFieldCondition(),op);
         log.info(operand4.requestInterpret());
+        List<ParameterSpec> list4=new ArrayList<>();
+        operand4.addParams(list);
+        log.info(list4.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {
         return Stream.of(

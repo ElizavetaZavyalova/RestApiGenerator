@@ -28,7 +28,7 @@ public class ListStringFilter extends ListFilter<String> {
     }
 
     public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(filter)
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(getFuncName(parent.getFuncName()))
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), REQUEST_PARAM_MAP)
                 .addParameter(TypeName.get(String.class), TABLE_NAME_IN_FILTER)
@@ -40,9 +40,12 @@ public class ListStringFilter extends ListFilter<String> {
                 ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()");
         return methodBuilder.build();
     }
+    String getFuncName(String funcName){
+        return filter+"Of"+(funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
+    }
 
     @Override
     public String makeFilter(Object... args) {
-        return filter + "(" + REQUEST_PARAM_MAP + ", \"" + (String) args[0] + "\", " + (String) args[1] + ")";
+        return getFuncName((String) args[0]) + "(" + REQUEST_PARAM_MAP + ", \"" + (String) args[1] + "\", " + (String) args[2] + ")";
     }
 }

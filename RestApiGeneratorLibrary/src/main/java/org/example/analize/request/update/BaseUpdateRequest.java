@@ -1,5 +1,6 @@
 package org.example.analize.request.update;
 
+import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.request.update.update.BaseUpdate;
 import org.example.analize.select.port_request.PortRequestWithCondition;
@@ -24,8 +25,8 @@ public abstract class BaseUpdateRequest<R,C> extends BaseRequest<R,C> {
     }
 
     @Override
-    public String getParams() {
-        return null;
+    public void addParams(List<VarInfo> params) {
+        update.addParams(params);
     }
     protected abstract BaseUpdate<R,C> makeUpdate(String request, List<String> fields, PortRequestWithCondition<R,C> select, Endpoint parent);
 }

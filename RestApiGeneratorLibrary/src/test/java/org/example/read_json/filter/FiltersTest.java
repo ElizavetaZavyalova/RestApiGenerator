@@ -25,7 +25,7 @@ public class FiltersTest {
     void filter(Filter.FilterNames name, List<String> list){
         ListStringFilter filter=new ListStringFilter(name, list, filterName);
         log.info(filter.makeFilterMethod(CreateEndpoint.makeEndpoint()).toString());
-        log.info(filter.makeFilter("table","DSL.trueCondition()"));
+        log.info(filter.makeFilter(funcName,"table","DSL.trueCondition()"));
     }
     static public Stream<Arguments> constructorParamsFilters() {
         return Stream.of(

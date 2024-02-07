@@ -1,9 +1,14 @@
 package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.premetive.BaseFieldParser;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 
+
+import java.util.List;
 
 import static org.example.file_code_gen.DefaultsVariablesName.Filter.*;
 
@@ -36,13 +41,14 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             return builder.append("(").append(REQUEST_PARAM_MAP + ".get($S)))").toString();
     }
 
-    @Override
-    public String getParams() {
-        return null;
-    }
+
 
     @Override
     public String requestInterpret() {
         return null;
+    }
+
+    @Override
+    public void addParams(List<VarInfo> params) {
     }
 }

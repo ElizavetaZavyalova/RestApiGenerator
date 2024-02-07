@@ -1,7 +1,12 @@
 package org.example.analize.condition;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.interpretation.Interpretation;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.info.VarInfo;
+
+import java.util.List;
 
 public class StringOperand extends BaseOperand<CodeBlock> {
     public StringOperand(Interpretation<CodeBlock> left, Interpretation<CodeBlock> right, String op) {
@@ -21,7 +26,9 @@ public class StringOperand extends BaseOperand<CodeBlock> {
 
 
     @Override
-    public String getParams() {
-        return null;
+    public void addParams(List<VarInfo> params) {
+        left.addParams(params);
+        right.addParams(params);
+
     }
 }

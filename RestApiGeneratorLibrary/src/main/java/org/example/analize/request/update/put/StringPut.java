@@ -1,7 +1,9 @@
 package org.example.analize.request.update.put;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.interpretation.InterpretationBd;
+import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.request.update.update.StringUpdate;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.Endpoint;
@@ -24,7 +26,7 @@ public class StringPut extends StringUpdate {
         }
         block.add(fields.stream()
                         .map(name->CodeBlock.builder()
-                                .add(name.getParams()+", "+"DSL.val(Optional.ofNullable("+REQUEST_PARAM_MAP+".get($S)).orElse(DSL.defaultValue()))",name.getName()).build())
+                                .add(name.interpret()+", "+"DSL.val(Optional.ofNullable("+REQUEST_PARAM_MAP+".get($S)).orElse(DSL.defaultValue()))",name.getName()).build())
                 .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().add(fields.get(0).interpret()).build()));
         block.add("))");

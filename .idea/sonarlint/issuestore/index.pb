@@ -212,3 +212,7 @@ aRestApiGeneratorLibrary/src/main/java/org/example/read_json/rest_controller_jso
 ^RestApiGeneratorLibrary/src/main/java/org/example/processors/annotations/RestApiGenerator.java,d\6\d67c586669b309ab021d8950dfca970cd89d8136
 ê
 `RestApiGeneratorLibrary/src/main/java/org/example/processors/Package/RenamePackageProcessor.java,a\7\a7466404d5806ef2be6bff890fca4c991b15beb4
+è
+_RestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/StringFieldReal.java,a\3\a35e22283aeb9660af475ef5cf3901963fa114bc
+Ö
+URestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/info/VarInfo.java,6\6\661f91d7a71b0738d90b214bfd3f05ba284e564c

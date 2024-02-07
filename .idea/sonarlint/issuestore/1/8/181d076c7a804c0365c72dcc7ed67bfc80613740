@@ -1,7 +1,11 @@
 
 8
-java:S1700"Rename field "filters"(´Í½”ÿÿÿÿÿ8»Ä£œÒ1
-[
-java:S5993"9Change the visibility of this constructor to "protected".(Ğ©ìÌúÿÿÿÿ8ÊÄ£œÒ1
+java:S1700"Rename field "filters"(´Í½”ÿÿÿÿÿ8¡Ñ¿„Ø1
 D
-java:S2201"'The return value of "get" must be used.(Çõú‡8ËŞ©Ò1
+java:S2201""'The return value of "get" must be used.(Çõú‡8²Ñ¿„Ø1
+Z
+java:S1128"=Remove this unused import 'com.squareup.javapoet.MethodSpec'.(È¨¤Û8Ñë¹…Ø1
+m
+java:S1128"PRemove this unused import 'org.example.read_json.rest_controller_json.Endpoint'.(ˆ—Ä8Ñë¹…Ø1
+—
+java:S1128"zRemove this unused import 'org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListFilter'.(áĞá¨8¾Ñ¿„Ø1

@@ -1,11 +1,16 @@
 package org.example.analize.select;
 
+import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.example.analize.helpclass.CreateEndpoint.*;
@@ -22,6 +27,9 @@ public class SelectTest {
         StringSelect select=new StringSelect(req,null,endpoint);
         log.info(req);
         log.info(select.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        select.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams2Select")
@@ -30,8 +38,12 @@ public class SelectTest {
         log.info(req1+"/"+req2);
         StringSelect select1=new StringSelect(req1,null,endpoint);
         log.info(select1.interpret().toString());
+
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        select2.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsMaxMin")
@@ -42,6 +54,9 @@ public class SelectTest {
         log.info(select1.interpret().toString());
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        select2.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsNoId")
@@ -52,6 +67,9 @@ public class SelectTest {
         log.info(select1.interpret().toString());
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        select2.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams1Select() {
         return Stream.of(

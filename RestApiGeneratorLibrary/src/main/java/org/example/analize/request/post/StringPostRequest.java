@@ -1,6 +1,7 @@
 package org.example.analize.request.post;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.post.insert.BaseInsertRequest;
@@ -19,7 +20,7 @@ public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
 
     @Override
     public CodeBlock interpret() {
-        return this.insert.interpret();
+        return CodeBlock.builder().add(insert.interpret()).add(".execute();").build();
     }
 
     @Override
@@ -27,10 +28,7 @@ public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
         return null;
     }
 
-    @Override
-    public String getParams() {
-        return null;
-    }
+
 
     @Override
     protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {
@@ -41,4 +39,5 @@ public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
     BaseInsertRequest<CodeBlock, String> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
         return new StringInsertRequest(request,fields,select,parent);
     }
+
 }

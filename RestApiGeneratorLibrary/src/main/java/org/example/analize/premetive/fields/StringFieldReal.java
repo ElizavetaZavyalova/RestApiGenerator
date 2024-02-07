@@ -8,17 +8,14 @@ import org.example.read_json.rest_controller_json.Endpoint;
 
 import java.util.List;
 
-public class StringField extends BaseField<CodeBlock>{
-    public StringField(String name, String tableName, Endpoint parent) {
+public class StringFieldReal extends BaseField<CodeBlock>{
+    public StringFieldReal(String name, String tableName, Endpoint parent) {
         super(name, tableName, parent);
     }
 
     @Override
     public CodeBlock interpret() {
         var block= CodeBlock.builder().add("DSL.field($S)", tableName + "." + realFieldName);
-        if(!realFieldName.equals(name)){
-            block.add(".as($S)",name);
-        }
         return  block.build();
     }
 

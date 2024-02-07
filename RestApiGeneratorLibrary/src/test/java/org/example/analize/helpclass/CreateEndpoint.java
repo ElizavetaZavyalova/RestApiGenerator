@@ -28,6 +28,7 @@ public record CreateEndpoint() {
     static public final String id_T1="id_T1";
     static public final String id_T2="id_T2";
     static public final String T2_id="T2_id";
+    static public final String funcName="endpoint";
 
     public static Endpoint makeEndpoint(){
         Endpoint endpoint = Mockito.mock(Endpoint.class);
@@ -51,6 +52,8 @@ public record CreateEndpoint() {
         Mockito.doReturn(paramName2).when(endpoint).getRealFieldName(paramName2);
         Mockito.doReturn(realParamName3).when(endpoint).getRealFieldName(paramName3);
         Mockito.doReturn(realParamName4).when(endpoint).getRealFieldName(paramName4);
+
+        Mockito.doReturn(funcName).when(endpoint).getFuncName();
         return endpoint;
     }
 }

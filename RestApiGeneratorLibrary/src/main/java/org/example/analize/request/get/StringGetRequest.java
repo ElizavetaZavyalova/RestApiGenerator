@@ -1,6 +1,7 @@
 package org.example.analize.request.get;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.get.select.StringGetSelect;
@@ -15,7 +16,7 @@ public class StringGetRequest extends BaseGetRequest<CodeBlock,String>{
 
     @Override
     public CodeBlock interpret() {
-        return select.interpret();
+        return CodeBlock.builder().add(select.interpret()).add(".fetch();").build();
     }
 
     @Override
@@ -23,10 +24,7 @@ public class StringGetRequest extends BaseGetRequest<CodeBlock,String>{
         return select.requestInterpret();
     }
 
-    @Override
-    public String getParams() {
-        return null;
-    }
+
 
     @Override
     protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {

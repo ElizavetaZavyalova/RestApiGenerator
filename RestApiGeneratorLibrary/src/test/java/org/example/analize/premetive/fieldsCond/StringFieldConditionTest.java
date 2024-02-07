@@ -1,11 +1,18 @@
 package org.example.analize.premetive.fieldsCond;
 
+import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
+
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,6 +28,9 @@ public class StringFieldConditionTest {
     void ConstructorTestString(String name) {
         StringFieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        stringField.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
 
     @ParameterizedTest(name = "{arguments} test")
@@ -28,6 +38,9 @@ public class StringFieldConditionTest {
     void ConstructorTestInteger(String name) {
         StringFieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        stringField.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
 
     @ParameterizedTest(name = "{arguments} test")
@@ -42,6 +55,9 @@ public class StringFieldConditionTest {
     void ConstructorTestBoolean(String name) {
         StringFieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        stringField.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
 
     static StringFieldCondition make(String name) throws IllegalArgumentException {

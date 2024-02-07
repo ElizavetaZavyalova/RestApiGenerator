@@ -1,37 +1,46 @@
 package org.example.analize.request.delete.delete;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.ParameterSpec;
+import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
 import org.example.read_json.rest_controller_json.Endpoint;
 
-public class StringDelete extends BaseDelete<CodeBlock,String>{
+import java.util.List;
+
+public class StringDelete extends BaseDelete<CodeBlock, String> {
     public StringDelete(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
         super(request, select, parent);
     }
 
     @Override
     public CodeBlock interpret() {
-        var block=CodeBlock.builder();
-        block.add("context.deleteFrom(DSL.table($S)",realTableName);
-        if(!realTableName.equals(tableName)){
-            block.add(".as($S)",tableName);
+        var block = CodeBlock.builder();
+        block.add("context.deleteFrom(DSL.table($S)", realTableName);
+        if (!realTableName.equals(tableName)) {
+            block.add(".as($S)", tableName);
         }
         block.add(")");
-        block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
+        block.add(StringWereInterpret.makeWhere(where, selectNext, tableName, ref));
         return block.build();
     }
 
 
     @Override
-    public String getParams() {
-        return null;
+    protected BaseWhere<CodeBlock, String> makeWhere(String request, String tableName, Endpoint parent) {
+        return new StringWhere(request, tableName, parent);
     }
 
     @Override
-    protected BaseWhere<CodeBlock,String> makeWhere(String request, String tableName, Endpoint parent) {
-        return new StringWhere(request,tableName,parent);
+    public void addParams(List<VarInfo> params) {
+        if (this.selectNext != null) {
+            selectNext.addParams(params);
+        }
+        if (this.where != null) {
+            where.addParams(params);
+        }
     }
 }

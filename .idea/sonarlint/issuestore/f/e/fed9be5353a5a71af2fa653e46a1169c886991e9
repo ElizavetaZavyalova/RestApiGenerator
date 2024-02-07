@@ -1,3 +1,9 @@
 
 m
 java:S1149#"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(£¹ŠÆ8ï¢§Š×1
+]
+java:S1854"";Remove this useless assignment to local variable "postfix".(¡§Ö¢ÿÿÿÿÿ8Ü‰¨ƒØ1
+^
+java:S1854%"<Remove this useless assignment to local variable "argument".(åšÄþÿÿÿÿ8Ü‰¨ƒØ1
+d
+java:S1854B"BRemove this useless assignment to local variable "filterCreation".(ÉâŒ•ûÿÿÿÿ8Ù©ƒØ1
