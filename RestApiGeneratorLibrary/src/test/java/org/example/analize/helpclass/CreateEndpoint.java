@@ -30,6 +30,13 @@ public record CreateEndpoint() {
     static public final String T2_id="T2_id";
     static public final String funcName="endpoint";
 
+    static public final String tableNoRef1 = "Tno1";
+    static public final String tableNoRef2 = "Tno2";
+    static public final String tableNoRef3 = "Tno3";
+    static public final String tableNoRef4 = "Tno3";
+
+
+
     public static Endpoint makeEndpoint(){
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(List.of(id_T1,T2_id)).when(endpoint).getRealJoinName(table1,table2);
@@ -38,6 +45,16 @@ public record CreateEndpoint() {
         Mockito.doReturn(List.of(":",id_T2)).when(endpoint).getRealJoinName( table3,table2);
         Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(table1,table3);
         Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(table3,table1);
+
+        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(tableNoRef1,tableNoRef2);
+        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(tableNoRef2,tableNoRef3);
+        Mockito.doReturn(List.of(":",":")).when(endpoint).getRealJoinName(tableNoRef3,tableNoRef4);
+        Mockito.doReturn(tableNoRef1).when(endpoint).getRealTableName(tableNoRef1);
+        Mockito.doReturn(tableNoRef2).when(endpoint).getRealTableName(tableNoRef2);
+        Mockito.doReturn(tableNoRef3).when(endpoint).getRealTableName(tableNoRef3);
+        Mockito.doReturn(tableNoRef4).when(endpoint).getRealTableName(tableNoRef4);
+
+
 
         Mockito.doReturn(realFieldName1).when(endpoint).getRealFieldName(fieldName1);
         Mockito.doReturn(fieldName2).when(endpoint).getRealFieldName(fieldName2);

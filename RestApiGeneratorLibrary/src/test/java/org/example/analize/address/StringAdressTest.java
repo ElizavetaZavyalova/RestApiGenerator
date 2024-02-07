@@ -33,6 +33,18 @@ public class StringAdressTest {
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("constructorParamsRefId")
+    void ConstructorParamsNoRefTest(String req) {
+        Endpoint endpoint = makeEndpoint();
+        log.info(req);
+        StringAddress address=new StringAddress(req,endpoint);
+        log.info(address.endUrl);
+        log.info(address.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        address.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+    }
+    @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsThrow")
     void ConstructorParamsThrow(String req) {
         Endpoint endpoint = makeEndpoint();
@@ -55,6 +67,12 @@ public class StringAdressTest {
                 Arguments.of(""),
                 Arguments.of("/"),
                 Arguments.of("/{"+fieldName4+"}/"+table2));
+    }
+
+    static public Stream<Arguments> constructorParamsRefId() {
+        return Stream.of(
+                Arguments.of(tableNoRef1+"/:"+tableNoRef2+"/"+tableNoRef4),
+                Arguments.of(tableNoRef1+"/>"+tableNoRef2+"/<"+tableNoRef3+"/"+tableNoRef4));
     }
 
 
