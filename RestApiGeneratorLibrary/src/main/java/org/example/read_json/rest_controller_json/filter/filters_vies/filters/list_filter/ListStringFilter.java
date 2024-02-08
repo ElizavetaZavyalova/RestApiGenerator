@@ -4,7 +4,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import org.example.analize.premetive.filters.StringFilterField;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import javax.lang.model.element.Modifier;
 import java.util.ArrayList;

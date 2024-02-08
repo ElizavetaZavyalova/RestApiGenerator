@@ -2,7 +2,7 @@ package org.example.analize.premetive.fieldsCond;
 
 
 import org.example.analize.premetive.BaseFieldParser;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 
 public abstract class BaseFieldCondition<R> extends BaseFieldParser<R> {

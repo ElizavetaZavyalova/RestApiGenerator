@@ -1,14 +1,10 @@
 package org.example.analize.premetive.fieldsCond;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
-
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.PATH_VARIABLE_ANNOTATION;
 
 public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
     public StringFieldCondition(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {

@@ -3,7 +3,7 @@ package org.example.analize.request;
 import lombok.Getter;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.interpretation.Interpretation;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 public abstract class BaseRequest<R, C> implements Interpretation<R> {
     protected BaseAddress<R, C> address = null;

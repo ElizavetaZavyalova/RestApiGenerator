@@ -1,6 +1,10 @@
 plugins {
     id 'java'
+    id "org.springframework.boot" version "3.0.6"
+    id "io.freefair.lombok" version "8.3"
 }
+apply plugin: 'io.spring.dependency-management'
+
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
@@ -15,15 +19,24 @@ String restApiGeneratorPath= restApiGeneratorProjectPath+'\\RestApiGeneratorLibr
 dependencies {
     compileOnly files(restApiGeneratorPath)
     annotationProcessor files(restApiGeneratorPath)
-    compileOnly 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
     implementation 'ch.qos.logback:logback-classic:1.4.5'
-    testCompileOnly "org.projectlombok:lombok:1.18.26"
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
-    testImplementation 'com.google.truth:truth:1.1'
+    //spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //spring boot thymeleaf template
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.5'
+    //open api, swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
+    implementation 'io.swagger:swagger-models:1.6.10'
+    //spring actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.5'
+    implementation 'de.codecentric:spring-boot-admin-starter-client:3.0.3'
+
+
     testImplementation 'ch.qos.logback:logback-classic:1.4.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
 }
 test {
     useJUnitPlatform()

@@ -1,18 +1,14 @@
 package org.example.analize.request.update.update;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.premetive.fields.BaseField;
-import org.example.analize.premetive.fields.StringField;
 import org.example.analize.premetive.fields.StringFieldReal;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
-import org.example.read_json.rest_controller_json.Endpoint;
-import org.jooq.impl.DSL;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 

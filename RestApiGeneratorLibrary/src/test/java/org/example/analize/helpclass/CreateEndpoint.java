@@ -1,6 +1,6 @@
 package org.example.analize.helpclass;
 
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.mockito.Mockito;
 
 import java.util.List;

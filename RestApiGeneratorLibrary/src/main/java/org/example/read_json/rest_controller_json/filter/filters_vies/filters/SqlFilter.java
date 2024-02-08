@@ -11,6 +11,6 @@ public class SqlFilter extends StringFilter<String> {
 
     @Override
     public String makeFilter(Object...args) {
-        return "\""+val+"\"";
+        return "DSL.sql(\""+val+"\")";
     }
 }

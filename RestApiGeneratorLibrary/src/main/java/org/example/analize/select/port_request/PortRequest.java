@@ -2,15 +2,14 @@ package org.example.analize.select.port_request;
 
 import lombok.AllArgsConstructor;
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.BaseFieldParser;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 
 import static org.example.analize.select.port_request.PortRequest.RegExp.*;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 
 public abstract class PortRequest<R, C> implements Interpretation<R> {
     protected PortRequestWithCondition<R, C> selectNext;
@@ -19,20 +18,23 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
     protected String realTableName;
     protected String id = "id";
     protected String ref;
-    TableRef tableRef=TableRef.DEFAULT;
+    TableRef tableRef = TableRef.DEFAULT;
+
     @AllArgsConstructor
-    enum TableRef{
-        MANY_TO_ONE(">"),ONE_TO_MANY("<"),ONE_TO_ONE(":"), DEFAULT("");
+    enum TableRef {
+        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY), ONE_TO_ONE(_ONE_TO_ONE), DEFAULT("");
         private final String name;
-        static public TableRef getTableRef(String tableName ){
-            for (TableRef type :TableRef.values()) {
-                if (tableName.startsWith(type.name)&&!type.equals(DEFAULT)) {
+
+        public static TableRef getTableRef(String tableName) {
+            for (TableRef type : TableRef.values()) {
+                if (tableName.startsWith(type.name) && !type.equals(DEFAULT)) {
                     return type;
                 }
             }
             return DEFAULT;
         }
-        static public String deleteTableRef(String tableName,TableRef tableRef){
+
+        public static String deleteTableRef(String tableName, TableRef tableRef) {
             return tableName.substring(tableRef.name.length());
         }
     }
@@ -43,18 +45,22 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         static final int JOIN_CURRENT_REF_PORT = 1;
         static final int JOIN_PREVIOUS_REF_PORT = 0;
     }
-    String makeDefaultNextId(){
+
+    String makeDefaultNextId() {
         if (tableRef.equals(TableRef.MANY_TO_ONE)) {
-            return realTableName+"_id";
+            return realTableName + "_id";
         }
         return "id";
     }
-    String makeDefaultRef(){
-        switch (tableRef){
-            case MANY_TO_ONE,ONE_TO_ONE -> {
-                return  "id";
+
+    String makeDefaultRef() {
+        switch (tableRef) {
+            case MANY_TO_ONE, ONE_TO_ONE -> {
+                return "id";
             }
-            default->{return selectNext.realTableName + "_" + selectNext.id;}
+            default -> {
+                return selectNext.realTableName + "_" + selectNext.id;
+            }
         }
     }
 
@@ -86,10 +92,10 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
 
 
     protected void initTableName(String tableName, PortRequestWithCondition<R, C> select, Endpoint parent) throws IllegalArgumentException {
-       tableRef= TableRef.getTableRef(tableName);
-       tableName= TableRef.deleteTableRef(tableName,tableRef);
+        tableRef = TableRef.getTableRef(tableName);
+        tableName = TableRef.deleteTableRef(tableName, tableRef);
         throwException(tableName);
-        this.tableName=tableName;
+        this.tableName = tableName;
         realTableName = parent.getRealTableName(tableName);
         this.selectNext = select;
         if (select != null) {

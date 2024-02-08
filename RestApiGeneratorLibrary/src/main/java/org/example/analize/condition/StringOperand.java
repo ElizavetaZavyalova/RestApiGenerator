@@ -1,9 +1,9 @@
 package org.example.analize.condition;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
+
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+
 import org.example.analize.premetive.info.VarInfo;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class StringOperand extends BaseOperand<CodeBlock> {
 
     @Override
     public CodeBlock interpret() {
-       var block=CodeBlock.builder();
+        var block = CodeBlock.builder();
         switch (operand) {
             case OR -> block.add("DSL.or(");
             case AND -> block.add("DSL.and(");

@@ -1,7 +1,7 @@
 package org.example.analize.premetive.fields;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 @Slf4j

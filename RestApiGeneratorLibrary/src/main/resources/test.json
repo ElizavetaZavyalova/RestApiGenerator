@@ -1,14 +1,6 @@
 {
-  "packageName":{
-  "config_bd": {
+  "ControllerName":{
     "dialect": "POSTGRES",
-    "bd_name": "bd_name",
-    "url": "url",
-    "password": "pas",
-    "user": "user",
-    "perms": true,
-    "use_args_filters": true
-  },
     "pseudonyms": {
       "tables": {
         "users": ["user","current_user"]
@@ -19,18 +11,19 @@
       "type": "get:price|id|name",
       "request": "user/({i:eq_id}|[userFilter]&{b:is_name})/name/{i:id}/{s:nick}",
       "perms": true,
-      "swagger1": "получить",
+      "operation": "получить",
       "filters": {
-        "userFilter:or": "s:!=name|i:=age",
+        "userFilter:or": "s:eq_name|i:=age",
         "f3:and": "hello",
         "f2:sql": "name='Hello' or age=17",
         "f4:call": "name.age()"
       },
       "postEndpoint": {
-        "type": "post:age",
         "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/",
-        "perms": true,
-        "swagger1": "отправить",
+        "types": {
+          "post": "age",
+          "put":  "ahwe|jjdjd"
+        },
         "filters": {
           "userFilter:or": "s:!=name|i:=age",
           "f3:and": "hello",
@@ -42,7 +35,7 @@
         "type": "delete",
         "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
         "perms": true,
-        "swagger1": "удалить",
+        "operation": "удалить",
         "filters": {
           "userFilter:or": "s:!=name|i:=age",
           "f3:and": "hello",
@@ -53,7 +46,7 @@
           "type": "patch:nick",
           "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )/name/{s:id}/{s:nick}",
           "perms": true,
-          "swagger1": "изменить",
+          "operation": "изменить",
           "filters": {
             "userFilter:or": "s:!=name|i:=age",
             "f3:and": "hello",
@@ -65,7 +58,7 @@
           "type": "put:nick|name",
           "request": "user/( {i:eq_id}|[userFilter]&{b:is_name} )|[f2]/name/{s:id}/{s:nick}",
           "perms": true,
-          "swagger1": "изменить целиком",
+          "operation": "изменить целиком",
           "filters": {
             "userFilter:or": "s:!=name|i:=age",
             "f3:and": "hello",

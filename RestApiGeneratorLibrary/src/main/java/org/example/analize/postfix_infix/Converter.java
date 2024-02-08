@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import static org.example.analize.postfix_infix.Converter.Operand.*;
 import static org.example.analize.postfix_infix.Converter.RegExp.FIND_OPERATOR_OR_BRACKET;
 import static org.example.analize.postfix_infix.Converter.RegExp.NOT_DELETE_EMPTY_STRING_ON_END;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.*;
 
 @Slf4j
 @UtilityClass
@@ -19,26 +19,20 @@ public class Converter {
         public static final String FIND_OPERATOR_OR_BRACKET = "([|)&(])";
     }
 
-    record Operand() {
-        static final String LEFT_BRACKET = "(";
-        static final String RIGHT_BRACKET = ")";
-        static final String AND = "&";
-        static final String OR = "|";
-    }
 
     public static boolean isOperator(String operator) {
         return isAND(operator) || isOR(operator);
     }
 
-    static  public boolean isAND(String operator) {
-        return operator.equals(AND);
+    public static  boolean isAND(String operator) {
+        return operator.equals(AND_);
     }
 
-    static  public boolean isOR(String operator) {
-        return operator.equals(OR);
+    public static boolean isOR(String operator) {
+        return operator.equals(OR_);
     }
 
-    static public Queue<String> toPostfix(String condition) throws IllegalArgumentException {
+    public static  Queue<String> toPostfix(String condition) throws IllegalArgumentException {
         Stack<String> stack = new Stack<>();
         Queue<String> queue = new LinkedList<>();
         String[] elements = condition.split(FIND_OPERATOR_OR_BRACKET, NOT_DELETE_EMPTY_STRING_ON_END);
@@ -81,7 +75,7 @@ public class Converter {
             if (isLeftBracket(stack.peek())) {
                 throw new IllegalArgumentException(RIGHT_BRACKET + " NOT FOUND");
             }
-            addElementOnQueue(queue,stack.pop());
+            addElementOnQueue(queue, stack.pop());
         }
     }
 
@@ -134,8 +128,8 @@ public class Converter {
 
     static int getPriority(String operand) throws IllegalArgumentException {
         return switch (operand) {
-            case AND -> 2;
-            case OR -> 1;
+            case AND_ -> 2;
+            case OR_ -> 1;
             case LEFT_BRACKET -> -1;
             default -> throw new IllegalStateException("NOT CORRECT: " + operand);
         };

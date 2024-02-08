@@ -1,11 +1,12 @@
 package org.example.analize.select.port_request;
 import lombok.AllArgsConstructor;
 import org.example.analize.where.BaseWhere;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 
 import static org.example.analize.select.port_request.PortRequestWithCondition.AggregationFunction.NO;
 import static org.example.analize.select.port_request.PortRequestWithCondition.RegExp.*;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.AggregationFunction.*;
 
 public abstract class PortRequestWithCondition<R,C> extends PortRequest<R,C> {
 
@@ -29,9 +30,9 @@ public abstract class PortRequestWithCondition<R,C> extends PortRequest<R,C> {
     protected AggregationFunction aggregationFunction=NO;
     @AllArgsConstructor
     public enum AggregationFunction{
-      MAX("max_"),MIN("min_"), NO("");
+      MAX(_MAX),MIN(_MIN), NO("");
         private final String name;
-        static public AggregationFunction getAggregationFunction(String tableName ){
+        public  static  AggregationFunction getAggregationFunction(String tableName ){
             for (AggregationFunction type : AggregationFunction.values()) {
                 if (tableName.startsWith(type.name)&&!type.equals(NO)) {
                     return type;
@@ -39,10 +40,10 @@ public abstract class PortRequestWithCondition<R,C> extends PortRequest<R,C> {
             }
             return NO;
         }
-        static public String deleteAggregationFunction(String tableName,AggregationFunction func){
+        public static String deleteAggregationFunction(String tableName,AggregationFunction func){
             return tableName.substring(func.name.length());
         }
-        static public String addAggregationFunction(String tableName,AggregationFunction func){
+        public static String addAggregationFunction(String tableName,AggregationFunction func){
             return func.name+tableName;
         }
     }

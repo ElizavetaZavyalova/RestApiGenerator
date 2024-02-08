@@ -27,8 +27,7 @@ dependencies {
     testCompileOnly "org.projectlombok:lombok:1.18.26"
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
     testImplementation 'ch.qos.logback:logback-classic:1.4.5'
-    testImplementation 'com.google.testing.compile:compile-testing:0.21.0'
-    testImplementation 'com.google.truth:truth:1.1'
+    //testImplementation 'com.google.testing.compile:compile-testing:0.21.0'
     // https://mvnrepository.com/artifact/org.assertj/assertj-core
     testImplementation 'org.assertj:assertj-core:3.24.2'
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all

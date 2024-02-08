@@ -1,13 +1,9 @@
 package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
-import org.example.analize.premetive.filters.FilterCreation;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.read_json.rest_controller_json.Endpoint;
-import org.jooq.Block;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 import java.util.Optional;

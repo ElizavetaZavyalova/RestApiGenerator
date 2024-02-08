@@ -4,7 +4,7 @@ import org.example.analize.interpretation.InterpretationOfRequest;
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.premetive.filters.FilterCreation;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -12,15 +12,12 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 import static org.example.analize.where.BaseWhere.RegExp.*;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.*;
 
 public abstract class BaseWhere<R,C> implements Interpretation<R> {
     ArrayList<Interpretation<R>> ports=new ArrayList<>();
     record RegExp(){
         static final String SPLIT="/";
-        static final String LEFT_SQUARE_BRACKET="[";
-        static final String RIGHT_SQUARE_BRACKET="]";
-        static final String LEFT_CURLY_BRACKET="{";
-        static final String RIGHT_CURLY_BRACKET="}";
     }
     BaseWhere(String where, String table, Endpoint parent){
         String[] wherePorts= where.split(SPLIT);

@@ -1,13 +1,12 @@
 package org.example.analize.select;
 
 import com.squareup.javapoet.CodeBlock;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 

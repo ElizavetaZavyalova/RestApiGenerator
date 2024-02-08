@@ -17,28 +17,28 @@ import javax.annotation.processing.RoundEnvironment;
 @Getter
 public class AST {
     @Setter
-    static AST ast=null;
+    static AST ast = null;
     @Setter
     protected RoundEnvironment roundEnvironment;
-    protected Messager messager;   // Used to log during compilation
-    protected JavacTrees trees;    // Provides an abstract syntax tree to be processed
-    protected TreeMaker treeMaker; // Encapsulates some methods of creating AST nodes
+    protected Messager messager;
+    protected JavacTrees trees;
+    protected TreeMaker treeMaker;
     protected Names names;
     protected Context context;
     protected ProcessingEnvironment processingEnv;
     protected Filer filer;
 
-    AST(ProcessingEnvironment processingEnv){
+    AST(ProcessingEnvironment processingEnv) {
         this.context = ((JavacProcessingEnvironment) processingEnv).getContext();
         this.messager = processingEnv.getMessager();
         this.trees = JavacTrees.instance(processingEnv);
         this.treeMaker = TreeMaker.instance(context);
         this.names = Names.instance(context);
-        this.processingEnv=processingEnv;
-        this.filer= processingEnv.getFiler();
-
+        this.processingEnv = processingEnv;
+        this.filer = processingEnv.getFiler();
     }
-    public static AST instance(){
+
+    public static AST instance() {
         return ast;
     }
 

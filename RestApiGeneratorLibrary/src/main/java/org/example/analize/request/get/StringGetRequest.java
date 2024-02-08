@@ -1,12 +1,11 @@
 package org.example.analize.request.get;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.get.select.StringGetSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.List;
 
 public class StringGetRequest extends BaseGetRequest<CodeBlock,String>{

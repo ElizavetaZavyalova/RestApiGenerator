@@ -1,14 +1,11 @@
 package org.example.read_json.rest_controller_json.filter;
 
-import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
-import org.example.read_json.rest_controller_json.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.CallFilter;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.SqlFilter;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListFilter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 
 import java.util.*;

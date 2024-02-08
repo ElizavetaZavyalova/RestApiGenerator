@@ -1,11 +1,10 @@
 package org.example.analize.request.post;
 
-import com.squareup.javapoet.ParameterSpec;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.request.post.insert.BaseInsertRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 

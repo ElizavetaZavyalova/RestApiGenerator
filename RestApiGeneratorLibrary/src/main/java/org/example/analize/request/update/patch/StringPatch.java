@@ -1,13 +1,10 @@
 package org.example.analize.request.update.patch;
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.ParameterSpec;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.request.update.update.StringUpdate;
 import org.example.analize.select.port_request.PortRequestWithCondition;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.example.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_MAP;
 

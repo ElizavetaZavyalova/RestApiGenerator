@@ -2,19 +2,20 @@ package org.example.analize.premetive;
 
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.premetive.fieldsCond.BaseFieldCondition;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.Optional;
 
 import static org.example.analize.premetive.BaseFieldParser.Action.*;
-import static org.example.analize.premetive.BaseFieldParser.Action.NOT_LIKE;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.Action.*;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TypeVar.*;
 
 public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String fieldName;
     protected String realFieldName;
 
     public enum Type {
-        STRING("s:"), BOOLEAN("b:"), INTEGER("i:");
+        STRING(_STRING), BOOLEAN(_BOOLEAN), INTEGER(_INTEGER);
         final String ident;
 
         Type(String ident) {
@@ -48,14 +49,14 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
     protected enum Action {
 
-        EQ("eq"),
-        NE("ne"),
-        LIKE("like"),
-        NOT_LIKE("not_like"),
-        GE("ge"),
-        GT("gt"),
-        LE("le"),
-        LT("lt");
+        EQ(_EQ),
+        NE(_NE),
+        LIKE(_LIKE),
+        NOT_LIKE(_NOT_LIKE),
+        GE(_GE),
+        GT(_GT),
+        LE(_LE),
+        LT(_LT);
 
         final String names;
 

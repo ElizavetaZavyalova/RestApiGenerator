@@ -1,7 +1,7 @@
 package org.example.analize.premetive.filters;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.SqlFilter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
@@ -37,6 +37,7 @@ public class StringFilterTest {
         Mockito.doReturn(filterAnd).when(endpoint).getFilter(filterNameAnd);
         Mockito.doReturn(filterOr).when(endpoint).getFilter(filterNameOr);
         Mockito.doReturn(filterSQL).when(endpoint).getFilter(filterNameSql);
+        Mockito.doReturn("funcName").when(endpoint).getFuncName();
         Mockito.doThrow(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
         //Mockito.doReturn(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
         return endpoint;

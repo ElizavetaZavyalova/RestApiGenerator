@@ -3,6 +3,7 @@ package org.example.read_json.rest_controller_json;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public record MakeCast() {
     public static Map<String, Object> makeMap(Object object, String name) throws IllegalArgumentException {
@@ -12,11 +13,36 @@ public record MakeCast() {
             throw new IllegalArgumentException(name + " MUST BE MAP");
         }
     }
+    public static Map<String, String> makeMapOrMapFromString(Object object, String keyWord) throws IllegalArgumentException {
+        try {
+            return (Map<String, String>) object;
+        } catch (ClassCastException ex) {
+
+            return Map.of(keyWord, makeString(object,keyWord));
+
+        }
+    }
     public static Map<String, String> makeStringMap(Map<String, Object> restJson, String keyWord,boolean requiredParameter) throws IllegalArgumentException {
         try {
             if (restJson.containsKey(keyWord)) {
                 return (Map<String, String>) restJson.get(keyWord);
             } else if (!requiredParameter) {
+                return new HashMap<>();
+            }
+            throw new IllegalArgumentException("NO " + keyWord);
+        } catch (ClassCastException ex) {
+            throw new IllegalArgumentException(keyWord + " MUST BE STRING MAP");
+        }
+    }
+    public static Map<String, Map<String,String>> makeMapOfStringMap(Map<String, Object> restJson, String keyWord,String addField,boolean requiredParameter) throws IllegalArgumentException {
+        Map<String, Map<String,String>> mapResult=  new HashMap<>();
+        try {
+            if (restJson.containsKey(keyWord)) {
+                Map<String, Object> map= (Map<String, Object>) restJson.get(keyWord);
+                map.forEach((k,v)-> {mapResult.put(k,makeMapOrMapFromString(v,addField));});
+                return mapResult;
+            }
+            else if (!requiredParameter) {
                 return new HashMap<>();
             }
             throw new IllegalArgumentException("NO " + keyWord);
@@ -32,31 +58,8 @@ public record MakeCast() {
         return makeMap(restJson.get(keyWord), keyWord);
     }
 
-    static String makeFromStringList(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
-        try {
-            if (configJson.containsKey(keyWord)) {
-                return String.join("", (List<String>) configJson.get(keyWord));
-            } else if (!requiredParameter) {
-                return "";
-            }
-            throw new IllegalArgumentException("NO " + keyWord);
-        } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE LIST OF STRING");
-        }
-    }
 
-    static String makeStringFromStringOrList(Map<String, Object> configJson, String keyWord1, String keyWord2, boolean requiredParameter) throws IllegalArgumentException {
-        if (configJson.containsKey(keyWord1) && configJson.containsKey(keyWord2)) {
-            throw new IllegalArgumentException(keyWord1 + " AND " + keyWord2 + " NOT USE IN ONE PLACE");
-        }
-        if (configJson.containsKey(keyWord1)){
-            return MakeCast.makeString(configJson, keyWord1, requiredParameter);
-        }
-        return makeFromStringList(configJson, keyWord2, requiredParameter);
-
-    }
-
-    static String makeString(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
+    public static String makeStringIfContainsKeyMap(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
             if (configJson.containsKey(keyWord)) {
                 return (String) configJson.get(keyWord);
@@ -68,8 +71,17 @@ public record MakeCast() {
         }
         throw new IllegalArgumentException("NO " + keyWord);
     }
+    static String makeString(Object configJson, String keyWord) throws IllegalArgumentException {
+        try {
+            return (String) Optional.ofNullable(configJson).orElse("");
+        } catch (ClassCastException ex) {
 
-    static Boolean makeBoolean(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
+                throw new IllegalArgumentException(keyWord + " MUST BE STRING");
+        }
+
+    }
+
+    public static Boolean makeBoolean(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
             if (configJson.containsKey(keyWord)) {
                 return (Boolean) configJson.get(keyWord);

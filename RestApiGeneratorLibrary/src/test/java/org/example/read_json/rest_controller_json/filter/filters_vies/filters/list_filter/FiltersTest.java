@@ -1,4 +1,4 @@
-package org.example.read_json.filter;
+package org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;

@@ -1,28 +1,18 @@
 package org.example.read_json.rest_controller_json;
 
 import lombok.Getter;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.RestJsonFilters;
-import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms;
 
 import java.util.Map;
-import static org.example.read_json.rest_controller_json.RestJson.KeyWords.*;
+
+import static org.example.read_json.rest_controller_json.JsonKeyWords.*;
 
 @Slf4j
 public class RestJson {
-
-   record KeyWords(){
-        static String CONFIG="config_bd";
-        static String HTTP="http";
-        static  String PSEUDONYMS="pseudonyms";
-        static String FILTERS="filters";
-    }
     String location;
-
-    ConfigBd config;
+    String dialect;
     Endpoints http;
     @Getter
     RestJsonPseudonyms pseudonyms;
@@ -32,8 +22,8 @@ public class RestJson {
     public RestJson(Map<String,Object> map,String location) {
         try {
             this.location=location;
-            config=new ConfigBd(MakeCast.makeMapAndCheckKey(map,CONFIG),this);
-            http=new Endpoints(MakeCast.makeMapAndCheckKey(map,HTTP),this);
+            dialect =MakeCast.makeStringIfContainsKeyMap(map, DIALECT, true);
+            http=new Endpoints(MakeCast.makeMapAndCheckKey(map,HTTP),this,location);
             pseudonyms=new RestJsonPseudonyms(MakeCast.makeMapOfMapOfList(map,PSEUDONYMS,false),this);
             filters=new RestJsonFilters(MakeCast.makeStringMap(map,FILTERS,false),this);
         }catch (IllegalArgumentException ex){

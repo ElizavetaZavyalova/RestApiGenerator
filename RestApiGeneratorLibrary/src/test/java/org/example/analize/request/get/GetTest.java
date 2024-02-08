@@ -1,9 +1,8 @@
 package org.example.analize.request.get;
 
-import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.read_json.rest_controller_json.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
