@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
+
 @Slf4j
 @RestApiGenerator(jsonPath = "resources/api.json")//не видит если не full path
 @SpringBootApplication

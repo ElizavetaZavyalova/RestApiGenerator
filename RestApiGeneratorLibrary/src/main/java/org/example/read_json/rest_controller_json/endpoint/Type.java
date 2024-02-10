@@ -1,5 +1,6 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
+import com.squareup.javapoet.AnnotationSpec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +8,10 @@ import org.example.read_json.rest_controller_json.InterpretDb;
 
 import java.util.*;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RequestMapping.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.*;
+
 import static org.example.read_json.rest_controller_json.endpoint.Type.RegExp.*;
 
 @Getter
@@ -15,7 +19,7 @@ import static org.example.read_json.rest_controller_json.endpoint.Type.RegExp.*;
 public class Type {
     final RequestType requestType;
     List<String> params = new ArrayList<>();
-    String operation = "";
+    String operationSummary = "";
     String httpOk = "OK";
     String httpException = "NOT_FOUND";
     @Setter
@@ -26,10 +30,31 @@ public class Type {
 
     }
 
+    public AnnotationSpec getMapping(String request){
+        AnnotationSpec.Builder mapping = null;
+        switch (requestType) {
+            case GET : {mapping = AnnotationSpec.builder(GET_MAPPING_ANNOTATION_CLASS); break;}
+            case POST : {mapping = AnnotationSpec.builder(POST_MAPPING_ANNOTATION_CLASS);break;}
+            case PUT : {mapping = AnnotationSpec.builder(PUT_MAPPING_ANNOTATION_CLASS);break;}
+            case PATCH : {mapping = AnnotationSpec.builder(PATCH_MAPPING_ANNOTATION_CLASS);break;}
+            case DELETE : {mapping = AnnotationSpec.builder(DELETE_MAPPING_ANNOTATION_CLASS);break;}
+        }
+        return mapping.addMember("value", "$S",request).build();
+    }
+    public AnnotationSpec getResponseStatus(){
+        AnnotationSpec.Builder mapping = AnnotationSpec.builder(RESPONSE_STATUS_ANNOTATION_CLASS );
+        return mapping.addMember("value", "$T."+httpOk,HTTP_STATUS_CLASS).build();
+    }
+    public AnnotationSpec getOperation(){
+        AnnotationSpec.Builder mapping = AnnotationSpec.builder(OPERATION_ANNOTATION_CLASS);
+        return mapping.addMember("summary", "$S",operationSummary).build();
+    }
+
+
     public Type(String type, Map<String, String> info) throws IllegalArgumentException {
+        setDefaultStatus();
         setInfo(info);
         requestType = RequestType.fromName(type);
-        setDefaultStatus();
         createParams(info);
     }
 
@@ -79,7 +104,7 @@ public class Type {
             httpException = info.get(HTTP_EXCEPTION);
         }
         if (info.containsKey(OPERATION)) {
-            operation = info.get(OPERATION);
+            operationSummary = info.get(OPERATION);
         }
     }
 

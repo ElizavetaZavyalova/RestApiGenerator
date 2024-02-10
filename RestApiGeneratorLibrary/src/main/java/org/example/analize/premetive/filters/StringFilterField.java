@@ -8,7 +8,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 public class StringFilterField extends BaseFieldParser<CodeBlock> {
     public StringFilterField(String variable, Endpoint parent) throws IllegalArgumentException {

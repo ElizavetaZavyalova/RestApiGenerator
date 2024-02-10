@@ -1,6 +1,8 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_MAP;
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.RESULT_OF_RECORD_CLASS;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.RESULT_OF_RECORD_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
@@ -68,8 +72,36 @@ public class RequestInformation {
                 methodBuilder.addParameter(parameterSpec.getParameterSpec());
             }
         }
-        methodBuilder.addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), REQUEST_PARAM_MAP);
+        methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
         return addCode(addReturns(methodBuilder, type), type).build();
+    }
+    public MethodSpec makeControllerMethod(String funcName, Type type,String beanName,String request) {
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
+                .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
+                .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
+        for (VarInfo parameterSpec : varInfos) {
+            if (!parameterSpec.isFilter()) {
+                methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
+            }
+        }
+        methodBuilder.addParameter(ParameterSpec.builder(MULTI_VALUE_MAP, REQUEST_PARAM_NAME)
+                .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
+        //TODO
+        methodBuilder.addParameter( REQUEST_PARAMS, REQUEST_PARAM_NAME);
+        addReturns(methodBuilder, type).addStatement(beanName+"."+funcName+"("+
+                varInfos.stream().map(VarInfo::getName).collect(Collectors.joining(", "))+
+                ", "+REQUEST_PARAM_NAME+")");
+
+        return addCode(addReturns(methodBuilder, type), type).build();
+    }
+    public List<MethodSpec> makeControllerMethods(String funcName,String beanName) {
+        List<Type> typeList = this.types.getTypeList();
+        String request=typeList.get(0).getInterpretDb().getInterpretation().requestInterpret();
+        List<MethodSpec> methodSpecs = new ArrayList<>();
+        for (Type type : typeList) {
+            methodSpecs.add(makeControllerMethod(funcName, type,beanName,request));
+        }
+        return methodSpecs;
     }
 
     public List<MethodSpec> makeDBMethods(String funcName) {

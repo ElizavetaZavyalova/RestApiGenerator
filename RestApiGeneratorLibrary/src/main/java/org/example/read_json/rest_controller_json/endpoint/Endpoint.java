@@ -58,7 +58,9 @@ public class Endpoint {
         list.addAll(requestInformation.makeDBMethods(funcName));
         return list;
     }
-
+    public List<MethodSpec> getControllerMethods(String beanName) throws IllegalArgumentException {
+        return requestInformation.makeControllerMethods(funcName,beanName);
+    }
     public Filtering<String> getFilter(String key) throws IllegalArgumentException {
         if (filters.isFilterExist(key)) {
             return filters.getFilterIfExist(key);

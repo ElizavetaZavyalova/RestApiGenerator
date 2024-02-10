@@ -1,0 +1,9 @@
+
+_
+java:S1854"=Remove this useless assignment to local variable "parseJson".(µ§¡®úÿÿÿÿ8üõÄüØ1
+\
+java:S1854"?Remove this useless assignment to local variable "packageName".(ûõ»8ıõÄüØ1
+M
+java:S1481"0Remove this unused "packageName" local variable.(ûõ»8‚öÄüØ1
+P
+java:S1481".Remove this unused "parseJson" local variable.(µ§¡®úÿÿÿÿ8…öÄüØ1

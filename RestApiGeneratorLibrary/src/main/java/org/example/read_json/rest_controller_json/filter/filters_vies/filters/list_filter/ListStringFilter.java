@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONDITION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 
 public class ListStringFilter extends ListFilter<String> {
