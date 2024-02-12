@@ -44,6 +44,16 @@ class PseudonymsTest {
         assertEquals(pseudonyms.getRealTableName("t21"), "t2", () -> "t21->t2");
         assertEquals(pseudonyms.getRealTableName("noPres"), "noPres", () -> "noPres->noPres");
     }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("entityTest")
+    void entityTables(String name) {
+        Map<String, Map<String, List<String>>> object = (Map<String, Map<String, List<String>>>) json.get(name);
+        log.info(object.toString());
+        Pseudonyms pseudonyms = new EndpointPseudonyms(object, create());
+        assertEquals(pseudonyms.getRealEntity("entity1"),List.of("e11","e12","e13"),()->"entity1");
+        assertEquals(pseudonyms.getRealEntity("entity2"),List.of("e21","e22","e23"),()->"entity2");
+        assertEquals(pseudonyms.getRealEntity("entity3"),List.of("entity3"),()->"entity3");
+    }
 
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("fieldTest")
@@ -81,6 +91,10 @@ class PseudonymsTest {
 
     static public Stream<Arguments> joinsTest() {
         return json.keySet().stream().filter(k -> k.startsWith("joins"))
+                .map(Arguments::of).toList().stream();
+    }
+    static public Stream<Arguments> entityTest() {
+        return json.keySet().stream().filter(k -> k.startsWith("entity"))
                 .map(Arguments::of).toList().stream();
     }
 
