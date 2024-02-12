@@ -53,11 +53,7 @@ public abstract class BaseWhere<R,C> implements Interpretation<R> {
         throw new IllegalArgumentException("FILTER MUST BE IN:"+LEFT_SQUARE_BRACKET+RIGHT_SQUARE_BRACKET+" OR " +
                 "PRIMITIVE MUST BE IN:"+LEFT_CURLY_BRACKET+RIGHT_CURLY_BRACKET);
     }
-    @Override
-    public String requestInterpret() {
-        return ports.stream().map(InterpretationOfRequest::requestInterpret)
-                .filter(s->!s.isEmpty()).collect(Collectors.joining("/"));
-    }
+
     void makeFilterResult(Interpretation<R> interpretation, C operand, String table, Endpoint parent) {
         if (interpretation instanceof FilterCreation) {
             FilterCreation<C> filterCreation = (FilterCreation<C>) interpretation;

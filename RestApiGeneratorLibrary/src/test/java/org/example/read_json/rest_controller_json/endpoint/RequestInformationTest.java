@@ -1,12 +1,20 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
+import com.squareup.javapoet.MethodSpec;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.helpclass.CreateEndpoint;
+import org.example.read_json.ReadJson;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -17,54 +25,54 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class RequestInformationTest {
-
-    @Test
-    void generateBd() {
-    }
-
-    @Test
-    void makeDBMethod() {
-    }
-
-    @Test
-    void makeDBMethods() {
-    }
-
-    static public Stream<Arguments> constructorParamsType() {
-        return Stream.of(
-                Arguments.of(Map.of(TYPES, Map.of(_GET, info))),
-                Arguments.of(Map.of(TYPES, Map.of(_DELETE, infoY, _GET, info))),
-                Arguments.of(Map.of("ty", Map.of())),
-                Arguments.of(Map.of(TYPES, Map.of(_POST, (Object) info1F, _GET, (Object) "gtr|gre|io"))));
-    }
-
-    static public Stream<Arguments> constructorParamsTypeThrow() {
-        return Stream.of(
-                Arguments.of(Map.of(TYPES, Map.of(_POST, (Object) info1F, _GET, (Object) 345))),
-                Arguments.of(Map.of(TYPES, Map.of(_POST, info))));
+    static Map<String,Object> json;
+    @BeforeAll
+    @SneakyThrows
+    static void loadJson(){
+        ReadJson readJson=new ReadJson();
+        json=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\requestInformation\\requestInformationTest.json");
     }
 
     @ParameterizedTest(name = "{arguments} test")
-    @MethodSource("constructorParamsType")
-    void TypesTest(Map<String, Object> map) {
-        log.info("Params:" + map.toString());
-        RequestInformation.Types types = new RequestInformation.Types(map);
-        log.info("Types:" + types.toString());
+    @MethodSource("typeTest")
+    void generateTypeTest(String name) {
+        Map<String,Object> object=(Map<String,Object>)json.get(name);
+        log.info(object.toString());
+        RequestInformation information=new RequestInformation(object,CreateEndpoint.creteEndpointReturnEntityName());
+        Endpoint endpoint= CreateEndpoint.creteEndpoint(information);
+        information.generateBd(endpoint);
+        log.info("\n"+information.makeDBMethods(endpoint.getFuncName()).stream().map(MethodSpec::toString).collect(Collectors.joining("\n")));
+        log.info("\n"+information.makeControllerMethods(endpoint.getFuncName(),"bean").stream().map(MethodSpec::toString).collect(Collectors.joining("\n")));
     }
-
     @ParameterizedTest(name = "{arguments} test")
-    @MethodSource("constructorParamsTypeThrow")
-    void TypesTestThrow(Map<String, Object> map) {
-        log.info("Params:" + map.toString());
-        var ex = assertThrows(IllegalArgumentException.class, () -> new RequestInformation.Types(map));
+    @MethodSource("typeThrow")
+    void generateTypeTestThrow(String name) {
+        Map<String,Object> object=(Map<String,Object>)json.get(name);
+        log.info(object.toString());
+        var ex = assertThrows(IllegalArgumentException.class, () ->new RequestInformation(object,CreateEndpoint.creteEndpointReturnEntityName()));
         log.info(ex.getMessage());
     }
-
-    @Test
-    void addCode() {
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("typeThrowInRequest")
+    void generateTypeTestThrowInRequest(String name) {
+        Map<String,Object> object=(Map<String,Object>)json.get(name);
+        log.info(object.toString());
+        RequestInformation information=new RequestInformation(object,CreateEndpoint.creteEndpointReturnEntityName());
+        Endpoint endpoint= CreateEndpoint.creteEndpoint(information);
+        var ex = assertThrows(IllegalArgumentException.class, () ->information.generateBd(endpoint));
+        log.info(ex.getMessage());
+    }
+    static public Stream<Arguments> typeTest() {
+        return json.keySet().stream().filter(k->!k.startsWith("Throw"))
+                .map(Arguments::of).toList().stream();
+    }
+    static public Stream<Arguments> typeThrow() {
+        return json.keySet().stream().filter(k->k.startsWith("Throw")).filter(k->!k.startsWith("ThrowInRequestPostWhere"))
+                .map(Arguments::of).toList().stream();
+    }
+    static public Stream<Arguments> typeThrowInRequest() {
+        return json.keySet().stream().filter(k->k.startsWith("ThrowInRequest"))
+                .map(Arguments::of).toList().stream();
     }
 
-    @Test
-    void addReturns() {
-    }
 }

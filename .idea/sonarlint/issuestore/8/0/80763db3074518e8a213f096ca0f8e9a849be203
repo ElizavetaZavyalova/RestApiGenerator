@@ -1,5 +1,5 @@
 
-h
-java:S13019"KReplace this "switch" statement by "if" statements to increase readability.(”Ê»Ñ8±×àŠØ1
+L
+java:S1066_"/Merge this if statement with the enclosing one.(–å€§8’³þÐÙ1
 e
-java:S6353+"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8Ð´ÍŠØ1
+java:S6353-"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8²³þÐÙ1

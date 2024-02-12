@@ -14,15 +14,16 @@ import org.example.read_json.rest_controller_json.endpoint.Type;
 
 public class InterpretDb {
     @Getter
-    BaseRequest<CodeBlock,String> interpretation;
-    public InterpretDb(Endpoint parent, Type type){
-        String request= parent.getRequestInformation().getRequest();
-        switch (type.getRequestType()){
-            case GET -> interpretation=new StringGetRequest(request,type.getParams(),parent);
-            case POST -> interpretation=new StringPostRequest(request,type.getParams(),parent);
-            case PATCH -> interpretation=new StringPatchRequest(request,type.getParams(),parent);
-            case DELETE -> interpretation=new StringDeleteRequest(request,parent);
-            case PUT-> interpretation=new StringPutRequest(request,type.getParams(),parent);
+    BaseRequest<CodeBlock, String> interpretation;
+
+    public InterpretDb(Endpoint parent, Type type) {
+        String request = parent.getRequestInformation().getRequest();
+        switch (type.getRequestType()) {
+            case GET -> interpretation = new StringGetRequest(request, type.getParams(), parent);
+            case POST -> interpretation = new StringPostRequest(request, type.getParams(), parent);
+            case PATCH -> interpretation = new StringPatchRequest(request, type.getParams(), parent);
+            case DELETE -> interpretation = new StringDeleteRequest(request, parent);
+            case PUT -> interpretation = new StringPutRequest(request, type.getParams(), parent);
             default -> throw new IllegalArgumentException("NO ENDPOINT TYPE");
         }
     }

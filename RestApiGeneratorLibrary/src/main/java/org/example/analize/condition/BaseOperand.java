@@ -35,16 +35,6 @@ public abstract class BaseOperand<R> implements Interpretation<R> {
         this.right = right;
     }
 
-    @Override
-    public String requestInterpret() {
-        String res = left.requestInterpret() + "-" + right.requestInterpret();
-        if (res.startsWith("-")) {
-            return res.substring(1);
-        }
-        if (res.endsWith("-")) {
-            return res.substring(0, res.length() - 1);
-        }
-        return res;
-    }
+
 
 }

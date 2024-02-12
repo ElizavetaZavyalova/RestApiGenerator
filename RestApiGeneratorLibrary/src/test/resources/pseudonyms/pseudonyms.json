@@ -1,0 +1,99 @@
+{
+  "AllTest": {
+    "joins": {
+      "t1:t2": ["t1", "t2"],
+      "t3:t2": [":", "t2"]
+    },
+    "fields": {
+      "f1": ["f23", "field1"],
+      "f2": ["f6"],
+      "f3": []
+    },
+    "tables": {
+      "t1": ["t1", "table1"],
+      "t2": ["t21"],
+      "t3": []
+    }
+
+  },
+  "joinsTest": {
+    "joins": {
+      "t1:t2": ["t1", "t2"],
+      "t3:t2": [":", "t2"],
+      "t3:t4": ["t3", ":"],
+      "t4:t5": [":", ":"],
+      "t6:t5": ["t100"],
+      "t6:t7": [">"],
+      "t7:t8": ["<"],
+      "t8:t9": ["="],
+      "t9:t10": ["-"],
+      "t11:t10": ["-t"],
+      "t12:t11": [">t"],
+      "t13:t12": ["<t"],
+      "t14:t13": ["=t"]
+    }
+  },
+  "fieldsTest": {
+    "fields": {
+      "f15": ["f1", "field1"],
+      "f2": ["f21"],
+      "f3": []
+    }
+  },
+  "tablesTest": {
+    "tables": {
+        "t15": ["t1", "table1"],
+        "t2": ["t21"],
+        "t3": []
+    }
+  },
+  "EmptyJoins": {
+    "joins": {
+    }
+  },
+  "EmptyFields": {
+    "fields": {
+
+    }
+  },
+  "EmptyTables": {
+    "tables": {
+
+    }
+  },
+  "ThrowJoinsNoRef": {
+    "joins": {
+      "t1:t2": [""]
+    }
+  },
+  "ThrowJoinsNoDistinctRef": {
+    "joins": {
+      "t1:t2": ["tyu"],
+      "t2:t1": ["low"]
+    }
+  },
+  "ThrowFieldsTestNoDistinctPseudonyms": {
+    "fields": {
+      "f1": ["f6", "field1"],
+      "f2": ["f6"],
+      "f3": []
+    }
+  },
+  "ThrowTablesNoDistinctPseudonyms": {
+    "tables": {
+      "t1": ["t1", "table1"],
+      "t2": ["t1"],
+      "t3": []
+    }
+  },
+  "ThrowFieldsEmptyName": {
+    "fields": {
+      "f3": [""]
+    }
+  },
+  "ThrowTablesEmptyName": {
+    "tables": {
+      "t3": [""]
+    }
+  }
+}

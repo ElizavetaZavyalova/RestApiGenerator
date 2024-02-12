@@ -26,13 +26,6 @@ public class StringAddress extends BaseAddress<CodeBlock, String> {
         return CodeBlock.builder().build();
     }
 
-    @Override
-    public String requestInterpret() {
-        if (selectCurrent != null) {
-            return selectCurrent.requestInterpret();
-        }
-        return "";
-    }
 
 
     @Override

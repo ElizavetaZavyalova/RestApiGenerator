@@ -20,10 +20,7 @@ public class StringField extends BaseField<CodeBlock>{
         return  block.build();
     }
 
-    @Override
-    public String requestInterpret() {
-        return null;
-    }
+
 
 
     @Override

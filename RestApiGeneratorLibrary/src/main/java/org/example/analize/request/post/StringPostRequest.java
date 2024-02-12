@@ -22,10 +22,7 @@ public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
         return CodeBlock.builder().add(insert.interpret()).add(".execute();").build();
     }
 
-    @Override
-    public String requestInterpret() {
-        return null;
-    }
+
 
 
 

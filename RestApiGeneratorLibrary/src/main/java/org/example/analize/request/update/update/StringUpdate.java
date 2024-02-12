@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
@@ -50,5 +51,9 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock,String>{
     @Override
     protected BaseWhere<CodeBlock,String> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
+    }
+    @Override
+    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+        return new StringSelect(request,select,parent);
     }
 }

@@ -20,6 +20,8 @@ dependencies {
     compileOnly files(restApiGeneratorPath)
     annotationProcessor files(restApiGeneratorPath)
 
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     implementation 'ch.qos.logback:logback-classic:1.4.5'
     //spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -31,6 +33,11 @@ dependencies {
     //spring actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.5'
     implementation 'de.codecentric:spring-boot-admin-starter-client:3.0.3'
+
+    // databases
+    implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'org.jooq:jooq:3.17.8'
 
 
     testImplementation 'ch.qos.logback:logback-classic:1.4.5'

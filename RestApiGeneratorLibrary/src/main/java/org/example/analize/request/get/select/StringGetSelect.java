@@ -5,6 +5,7 @@ import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringField;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
@@ -37,6 +38,11 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
         return block.build();
     }
+    @Override
+    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+        return new StringSelect(request,select,parent);
+    }
+
 
 
 

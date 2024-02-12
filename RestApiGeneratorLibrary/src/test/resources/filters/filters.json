@@ -1,0 +1,33 @@
+{
+  "Or": {
+    "filter:or": "s:eq_name|i:eq_age"
+  },
+  "And": {
+    "filter:and": "s:eq_name|i:eq_age"
+  },
+  "Sql": {
+    "filter:sql": "name='Hello' or age=17"
+  },
+  "Call": {
+    "filter:call": "Val.age()"
+  },
+  "4Filters": {
+    "filter:call": "name='Hello' or age=17",
+    "filter2:and":  "s:eq_name|i:eq_age",
+    "filter3:or":  "s:eq_name|i:eq_age"
+    },
+  "NoFilters": {},
+  "ThrowFiltersIdentNames": {
+    "filter:call": "name='Hello' or age=17",
+    "filter:and": "s:eq_name|i:eq_age"
+  },
+  "ThrowFilterNoType": {
+    "filter": "name='Hello' or age=17"
+  },
+  "ThrowFilterNoExistType": {
+    "filter:type": "name='Hello' or age=17"
+  },
+  "ThrowFilterNoCorrectName": {
+    "filter?8987:sql": "name='Hello' or age=17"
+  }
+}

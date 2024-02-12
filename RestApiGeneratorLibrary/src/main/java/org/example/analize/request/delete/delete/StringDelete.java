@@ -2,6 +2,7 @@ package org.example.analize.request.delete.delete;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
@@ -41,5 +42,10 @@ public class StringDelete extends BaseDelete<CodeBlock, String> {
         if (this.where != null) {
             where.addParams(params);
         }
+    }
+
+    @Override
+    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+        return new StringSelect(request,select,parent);
     }
 }

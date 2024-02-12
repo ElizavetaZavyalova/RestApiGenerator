@@ -12,9 +12,4 @@ public abstract class BaseFieldCondition<R> extends BaseFieldParser<R> {
         super(variable, parent);
         this.tableName = tableName;
     }
-
-    @Override
-    public String requestInterpret() {
-        return "{" + this.fieldName + "}";
-    }
 }

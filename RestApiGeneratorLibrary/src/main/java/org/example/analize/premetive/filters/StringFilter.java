@@ -27,12 +27,6 @@ public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<S
         def = Optional.ofNullable(def).orElse("DSL.trueCondition()");
         result = parent.getFilter(filterName).makeFilter(parent.getFuncName(),table, def);
     }
-
-    @Override
-    public String requestInterpret() {
-        return filterName;
-    }
-
     @Override
     public void addParams(List<VarInfo> params) {
         params.add(new VarInfo(filterName));

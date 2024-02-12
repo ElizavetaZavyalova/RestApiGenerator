@@ -9,17 +9,28 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.filters.Sq
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
+import static org.example.read_json.rest_controller_json.filter.Filters.Regexp.IS_CORRECT_FILTER_NAME;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.*;
 
 public abstract class Filters {
     @Getter
     Map<String, Filtering<String>> filters = new HashMap<>();
-
-    protected Filters(Map<String, String> filters) throws IllegalArgumentException {
+    protected void initParent(Map<String, String> filters) throws IllegalArgumentException{
         filters.forEach(this::addFilter);
+    }
+    record Regexp(){
+        static final String IS_CORRECT_FILTER_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
+    }
+    void throwException(String filterName) throws IllegalArgumentException {
+        if (filterName.isEmpty()) {
+            throw new IllegalArgumentException("NO FILTER NAME");
+        }
+        if (!Pattern.matches(IS_CORRECT_FILTER_NAME, filterName)) {
+            throw new IllegalArgumentException(filterName + "MUST STARTS ON LETTER OR _ AND CONTAINS LATTER OR _ OR DIGIT");
+        }
     }
 
     public boolean isFilterExist(String key) {
@@ -28,12 +39,13 @@ public abstract class Filters {
 
     public Filtering<String> getFilterIfExist(String key) throws IllegalArgumentException {
         if (isFilterExist(key)) {
-            filters.get(key);
+           return filters.get(key);
         }
         throw new IllegalArgumentException("FILTER " + key + " NOT EXIST");
     }
 
     void addKeyValToFilters(String key, Filtering<String> filter) throws IllegalArgumentException {
+        throwException(key);
         if (filters.containsKey(key)) {
             throw new IllegalArgumentException("FILTER:" + key + "IS ALREADY EXIST");
         }

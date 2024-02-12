@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.REQUEST_PARAMS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONDITION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
@@ -31,14 +33,14 @@ public class ListStringFilter extends ListFilter<String> {
     public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(getFuncName(parent.getFuncName()))
                 .addModifiers(Modifier.PUBLIC)
-                .addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), REQUEST_PARAM_MAP)
+                .addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addParameter(TypeName.get(String.class), TABLE_NAME_IN_FILTER)
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
-                .returns(CONDITION_CLASS)
-                .addStatement("$T<Condition> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", List.class, ArrayList.class);
+                .returns(CONDITION_CLASS)//Condition
+                .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", List.class, CONDITION_CLASS,ArrayList.class);
         val.forEach(v -> methodBuilder.addCode(new StringFilterField(v, parent).interpret()));
-        methodBuilder.addStatement("return " + CONDITION_LIST_IN_FILTER + ".stream().reduce(Condition::" + func + ")\n" +
-                ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()");
+        methodBuilder.addStatement("return " + CONDITION_LIST_IN_FILTER + ".stream().reduce($T::" + func + ")\n" +
+                ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()",CONDITION_CLASS);
         return methodBuilder.build();
     }
     String getFuncName(String funcName){
@@ -47,6 +49,6 @@ public class ListStringFilter extends ListFilter<String> {
 
     @Override
     public String makeFilter(Object... args) {
-        return getFuncName((String) args[0]) + "(" + REQUEST_PARAM_MAP + ", \"" + (String) args[1] + "\", " + (String) args[2] + ")";
+        return getFuncName((String) args[0]) + "(" + REQUEST_PARAM_NAME + ", \"" + (String) args[1] + "\", " + (String) args[2] + ")";
     }
 }

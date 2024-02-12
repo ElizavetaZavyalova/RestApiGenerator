@@ -1,6 +1,7 @@
 package org.example.analize.helpclass;
 
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.example.read_json.rest_controller_json.endpoint.RequestInformation;
 import org.mockito.Mockito;
 
 import java.util.List;
@@ -34,7 +35,56 @@ public record CreateEndpoint() {
     static public final String tableNoRef2 = "Tno2";
     static public final String tableNoRef3 = "Tno3";
     static public final String tableNoRef4 = "Tno3";
+    static public final String mmTable1 = "T1";
+    static public final String mmTable2 = "T2";
+    static public final String mmTable3 = "T3";
+    static public final String mmTable4 = "T4";
 
+    static public final String entity1="entity1";
+    static public final List<String> entityList1=List.of("e11","e12","e13");
+    static public final String entity2="entity2";
+    static public final List<String> entityList2=List.of("e21","e22","e23");
+
+    public static Endpoint makeEndpointManyToManyEndpoint() {
+        Endpoint point= Mockito.mock(Endpoint.class);
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable1,mmTable2);
+
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable2,mmTable3);
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable3,mmTable4);
+
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable2,mmTable1);
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable3,mmTable2);
+        Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(mmTable4,mmTable3);
+
+        Mockito.doReturn(List.of(mmTable3)).when(point).getRealJoinName(mmTable4,mmTable2);
+        Mockito.doReturn(List.of(mmTable3)).when(point).getRealJoinName(mmTable2,mmTable4);
+        Mockito.doReturn(List.of(mmTable2)).when(point).getRealJoinName(mmTable1,mmTable4);
+        Mockito.doReturn(List.of(mmTable2)).when(point).getRealJoinName(mmTable4,mmTable1);
+        Mockito.when(point.getRealTableName(Mockito.any(String.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
+        return point;
+    }
+
+    public static Endpoint creteEndpoint(RequestInformation info){
+        Endpoint point= Mockito.mock(Endpoint.class);
+        Mockito.when(point.getRealJoinName(Mockito.any(String.class),Mockito.any(String.class))).thenAnswer(invocation ->List.of(":",":"));
+        Mockito.when(point.getRealTableName(Mockito.any(String.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
+        Mockito.when(point.getRealFieldName(Mockito.any(String.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
+        Mockito.when(point.getFuncName()).thenReturn("funcName");
+        Mockito.when(point.getRequestInformation()).thenReturn(info);
+        return point;
+    }
+    public static Endpoint creteEndpointReturnEntityName(){
+        Endpoint point= Mockito.mock(Endpoint.class);
+        Mockito.when(point.getEntity(Mockito.any(String.class))).thenAnswer(invocation -> List.of(invocation.getArguments()[0]));
+        return point;
+    }
+
+    public static Endpoint creteEndpointReturnEntity(){
+        Endpoint point= Mockito.mock(Endpoint.class);
+        Mockito.when(point.getEntity(entity1)).thenAnswer(invocation -> entityList1);
+        Mockito.when(point.getEntity(entity2)).thenAnswer(invocation -> entityList2);
+        return point;
+    }
 
 
     public static Endpoint makeEndpoint(){

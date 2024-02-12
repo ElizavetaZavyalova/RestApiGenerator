@@ -17,11 +17,6 @@ public class StringFieldReal extends BaseField<CodeBlock>{
         return  block.build();
     }
 
-    @Override
-    public String requestInterpret() {
-        return null;
-    }
-
 
     @Override
     public void addParams(List<VarInfo> params) {

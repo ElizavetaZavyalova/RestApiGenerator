@@ -47,18 +47,6 @@ public abstract class PortRequestWithCondition<R,C> extends PortRequest<R,C> {
             return func.name+tableName;
         }
     }
-    @Override
-    public String requestInterpret() {
-        StringBuilder builder=new StringBuilder();
-        if(selectNext!=null){
-            builder.append(selectNext.requestInterpret()).append("/");
-        }
-        builder.append(tableName).append("/");
-        if(where!=null){
-            builder.append(where.requestInterpret());
-        }
-        return builder.toString();
-    }
 
     protected abstract BaseWhere<R,C> makeWhere(String request, String tableName, Endpoint parent);
 }

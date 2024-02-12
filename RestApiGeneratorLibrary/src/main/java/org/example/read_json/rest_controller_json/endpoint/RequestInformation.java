@@ -35,24 +35,29 @@ public class RequestInformation {
     Types types;
     List<VarInfo> varInfos;
 
-
     @Getter
     @ToString
     static class Types {
         private final List<Type> typeList;
 
-        Types(Map<String, Object> enpointMap) throws IllegalArgumentException {
-            List<Type> list = MakeCast.makeMapOfStringMap(enpointMap, TYPES, ENTITY, false)
-                    .entrySet().stream().map(e -> new Type(e.getKey(), e.getValue())).toList();
-            if (list.isEmpty()) {
-                list = List.of(new Type(_GET, new HashMap<>()));
+        Types(Map<String, Object> enpointMap,Endpoint parent) throws IllegalArgumentException {
+            if (enpointMap.containsKey(TYPES) && enpointMap.containsKey(TYPE)) {
+                throw new IllegalArgumentException("NOT USE:" + TYPES + " and " + TYPE + " in one endpoint");
             }
-            typeList = list;
+            if (enpointMap.containsKey(TYPES)) {
+                typeList = MakeCast.makeMapOfStringMap(enpointMap, TYPES, ENTITY, false)
+                        .entrySet().stream().map(e -> new Type(e.getKey(), e.getValue(),parent)).toList();
+                return;
+            } else if (enpointMap.containsKey(TYPE)) {
+                typeList = List.of(Type.makeType(enpointMap,parent));
+                return;
+            }
+            typeList = List.of(new Type(_GET, new HashMap<>(),parent));
         }
     }
 
-    RequestInformation(Map<String, Object> enpointMap) throws IllegalArgumentException {
-        types = new Types(enpointMap);
+    RequestInformation(Map<String, Object> enpointMap,Endpoint parent) throws IllegalArgumentException {
+        types = new Types(enpointMap,parent);
         request = MakeCast.makeStringIfContainsKeyMap(enpointMap, REQUEST, true).replace(" ", "");
     }
 
@@ -75,7 +80,8 @@ public class RequestInformation {
         methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
         return addCode(addReturns(methodBuilder, type), type).build();
     }
-    public MethodSpec makeControllerMethod(String funcName, Type type,String beanName,String request) {
+
+    public MethodSpec makeControllerMethod(String funcName, Type type, String beanName) {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
                 .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
@@ -84,22 +90,18 @@ public class RequestInformation {
                 methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
             }
         }
-        methodBuilder.addParameter(ParameterSpec.builder(MULTI_VALUE_MAP, REQUEST_PARAM_NAME)
+        methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
-        //TODO
-        methodBuilder.addParameter( REQUEST_PARAMS, REQUEST_PARAM_NAME);
-        addReturns(methodBuilder, type).addStatement(beanName+"."+funcName+"("+
-                varInfos.stream().map(VarInfo::getName).collect(Collectors.joining(", "))+
-                ", "+REQUEST_PARAM_NAME+")");
-
-        return addCode(addReturns(methodBuilder, type), type).build();
+        return addReturns(methodBuilder, type).addStatement(beanName + "." + funcName + "(" +
+                varInfos.stream().map(VarInfo::getName).collect(Collectors.joining(", ")) +
+                ", " + REQUEST_PARAM_NAME + ")").build();
     }
-    public List<MethodSpec> makeControllerMethods(String funcName,String beanName) {
+
+    public List<MethodSpec> makeControllerMethods(String funcName, String beanName) {
         List<Type> typeList = this.types.getTypeList();
-        String request=typeList.get(0).getInterpretDb().getInterpretation().requestInterpret();
         List<MethodSpec> methodSpecs = new ArrayList<>();
         for (Type type : typeList) {
-            methodSpecs.add(makeControllerMethod(funcName, type,beanName,request));
+            methodSpecs.add(makeControllerMethod(funcName, type, beanName));
         }
         return methodSpecs;
     }
@@ -120,13 +122,10 @@ public class RequestInformation {
         }
         return builder.addCode(type.getInterpretDb().getInterpretation().interpret());
     }
-
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {
             builder.returns(RESULT_OF_RECORD_CLASS);
         }
         return builder;
     }
-
-
 }

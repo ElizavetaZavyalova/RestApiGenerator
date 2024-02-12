@@ -70,7 +70,7 @@ public class StringAdressTest {
 
     static public Stream<Arguments> constructorParamsRefId() {
         return Stream.of(
-                Arguments.of(tableNoRef1+"/:"+tableNoRef2+"/"+tableNoRef4),
+                Arguments.of(tableNoRef1+"/-"+tableNoRef2+"/"+tableNoRef4),
                 Arguments.of(tableNoRef1+"/>"+tableNoRef2+"/<"+tableNoRef3+"/"+tableNoRef4));
     }
 

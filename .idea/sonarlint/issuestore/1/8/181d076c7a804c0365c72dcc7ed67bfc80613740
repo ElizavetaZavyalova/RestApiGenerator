@@ -1,5 +1,5 @@
 
 8
-java:S1700"Rename field "filters"(´Í½”ÿÿÿÿÿ8¡Ñ¿„Ø1
-D
-java:S2201"'The return value of "get" must be used.(Çõú‡8²Ñ¿„Ø1
+java:S1700"Rename field "filters"(´Í½”ÿÿÿÿÿ8ÖÀÊÊÙ1
+e
+java:S6353"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(™²¤Üûÿÿÿÿ8ëÀÊÊÙ1

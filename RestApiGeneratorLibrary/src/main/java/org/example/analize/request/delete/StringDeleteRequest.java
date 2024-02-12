@@ -17,10 +17,6 @@ public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock,String>{
         return CodeBlock.builder().add(delete.interpret()).add(".execute();").build();
     }
 
-    @Override
-    public String requestInterpret() {
-        return delete.requestInterpret();
-    }
 
 
 

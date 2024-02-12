@@ -19,10 +19,7 @@ public abstract class BaseUpdateRequest<R,C> extends BaseRequest<R,C> {
         return update.interpret();
     }
 
-    @Override
-    public String requestInterpret() {
-        return update.requestInterpret();
-    }
+
 
     @Override
     public void addParams(List<VarInfo> params) {

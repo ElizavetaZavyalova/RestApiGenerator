@@ -22,7 +22,9 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
 
     @AllArgsConstructor
     enum TableRef {
-        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY), ONE_TO_ONE(_ONE_TO_ONE), DEFAULT("");
+        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY), ONE_TO_ONE_BY_ID(_ONE_TO_ONE_BY_ID),
+        ONE_TO_ONE_BY_TABLE_NAME(_ONE_TO_ONE_BY_TABLE_NAME),
+        DEFAULT("");//ONE_TO_MANY
         private final String name;
 
         public static TableRef getTableRef(String tableName) {
@@ -44,30 +46,57 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         static final String JOIN_SPLIT = ":";
         static final int JOIN_CURRENT_REF_PORT = 1;
         static final int JOIN_PREVIOUS_REF_PORT = 0;
+        static final int JOIN_TABLE_PORT = 0;
     }
 
     String makeDefaultNextId() {
-        if (tableRef.equals(TableRef.MANY_TO_ONE)) {
-            return realTableName + "_id";
+        switch (tableRef) {
+            case MANY_TO_ONE->{
+                return realTableName + "_id";
+            }
+            case ONE_TO_ONE_BY_TABLE_NAME->{
+                return realTableName;
+            }
+            default -> {
+                return "id";
+            }
         }
-        return "id";
     }
 
     String makeDefaultRef() {
         switch (tableRef) {
-            case MANY_TO_ONE, ONE_TO_ONE -> {
+            case MANY_TO_ONE, ONE_TO_ONE_BY_ID -> {
                 return "id";
+            }
+            case ONE_TO_ONE_BY_TABLE_NAME -> {
+                return selectNext.realTableName;
             }
             default -> {
                 return selectNext.realTableName + "_" + selectNext.id;
             }
         }
     }
+    private boolean isJoinAndSetItIfJoin(List<String> joins){
+        TableRef joinRef=TableRef.getTableRef(joins.get(0));
+        if(joinRef==TableRef.DEFAULT){
+            return false;
+        }
+        tableRef=joinRef;
+        return true;
+    }
+
 
     void tryFindJoinsEndSetResult(Endpoint parent) {
         List<String> joins = parent.getRealJoinName(tableName, selectNext.tableName);
         if (joins.isEmpty()) {
             joins = parent.getRealJoinName(realTableName, selectNext.realTableName);
+        }
+        if(joins.size()==1) {
+          if(!isJoinAndSetItIfJoin(joins)) {
+              makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
+              tryFindJoinsEndSetResult(parent);
+              return;
+          }
         }
         if (joins.isEmpty()) {
             ref = makeDefaultRef();
@@ -79,6 +108,14 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         ref = joins.get(JOIN_CURRENT_REF_PORT).equals(JOIN_SPLIT) ?
                 (makeDefaultRef()) : joins.get(JOIN_CURRENT_REF_PORT);
     }
+    void makeSelectManyToMany(String tableName,Endpoint parent){
+        if(tableRef.equals(TableRef.DEFAULT)){
+            tableRef=TableRef.MANY_TO_ONE;
+        }
+        selectNext=makeSelect(tableName,selectNext,parent);
+    }
+    protected abstract PortRequestWithCondition<R, C> makeSelect(String request, PortRequestWithCondition<R, C> select, Endpoint parent);
+
 
 
     void throwException(String tableName) throws IllegalArgumentException {

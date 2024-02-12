@@ -1,6 +1,8 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.helpclass.CreateEndpoint;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,6 +22,7 @@ class TypeTest {
         static public Map<String, String> infoY = Map.of(ENTITY, "||");
         static public Map<String, String> info = Map.of(ENTITY, "");
         static public Map<String, String> info1F = Map.of(ENTITY, "|f1|f2");
+        static public Map<String, String> infoE = Map.of(ENTITY, "entity1|entity2");
 
     }
 
@@ -56,14 +59,19 @@ class TypeTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams")
     void type(String req, Map<String, String> info) {
-        Type type = new Type(req, info);
+        Type type = new Type(req, info, CreateEndpoint.creteEndpointReturnEntityName());
+        log.info(type.toString());
+    }
+     @Test
+    void typeEntity() {
+        Type type = new Type(_GET, infoE, CreateEndpoint.creteEndpointReturnEntity());
         log.info(type.toString());
     }
 
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsThrow")
     void typeThrow(String req, Map<String, String> info) {
-        var ex = assertThrows(IllegalArgumentException.class, () -> new Type(req, info));
+        var ex = assertThrows(IllegalArgumentException.class, () -> new Type(req, info,CreateEndpoint.creteEndpointReturnEntityName()));
         log.info(ex.getMessage());
     }
 

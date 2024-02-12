@@ -8,6 +8,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 public class StringFilterField extends BaseFieldParser<CodeBlock> {
@@ -18,14 +19,14 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder()
-                .beginControlFlow("if (" + REQUEST_PARAM_MAP + ".containsKey($S))", fieldName)
-                .addStatement(makeCondition(), "." + realFieldName, fieldName)
+                .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".containsKey($S))", fieldName)
+                .addStatement(makeCondition(),DSL_CLASS, "." + realFieldName, fieldName)
                 .endControlFlow()
                 .build();
     }
 
     protected String makeCondition() {
-        StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add(DSL.field(" + TABLE_NAME_IN_FILTER + "+$S).");
+        StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).");
         switch (action) {
             case EQ -> builder.append("eq");
             case NE -> builder.append("ne");
@@ -36,17 +37,10 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             case LIKE -> builder.append("like");
             case NOT_LIKE -> builder.append("not_like");
         }
-            return builder.append("(").append(REQUEST_PARAM_MAP + ".get($S)))").toString();
+            return builder.append("(").append(REQUEST_PARAM_NAME + ".get($S)))").toString();
     }
-
 
 
     @Override
-    public String requestInterpret() {
-        return null;
-    }
-
-    @Override
-    public void addParams(List<VarInfo> params) {
-    }
+    public void addParams(List<VarInfo> params) {}
 }

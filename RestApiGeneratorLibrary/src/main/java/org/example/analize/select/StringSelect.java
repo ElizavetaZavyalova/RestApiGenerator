@@ -10,6 +10,8 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
+
 public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
     public StringSelect(String request, PortRequestWithCondition<CodeBlock,String> select, Endpoint parent) {
         super(request, select, parent);
@@ -18,7 +20,7 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
     @Override
     public CodeBlock interpret() {
         var block=CodeBlock.builder();
-                block.add("context.select("+makeField("DSL.field($S)"),tableName + "." + id)
+                block.add(CONTEXT +".select("+makeField("DSL.field($S)"),tableName + "." + id)
                         .add(".from($S)",realTableName);
         if(!realTableName.equals(tableName)){
             block.add(".as($S)",tableName);
@@ -50,5 +52,10 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock,String> {
         if(this.where!=null){
             where.addParams(params);
         }
+    }
+
+    @Override
+    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+        return new StringSelect(request,select,parent);
     }
 }

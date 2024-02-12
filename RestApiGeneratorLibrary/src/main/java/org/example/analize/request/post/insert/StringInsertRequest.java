@@ -5,12 +5,14 @@ import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_MAP;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
+
 
 public class StringInsertRequest extends BaseInsertRequest<CodeBlock,String>{
 
@@ -49,7 +51,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock,String>{
     }
     CodeBlock values(){
     return  fields.stream().map(BaseField::getName)
-                .map(name ->CodeBlock.builder().add("DSL.val(Optional.ofNullable("+REQUEST_PARAM_MAP+".get($S)).orElse(DSL.defaultValue()))",name)
+                .map(name ->CodeBlock.builder().add("DSL.val(Optional.ofNullable("+REQUEST_PARAM_NAME+".get($S)).orElse(DSL.defaultValue()))",name)
             .build()).reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                         .orElse(CodeBlock.builder().build());
     }
@@ -74,10 +76,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock,String>{
                 .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());
     }
-    @Override
-    public String requestInterpret() {
-        return null;
-    }
+
 
 
     @Override
@@ -85,5 +84,9 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock,String>{
            if(this.selectNext!=null){
                selectNext.addParams(params);
            }
+    }
+    @Override
+    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+        return new StringSelect(request,select,parent);
     }
 }

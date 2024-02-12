@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.*;
 import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
@@ -25,21 +26,20 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.PSEUDONYMS
 public class Endpoint {
     @Getter
     RequestInformation requestInformation;
-    Boolean perms = false;
     @Getter
     String funcName;
     Filters filters;
     Pseudonyms pseudonyms;
     @Getter
     Endpoints parent;
+    private ReadJson readeJson = new ReadJson();
 
     public Endpoint(Map<String, Object> enpointMap, Endpoints parent, String funcName) throws IllegalArgumentException {
         this.funcName = funcName;
         this.parent = parent;
-        requestInformation = new RequestInformation(enpointMap);
-        perms = MakeCast.makeBoolean(enpointMap, PERMS, false);
-        filters = new EndpointFilters(MakeCast.makeStringMap(enpointMap, FILTERS, false), this);
-        pseudonyms = new EndpointPseudonyms(MakeCast.makeMapOfMapOfList(enpointMap, PSEUDONYMS, false), this);
+        requestInformation = new RequestInformation(enpointMap,this);
+        filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
+        pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
     }
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {
@@ -58,9 +58,11 @@ public class Endpoint {
         list.addAll(requestInformation.makeDBMethods(funcName));
         return list;
     }
+
     public List<MethodSpec> getControllerMethods(String beanName) throws IllegalArgumentException {
-        return requestInformation.makeControllerMethods(funcName,beanName);
+        return requestInformation.makeControllerMethods(funcName, beanName);
     }
+
     public Filtering<String> getFilter(String key) throws IllegalArgumentException {
         if (filters.isFilterExist(key)) {
             return filters.getFilterIfExist(key);
@@ -76,6 +78,13 @@ public class Endpoint {
             return parent.getParent().getPseudonyms().getRealTableName(key);
         }
         return key;
+    }
+
+    public List<String> getEntity(String key) {
+        if (pseudonyms.isContainsEntityPseudonym(key)) {
+            return pseudonyms.getRealEntity(key);
+        }
+        return parent.getParent().getPseudonyms().getRealEntity(key);
     }
 
     public String getRealFieldName(String key) {

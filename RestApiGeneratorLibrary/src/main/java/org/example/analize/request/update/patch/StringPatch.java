@@ -6,7 +6,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-import static org.example.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_MAP;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 
 public class StringPatch extends StringUpdate {
     protected StringPatch(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) throws IllegalArgumentException {
@@ -20,7 +20,7 @@ public class StringPatch extends StringUpdate {
             return   block.add("))").build();
         }
         block.add(fields.stream().map(name-> CodeBlock.builder().add(name.interpret()+", "+
-                        REQUEST_PARAM_MAP+".get($S)==null?"+name.interpret()+":DSL.val("+REQUEST_PARAM_MAP+".get($S))", name.getName(),name.getName()).build())
+                        REQUEST_PARAM_NAME+".get($S)==null?"+name.interpret()+":DSL.val("+REQUEST_PARAM_NAME+".get($S))", name.getName(),name.getName()).build())
                .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                .orElse(CodeBlock.builder().add(fields.get(0).interpret()).build()));
         block.add("))");

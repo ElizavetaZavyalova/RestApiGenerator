@@ -29,7 +29,6 @@ class StringOperandTest {
     }
     StringFieldCondition makeStringFieldCondition(){
         StringFieldCondition stringFieldCondition = Mockito.mock(StringFieldCondition.class);
-        Mockito.doReturn("").when(stringFieldCondition).requestInterpret();
         return stringFieldCondition;
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -39,25 +38,22 @@ class StringOperandTest {
         StringFieldCondition field2=new StringFieldCondition(f2,tableName,makeEndpoint());
         StringOperand operand=new StringOperand(field1,field2,op);
         log.info("\n"+operand.interpret().toString());
-        log.info(operand.requestInterpret());
+
         List<VarInfo> list=new ArrayList<>();
         operand.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand2=new StringOperand(field1,makeStringFieldCondition(),op);
-        log.info(operand2.requestInterpret());
         List<ParameterSpec> list2=new ArrayList<>();
         operand2.addParams(list);
         log.info(list2.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand3=new StringOperand(makeStringFieldCondition(),field2,op);
-        log.info(operand3.requestInterpret());
         List<ParameterSpec> list3=new ArrayList<>();
         operand3.addParams(list);
         log.info(list3.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand4=new StringOperand(makeStringFieldCondition(),makeStringFieldCondition(),op);
-        log.info(operand4.requestInterpret());
         List<ParameterSpec> list4=new ArrayList<>();
         operand4.addParams(list);
         log.info(list4.stream().map(v->v.toString()).collect(Collectors.joining("\n")));

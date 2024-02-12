@@ -37,7 +37,6 @@ public class StringWhereTest {
         StringWhere where = new StringWhere(req, table1, endpoint);
         log.info(req);
         log.info("\n" + where.interpret().toString());
-        log.info("\n" + where.requestInterpret());
         List<VarInfo> list=new ArrayList<>();
         where.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));

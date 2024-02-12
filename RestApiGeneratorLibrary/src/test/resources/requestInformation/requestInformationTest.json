@@ -1,0 +1,223 @@
+{
+  "TypeGet": {
+    "type": "get:age|name|price",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypeGetNoFields": {
+    "type": "get",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypePost": {
+    "type": "post:age|name",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypePut": {
+    "type": "put:age|name",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypePatch": {
+    "type": "patch:age|name",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypeDelete": {
+    "type": "delete",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapGet": {
+    "types": {
+      "get": "age|name|price"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapGetNoFields": {
+    "types": {
+      "get": ""
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapDelete": {
+    "types": {
+      "delete": ""
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapPost": {
+    "types": {
+      "post": "name"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapPut": {
+    "types": {
+      "put": "name|age"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMapPatch": {
+    "types": {
+      "patch": "name|age"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMap2Types": {
+    "types": {
+      "get": "age|name|price",
+      "post": "age|name|price"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesNoMap3Types": {
+    "types": {
+      "get": "age|name|price",
+      "post": "age|name|price",
+      "patch": "age|name|price"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityGet": {
+    "types": {
+      "get": {
+        "entity": "age|name|price"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityPost": {
+    "types": {
+      "post": {
+        "entity": "age|name|price"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityPatch": {
+    "types": {
+      "patch": {
+        "entity": "age|name|price"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityDelete": {
+    "types": {
+      "delete": {
+        "entity": ""
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityPut": {
+    "types": {
+      "put": {
+        "entity": "name"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesEntityGetNoField": {
+    "types": {
+      "get": {
+        "entity": ""
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "NoTypeNoTypes": {
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesTestEntityAndNoEntity": {
+    "types": {
+      "get": {
+        "entity": "age|name|price"
+      },
+      "post": "age",
+      "patch": "age"
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesTestNoEntityGet": {
+    "types": {
+      "get": {
+        "operation": "Получить все имена",
+        "httpOk": "Status",
+        "httpException": "Exception"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "TypesTestNoEntityDelete": {
+    "types": {
+      "delete": {
+        "operation": "Удалить все имена",
+        "httpOk": "OK"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypesAndType": {
+    "types": {
+      "delete": {
+        "operation": "Удалить все имена",
+        "httpOk": "OK"
+      }
+    },
+    "type": "delete",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypesNotCorrectType": {
+    "types": {
+      "delete": {
+        "operation": "Удалить все имена",
+        "httpOk": "OK"
+      },
+      "someType": {
+        "operation": "Удалить все имена",
+        "httpOk": "OK"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypesPostNoEntity": {
+    "types": {
+      "post": {
+        "operation": "Post",
+        "httpOk": "OK"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypePostNoEntity": {
+    "type": "post",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypesPutNoEntity": {
+    "types": {
+      "put": {
+        "operation": "Put",
+        "httpOk": "OK"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypePutNoEntity": {
+    "type": "put",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypesPatchNoEntity": {
+    "types": {
+      "patch": {
+        "operation": "Patch",
+        "httpOk": "OK"
+      }
+    },
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowTypePatchNoEntity": {
+    "type": "patch",
+    "request": "user/{i:eq_id}/{b:is_name}/name/"
+  },
+  "ThrowInRequestPostWhere": {
+    "type": "post:field1",
+    "request": "user/{i:eq_id}/{b:is_name}/name/{i:eq_user}"
+  }
+}

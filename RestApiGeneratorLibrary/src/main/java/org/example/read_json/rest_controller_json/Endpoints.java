@@ -11,13 +11,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.REST_CONTROLLER_ANNOTATION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONTEXT_CLASS;
 
 @Slf4j
 public class Endpoints {
     Map<String, Endpoint> endpoint = new TreeMap<>();
     @Getter
     RestJson parent;
-
 
     Endpoints(Map<String, Object> map, RestJson parent) throws IllegalArgumentException {
         this.parent = parent;
@@ -31,7 +32,13 @@ public class Endpoints {
         List<MethodSpec> methods = endpoint.entrySet().
                 parallelStream().map(v -> v.getValue().getDBMethods()).flatMap(List::stream).toList();
         TypeSpec.Builder repository = TypeSpec.classBuilder(repositoryName)
-                .addModifiers(Modifier.PUBLIC);//TODO ,connection construvtor
+                .addModifiers(Modifier.PUBLIC);
+        repository.addField(FieldSpec.builder(CONTEXT_CLASS, CONTEXT, Modifier.PRIVATE).build())
+                .addMethod(MethodSpec.constructorBuilder()
+                        .addParameter(ParameterSpec.builder(CONTEXT_CLASS, beanName).build())
+                        .addModifiers(Modifier.PUBLIC)
+                        .addStatement("this." + CONTEXT + " = " + beanName)
+                        .build());
         methods.forEach(repository::addMethod);
         return repository.build();
     }

@@ -70,6 +70,19 @@ public class SelectTest {
         select2.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("constructorParamsManyToMany")
+    void ConstructorParamsManyToMany(String req1,String req2) {
+        Endpoint endpoint = makeEndpointManyToManyEndpoint();
+        log.info(req1+"/"+req2);
+        StringSelect select1=new StringSelect(req1,null,endpoint);
+        log.info(select1.interpret().toString());
+        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        log.info(select2.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        select2.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+    }
     static public Stream<Arguments> constructorParams1Select() {
         return Stream.of(
                 Arguments.of(table1),
@@ -98,6 +111,12 @@ public class SelectTest {
                 Arguments.of(table1,table3),
                 Arguments.of( table1+"/{"+fieldName2+"}",table3+"/{"+fieldName1+"}"),
                 Arguments.of( table3+"/{"+fieldName2+"}",table1+"/{"+fieldName1+"}"));
+    }
+    static public Stream<Arguments> constructorParamsManyToMany() {
+        return Stream.of(
+                Arguments.of(mmTable1,mmTable4),
+                Arguments.of(mmTable4,mmTable2)
+              );
     }
 
 }

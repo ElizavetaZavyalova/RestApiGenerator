@@ -1,22 +1,0 @@
-
-O
-java:S11356"2Complete the task associated to this TODO comment.(ñƒ’8úïèÊØ1
->
-java:S6205<"Remove this redundant block.(µâ¹úÿÿÿÿ8ÓÃ•ËØ1
-8
-java:S6205?"Remove this redundant block.(ğªâ_8ÔÃ•ËØ1
->
-java:S6205C"Remove this redundant block.(ñíÃøÿÿÿÿ8ÔÃ•ËØ1
-9
-java:S6205F"Remove this redundant block.(È¥³–8ìÂ¯ËØ1
-u
-java:S1128"SRemove this unused import 'org.example.analize.request.delete.StringDeleteRequest'.(••Ú¬ùÿÿÿÿ8ÀæéÊØ1
-j
-java:S1128"MRemove this unused import 'org.example.analize.request.get.StringGetRequest'.(»ø¹›8ÀæéÊØ1
-q
-java:S1128"ORemove this unused import 'org.example.analize.request.post.StringPostRequest'.(²ÚƒÆÿÿÿÿÿ8ÀæéÊØ1
-z
-java:S1128	"XRemove this unused import 'org.example.analize.request.update.patch.StringPatchRequest'.(ğÍ‹Áÿÿÿÿÿ8ÁæéÊØ1
-v
-java:S1128
-"TRemove this unused import 'org.example.analize.request.update.put.StringPutRequest'.(Ë·Ãïùÿÿÿÿ8ÁæéÊØ1

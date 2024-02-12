@@ -12,6 +12,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.R
 
 public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String fieldName;
+    protected String nameInRequest="";
     protected String realFieldName;
 
     public enum Type {
@@ -83,6 +84,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
     }
 
     protected BaseFieldParser(String variable, Endpoint parent) throws IllegalArgumentException {
+       nameInRequest=variable;
         type =  Type.getType(variable);
         variable =  Type.deleteType(variable, type);
         action =  Action.getAction(variable);

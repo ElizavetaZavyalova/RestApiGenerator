@@ -3,7 +3,7 @@ package org.example.read_json.rest_controller_json;
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
-    public static final String DIALECT = "dialect";
+    public static final String CREATE_DB_BEAN = "create_bean";
     public static final String HTTP = "http";
 
     public record FilterSuffix() {
@@ -24,6 +24,7 @@ public record JsonKeyWords() {
         public static final String REQUEST = "request";
         public static final String TYPES = "types";
         public static final String PERMS = "perms";
+        public static final String TYPE = "type";
 
         public record Types() {
             public record RequestType() {
@@ -54,7 +55,9 @@ public record JsonKeyWords() {
             public record TableRef() {
                 public static final String _MANY_TO_ONE = ">";
                 public static final String _ONE_TO_MANY = "<";
-                public static final String _ONE_TO_ONE = ":";
+                public static final String _ONE_TO_ONE_BY_ID = "-";
+                public static final String _ONE_TO_ONE_BY_TABLE_NAME = "=";
+
             }
 
             public record AggregationFunction() {

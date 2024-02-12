@@ -6,6 +6,8 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
 public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
     public StringFieldCondition(String variable, String tableName, Endpoint parent) throws IllegalArgumentException {
         super(variable, tableName, parent);
@@ -13,7 +15,7 @@ public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
 
     @Override
     public CodeBlock interpret() {
-       var block=CodeBlock.builder().add("DSL.field($S)",tableName + "." + realFieldName);
+       var block=CodeBlock.builder().add("$T.field($S)",DSL_CLASS, tableName + "." + realFieldName);
         switch (action) {
             case EQ -> block.add(".eq("+fieldName+")");
             case NE -> block.add(".ne("+fieldName+")");
@@ -27,6 +29,6 @@ public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
         return block.build();
     }
     public void addParams(List<VarInfo> params) {
-        params.add(new VarInfo(this.type,this.fieldName));
+        params.add(new VarInfo(this.type,this.fieldName,this.nameInRequest));
     }
 }

@@ -19,11 +19,13 @@ public class VarInfo {
     BaseFieldParser.Type type;
     String name;
     boolean filter;
+    String nameInRequest;
 
-    public VarInfo(BaseFieldParser.Type type, String name) {
+    public VarInfo(BaseFieldParser.Type type, String name, String nameInRequest) {
         filter = false;
         this.type = type;
         this.name = name;
+        this.nameInRequest=nameInRequest;
     }
 
     public VarInfo(String name) {
@@ -33,7 +35,8 @@ public class VarInfo {
 
     public ParameterSpec getAnnotationParameterSpec() {
         ParameterSpec.Builder parameterSpec = getParameterSpec().toBuilder();
-        parameterSpec.addAnnotation(AnnotationSpec.builder(PATH_VARIABLE_ANNOTATION_CLASS).build());
+        parameterSpec.addAnnotation(AnnotationSpec.builder(PATH_VARIABLE_ANNOTATION_CLASS)
+                .addMember("value",nameInRequest).build());
         return parameterSpec.build();
 
     }

@@ -10,8 +10,8 @@ public class EndpointFilters extends Filters {
     Endpoint parent;
 
     public EndpointFilters(Map<String, String> filters, Endpoint parent) throws IllegalArgumentException {
-        super(filters);
         this.parent = parent;
+        initParent(filters);
     }
 
     String makeFilterVoidName(String key) {

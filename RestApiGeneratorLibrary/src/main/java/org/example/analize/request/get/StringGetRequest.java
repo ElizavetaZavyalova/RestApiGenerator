@@ -18,10 +18,6 @@ public class StringGetRequest extends BaseGetRequest<CodeBlock,String>{
         return CodeBlock.builder().add(select.interpret()).add(".fetch();").build();
     }
 
-    @Override
-    public String requestInterpret() {
-        return select.requestInterpret();
-    }
 
 
 
