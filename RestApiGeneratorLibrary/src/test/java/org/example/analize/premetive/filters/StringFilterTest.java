@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.example.analize.premetive.filters.StringFilterTest.Filters.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 @Slf4j
 public class StringFilterTest {
@@ -45,7 +46,7 @@ public class StringFilterTest {
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsFilters")
-    void ConstructorTestFilter(String filterName,String cond) {
+    void ConstructorTestFilter(String filterName,CodeBlock cond) {
         log.info(filterName);
         StringFilter filter=new StringFilter(filterName);
         filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName);
@@ -54,26 +55,28 @@ public class StringFilterTest {
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsFiltersThrow")
-    void ConstructorTestThrowFilter(String filterName,String cond) {
+    void ConstructorTestThrowFilter(String filterName,CodeBlock cond) {
         log.info(filterName);
         StringFilter filter=new StringFilter(filterName);
         var ex = assertThrows(IllegalArgumentException.class, () -> filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName));
         log.info(ex.getMessage());
     }
+    static CodeBlock trueBlock= CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build();
+    static CodeBlock falseBlock= CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build();
     static public Stream<Arguments> constructorParamsFiltersThrow() {
         return Stream.of(
-                Arguments.of(noFilter,"DSL.trueCondition()"),
-                Arguments.of(noFilter,"DSL.falseCondition()"));
+                Arguments.of(noFilter,trueBlock),
+                Arguments.of(noFilter,falseBlock));
     }
 
     static public Stream<Arguments> constructorParamsFilters() {
         return Stream.of(
-                Arguments.of(filterNameOr,"DSL.trueCondition()"),
-                Arguments.of(filterNameAnd,"DSL.trueCondition()"),
-                Arguments.of(filterNameSql,"DSL.trueCondition()"),
-                Arguments.of(filterNameOr,"DSL.falseCondition()"),
-                Arguments.of(filterNameAnd,"DSL.falseCondition()"),
-                Arguments.of(filterNameSql,"DSL.falseCondition()"));
+                Arguments.of(filterNameOr,trueBlock),
+                Arguments.of(filterNameAnd,trueBlock),
+                Arguments.of(filterNameSql,trueBlock),
+                Arguments.of(filterNameOr,falseBlock),
+                Arguments.of(filterNameAnd,falseBlock),
+                Arguments.of(filterNameSql,falseBlock));
     }
     static public Stream<Arguments> constructorParamsNoFilter() {
         return Stream.of(Arguments.of(noFilter));

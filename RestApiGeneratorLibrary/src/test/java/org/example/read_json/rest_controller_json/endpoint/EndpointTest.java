@@ -95,7 +95,7 @@ class EndpointTest {
         Map<String, Object> object = (Map<String, Object>) jsonEndpoint.get(name);
         log.info(object.toString());
         Endpoint information = new Endpoint(object, createParent(), funcName);
-        log.info("\n" + information.getDBMethods().stream().map(i -> i.toString()).collect(Collectors.joining("\n")));
+        log.info("\n" + information.getDBMethods().stream().map(MethodSpec::toString).collect(Collectors.joining("\n")));
 
     }
 

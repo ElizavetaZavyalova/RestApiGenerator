@@ -91,7 +91,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
     }
 
     @Override
-    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringSelect(request, select, parent);
     }
 }
