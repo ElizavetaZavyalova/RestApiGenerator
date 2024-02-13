@@ -1,0 +1,42 @@
+{
+  "Filter": {
+    "type": "put:age|name",
+    "request": "user/[filter1]/[filter2]/[filter3]/[filter4]/name/",
+    "filters": {
+      "filter1:or": "s:eq_name|i:eq_age",
+      "filter2:and": "s:eq_name1|i:eq_age1",
+      "filter3:sql": "(r=18 and y=90)",
+      "filter4:call": "My.call()"
+    }
+  },
+  "PseudonymsEntity2": {
+    "type": "get:e1|e2",
+    "request": "user/{f1}/{f2}/name/",
+    "pseudonyms": {
+      "entity":{
+        "e1": ["e11","e12","e13"],
+        "e2": ["e21","e22","e23"]
+      }
+    }
+  },
+  "PseudonymsEntityNoEntity": {
+    "type": "get:e1|e12",
+    "request": "user/{f1}/{f2}/name/",
+    "pseudonyms": {
+      "entity":{
+        "e1": ["e11","e12","e13"],
+        "e2": ["e21","e22","e23"]
+      }
+    }
+  },
+  "PseudonymsEntity1": {
+    "type": "get:e1",
+    "request": "user/{f1}/{f2}/name/",
+    "pseudonyms": {
+      "entity":{
+        "e1": ["e11","e12","e13"],
+        "e2": ["e21","e22","e23"]
+      }
+    }
+  }
+}

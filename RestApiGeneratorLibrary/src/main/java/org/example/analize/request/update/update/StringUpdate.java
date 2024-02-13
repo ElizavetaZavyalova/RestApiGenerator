@@ -13,14 +13,17 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class StringUpdate extends BaseUpdate<CodeBlock,String>{
-    protected StringUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) throws IllegalArgumentException {
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
+public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
+    protected StringUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
         super(request, fields, select, parent);
     }
 
     @Override
     public CodeBlock interpret() {
-        var block=CodeBlock.builder().add("DSL.update(DSL.table($S)",realTableName);
+        var block=CodeBlock.builder().add(CONTEXT+".update($T.table($S)",DSL_CLASS,realTableName);
         if(!realTableName.equals(tableName)){
             block.add(".as($S)",tableName);
         }
@@ -49,11 +52,11 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock,String>{
     }
 
     @Override
-    protected BaseWhere<CodeBlock,String> makeWhere(String request, String tableName, Endpoint parent) {
+    protected BaseWhere<CodeBlock> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
     }
     @Override
-    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringSelect(request,select,parent);
     }
 }

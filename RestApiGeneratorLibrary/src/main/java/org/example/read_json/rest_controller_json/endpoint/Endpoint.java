@@ -1,5 +1,6 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
 
@@ -37,25 +38,33 @@ public class Endpoint {
     public Endpoint(Map<String, Object> enpointMap, Endpoints parent, String funcName) throws IllegalArgumentException {
         this.funcName = funcName;
         this.parent = parent;
-        requestInformation = new RequestInformation(enpointMap,this);
         filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
         pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
+        requestInformation = new RequestInformation(enpointMap,this);
+
+    }
+    public List<String> findPath(String table1 ,String table2){
+        List<String> result=pseudonyms.findPath(table1,table2);
+        if(result.size()!=2){
+            return result;
+        }
+        return parent.getParent().getPseudonyms().findPath(table1,table2);
     }
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {
         this.requestInformation.generateBd(this);
         List<MethodSpec> list = new ArrayList<>();
+        list.addAll(requestInformation.makeDBMethods(funcName));
         List<String> useFilters = requestInformation.getVarInfos().stream()
                 .filter(VarInfo::isFilter)
                 .map(VarInfo::getName).distinct().toList();
         for (String useFilter : useFilters) {
-            Filtering<String> filtering = getFilter(useFilter);
+            Filtering<CodeBlock> filtering = getFilter(useFilter);
             if (filtering instanceof ListStringFilter) {
                 ListStringFilter filter = (ListStringFilter) filtering;
                 list.add(filter.makeFilterMethod(this));
             }
         }
-        list.addAll(requestInformation.makeDBMethods(funcName));
         return list;
     }
 
@@ -63,7 +72,7 @@ public class Endpoint {
         return requestInformation.makeControllerMethods(funcName, beanName);
     }
 
-    public Filtering<String> getFilter(String key) throws IllegalArgumentException {
+    public Filtering<CodeBlock> getFilter(String key) throws IllegalArgumentException {
         if (filters.isFilterExist(key)) {
             return filters.getFilterIfExist(key);
         }
@@ -74,10 +83,7 @@ public class Endpoint {
         if (pseudonyms.isContainsTablePseudonym(key)) {
             return pseudonyms.getRealTableName(key);
         }
-        if (parent.getParent().getPseudonyms().isContainsTablePseudonym(key)) {
-            return parent.getParent().getPseudonyms().getRealTableName(key);
-        }
-        return key;
+        return parent.getParent().getPseudonyms().getRealTableName(key);
     }
 
     public List<String> getEntity(String key) {
@@ -91,10 +97,7 @@ public class Endpoint {
         if (pseudonyms.isContainsFieldPseudonym(key)) {
             return pseudonyms.getRealFieldName(key);
         }
-        if (parent.getParent().getPseudonyms().isContainsFieldPseudonym(key)) {
-            return parent.getParent().getPseudonyms().getRealFieldName(key);
-        }
-        return key;
+        return parent.getParent().getPseudonyms().getRealFieldName(key);
     }
 
     public List<String> getRealJoinName(String t1, String t2) {
@@ -105,7 +108,7 @@ public class Endpoint {
         if (parent.getParent().getPseudonyms().isContainsJoinPseudonym(key)) {
             return parent.getParent().getPseudonyms().getRealJoinsName(key);
         }
-        return List.of();
+        return new ArrayList<>();
     }
 
 

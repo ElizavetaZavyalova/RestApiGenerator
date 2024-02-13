@@ -1,6 +1,6 @@
 package org.example.analize.where;
 
-import org.example.analize.interpretation.InterpretationOfRequest;
+
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.premetive.filters.FilterCreation;
@@ -9,58 +9,64 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Stack;
-import java.util.stream.Collectors;
+
 
 import static org.example.analize.where.BaseWhere.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.*;
 
-public abstract class BaseWhere<R,C> implements Interpretation<R> {
-    ArrayList<Interpretation<R>> ports=new ArrayList<>();
-    record RegExp(){
-        static final String SPLIT="/";
+public abstract class BaseWhere<R> implements Interpretation<R> {
+    ArrayList<Interpretation<R>> ports = new ArrayList<>();
+
+    record RegExp() {
+        static final String SPLIT = "/";
     }
-    BaseWhere(String where, String table, Endpoint parent){
-        String[] wherePorts= where.split(SPLIT);
-        for(String port:wherePorts){
-            if(!port.isEmpty()) {
+
+    BaseWhere(String where, String table, Endpoint parent) {
+        String[] wherePorts = where.split(SPLIT);
+        for (String port : wherePorts) {
+            if (!port.isEmpty()) {
                 ports.add(makePort(port, table, parent));
             }
         }
     }
-    Interpretation<R> makePort(String port,String table,Endpoint parent){
-        Queue<String> postfix= Converter.toPostfix(port);
-        Stack<Interpretation<R>> stack=new Stack<>();
-        while(!postfix.isEmpty()){
-            String argument=postfix.poll();
-            if(Converter.isOperator(argument)){
-                stack.push(makeOperand(stack.pop(),stack.pop(),argument,table,parent));
+
+    Interpretation<R> makePort(String port, String table, Endpoint parent) {
+        Queue<String> postfix = Converter.toPostfix(port);
+        Stack<Interpretation<R>> stack = new Stack<>();
+        while (!postfix.isEmpty()) {
+            String argument = postfix.poll();
+            if (Converter.isOperator(argument)) {
+                stack.push(makeOperand(stack.pop(), stack.pop(), argument, table, parent));
+            } else {
+                stack.push(makeFilterOrPrimitive(argument, table, parent));
             }
-            else {
-                stack.push(makeFilterOrPrimitive(argument,table,parent));
-            }
         }
-        Interpretation<R> result=(stack.pop());
-        makeFilterResult(result,null,table,parent);
-        return   result;
-    }
-    Interpretation<R> makeFilterOrPrimitive(String port,String table,Endpoint parent){
-        if(port.endsWith(RIGHT_SQUARE_BRACKET)&&port.startsWith(LEFT_SQUARE_BRACKET)){
-            return makeFilter(port.substring(LEFT_SQUARE_BRACKET.length(), port.length() - RIGHT_SQUARE_BRACKET.length()));
-        }
-        if(port.endsWith(RIGHT_CURLY_BRACKET)&&port.startsWith(LEFT_CURLY_BRACKET)){
-            return makePrimitive(port.substring(LEFT_CURLY_BRACKET.length(), port.length() - RIGHT_CURLY_BRACKET.length()),table,parent);
-        }
-        throw new IllegalArgumentException("FILTER MUST BE IN:"+LEFT_SQUARE_BRACKET+RIGHT_SQUARE_BRACKET+" OR " +
-                "PRIMITIVE MUST BE IN:"+LEFT_CURLY_BRACKET+RIGHT_CURLY_BRACKET);
+        Interpretation<R> result = (stack.pop());
+        makeFilterResult(result, null, table, parent);
+        return result;
     }
 
-    void makeFilterResult(Interpretation<R> interpretation, C operand, String table, Endpoint parent) {
+    Interpretation<R> makeFilterOrPrimitive(String port, String table, Endpoint parent) {
+        if (port.endsWith(RIGHT_SQUARE_BRACKET) && port.startsWith(LEFT_SQUARE_BRACKET)) {
+            return makeFilter(port.substring(LEFT_SQUARE_BRACKET.length(), port.length() - RIGHT_SQUARE_BRACKET.length()));
+        }
+        if (port.endsWith(RIGHT_CURLY_BRACKET) && port.startsWith(LEFT_CURLY_BRACKET)) {
+            return makePrimitive(port.substring(LEFT_CURLY_BRACKET.length(), port.length() - RIGHT_CURLY_BRACKET.length()), table, parent);
+        }
+        throw new IllegalArgumentException("FILTER MUST BE IN:" + LEFT_SQUARE_BRACKET + RIGHT_SQUARE_BRACKET + " OR " +
+                "PRIMITIVE MUST BE IN:" + LEFT_CURLY_BRACKET + RIGHT_CURLY_BRACKET);
+    }
+
+    void makeFilterResult(Interpretation<R> interpretation, R operand, String table, Endpoint parent) {
         if (interpretation instanceof FilterCreation) {
-            FilterCreation<C> filterCreation = (FilterCreation<C>) interpretation;
+            FilterCreation<R> filterCreation = (FilterCreation<R>) interpretation;
             filterCreation.makeFilter(parent, operand, table);
         }
     }
+
     abstract Interpretation<R> makeFilter(String filter);
-    abstract Interpretation<R> makePrimitive(String primitive,String table,Endpoint parent);
-    abstract Interpretation<R> makeOperand(Interpretation<R> left,Interpretation<R> right, String operand,String table,Endpoint parent);
+
+    abstract Interpretation<R> makePrimitive(String primitive, String table, Endpoint parent);
+
+    abstract Interpretation<R> makeOperand(Interpretation<R> left, Interpretation<R> right, String operand, String table, Endpoint parent);
 }

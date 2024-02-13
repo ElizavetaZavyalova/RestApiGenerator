@@ -8,16 +8,19 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BasePostRequest<R,C> extends BaseRequest<R,C> {
-    protected BaseInsertRequest<R,C> insert;
+public abstract class BasePostRequest<R> extends BaseRequest<R> {
+    protected BaseInsertRequest<R> insert;
+
     protected BasePostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
-        insert=makeBaseInsertRequest(address.getEndUrl(),params,address.getSelectCurrent(),parent);
+        insert = makeBaseInsertRequest(address.getEndUrl(), params, address.getSelectCurrent(), parent);
     }
+
     @Override
     public void addParams(List<VarInfo> params) {
         this.insert.addParams(params);
     }
-    abstract BaseInsertRequest<R,C> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<R, C> select, Endpoint parent);
+
+    abstract BaseInsertRequest<R> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent);
 
 }

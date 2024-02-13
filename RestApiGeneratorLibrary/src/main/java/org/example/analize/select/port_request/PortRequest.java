@@ -1,6 +1,7 @@
 package org.example.analize.select.port_request;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -11,10 +12,11 @@ import java.util.regex.Pattern;
 import static org.example.analize.select.port_request.PortRequest.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 
-public abstract class PortRequest<R, C> implements Interpretation<R> {
-    protected PortRequestWithCondition<R, C> selectNext;
-
+public abstract class PortRequest<R> implements Interpretation<R> {
+    protected PortRequestWithCondition<R> selectNext;
+    @Getter
     protected String tableName;
+    @Getter
     protected String realTableName;
     protected String id = "id";
     protected String ref;
@@ -51,10 +53,10 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
 
     String makeDefaultNextId() {
         switch (tableRef) {
-            case MANY_TO_ONE->{
+            case MANY_TO_ONE -> {
                 return realTableName + "_id";
             }
-            case ONE_TO_ONE_BY_TABLE_NAME->{
+            case ONE_TO_ONE_BY_TABLE_NAME -> {
                 return realTableName;
             }
             default -> {
@@ -76,14 +78,17 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
             }
         }
     }
-    private boolean isJoinAndSetItIfJoin(List<String> joins){
-        TableRef joinRef=TableRef.getTableRef(joins.get(0));
-        if(joinRef==TableRef.DEFAULT){
+
+    private boolean isJoinAndSetItIfJoin(List<String> joins) {
+        TableRef joinRef = TableRef.getTableRef(joins.get(0));
+        if (joinRef == TableRef.DEFAULT) {
             return false;
         }
-        tableRef=joinRef;
+        tableRef = joinRef;
         return true;
     }
+
+    private boolean isPathFound = false;
 
 
     void tryFindJoinsEndSetResult(Endpoint parent) {
@@ -91,12 +96,17 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         if (joins.isEmpty()) {
             joins = parent.getRealJoinName(realTableName, selectNext.realTableName);
         }
-        if(joins.size()==1) {
-          if(!isJoinAndSetItIfJoin(joins)) {
-              makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
-              tryFindJoinsEndSetResult(parent);
-              return;
-          }
+        if (joins.size() == 1) {
+            if (!isJoinAndSetItIfJoin(joins)) {
+                makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
+                tryFindJoinsEndSetResult(parent);
+                return;
+            }
+        }
+        if (joins.isEmpty() && !isPathFound) {
+            findPath(parent);
+            isPathFound = true;
+            tryFindJoinsEndSetResult(parent);
         }
         if (joins.isEmpty()) {
             ref = makeDefaultRef();
@@ -108,14 +118,15 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         ref = joins.get(JOIN_CURRENT_REF_PORT).equals(JOIN_SPLIT) ?
                 (makeDefaultRef()) : joins.get(JOIN_CURRENT_REF_PORT);
     }
-    void makeSelectManyToMany(String tableName,Endpoint parent){
-        if(tableRef.equals(TableRef.DEFAULT)){
-            tableRef=TableRef.MANY_TO_ONE;
-        }
-        selectNext=makeSelect(tableName,selectNext,parent);
-    }
-    protected abstract PortRequestWithCondition<R, C> makeSelect(String request, PortRequestWithCondition<R, C> select, Endpoint parent);
 
+    void makeSelectManyToMany(String tableName, Endpoint parent) {
+        if (tableRef.equals(TableRef.DEFAULT)) {
+            tableRef = TableRef.MANY_TO_ONE;
+        }
+        selectNext = makeSelect(tableName, selectNext, parent);
+    }
+
+    protected abstract PortRequestWithCondition<R> makeSelect(String request, PortRequestWithCondition<R> select, Endpoint parent);
 
 
     void throwException(String tableName) throws IllegalArgumentException {
@@ -127,8 +138,23 @@ public abstract class PortRequest<R, C> implements Interpretation<R> {
         }
     }
 
+    void findPath(Endpoint parent) {
+        List<String> path = parent.findPath(selectNext.getTableName(), tableName);
+        if (path.size() == 2) {
+            path = parent.findPath(selectNext.getRealTableName(), realTableName);
+            if (path.size() == 2) {
+                return;
+            }
+        }
+        final int START_PORT = 1;
+        final int LAST_PORT = path.size() - 1;
+        for (int urlPortIndex = START_PORT; urlPortIndex < LAST_PORT; urlPortIndex++) {
+            selectNext = makeSelect(path.get(urlPortIndex), selectNext, parent);
+        }
+    }
 
-    protected void initTableName(String tableName, PortRequestWithCondition<R, C> select, Endpoint parent) throws IllegalArgumentException {
+
+    protected void initTableName(String tableName, PortRequestWithCondition<R> select, Endpoint parent) throws IllegalArgumentException {
         tableRef = TableRef.getTableRef(tableName);
         tableName = TableRef.deleteTableRef(tableName, tableRef);
         throwException(tableName);

@@ -8,8 +8,8 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BaseUpdateRequest<R,C> extends BaseRequest<R,C> {
-    BaseUpdate<R,C> update;
+public abstract class BaseUpdateRequest<R> extends BaseRequest<R> {
+    BaseUpdate<R> update;
     protected BaseUpdateRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
         update=makeUpdate(address.getEndUrl(),fields,address.getSelectCurrent(),parent);
@@ -25,5 +25,5 @@ public abstract class BaseUpdateRequest<R,C> extends BaseRequest<R,C> {
     public void addParams(List<VarInfo> params) {
         update.addParams(params);
     }
-    protected abstract BaseUpdate<R,C> makeUpdate(String request, List<String> fields, PortRequestWithCondition<R,C> select, Endpoint parent);
+    protected abstract BaseUpdate<R> makeUpdate(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent);
 }

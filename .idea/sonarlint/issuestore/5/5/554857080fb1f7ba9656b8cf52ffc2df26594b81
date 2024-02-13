@@ -1,14 +1,14 @@
 
 r
-java:S1149$"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ƒÿƒ—ùÿÿÿÿ8íÆ¾’Ò1
+java:S11492"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ƒÿƒ—ùÿÿÿÿ8¶÷öÙ1
 m
-java:S1149?"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¹óÅ‘8îÆ¾’Ò1
+java:S1149M"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¹óÅ‘8¶÷öÙ1
 r
-java:S1149I"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÄÉä†ÿÿÿÿÿ8îÆ¾’Ò1
+java:S1149W"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÄÉä†ÿÿÿÿÿ8¶÷öÙ1
 r
-java:S1149R"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(Ããæóüÿÿÿÿ8îÆ¾’Ò1
+java:S1149`"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(Ããæóüÿÿÿÿ8¶÷öÙ1
 m
-java:S1149\"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(•Ğ¡…8îÆ¾’Ò1
+java:S1149j"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(•Ğ¡…8¶÷öÙ1
 m
-java:S1149j"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¤©Õš8ïÆ¾’Ò1
-X	java:S1254"<This block of commented-out lines of code should be removed.(‚öî8÷Æ¾’Ò1
+java:S1149x"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¤©Õš8¶÷öÙ1
+X	java:S125B"<This block of commented-out lines of code should be removed.(‚öî8¾÷öÙ1

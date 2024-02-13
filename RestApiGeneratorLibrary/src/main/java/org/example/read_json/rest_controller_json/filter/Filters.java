@@ -1,5 +1,6 @@
 package org.example.read_json.rest_controller_json.filter;
 
+import com.squareup.javapoet.CodeBlock;
 import lombok.Getter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 
@@ -17,7 +18,7 @@ import static org.example.read_json.rest_controller_json.filter.filters_vies.Fil
 
 public abstract class Filters {
     @Getter
-    Map<String, Filtering<String>> filters = new HashMap<>();
+    Map<String, Filtering<CodeBlock>> filters = new HashMap<>();
     protected void initParent(Map<String, String> filters) throws IllegalArgumentException{
         filters.forEach(this::addFilter);
     }
@@ -37,14 +38,14 @@ public abstract class Filters {
         return filters.containsKey(key);
     }
 
-    public Filtering<String> getFilterIfExist(String key) throws IllegalArgumentException {
+    public Filtering<CodeBlock> getFilterIfExist(String key) throws IllegalArgumentException {
         if (isFilterExist(key)) {
            return filters.get(key);
         }
         throw new IllegalArgumentException("FILTER " + key + " NOT EXIST");
     }
 
-    void addKeyValToFilters(String key, Filtering<String> filter) throws IllegalArgumentException {
+    void addKeyValToFilters(String key, Filtering<CodeBlock> filter) throws IllegalArgumentException {
         throwException(key);
         if (filters.containsKey(key)) {
             throw new IllegalArgumentException("FILTER:" + key + "IS ALREADY EXIST");

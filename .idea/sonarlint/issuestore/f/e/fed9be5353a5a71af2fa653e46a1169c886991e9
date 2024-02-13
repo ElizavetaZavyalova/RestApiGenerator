@@ -1,7 +1,3 @@
 
 m
-java:S1149 "PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(£¹ŠÆ8ï¢§Š×1
-t
-java:S1128"WRemove this unused import 'org.example.analize.interpretation.InterpretationOfRequest'.(Ûæ«†8™Ž¦ÆÙ1
-Z
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8œŽ¦ÆÙ1
+java:S1149#"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(£¹ŠÆ8ï¢§Š×1

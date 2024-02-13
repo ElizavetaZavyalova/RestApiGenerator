@@ -9,14 +9,14 @@ import java.util.Arrays;
 
 import static org.example.analize.address.BaseAddress.RegExp.*;
 
-public abstract class BaseAddress<R, C> implements Interpretation<R> {
+public abstract class BaseAddress<R> implements Interpretation<R> {
     record RegExp() {
         static final String SPLIT = "/(?![{\\[(])";
         static final int START = 0;
     }
 
     @Getter
-    PortRequestWithCondition<R, C> selectCurrent = null;
+    PortRequestWithCondition<R> selectCurrent = null;
     @Getter
     String endUrl = "";
 
@@ -33,5 +33,6 @@ public abstract class BaseAddress<R, C> implements Interpretation<R> {
         }
     }
 
-    abstract PortRequestWithCondition<R, C> makeSelect(String request, PortRequestWithCondition<R, C> select, Endpoint parent);
+
+    abstract PortRequestWithCondition<R> makeSelect(String request, PortRequestWithCondition<R> select, Endpoint parent);
 }

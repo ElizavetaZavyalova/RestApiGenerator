@@ -8,6 +8,8 @@ import org.example.analize.premetive.info.VarInfo;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
 public class StringOperand extends BaseOperand<CodeBlock> {
     public StringOperand(Interpretation<CodeBlock> left, Interpretation<CodeBlock> right, String op) {
         super(left, right, op);
@@ -17,8 +19,8 @@ public class StringOperand extends BaseOperand<CodeBlock> {
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
         switch (operand) {
-            case OR -> block.add("DSL.or(");
-            case AND -> block.add("DSL.and(");
+            case OR -> block.add("$T.or(",DSL_CLASS);
+            case AND -> block.add("$T.and(",DSL_CLASS);
         }
         return block.add(left.interpret()).add(", ")
                 .add(right.interpret()).add(")").build();

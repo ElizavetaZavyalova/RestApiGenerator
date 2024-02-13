@@ -6,9 +6,9 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class GetBaseSelect<R,C> extends PortRequestWithCondition<R,C> {
+public abstract class GetBaseSelect<R> extends PortRequestWithCondition<R> {
     protected List<BaseField<R>> fields;
-    protected GetBaseSelect(String request, PortRequestWithCondition<R, C> select, List<String> fields, Endpoint parent) {
+    protected GetBaseSelect(String request, PortRequestWithCondition<R> select, List<String> fields, Endpoint parent) {
         super(request, select, parent);
         this.fields=fields.stream().map(fieldName->makeField(fieldName,tableName,parent)).toList();
     }

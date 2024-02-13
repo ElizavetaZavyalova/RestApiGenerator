@@ -76,6 +76,16 @@ public record MakeCast() {
         throw new IllegalArgumentException("NO " + keyWord);
     }
 
+    public static String makeStringIfContainsKeyMapElseReturnEmpty(Map<String, Object> configJson, String keyWord) throws IllegalArgumentException {
+        try {
+            if (configJson.containsKey(keyWord)) {
+                return (String) configJson.get(keyWord);
+            }
+        } catch (ClassCastException ignored) {
+        }
+        return "";
+    }
+
     public static String makeString(Object configJson, String keyWord) throws IllegalArgumentException {
         try {
             return (String) Optional.ofNullable(configJson).orElse("");

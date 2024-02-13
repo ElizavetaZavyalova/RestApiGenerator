@@ -10,7 +10,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
+public class StringPostRequest extends BasePostRequest<CodeBlock> {
 
 
     public StringPostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
@@ -27,12 +27,12 @@ public class StringPostRequest extends BasePostRequest<CodeBlock,String> {
 
 
     @Override
-    protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {
+    protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
         return new StringAddress(url,parent);
     }
 
     @Override
-    BaseInsertRequest<CodeBlock, String> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    BaseInsertRequest<CodeBlock> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringInsertRequest(request,fields,select,parent);
     }
 

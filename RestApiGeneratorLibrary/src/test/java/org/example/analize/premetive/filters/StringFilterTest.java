@@ -1,5 +1,6 @@
 package org.example.analize.premetive.filters;
 
+import com.squareup.javapoet.CodeBlock;
 import lombok.extern.slf4j.Slf4j;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
@@ -47,7 +48,7 @@ public class StringFilterTest {
     void ConstructorTestFilter(String filterName,String cond) {
         log.info(filterName);
         StringFilter filter=new StringFilter(filterName);
-        filter.makeFilter(make(filterName),cond,tableName);
+        filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName);
         log.info(filter.interpret().toString());
 
     }
@@ -56,7 +57,7 @@ public class StringFilterTest {
     void ConstructorTestThrowFilter(String filterName,String cond) {
         log.info(filterName);
         StringFilter filter=new StringFilter(filterName);
-        var ex = assertThrows(IllegalArgumentException.class, () -> filter.makeFilter(make(filterName),cond,tableName));
+        var ex = assertThrows(IllegalArgumentException.class, () -> filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsFiltersThrow() {

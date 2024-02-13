@@ -11,15 +11,18 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public class StringDelete extends BaseDelete<CodeBlock, String> {
-    public StringDelete(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
+public class StringDelete extends BaseDelete<CodeBlock> {
+    public StringDelete(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         super(request, select, parent);
     }
 
     @Override
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
-        block.add("context.deleteFrom(DSL.table($S)", realTableName);
+        block.add(CONTEXT+".deleteFrom($T.table($S)",DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
         }
@@ -30,7 +33,7 @@ public class StringDelete extends BaseDelete<CodeBlock, String> {
 
 
     @Override
-    protected BaseWhere<CodeBlock, String> makeWhere(String request, String tableName, Endpoint parent) {
+    protected BaseWhere<CodeBlock> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
     }
 
@@ -45,7 +48,7 @@ public class StringDelete extends BaseDelete<CodeBlock, String> {
     }
 
     @Override
-    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringSelect(request,select,parent);
     }
 }

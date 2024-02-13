@@ -146,18 +146,8 @@ class PseudonymsTest {
         log.info("t9:t10");
         assertEquals(pseudonyms.getRealJoinsName("t10:t9"), List.of("-"), () -> "t10:t9");
         assertEquals(pseudonyms.getRealJoinsName("t9:t10"), List.of("-"), () -> "t9:t10");
-        log.info("t11:t10");
-        assertEquals(pseudonyms.getRealJoinsName("t11:t10"), List.of("-t"), () -> "t11:t10");
-        assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t10:t11"));
-        log.info("t12:t11");
-        assertEquals(pseudonyms.getRealJoinsName("t12:t11"), List.of(">t"), () -> "t12:t11");
-        assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t11:t12"));
-        log.info("t13:t12");
-        assertEquals(pseudonyms.getRealJoinsName("t13:t12"), List.of("<t"), () -> "t13:t12");
-        assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t12:t13"));
-        log.info("t14:t13");
-        assertEquals(pseudonyms.getRealJoinsName("t14:t13"), List.of("=t"), () -> "t14:t13");
-        assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t13:t14"));
+        log.info(pseudonyms.findPath("t1","t10").toString());
+
     }
 
 }

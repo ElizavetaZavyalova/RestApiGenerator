@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
-import static org.example.analize.postfix_infix.Converter.RegExp.FIND_OPERATOR_OR_BRACKET;
-import static org.example.analize.postfix_infix.Converter.RegExp.NOT_DELETE_EMPTY_STRING_ON_END;
+import static org.example.analize.postfix_infix.Converter.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.*;
 
 @Slf4j
@@ -17,6 +17,9 @@ public class Converter {
     public record RegExp() {
         static final int NOT_DELETE_EMPTY_STRING_ON_END = -1;
         public static final String FIND_OPERATOR_OR_BRACKET = "([|)&(])";
+        public static final String NOT_CORRECT_PATTERN = "([&|]{2})";
+
+
     }
 
 
@@ -24,7 +27,7 @@ public class Converter {
         return isAND(operator) || isOR(operator);
     }
 
-    public static  boolean isAND(String operator) {
+    public static boolean isAND(String operator) {
         return operator.equals(AND_);
     }
 
@@ -32,7 +35,18 @@ public class Converter {
         return operator.equals(OR_);
     }
 
-    public static  Queue<String> toPostfix(String condition) throws IllegalArgumentException {
+    public void throwIfNotCorrect(String condition) throws IllegalArgumentException {
+        if (condition.startsWith(AND_) || condition.startsWith(OR_)) {
+            throw new IllegalArgumentException(condition + "  can't starts with:" + AND_ + " or " + OR_);
+        } else if (condition.endsWith(AND_) || condition.endsWith(OR_)) {
+            throw new IllegalArgumentException(condition + " can't ends on:" + AND_ + " or " + OR_);
+        } else if (Pattern.compile(NOT_CORRECT_PATTERN).matcher(condition).find()) {
+            throw new IllegalArgumentException(condition + " can't contain:" + AND_ + OR_ + " or " + AND_ + AND_ + " or " + OR_ + OR_ + " or " + OR_ + AND_);
+        }
+    }
+
+    public static Queue<String> toPostfix(String condition) throws IllegalArgumentException {
+        throwIfNotCorrect(condition);
         Stack<String> stack = new Stack<>();
         Queue<String> queue = new LinkedList<>();
         String[] elements = condition.split(FIND_OPERATOR_OR_BRACKET, NOT_DELETE_EMPTY_STRING_ON_END);

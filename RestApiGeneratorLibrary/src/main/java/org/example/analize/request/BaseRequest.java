@@ -5,12 +5,14 @@ import org.example.analize.address.BaseAddress;
 import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
-public abstract class BaseRequest<R, C> implements Interpretation<R> {
-    protected BaseAddress<R, C> address = null;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType.*;
+
+public abstract class BaseRequest<R> implements Interpretation<R> {
+    protected BaseAddress<R> address = null;
 
     @Getter
     protected enum RequestType {
-        GET("get"), POST("post"), PUT("put"), PATCH("patch"), DELETE("delete");
+        GET(_GET), POST(_POST), PUT(_PUT), PATCH(_PATCH), DELETE(_DELETE);
         private final String typeName;
 
         RequestType(String typeName) {
@@ -25,7 +27,7 @@ public abstract class BaseRequest<R, C> implements Interpretation<R> {
         }
     }
 
-    protected abstract BaseAddress<R, C> make(String url, Endpoint parent);
+    protected abstract BaseAddress<R> make(String url, Endpoint parent);
 
 
 }

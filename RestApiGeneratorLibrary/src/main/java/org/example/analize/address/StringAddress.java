@@ -8,13 +8,13 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public class StringAddress extends BaseAddress<CodeBlock, String> {
+public class StringAddress extends BaseAddress<CodeBlock> {
     public StringAddress(String url, Endpoint parent) {
         super(url, parent);
     }
 
     @Override
-    PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringSelect(request, select, parent);
     }
 
@@ -25,7 +25,6 @@ public class StringAddress extends BaseAddress<CodeBlock, String> {
         }
         return CodeBlock.builder().build();
     }
-
 
 
     @Override

@@ -8,8 +8,10 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.List;
 import java.util.Optional;
 
-public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<String> {
-    String result;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
+public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<CodeBlock> {
+    CodeBlock result;
     String filterName;
 
 
@@ -23,8 +25,8 @@ public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<S
     }
 
     @Override
-    public void makeFilter(Endpoint parent, String def, String table) {
-        def = Optional.ofNullable(def).orElse("DSL.trueCondition()");
+    public void makeFilter(Endpoint parent, CodeBlock def, String table) {
+        def = Optional.ofNullable(def).orElse(CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build());
         result = parent.getFilter(filterName).makeFilter(parent.getFuncName(),table, def);
     }
     @Override

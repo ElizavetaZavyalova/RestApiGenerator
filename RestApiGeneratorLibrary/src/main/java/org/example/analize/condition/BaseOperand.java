@@ -36,5 +36,4 @@ public abstract class BaseOperand<R> implements Interpretation<R> {
     }
 
 
-
 }

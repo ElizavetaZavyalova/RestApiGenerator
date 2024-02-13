@@ -1,4 +1,5 @@
 package org.example.analize.select.port_request;
+
 import lombok.AllArgsConstructor;
 import org.example.analize.where.BaseWhere;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -8,45 +9,51 @@ import static org.example.analize.select.port_request.PortRequestWithCondition.A
 import static org.example.analize.select.port_request.PortRequestWithCondition.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.AggregationFunction.*;
 
-public abstract class PortRequestWithCondition<R,C> extends PortRequest<R,C> {
+public abstract class PortRequestWithCondition<R> extends PortRequest<R> {
 
-    protected BaseWhere<R,C> where;
+    protected BaseWhere<R> where;
 
     record RegExp() {
         static final String SPLIT = "/";
-        static final int SPLIT_LIMIT=2;
-        static final int TABLE_PORT=0;
-        static final int WHERE_PORT=1;
-        static final int REQUEST_PORTS_MAX_LENGTH=2;
+        static final int SPLIT_LIMIT = 2;
+        static final int TABLE_PORT = 0;
+        static final int WHERE_PORT = 1;
+        static final int REQUEST_PORTS_MAX_LENGTH = 2;
     }
-    protected PortRequestWithCondition(String request, PortRequestWithCondition<R,C> select, Endpoint parent) throws  IllegalArgumentException{
-        String[] requestPorts=request.split(SPLIT,SPLIT_LIMIT);
-        aggregationFunction=AggregationFunction.getAggregationFunction(requestPorts[TABLE_PORT]);
-        super.initTableName(AggregationFunction.deleteAggregationFunction(requestPorts[TABLE_PORT], aggregationFunction),select, parent);
-        if(requestPorts.length==REQUEST_PORTS_MAX_LENGTH){
-            where=makeWhere(requestPorts[WHERE_PORT],tableName,parent);
+
+    protected PortRequestWithCondition(String request, PortRequestWithCondition<R> select, Endpoint parent) throws IllegalArgumentException {
+        String[] requestPorts = request.split(SPLIT, SPLIT_LIMIT);
+        aggregationFunction = AggregationFunction.getAggregationFunction(requestPorts[TABLE_PORT]);
+        super.initTableName(AggregationFunction.deleteAggregationFunction(requestPorts[TABLE_PORT], aggregationFunction), select, parent);
+        if (requestPorts.length == REQUEST_PORTS_MAX_LENGTH) {
+            where = makeWhere(requestPorts[WHERE_PORT], tableName, parent);
         }
     }
-    protected AggregationFunction aggregationFunction=NO;
+
+    protected AggregationFunction aggregationFunction = NO;
+
     @AllArgsConstructor
-    public enum AggregationFunction{
-      MAX(_MAX),MIN(_MIN), NO("");
+    public enum AggregationFunction {
+        MAX(_MAX), MIN(_MIN), NO("");
         private final String name;
-        public  static  AggregationFunction getAggregationFunction(String tableName ){
+
+        public static AggregationFunction getAggregationFunction(String tableName) {
             for (AggregationFunction type : AggregationFunction.values()) {
-                if (tableName.startsWith(type.name)&&!type.equals(NO)) {
+                if (tableName.startsWith(type.name) && !type.equals(NO)) {
                     return type;
                 }
             }
             return NO;
         }
-        public static String deleteAggregationFunction(String tableName,AggregationFunction func){
+
+        public static String deleteAggregationFunction(String tableName, AggregationFunction func) {
             return tableName.substring(func.name.length());
         }
-        public static String addAggregationFunction(String tableName,AggregationFunction func){
-            return func.name+tableName;
+
+        public static String addAggregationFunction(String tableName, AggregationFunction func) {
+            return func.name + tableName;
         }
     }
 
-    protected abstract BaseWhere<R,C> makeWhere(String request, String tableName, Endpoint parent);
+    protected abstract BaseWhere<R> makeWhere(String request, String tableName, Endpoint parent);
 }

@@ -14,7 +14,7 @@ import org.example.read_json.rest_controller_json.endpoint.Type;
 
 public class InterpretDb {
     @Getter
-    BaseRequest<CodeBlock, String> interpretation;
+    BaseRequest<CodeBlock> interpretation;
 
     public InterpretDb(Endpoint parent, Type type) {
         String request = parent.getRequestInformation().getRequest();

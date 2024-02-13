@@ -12,7 +12,9 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public class StringWhere extends BaseWhere<CodeBlock, String> {
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
+public class StringWhere extends BaseWhere<CodeBlock> {
     public StringWhere(String where, String table, Endpoint parent) {
         super(where, table, parent);
     }
@@ -23,7 +25,7 @@ public class StringWhere extends BaseWhere<CodeBlock, String> {
         if (ports.isEmpty()) {
             return block.add("").build();
         }
-        return block.add("DSL.and(").add(ports.stream()
+        return block.add("$T.and(",DSL_CLASS).add(ports.stream()
                         .map(InterpretationBd::interpret)
                         .reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                         .orElse(ports.get(0).interpret()))
@@ -35,7 +37,6 @@ public class StringWhere extends BaseWhere<CodeBlock, String> {
     @Override
     Interpretation<CodeBlock> makeFilter(String filter) {
         return new StringFilter(filter);
-        //TODO make filter
     }
 
     @Override
@@ -45,7 +46,9 @@ public class StringWhere extends BaseWhere<CodeBlock, String> {
 
     @Override
     Interpretation<CodeBlock> makeOperand(Interpretation<CodeBlock> left, Interpretation<CodeBlock> right, String operand, String table, Endpoint parent) {
-        String def = Converter.isAND(operand) ? ("DSL.trueCondition()") : ("DSL.falseCondition()");
+        CodeBlock def = Converter.isAND(operand) ?
+                (CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build()) :
+                (CodeBlock.builder().add("$T.falseCondition()",DSL_CLASS).build());
         makeFilterResult(left, def, table, parent);
         makeFilterResult(right, def, table, parent);
         return new StringOperand(left, right, operand);

@@ -14,9 +14,11 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 
-public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
-    public StringGetSelect(String request, PortRequestWithCondition<CodeBlock, String> select, List<String> fields, Endpoint parent) {
+
+public class StringGetSelect extends GetBaseSelect<CodeBlock>{
+    public StringGetSelect(String request, PortRequestWithCondition<CodeBlock> select, List<String> fields, Endpoint parent) {
         super(request, select, fields, parent);
     }
 
@@ -28,7 +30,7 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
     @Override
     public CodeBlock interpret() {
         var block= CodeBlock.builder();
-                block.add("context.select(")
+                block.add(CONTEXT+".select(")
                 .add(makeFields())
                 .add(").from($S)",realTableName);
         if(!realTableName.equals(tableName)){
@@ -39,7 +41,7 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
         return block.build();
     }
     @Override
-    protected PortRequestWithCondition<CodeBlock, String> makeSelect(String request, PortRequestWithCondition<CodeBlock, String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringSelect(request,select,parent);
     }
 
@@ -58,7 +60,7 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock,String>{
 
 
     @Override
-    protected BaseWhere<CodeBlock,String> makeWhere(String request, String tableName, Endpoint parent) {
+    protected BaseWhere<CodeBlock> makeWhere(String request, String tableName, Endpoint parent) {
         return new StringWhere(request, tableName, parent);
     }
 

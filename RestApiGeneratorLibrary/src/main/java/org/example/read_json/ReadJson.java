@@ -24,14 +24,14 @@ public class ReadJson implements LoadJson<Map<String,Object>> {
         }
     }
     public Map<String,Object> loadEndpoints(Map<String, Object> map) throws IllegalArgumentException{
-        String path= MakeCast.makeStringIfContainsKeyMap(map,HTTP,false);
+        String path= MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map,HTTP);
         if(path.isEmpty()) {
             return MakeCast.makeMapAndCheckKey(map, HTTP);
         }
         return load(path);
     }
     public Map<String, String> loadFilters(Map<String, Object> map) throws IllegalArgumentException {
-        String path = MakeCast.makeStringIfContainsKeyMap(map, FILTERS, false);
+        String path = MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map, FILTERS);
         if (path.isEmpty()) {
             return MakeCast.makeStringMap(map, FILTERS, false);
         }
@@ -39,7 +39,7 @@ public class ReadJson implements LoadJson<Map<String,Object>> {
     }
 
     public Map<String, Map<String, List<String>>> loadPseudonyms(Map<String, Object> map) throws IllegalArgumentException{
-        String path=MakeCast.makeStringIfContainsKeyMap(map,PSEUDONYMS,false);
+        String path=MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map,PSEUDONYMS);
         if(path.isEmpty()) {
             return MakeCast.makeMapOfMapOfList(map, PSEUDONYMS, false);
         }

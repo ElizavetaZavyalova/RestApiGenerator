@@ -12,7 +12,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.R
 
 public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String fieldName;
-    protected String nameInRequest="";
+    protected String nameInRequest = "";
     protected String realFieldName;
 
     public enum Type {
@@ -66,7 +66,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         }
 
         static Action getAction(String s) {
-            for ( Action type :  Action.values()) {
+            for (Action type : Action.values()) {
                 if (s.startsWith(type.names)) {
                     return type;
                 }
@@ -84,16 +84,15 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
     }
 
     protected BaseFieldParser(String variable, Endpoint parent) throws IllegalArgumentException {
-       nameInRequest=variable;
-        type =  Type.getType(variable);
-        variable =  Type.deleteType(variable, type);
-        action =  Action.getAction(variable);
+        nameInRequest = variable;
+        type = Type.getType(variable);
+        variable = Type.deleteType(variable, type);
+        action = Action.getAction(variable);
         this.fieldName = variable;
-        this.realFieldName=Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
+        this.realFieldName = Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
                 .orElse(fieldName);
         throwExceptionIfTypeAndActionIsNotCorrect();
     }
-
 
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {

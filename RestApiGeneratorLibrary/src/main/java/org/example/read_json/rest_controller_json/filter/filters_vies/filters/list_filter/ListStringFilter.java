@@ -1,5 +1,6 @@
 package org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter;
 
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -18,7 +19,7 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 
-public class ListStringFilter extends ListFilter<String> {
+public class ListStringFilter extends ListFilter<CodeBlock> {
     String func;
 
     public ListStringFilter(FilterNames name, List<String> val, String filter) {
@@ -48,7 +49,9 @@ public class ListStringFilter extends ListFilter<String> {
     }
 
     @Override
-    public String makeFilter(Object... args) {
-        return getFuncName((String) args[0]) + "(" + REQUEST_PARAM_NAME + ", \"" + (String) args[1] + "\", " + (String) args[2] + ")";
+    public CodeBlock makeFilter(Object... args) {
+        return CodeBlock.builder().add(getFuncName((String) args[0]))
+                .add("("+REQUEST_PARAM_NAME + ", $S, ",(String) args[1])
+                .add((String) args[2] + ")").build();
     }
 }

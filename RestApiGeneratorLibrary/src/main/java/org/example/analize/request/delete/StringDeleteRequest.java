@@ -7,7 +7,7 @@ import org.example.analize.request.delete.delete.StringDelete;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
-public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock,String>{
+public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock>{
     public StringDeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
     }
@@ -21,11 +21,11 @@ public class StringDeleteRequest extends BaseDeleteRequest<CodeBlock,String>{
 
 
     @Override
-    protected BaseAddress<CodeBlock, String> make(String url, Endpoint parent) {
+    protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
         return new StringAddress(url,parent);
     }
     @Override
-    protected PortRequestWithCondition<CodeBlock, String> makeDelete(String request, PortRequestWithCondition<CodeBlock,String> select, Endpoint parent) {
+    protected PortRequestWithCondition<CodeBlock> makeDelete(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringDelete(request,select,parent);
     }
 
