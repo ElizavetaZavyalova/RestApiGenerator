@@ -1,8 +1,6 @@
 package org.example.read_json;
 
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.processors.AST;
@@ -16,8 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.CONFIGURATION_ANNOTATION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.STRING_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.VALUE_ANNOTATION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.INFO_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.OPEN_API_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.*;
+import static org.example.read_json.ParseJson.Swagger.*;
+import static org.example.read_json.rest_controller_json.RestJson.DB.CONNECTION_REST;
 
 
 @Slf4j
@@ -30,15 +34,39 @@ public class ParseJson {
     public ParseJson(String jsonPath) {
         try {
             loadJson.load(jsonPath).forEach(
-                    (key, object) -> restsJson.add(new RestJson(MakeCast.makeMap(object, jsonPath), key, null)));
+                    (key, object) -> restsJson.add(new RestJson(MakeCast.makeMap(object, jsonPath), key, bean)));
         } catch (IOException | IllegalArgumentException ex) {
             log.debug(ex.getMessage());
             AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
         }
     }
 
-    MethodSpec makeSwaggerConfiguration() {
-        return null;
+    public record Swagger() {
+        static final String title = "title";
+        static final String openApi = "openApi";
+        static final String description = "description";
+        static final String version="version";
+        static public String getParam(String param){
+            return openApi+"."+param;
+        }
+    }
+
+    static MethodSpec makeSwaggerConfiguration() {
+        return MethodSpec.methodBuilder("usersMicroserviceOpenAPI").addModifiers(Modifier.PUBLIC)
+                .addParameter(ParameterSpec.builder(STRING_CLASS, title)
+                        .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
+                                .addMember(VALUE,"$S", "${" + getParam(title) + "}").build()).build())
+                .addParameter(ParameterSpec.builder(STRING_CLASS, description)
+                        .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
+                                .addMember(VALUE, "$S", "${" + getParam(description) + "}").build()).build())
+                .addParameter(ParameterSpec.builder(STRING_CLASS, version)
+                        .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
+                                .addMember(VALUE, "$S", "${" + getParam(version) + "}").build()).build())
+                .addAnnotation(AnnotationSpec.builder(BEAN_ANNOTATION_CLASS).build())
+                .returns(OPEN_API_CLASS)
+                .addStatement("return new $T().info(new $T().title("+title+")"+
+                ".description("+description+").version("+version+"))",OPEN_API_CLASS,INFO_CLASS)
+                .build();
     }
 
     MethodSpec makeDefaultDBBean() {
@@ -49,7 +77,8 @@ public class ParseJson {
         String driver = prop + RestJson.DB.driver;
         String dialect = prop + RestJson.DB.dialect;
         MethodSpec.Builder method = RestJson.createConnectionBeanBuilder(bean, url, password, user, driver, dialect);
-        method.addStatement("return $T.using(new $T(CONNECTION_REST(" + url + ", " + password + ", " + user + ", " + driver + "), $T.valueOf(" + dialect + "))",
+        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + url + ", " + password + ", "
+                        + user + ", " + driver + "), $T.valueOf(" + dialect + "))",
                 DSL_CLASS, HIKARI_DATE_SOURCE_CLASS, SQL_DIALECT_CLASS);
         return method.build();
     }

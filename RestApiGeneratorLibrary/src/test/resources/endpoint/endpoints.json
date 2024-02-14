@@ -150,23 +150,9 @@
       "joins":{}
     }
   },
-  "PseudonymsJoinsDefaultOneToOneById": {
-    "type": "get:e1|e2",
-    "request": "t13/-t11",
-    "pseudonyms": {
-      "joins":{}
-    }
-  },
-  "PseudonymsJoinsDefaultOneToOneByTable": {
-    "type": "get:e1|e2",
-    "request": "t13/=t11",
-    "pseudonyms": {
-      "joins":{}
-    }
-  },
   "PseudonymsJoinsDefaultButHasRefMustBeRef": {
     "type": "get:e1|e2",
-    "request": "t13/=t11",
+    "request": "t13/<t11",
     "pseudonyms": {
       "joins":{
         "t11:t13": ["t3_id","t1_id"]

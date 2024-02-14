@@ -22,11 +22,10 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
         block.add(CONTEXT + ".select(").add(makeField("$T.field($S)"))
-                .add(".from($S)", realTableName);
+                .add(").from($S)", realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
         }
-        block.add(")");
         block.add(StringWereInterpret.makeWhere(where, selectNext, tableName, ref));
         return block.build();//DSL_CLASS
     }

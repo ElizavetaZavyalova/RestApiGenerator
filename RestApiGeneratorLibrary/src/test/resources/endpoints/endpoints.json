@@ -1,0 +1,24 @@
+{
+  "http": {
+    "getEndpoint": {
+      "type": "get:price|id|age",
+      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+    },
+    "postEndpoint": {
+      "type": "post:price|id|age",
+      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/"
+    },
+    "patchEndpoint": {
+      "type": "patch:price|id|age",
+      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+    },
+    "putEndpoint": {
+      "type": "put:price|id|age",
+      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+    },
+    "deleteEndpoint": {
+      "type": "delete",
+      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+    }
+  }
+}

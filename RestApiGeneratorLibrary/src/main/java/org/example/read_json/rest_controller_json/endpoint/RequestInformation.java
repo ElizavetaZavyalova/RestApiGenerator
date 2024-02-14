@@ -72,12 +72,12 @@ public class RequestInformation {
     public MethodSpec makeDBMethod(String funcName, Type type) {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC);
+        methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
         for (VarInfo parameterSpec : varInfos) {
             if (!parameterSpec.isFilter()) {
                 methodBuilder.addParameter(parameterSpec.getParameterSpec());
             }
         }
-        methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
         return addCode(addReturns(methodBuilder, type), type).build();
     }
 
@@ -90,10 +90,11 @@ public class RequestInformation {
                 methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
             }
         }
+        List<VarInfo> varInfoList=varInfos.stream().filter(v->!v.isFilter()).toList();
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
         return addReturns(methodBuilder, type).addStatement(beanName + "." +type.getRequestType().toString()+ funcName +
-                        "(" + REQUEST_PARAM_NAME+", "+ varInfos.stream().map(VarInfo::getName)
+                        "(" + REQUEST_PARAM_NAME+(varInfoList.isEmpty()?"":", ")+ varInfoList.stream().map(VarInfo::getName)
                         .collect(Collectors.joining(", ")) + ")").build();
     }
 

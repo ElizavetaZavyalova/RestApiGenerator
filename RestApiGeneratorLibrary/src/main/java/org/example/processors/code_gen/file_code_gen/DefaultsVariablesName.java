@@ -5,7 +5,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 
 
 public record DefaultsVariablesName() {
-    static boolean DEBUG=true;
+    public static boolean DEBUG=false;
     private static String getPath(String path){
         if(!DEBUG){
             return path;
@@ -24,6 +24,7 @@ public record DefaultsVariablesName() {
     }
     public static final String CONTEXT = "context";
     public record Annotations(){
+        public static final String VALUE = "value";
 
 
         private static final String contestAnnotations="org.springframework.context.annotation";
@@ -31,11 +32,21 @@ public record DefaultsVariablesName() {
         public static final ClassName CONFIGURATION_ANNOTATION_CLASS = createClass(contestAnnotations,"Configuration");
         public static final ClassName BEAN_ANNOTATION_CLASS = createClass(contestAnnotations, "Bean");
         public static final ClassName QUALIFIER_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Qualifier");
+        public record SwaggerConfig(){
+            private static final String swaggerV3OasModels="io.swagger.v3.oas.models";
+            private static final String swaggerV3OasModelsInfo="io.swagger.v3.oas.models.info";
+            public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
+            public static final ClassName OPEN_API_CLASS = createClass(swaggerV3OasModels, "OpenAPI");
+        }
         public record Controller(){
             private static final String webBindAnnotations="org.springframework.web.bind.annotation";
             private static final String http="org.springframework.http";
+
+
             private static final String swaggerV3OasAnnotations="io.swagger.v3.oas.annotations";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
+
+
 
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
             public static final ClassName PATH_VARIABLE_ANNOTATION_CLASS = createClass(webBindAnnotations, "PathVariable");
@@ -54,7 +65,8 @@ public record DefaultsVariablesName() {
 
             private static final String springUtil="org.springframework.util";
             private static final String javaLang="java.lang";
-            private static final String javaUtil="java.util";
+            private static final String javaUtil="java.util"; //Optional
+            public static final ClassName OPTIONAL_CLASS=createClass(javaUtil, "Optional");
             public static final ClassName MAP_CLASS=createClass(javaUtil, "Map");
             public static final ClassName LIST_CLASS=createClass(javaUtil, "List");//STRRING_CLASS
             public static final ClassName STRING_CLASS=createClass(javaLang, "String");
@@ -71,8 +83,9 @@ public record DefaultsVariablesName() {
 
     }
     public record DB(){
+        //Optional
         private static final String orgJooq="org.jooq";
-        private static final String orgJooqIml="org.jooq.iml";
+        private static final String orgJooqIml="org.jooq.impl";
         private static final String comZaxXerHikari="com.zaxxer.hikari";
         public static final ClassName SQL_DIALECT_CLASS = createClass(orgJooq, "SQLDialect");
         public static final ClassName HIKARI_CONFIG_CLASS = createClass(comZaxXerHikari, "HikariConfig");
@@ -80,7 +93,7 @@ public record DefaultsVariablesName() {
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");
         public static final ClassName HIKARI_DATE_SOURCE_CLASS = createClass(comZaxXerHikari, "HikariDataSource");
         public static final ClassName CONDITION_CLASS = createClass(orgJooq, "Condition");
-        public static final ClassName RECORD_CLASS = createClass(orgJooq, "Record");
+        public static final ClassName RECORD_CLASS = createClass("", "?");
         public static final ClassName RESULT_CLASS = createClass(orgJooq, "Result");
         public static final ParameterizedTypeName RESULT_OF_RECORD_CLASS = ParameterizedTypeName.get(RESULT_CLASS,RECORD_CLASS);
     }

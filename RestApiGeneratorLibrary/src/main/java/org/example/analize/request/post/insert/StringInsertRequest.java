@@ -37,7 +37,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
     CodeBlock makeValues() {
         var block = CodeBlock.builder();
         if (selectNext != null) {
-            block.add("$T.select(",DSL_CLASS);
+            block.add(".select(");
             block.add("$T.field($S)",DSL_CLASS, tableName + "." + id);
             if (!fields.isEmpty()) {
                 block.add(",\n ").add(values());
@@ -55,7 +55,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
     CodeBlock values() {
         return fields.stream().map(BaseField::getName)
-                .map(name -> CodeBlock.builder().add("$T.val(Optional.ofNullable(" + REQUEST_PARAM_NAME + ".get($S)).orElse($T.defaultValue()))",DSL_CLASS, name,DSL_CLASS)
+                .map(name -> CodeBlock.builder().add("$T.inline("+REQUEST_PARAM_NAME+".get($S))", DSL_CLASS,name)
                         .build()).reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());
     }

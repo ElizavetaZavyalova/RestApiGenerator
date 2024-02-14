@@ -3,10 +3,12 @@ package org.example.read_json.rest_controller_json.filter.filters_vies.filters.l
 import com.squareup.javapoet.CodeBlock;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 import org.jooq.Condition;
 import org.jooq.impl.DSL;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,6 +22,10 @@ import static org.example.analize.helpclass.CreateEndpoint.*;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.*;
 @Slf4j
 public class FilterTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     String filterName="filterName";
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsFilters")

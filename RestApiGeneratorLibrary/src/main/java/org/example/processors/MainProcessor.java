@@ -3,6 +3,8 @@ package org.example.processors;
 import com.google.auto.service.AutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.example.processors.annotations.RestApiGenerator;
+import org.example.processors.code_gen.GeneratingCode;
+import org.example.processors.code_gen.GeneratorOfCode;
 import org.example.read_json.ParseJson;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -25,28 +27,14 @@ public class MainProcessor extends BaseProcessor {
         super.init(processingEnv);
         WriterOfDiagnosticLogs.initClass("MainProcessor", AST.instance().getMessager());
     }
-    @Deprecated
-    void writePath(){
-        var ast=AST.instance();
-        for(var location:StandardLocation.values() ) {
-            log.info("------" + location.getName() + "------------------------------------");
-            try {
-                String str = ast.getFiler().getResource(location, "", "hello").getName();
-                log.info("------" + str + "------------------------------------");
-            } catch (IOException e) {
 
-
-                //log.info("------" + resource + "------------------------------------");
-            }
-        }
-    }
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+       var elements=roundEnv.getElementsAnnotatedWith(RestApiGenerator.class);
         for(Element element:roundEnv.getElementsAnnotatedWith(RestApiGenerator.class)){
-
+            GeneratingCode generatingCode=new GeneratorOfCode(element);
+            generatingCode.generate();
         }
-        writePath();
-
         return true;//стоп
     }
 

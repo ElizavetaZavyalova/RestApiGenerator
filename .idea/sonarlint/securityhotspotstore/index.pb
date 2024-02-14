@@ -240,3 +240,7 @@ PRestApiGeneratorLibrary/src/main/java/org/example/analize/deicstra/Deicstra.jav
 TRestApiGeneratorLibrary/src/test/java/org/example/analize/deicstra/DijkstraTest.java,7\1\719ba8287d7b73b66baa0ccd9747afe1657b56da
 €
 PRestApiGeneratorLibrary/src/main/java/org/example/analize/deicstra/Dijkstra.java,0\8\084df205e3e30eeb2ddce70ffb698ebc3475220e
+“
+cRestApiGeneratorLibrary/src/test/java/org/example/read_json/rest_controller_json/EndpointsTest.java,3\e\3ea2c32b5b18c3a43b61ca102df924e80a61ea8b
+’
+bRestApiGeneratorLibrary/src/test/java/org/example/read_json/rest_controller_json/RestJsonTest.java,2\8\28d991c8ba8ce56769a98425fe2cb63271be5b4d

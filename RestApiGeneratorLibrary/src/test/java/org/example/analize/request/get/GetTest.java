@@ -2,7 +2,9 @@ package org.example.analize.request.get;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,6 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 public class GetTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams")
     void ConstructorParams(String req, List<String> par) {

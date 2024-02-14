@@ -55,8 +55,6 @@ public record JsonKeyWords() {
             public record TableRef() {
                 public static final String _MANY_TO_ONE = ">";
                 public static final String _ONE_TO_MANY = "<";
-                public static final String _ONE_TO_ONE_BY_ID = "-";
-                public static final String _ONE_TO_ONE_BY_TABLE_NAME = "=";
                 public static final String _IN_ONE_WAY = "!";
 
             }

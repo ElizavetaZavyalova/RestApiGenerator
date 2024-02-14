@@ -4,7 +4,9 @@ import com.squareup.javapoet.MethodSpec;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.ReadJson;
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,6 +27,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class RequestInformationTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     static Map<String,Object> json;
     @BeforeAll
     @SneakyThrows
@@ -55,11 +61,11 @@ class RequestInformationTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("typeThrowInRequest")
     void generateTypeTestThrowInRequest(String name) {
-        Map<String,Object> object=(Map<String,Object>)json.get(name);
+        Map<String, Object> object = (Map<String, Object>) json.get(name);
         log.info(object.toString());
-        RequestInformation information=new RequestInformation(object,CreateEndpoint.creteEndpointReturnEntityName());
-        Endpoint endpoint= CreateEndpoint.creteEndpoint(information);
-        var ex = assertThrows(IllegalArgumentException.class, () ->information.generateBd(endpoint));
+        RequestInformation information = new RequestInformation(object, CreateEndpoint.creteEndpointReturnEntityName());
+        Endpoint endpoint = CreateEndpoint.creteEndpoint(information);
+        var ex = assertThrows(IllegalArgumentException.class, () -> information.generateBd(endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> typeTest() {

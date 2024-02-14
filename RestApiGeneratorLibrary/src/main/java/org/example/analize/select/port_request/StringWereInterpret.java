@@ -10,8 +10,8 @@ public record StringWereInterpret() {
     public static CodeBlock makeWhere(BaseWhere<CodeBlock> where, PortRequestWithCondition<CodeBlock> selectNext, String tableName, String ref) {
         var block = CodeBlock.builder().add(".where(");
         if (where != null && selectNext != null) {
-            return block.add("$T.field($S)",DSL_CLASS, tableName + "." + ref)
-                    .add(".in(").add(selectNext.interpret()).add(").and(").add(where.interpret()).add("))").build();
+            return block.add("$T.and($T.field($S)",DSL_CLASS,DSL_CLASS, tableName + "." + ref)
+                    .add(".in(").add(selectNext.interpret()).add("), (").add(where.interpret()).add(")))").build();
         }
         if (where != null) {
             return block.add(where.interpret()).add(")").build();

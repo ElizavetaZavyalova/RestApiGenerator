@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Slf4j
 class ConverterTest {
 
+
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("postfix")
     void testPostfix(String condition,String actual) {

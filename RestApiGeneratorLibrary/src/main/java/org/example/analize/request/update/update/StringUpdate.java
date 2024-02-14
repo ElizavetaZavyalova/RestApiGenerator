@@ -27,8 +27,6 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
         if(!realTableName.equals(tableName)){
             block.add(".as($S)",tableName);
         }
-
-        block.add(")");
         block.add(makeChooseFields());
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
         return block.add(".execute();").build();

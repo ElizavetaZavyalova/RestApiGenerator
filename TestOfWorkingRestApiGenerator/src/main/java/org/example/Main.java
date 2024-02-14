@@ -1,14 +1,13 @@
 package org.example;
 import lombok.extern.slf4j.Slf4j;
-//import org.example.processors.annotations.RestApiGenerator;
+import org.example.processors.annotations.RestApiGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
 
 
 @Slf4j
-//@RestApiGenerator(jsonPath = "resources/api.json")//не видит если не full path
+@RestApiGenerator(jsonPath = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingRestApiGenerator\\src\\main\\resources\\generate.json")//не видит если не full path
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package org.example.read_json.rest_controller_json.filter;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.RestJson;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -20,6 +21,10 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class FiltersTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     static Map<String,Object> json;
     @BeforeAll
     @SneakyThrows

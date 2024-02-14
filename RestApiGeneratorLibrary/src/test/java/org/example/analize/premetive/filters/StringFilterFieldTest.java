@@ -1,13 +1,19 @@
 package org.example.analize.premetive.filters;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 
 @Slf4j
 class StringFilterFieldTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     static final String realFieldName = "fieldName";
     static final String fieldName = "name";
     static final String tableName = "MyTable";

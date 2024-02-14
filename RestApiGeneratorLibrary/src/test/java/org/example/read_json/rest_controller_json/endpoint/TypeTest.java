@@ -2,6 +2,8 @@ package org.example.read_json.rest_controller_json.endpoint;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,6 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 class TypeTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     public record Info() {
         static public Map<String, String> infoY = Map.of(ENTITY, "||");
         static public Map<String, String> info = Map.of(ENTITY, "");

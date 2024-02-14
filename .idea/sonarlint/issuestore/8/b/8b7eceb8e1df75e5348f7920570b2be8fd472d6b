@@ -1,13 +1,13 @@
 
-e
-java:S6355"HAdd 'since' and/or 'forRemoval' arguments to the @Deprecated annotation.(õˆúš8°…ŽöÑ1
-W
-java:S1133"5Do not forget to remove this deprecated code someday.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
-J
-java:S1123"(Add the missing @deprecated Javadoc tag.(„”¥Æûÿÿÿÿ8°…ŽöÑ1
-]	java:S125'"<This block of commented-out lines of code should be removed.(»±–Ïûÿÿÿÿ8³…ŽöÑ1
-N
-java:S1481-",Remove this unused "element" local variable.(ÚÈ¥Êùÿÿÿÿ8™ÇÄüØ1
-J	java:S108-")Either remove or fill this block of code.(ÚÈ¥Êùÿÿÿÿ8šÇÄüØ1
-S
-java:S18740"1Remove this use of "writePath"; it is deprecated.(½ŠÖÚùÿÿÿÿ8Â…ŽöÑ1
+^
+java:S1854!"<Remove this useless assignment to local variable "elements".(ûÔ²ºûÿÿÿÿ8ŠÇñ¼Ú1
+O
+java:S1481!"-Remove this unused "elements" local variable.(ûÔ²ºûÿÿÿÿ8‹Çñ¼Ú1
+Y
+java:S1128"<Remove this unused import 'org.example.read_json.ParseJson'.(í±Ë¿8›Çñ¼Ú1
+[
+java:S1128"9Remove this unused import 'javax.tools.StandardLocation'.(ãÛ…æýÿÿÿÿ8›Çñ¼Ú1
+F
+java:S1128")Remove this unused import 'java.io.File'.(†Ð¥Å8›Çñ¼Ú1
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úýÿÿÿÿ8›Çñ¼Ú1

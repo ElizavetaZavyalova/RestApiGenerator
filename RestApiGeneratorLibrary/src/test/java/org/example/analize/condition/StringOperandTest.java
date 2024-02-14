@@ -4,7 +4,9 @@ import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.fieldsCond.StringFieldCondition;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,6 +23,10 @@ class StringOperandTest {
     static final String fieldName1 = "name1";
     static final String fieldName2 = "name2";
     static final String tableName = "MyTable";
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     Endpoint makeEndpoint(){
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName1);

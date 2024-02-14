@@ -10,6 +10,7 @@ import lombok.ToString;
 import org.example.analize.premetive.BaseFieldParser;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.PATH_VARIABLE_ANNOTATION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.STRING_CLASS;
 
 
 @Getter
@@ -44,7 +45,7 @@ public class VarInfo {
     public ParameterSpec getParameterSpec() {
         ParameterSpec.Builder parameterSpec;
         switch (type) {
-            case STRING -> parameterSpec = ParameterSpec.builder(String.class, name);
+            case STRING -> parameterSpec = ParameterSpec.builder(STRING_CLASS, name);
             case BOOLEAN -> parameterSpec = ParameterSpec.builder(TypeName.BOOLEAN, name);
             default -> parameterSpec = ParameterSpec.builder(TypeName.INT, name);
         }

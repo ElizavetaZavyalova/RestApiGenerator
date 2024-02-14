@@ -13,12 +13,12 @@
   },
   "4Filters": {
     "filter:call": "path#Val#age",
-    "filter2:and":  "s:eq_name|i:eq_age",
-    "filter3:or":  "s:eq_name|i:eq_age"
-    },
+    "filter2:and": "s:eq_name|i:eq_age",
+    "filter3:or": "s:eq_name|i:eq_age"
+  },
   "NoFilters": {},
   "ThrowFiltersIdentNames": {
-    "filter:call": "name='Hello' or age=17",
+    "filter:call": "path#Val#age",
     "filter:and": "s:eq_name|i:eq_age"
   },
   "ThrowFilterNoType": {

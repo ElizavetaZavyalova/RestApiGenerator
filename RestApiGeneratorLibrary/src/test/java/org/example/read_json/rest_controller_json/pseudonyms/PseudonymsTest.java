@@ -2,6 +2,7 @@ package org.example.read_json.rest_controller_json.pseudonyms;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.JsonKeyWords;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -20,6 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class PseudonymsTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
     static Map<String, Object> json;
 
     @BeforeAll
@@ -140,17 +145,11 @@ class PseudonymsTest {
         log.info("t7:t8");
         assertEquals(pseudonyms.getRealJoinsName("t7:t8"), List.of("<"), () -> "t6:t7");
         assertEquals(pseudonyms.getRealJoinsName("t8:t7"), List.of(">"), () -> "t7:t6");
-        log.info("t8:t9");
-        assertEquals(pseudonyms.getRealJoinsName("t8:t9"), List.of("="), () -> "t8:t9");
-        assertEquals(pseudonyms.getRealJoinsName("t9:t8"), List.of("="), () -> "t9:t8");
-        log.info("t9:t10");
-        assertEquals(pseudonyms.getRealJoinsName("t10:t9"), List.of("-"), () -> "t10:t9");
-        assertEquals(pseudonyms.getRealJoinsName("t9:t10"), List.of("-"), () -> "t9:t10");
-        log.info("t10:t11");
-        assertEquals(pseudonyms.getRealJoinsName("t10:t11"), List.of("t10","t11"), () -> "t10:t11");
+        log.info("t18:t9");
+        assertEquals(pseudonyms.getRealJoinsName("t8:t9"), List.of("t8","t9"), () -> "t8:t9");
         assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t11:t10"));
-        log.info(pseudonyms.findPath("t1","t11",true).toString());
-        log.info(pseudonyms.findPath("t11","t1",true).toString());
+        log.info(pseudonyms.findPath("t1","t9",true).toString());
+        log.info(pseudonyms.findPath("t9","t1",true).toString());
 
     }
 

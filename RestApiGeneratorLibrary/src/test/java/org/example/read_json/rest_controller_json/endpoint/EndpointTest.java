@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.Endpoints;
 import org.example.read_json.rest_controller_json.RestJson;
@@ -29,6 +30,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class EndpointTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
 
     static Endpoints createParent() {
         Endpoints points = Mockito.mock(Endpoints.class);

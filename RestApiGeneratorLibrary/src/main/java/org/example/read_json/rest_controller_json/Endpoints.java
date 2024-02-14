@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.REST_CONTROLLER_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONTEXT_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.createClass;
 
 @Slf4j
 public class Endpoints {
@@ -49,7 +50,7 @@ public class Endpoints {
                 parallelStream().map(v -> v.getValue().getControllerMethods(repositoryBean)).flatMap(List::stream).toList();
         TypeSpec.Builder controller = TypeSpec.classBuilder(controllerName)
                 .addModifiers(Modifier.PUBLIC).addAnnotation(AnnotationSpec.builder(REST_CONTROLLER_ANNOTATION_CLASS).build());
-        ClassName repository = ClassName.get(repositoryPath, repositoryName);
+        ClassName repository = createClass(repositoryPath,repositoryName);
         controller.addField(FieldSpec.builder(repository, repositoryBean, Modifier.PRIVATE).build())
                 .addMethod(MethodSpec.constructorBuilder()
                         .addParameter(ParameterSpec.builder(repository, repositoryBean).build())

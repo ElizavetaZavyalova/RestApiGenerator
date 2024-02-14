@@ -26,8 +26,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
 
     @AllArgsConstructor
     enum TableRef {
-        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY), ONE_TO_ONE_BY_ID(_ONE_TO_ONE_BY_ID),
-        ONE_TO_ONE_BY_TABLE_NAME(_ONE_TO_ONE_BY_TABLE_NAME),
+        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY),
         DEFAULT("");//ONE_TO_MANY
         private final String name;
 
@@ -58,9 +57,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
             case MANY_TO_ONE -> {
                 return realTableName + "_id";
             }
-            case ONE_TO_ONE_BY_TABLE_NAME -> {
-                return realTableName;
-            }
+
             default -> {
                 return "id";
             }
@@ -69,12 +66,10 @@ public abstract class PortRequest<R> implements Interpretation<R> {
 
     String makeDefaultRef() {
         switch (tableRef) {
-            case MANY_TO_ONE, ONE_TO_ONE_BY_ID -> {
+            case MANY_TO_ONE  -> {
                 return "id";
             }
-            case ONE_TO_ONE_BY_TABLE_NAME -> {
-                return selectNext.realTableName;
-            }
+
             default -> {
                 return selectNext.realTableName + "_" + selectNext.id;
             }

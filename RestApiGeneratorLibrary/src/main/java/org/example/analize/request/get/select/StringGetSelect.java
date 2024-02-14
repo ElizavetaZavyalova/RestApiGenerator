@@ -36,7 +36,6 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock>{
         if(!realTableName.equals(tableName)){
             block.add(".as($S)",tableName);
         }
-        block.add(")");
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
         return block.build();
     }

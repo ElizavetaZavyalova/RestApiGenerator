@@ -1,6 +1,8 @@
 package org.example.read_json.rest_controller_json;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -11,6 +13,10 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class MakeCastTest {
+    @BeforeAll
+    static void setDebug(){
+        DefaultsVariablesName.DEBUG=true;
+    }
 
     @Test
     void makeMapTest(){
