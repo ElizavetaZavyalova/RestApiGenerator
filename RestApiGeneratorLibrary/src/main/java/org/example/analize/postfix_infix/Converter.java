@@ -63,14 +63,13 @@ public class Converter {
                 } else if (isRightBracket(operator)) {
                     pushStackOnQueryWhileLeftBracketNotFound(stack, queue);
                 } else {
-                    //operator=operator+condition.charAt(operatorIndex+1);
                     operatorProcessing(stack, queue, operator);
                 }
                 operatorIndex += operator.length();
             }
             elementCount++;
         }
-        addAllToStack(stack, queue);
+        addAllToQueue(stack, queue);
         return queue;
     }
 
@@ -84,7 +83,7 @@ public class Converter {
         }
     }
 
-    static void addAllToStack(Stack<String> stack, Queue<String> queue) throws IllegalArgumentException {
+    static void addAllToQueue(Stack<String> stack, Queue<String> queue) throws IllegalArgumentException {
         while (!stack.isEmpty()) {
             if (isLeftBracket(stack.peek())) {
                 throw new IllegalArgumentException(RIGHT_BRACKET + " NOT FOUND");

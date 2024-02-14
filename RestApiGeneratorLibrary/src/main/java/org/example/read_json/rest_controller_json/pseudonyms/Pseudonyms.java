@@ -1,10 +1,12 @@
 package org.example.read_json.rest_controller_json.pseudonyms;
 
 
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.deicstra.Dijkstra;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
@@ -12,12 +14,14 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Pseudonym.
 import static org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms.RegExp.*;
 
 @Slf4j
+@ToString
 public abstract class Pseudonyms {
     Map<String, String> tablesPseudonyms = new HashMap<>();
     Map<String, String> fieldsPseudonyms = new HashMap<>();
     Map<String, List<String>> joinsPseudonyms = new HashMap<>();
     Map<String, List<String>> entityPseudonyms = new HashMap<>();
     Map<String, List<String>> refGraph = new HashMap<>();
+    Map<String, List<String>> refGraphReal = new HashMap<>();
 
 
     Pseudonyms(Map<String, Map<String, List<String>>> pseudonyms) throws IllegalArgumentException {
@@ -29,32 +33,69 @@ public abstract class Pseudonyms {
             addPseudonymsToFields(pseudonyms.get(FIELDS));
         }
         if (pseudonyms.containsKey(JOINS)) {
-             addPseudonymsToJoins(pseudonyms.get(JOINS));
+            addPseudonymsToJoins(pseudonyms.get(JOINS));
         }
         if (pseudonyms.containsKey(ENTITY)) {
             addPseudonymsToEntity(pseudonyms.get(ENTITY));
         }
+        log.debug(refGraph.toString());
+        log.debug(refGraphReal.toString());
     }
-    void addPseudonymsToEntity(Map<String, List<String>> entity){
-        entityPseudonyms=entity;
+
+    void addPseudonymsToEntity(Map<String, List<String>> entity) {
+        entity.forEach((k,v)->{
+            throwExceptionIfNameIsNotCorrect(k);
+            v.parallelStream().forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
+        });
+        entityPseudonyms = entity;
+        log.debug(entity.toString());
     }
-    void addToRefGraph(String name1,String name2){
-        addRefGraph(name1,name2);
-        addRefGraph(name2,name1);
-    }
-    void addRefGraph(String vertex,String value){
-        if(refGraph.containsKey(vertex)){
-            refGraph.get(vertex).add(value);
+
+
+    void addToRefGraph(String name1, String name2, boolean inOneWay) {
+        addRefGraph(name1, name2, refGraph);
+        addRefGraphReverse(name2, name1, refGraph,inOneWay);
+        if (!tablesPseudonyms.containsKey(name1) && !tablesPseudonyms.containsKey(name2)) {
+            addRefGraph(name1, name2, refGraphReal);
+            addRefGraphReverse(name2, name1, refGraphReal,inOneWay);
         }
-        refGraph.put(vertex,new ArrayList<>(List.of(value)));
+    }
+    private boolean isVertexInGraph(String vertex, Map<String, List<String>> graph){
+        return graph.containsKey(vertex);
+    }
+
+    void addRefGraphReverse(String vertex, String value, Map<String, List<String>> graph,boolean inOneWay) {
+       if(!inOneWay){
+           addRefGraph(vertex,value,graph);
+           return;
+       }
+       if(!isVertexInGraph(vertex,graph)){
+           graph.put(vertex,new ArrayList<>());
+       }
+    }
+
+    void addRefGraph(String vertex, String value, Map<String, List<String>> graph) {
+        if (isVertexInGraph(vertex,graph)) {
+            graph.get(vertex).add(value);
+        }
+        graph.put(vertex, new ArrayList<>(List.of(value)));
+    }
+
+    private String deleteInOneWay(String key, boolean inOneWay) {
+        if (inOneWay) {
+            return key.substring(_IN_ONE_WAY.length());
+        }
+        return key;
     }
 
     void addPseudonymsToJoins(Map<String, List<String>> joins) throws IllegalArgumentException {
         joins.forEach((key, values) -> {
-            log.info(key+values.toString());
+            log.debug(key + values.toString());
+            final boolean IN_ONE_WAY = key.startsWith(_IN_ONE_WAY);
             if (joinsPseudonyms.containsKey(key)) {
                 throw new IllegalArgumentException("JOINS:" + key + " IS ALREADY EXIST");
             }
+            key = deleteInOneWay(key, IN_ONE_WAY);
             String[] splitKey = key.split(SPLIT);
             if (splitKey.length != 2) {
                 throw new IllegalArgumentException("JOINS:" + key + " IS MUST BE LIKE T1:T2");
@@ -65,16 +106,22 @@ public abstract class Pseudonyms {
             if (values.size() != 2 && values.size() != 1) {
                 throw new IllegalArgumentException("JOINS:" + key + " MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :] or [:,:] or [table]");
             }
+            throwExceptionIfNameIsNotCorrect(splitKey[T1]);
             if (values.size() == 1) {
                 if (values.get(T1).isEmpty()) {
                     throw new IllegalArgumentException("JOINS:" + key + " MUST BE [Table] ");
                 }
             } else if (values.get(T1).isEmpty() || values.get(T2).isEmpty()) {
+                throwExceptionIfNameIsNotCorrect(splitKey[T2]);
+                throwExceptionIfNameIsNotCorrect(values.get(T1));
+                throwExceptionIfNameIsNotCorrect(values.get(T2));
                 throw new IllegalArgumentException("JOINS:" + key + " MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :]");
-
             }
-            addToRefGraph(splitKey[T1],splitKey[T2]);
+            addToRefGraph(splitKey[T1], splitKey[T2],IN_ONE_WAY);
             joinsPseudonyms.put(key, values);
+            if(IN_ONE_WAY){
+                return;
+            }
             String revKey = splitKey[T2] + SPLIT + splitKey[T1];
             List<String> revValues = new ArrayList<>(values);
             Collections.reverse(revValues);
@@ -86,8 +133,12 @@ public abstract class Pseudonyms {
             joinsPseudonyms.put(revKey, revValues);
         });
     }
-   public List<String> findPath(String table1 ,String table2){
-        return new Dijkstra(refGraph).findPath(table1,table2);
+
+    public List<String> findPath(String table1, String table2, boolean real) {
+        if (!real) {
+            return new Dijkstra(refGraph).findPath(table1, table2);
+        }
+        return new Dijkstra(refGraphReal).findPath(table1, table2);
     }
 
     public String getRealTableName(String key) {
@@ -107,16 +158,18 @@ public abstract class Pseudonyms {
         }
         throw new IllegalArgumentException("JOINS:" + key + " IS NOT FOUND");
     }
+
     public List<String> getRealEntity(String key) throws IllegalArgumentException {
         if (isContainsEntityPseudonym(key)) {
             return entityPseudonyms.get(key);
         }
-         return List.of(key);
+        return List.of(key);
     }
 
     public boolean isContainsTablePseudonym(String key) {
         return tablesPseudonyms.containsKey(key);
     }
+
     public boolean isContainsEntityPseudonym(String key) {
         return entityPseudonyms.containsKey(key);
     }
@@ -132,9 +185,13 @@ public abstract class Pseudonyms {
         return key;
     }
 
+
     void addPseudonymsToTables(Map<String, List<String>> tables) throws IllegalArgumentException {
-        tables.forEach((key, vals) -> {// //TODO is Correct name-key
+        tables.forEach((key, vals) -> {
+            throwExceptionIfNameIsNotCorrect(key);
+            log.debug(key + vals.toString());
             for (String val : vals) {
+                throwExceptionIfNameIsNotCorrect(val);
                 if (tablesPseudonyms.containsKey(val)) {
                     throw new IllegalArgumentException("PSEUDONYM OF TABLE:" + val + " IS ALREADY EXIST");
                 }
@@ -147,8 +204,11 @@ public abstract class Pseudonyms {
     }
 
     void addPseudonymsToFields(Map<String, List<String>> fields) throws IllegalArgumentException {
-        fields.forEach((key, vals) -> {//TODO is Correct name-key
+        fields.forEach((key, vals) -> {
+            throwExceptionIfNameIsNotCorrect(key);
             for (String val : vals) {
+                throwExceptionIfNameIsNotCorrect(val);
+                log.debug(key + vals.toString());
                 if (fieldsPseudonyms.containsKey(val)) {
                     throw new IllegalArgumentException("PSEUDONYM OF FIELD:" + val + " IS ALREADY EXIST");
                 }
@@ -159,11 +219,17 @@ public abstract class Pseudonyms {
             }
         });
     }
+     static void throwExceptionIfNameIsNotCorrect(String name)throws IllegalArgumentException{
+        if (!Pattern.matches(IS_CORRECT_NAME, name)) {
+            throw new IllegalArgumentException(name + "MUST STARTS ON LETTER OR _ AND CONTAINS LATTER OR _ OR DIGIT");
+        }
+    }
 
     record RegExp() {
         static final String SPLIT = ":";
         static final int T1 = 0;
         static final int T2 = 1;
+        static final String IS_CORRECT_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
     }
 
 

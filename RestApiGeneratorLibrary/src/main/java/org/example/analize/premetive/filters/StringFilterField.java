@@ -4,8 +4,10 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.BaseFieldParser;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.jooq.impl.DSL;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
@@ -36,8 +38,9 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             case GT -> builder.append("gt");
             case LIKE -> builder.append("like");
             case NOT_LIKE -> builder.append("not_like");
+            case IN -> builder.append("in");
         }
-            return builder.append("(").append(REQUEST_PARAM_NAME + ".get($S)))").toString();
+        return builder.append("(").append(REQUEST_PARAM_NAME + ".get($S)))").toString();
     }
 
 

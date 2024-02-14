@@ -8,6 +8,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.List;
 import java.util.Map;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.MAP_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 
@@ -18,7 +19,7 @@ public class StringPut extends StringUpdate {
 
     @Override
     protected CodeBlock makeChooseFields() {
-        var block= CodeBlock.builder().add(".set($T.of(", Map.class);
+        var block= CodeBlock.builder().add(".set($T.of(", MAP_CLASS);
         if(fields.isEmpty()){
             return   block.add("))").build();
         }

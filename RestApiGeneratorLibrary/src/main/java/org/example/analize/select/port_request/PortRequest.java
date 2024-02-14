@@ -2,6 +2,7 @@ package org.example.analize.select.port_request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 import static org.example.analize.select.port_request.PortRequest.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 
+@Slf4j
 public abstract class PortRequest<R> implements Interpretation<R> {
     protected PortRequestWithCondition<R> selectNext;
     @Getter
@@ -46,8 +48,8 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     record RegExp() {
         static final String IS_CORRECT_TABLE_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
         static final String JOIN_SPLIT = ":";
-        static final int JOIN_CURRENT_REF_PORT = 1;
-        static final int JOIN_PREVIOUS_REF_PORT = 0;
+        static final int JOIN_CURRENT_REF_PORT = 0;
+        static final int JOIN_PREVIOUS_REF_PORT = 1;
         static final int JOIN_TABLE_PORT = 0;
     }
 
@@ -88,10 +90,8 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         return true;
     }
 
-    private boolean isPathFound = false;
 
-
-    void tryFindJoinsEndSetResult(Endpoint parent) {
+    void tryFindJoinsEndSetResult(Endpoint parent, boolean isPathFound) {
         List<String> joins = parent.getRealJoinName(tableName, selectNext.tableName);
         if (joins.isEmpty()) {
             joins = parent.getRealJoinName(realTableName, selectNext.realTableName);
@@ -99,14 +99,14 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         if (joins.size() == 1) {
             if (!isJoinAndSetItIfJoin(joins)) {
                 makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
-                tryFindJoinsEndSetResult(parent);
+                tryFindJoinsEndSetResult(parent, false);
                 return;
             }
         }
         if (joins.isEmpty() && !isPathFound) {
             findPath(parent);
-            isPathFound = true;
-            tryFindJoinsEndSetResult(parent);
+            tryFindJoinsEndSetResult(parent, true);
+            return;
         }
         if (joins.isEmpty()) {
             ref = makeDefaultRef();
@@ -139,9 +139,9 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     }
 
     void findPath(Endpoint parent) {
-        List<String> path = parent.findPath(selectNext.getTableName(), tableName);
+        List<String> path = parent.findPath(selectNext.getTableName(), tableName, false);
         if (path.size() == 2) {
-            path = parent.findPath(selectNext.getRealTableName(), realTableName);
+            path = parent.findPath(selectNext.getRealTableName(), realTableName, true);
             if (path.size() == 2) {
                 return;
             }
@@ -162,7 +162,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         realTableName = parent.getRealTableName(tableName);
         this.selectNext = select;
         if (select != null) {
-            tryFindJoinsEndSetResult(parent);
+            tryFindJoinsEndSetResult(parent, false);
         }
     }
 }

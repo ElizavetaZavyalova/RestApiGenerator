@@ -6,7 +6,7 @@
       "filter1:or": "s:eq_name|i:eq_age",
       "filter2:and": "s:eq_name1|i:eq_age1",
       "filter3:sql": "(r=18 and y=90)",
-      "filter4:call": "My.call()"
+      "filter4:call": "path#My.call"
     }
   },
   "PseudonymsEntity2": {
@@ -38,5 +38,277 @@
         "e2": ["e21","e22","e23"]
       }
     }
+  },
+  "PseudonymsTables2": {
+    "type": "get:e1|e2",
+    "request": "t11/{f1}/{f2}/t12/",
+    "pseudonyms": {
+      "tables":{
+        "t1": ["t11","t12","e13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsTablesNotUse": {
+    "type": "get:e1|e2",
+    "request": "t1/{f1}/{f2}/noT/",
+    "pseudonyms": {
+      "tables":{
+        "t1": ["t11","t12","e13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsFields2": {
+    "type": "get:e1|e2",
+    "request": "t11/{f11}/{f12}/t12/",
+    "pseudonyms": {
+      "fields":{
+        "f1": ["f11","f12","f13"],
+        "f2": ["f21","f22","f23"]
+      }
+    }
+  },
+  "PseudonymsFieldsInResult": {
+    "type": "get:f13",
+    "request": "t11/{f11}/{f12}/t12/",
+    "pseudonyms": {
+      "fields":{
+        "f1": ["f11","f12","f13"],
+        "f2": ["f21","f22","f23"]
+      }
+    }
+  },
+  "PseudonymsFieldsNotUse": {
+    "type": "get:e1|e2",
+    "request": "t11/{f1}/{noF}/t12/",
+    "pseudonyms": {
+      "fields":{
+        "f1": ["f11","f12","f13"],
+        "f2": ["f21","f22","f23"]
+      }
+    }
+  },
+  "PseudonymsJoinsByTable": {
+    "type": "get:e1|e2",
+    "request": "t11/t13",
+    "pseudonyms": {
+      "joins":{
+         "t11:t13": ["t12"]
+      }
+    }
+  },
+  "PseudonymsJoinsByTableShow": {
+    "type": "get:e1|e2",
+    "request": "t11/t13",
+    "pseudonyms": {
+      "joins":{
+        "t11:t13": ["t12"],
+        "t11:t12": ["t2_id","t1_id"],
+        "t12:t13": ["t3_id","t2_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsByTableShowChange": {
+    "type": "get:e1|e2",
+    "request": "t13/t11",
+    "pseudonyms": {
+      "joins":{
+        "t11:t13": ["t12"],
+        "t11:t12": ["t2_id","t1_id"],
+        "t12:t13": ["t3_id","t2_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsByTableChange": {
+    "type": "get:e1|e2",
+    "request": "t13/t11",
+    "pseudonyms": {
+      "joins":{
+        "t11:t13": ["t12"]
+      }
+    }
+  },
+  "PseudonymsJoinsDefault": {
+    "type": "get:e1|e2",
+    "request": "t13/t11",
+    "pseudonyms": {
+      "joins":{}
+    }
+  },
+  "PseudonymsJoinsDefaultManyToOne": {
+    "type": "get:e1|e2",
+    "request": "t13/>t11",
+    "pseudonyms": {
+      "joins":{}
+    }
+  },
+  "PseudonymsJoinsDefaultOneToMany": {
+    "type": "get:e1|e2",
+    "request": "t13/<t11",
+    "pseudonyms": {
+      "joins":{}
+    }
+  },
+  "PseudonymsJoinsDefaultOneToOneById": {
+    "type": "get:e1|e2",
+    "request": "t13/-t11",
+    "pseudonyms": {
+      "joins":{}
+    }
+  },
+  "PseudonymsJoinsDefaultOneToOneByTable": {
+    "type": "get:e1|e2",
+    "request": "t13/=t11",
+    "pseudonyms": {
+      "joins":{}
+    }
+  },
+  "PseudonymsJoinsDefaultButHasRefMustBeRef": {
+    "type": "get:e1|e2",
+    "request": "t13/=t11",
+    "pseudonyms": {
+      "joins":{
+        "t11:t13": ["t3_id","t1_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsRef": {
+    "type": "get:e1|e2",
+    "request": "t13/t11",
+    "pseudonyms": {
+      "joins":{
+        "t11:t13": ["t3_id","t1_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstra": {
+    "type": "get:e1|e2",
+    "request": "t13/t11",
+    "pseudonyms": {
+      "joins":{
+        "t12:t13": ["t2_id","t3_id"],
+        "t11:t12": ["t1_id","t2_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraNoRef": {
+    "type": "get:e1|e2",
+    "request": "t13/t34",
+    "pseudonyms": {
+      "joins":{
+        "t12:t13": ["t2_id","t3_id"],
+        "t11:t12": ["t1_id","t2_id"]
+      }
+    }
+  },
+  "PseudonymsJoinsHasPseudonymsByPseudonyms": {
+    "type": "get:e1|e2",
+    "request": "t23/t1",
+    "pseudonyms": {
+      "joins":{
+        "t23:t1": ["t2_id","t3_id"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsJoinsHasPseudonymsByRealRef": {
+    "type": "get:e1|e2",
+    "request": "t23/t1",
+    "pseudonyms": {
+      "joins":{
+        "t2:t1": ["t2_id","t3_id"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsJoinsHasPseudonymsByPseudonymsButHasRealRef": {
+    "type": "get:e1|e2",
+    "request": "t23/t1",
+    "pseudonyms": {
+      "joins":{
+        "t2:t1": ["no_t1","no_t2"],
+        "t23:t1": ["t2_id","t3_id"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraPseudonyms": {
+    "type": "get:e1|e2",
+    "request": "t21/t1",
+    "pseudonyms": {
+      "joins":{
+        "t2:t47": ["t13_id","t11_id"],
+        "t1:t47": ["t1_id","t13_id"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13"],
+        "t2": ["t21","t22","t23"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraPseudonymsRecurse3TableButRealyIsOne": {
+    "type": "get:e1|e2",
+    "request": "t11/{role}/t14",
+    "pseudonyms": {
+      "joins":{
+        "t11:t12": [":",":"],
+        "t12:t13": [":",":"],
+        "t13:t14": [":",":"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13","t14"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraPseudonymsRecurse3TableButRealyIsOneTable": {
+    "type": "get:e1|e2",
+    "request": "t11/{role}/t14",
+    "pseudonyms": {
+      "joins":{
+        "t11:t12": ["ref"],
+        "t12:t13": ["ref"],
+        "t13:t14": ["ref"],
+        "!t1:ref": ["id","t11_id"],
+        "!ref:t1": ["t12_id","id"]
+      },
+      "tables":{
+        "t1": ["t11","t12","t13","t14"]
+      }
+    }
+  },
+  "PseudonymsJoinsManyToMay2": {
+    "type": "get:e1|e2",
+    "request": "t11/t12",
+    "pseudonyms": {
+      "joins":{
+        "t11:t12": ["t0"],
+        "t11:t0": ["t6"]
+      }
+    }
+  },
+  "EmptyEndpoint": {
+    "type": "get:e1|e2",
+    "request": "t11/t12"
+  },
+  "ThrowPseudonymsCast": {
+    "type": "get:e1|e2",
+    "request": "t11/t12",
+    "pseudonyms":true
+  },
+  "ThrowPseudonymsFiltersCast": {
+    "type": "get:e1|e2",
+    "request": "t11/t12",
+    "filters": true
   }
+
 }

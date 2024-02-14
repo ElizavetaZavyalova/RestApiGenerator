@@ -1,7 +1,5 @@
 
 L
-java:S1066d"/Merge this if statement with the enclosing one.(–å€§8šàøïÙ1
-d
-java:S1226Ÿ"FIntroduce a new variable instead of reusing the parameter "tableName".(¯Ú§—8óº˜€Ú1
+java:S1066d"/Merge this if statement with the enclosing one.(–å€§8¦ò« Ú1
 e
-java:S6353/"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8ºàøïÙ1
+java:S63531"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8½ò« Ú1

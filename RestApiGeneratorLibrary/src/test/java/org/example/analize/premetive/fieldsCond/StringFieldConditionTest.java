@@ -80,13 +80,15 @@ public class StringFieldConditionTest {
                 Arguments.of("s:ge_" + fieldName),
                 Arguments.of("s:gt_" + fieldName),
                 Arguments.of("s:le_" + fieldName),
-                Arguments.of("s:lt_" + fieldName));
+                Arguments.of("s:lt_" + fieldName),
+                Arguments.of("s:in_" + fieldName));
     }
 
     static public Stream<Arguments> constructorParamsBoolean() {
         return Stream.of(
                 Arguments.of("b:eq_" + fieldName),
-                Arguments.of("b:ne_" + fieldName));
+                Arguments.of("b:ne_" + fieldName),
+                Arguments.of("b:in_" + fieldName));
     }
 
     static public Stream<Arguments> constructorParamsNoBoolean() {
@@ -106,7 +108,8 @@ public class StringFieldConditionTest {
                 Arguments.of("i:ge_" + fieldName),
                 Arguments.of("i:gt_" + fieldName),
                 Arguments.of("i:le_" + fieldName),
-                Arguments.of("i:lt_" + fieldName));
+                Arguments.of("i:lt_" + fieldName),
+                Arguments.of("i:in_" + fieldName));
     }
 
     static public Stream<Arguments> constructorParamsNoInteger() {

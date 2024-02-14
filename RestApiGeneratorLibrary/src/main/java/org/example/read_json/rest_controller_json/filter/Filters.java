@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import static org.example.read_json.rest_controller_json.filter.Filters.Regexp.IS_CORRECT_FILTER_NAME;
+import static org.example.read_json.rest_controller_json.filter.Filters.Regexp.SPLIT_PARAMS;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.*;
 
@@ -24,6 +25,7 @@ public abstract class Filters {
     }
     record Regexp(){
         static final String IS_CORRECT_FILTER_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
+        static final String SPLIT_PARAMS = "[|]";
     }
     void throwException(String filterName) throws IllegalArgumentException {
         if (filterName.isEmpty()) {
@@ -65,11 +67,11 @@ public abstract class Filters {
             return;
         } else if (key.endsWith(OR.getName())) {
             key = key.substring(0, key.length() - OR.length());
-            addKeyValToFilters(key, new ListStringFilter(FilterNames.OR, Arrays.stream(val.split("[|]")).toList(), makeFilterVoidName(key)));
+            addKeyValToFilters(key, new ListStringFilter(FilterNames.OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
             return;
         } else if (key.endsWith(AND.getName())) {
             key = key.substring(0, key.length() - AND.length());
-            addKeyValToFilters(key, new ListStringFilter(FilterNames.AND, Arrays.stream(val.split("[|]")).toList(), makeFilterVoidName(key)));
+            addKeyValToFilters(key, new ListStringFilter(FilterNames.AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
             return;
         } else if (key.endsWith(CALL.getName())) {
             key = key.substring(0, key.length() - CALL.length());

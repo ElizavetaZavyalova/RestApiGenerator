@@ -146,7 +146,11 @@ class PseudonymsTest {
         log.info("t9:t10");
         assertEquals(pseudonyms.getRealJoinsName("t10:t9"), List.of("-"), () -> "t10:t9");
         assertEquals(pseudonyms.getRealJoinsName("t9:t10"), List.of("-"), () -> "t9:t10");
-        log.info(pseudonyms.findPath("t1","t10").toString());
+        log.info("t10:t11");
+        assertEquals(pseudonyms.getRealJoinsName("t10:t11"), List.of("t10","t11"), () -> "t10:t11");
+        assertThrows(IllegalArgumentException.class, () -> pseudonyms.getRealJoinsName("t11:t10"));
+        log.info(pseudonyms.findPath("t1","t11",true).toString());
+        log.info(pseudonyms.findPath("t11","t1",true).toString());
 
     }
 

@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
 
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.ReadJson;
@@ -43,12 +44,12 @@ public class Endpoint {
         requestInformation = new RequestInformation(enpointMap,this);
 
     }
-    public List<String> findPath(String table1 ,String table2){
-        List<String> result=pseudonyms.findPath(table1,table2);
+    public List<String> findPath(String table1 ,String table2,boolean real){
+        List<String> result=pseudonyms.findPath(table1,table2,real);
         if(result.size()!=2){
             return result;
         }
-        return parent.getParent().getPseudonyms().findPath(table1,table2);
+        return parent.getParent().getPseudonyms().findPath(table1,table2,real);
     }
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {

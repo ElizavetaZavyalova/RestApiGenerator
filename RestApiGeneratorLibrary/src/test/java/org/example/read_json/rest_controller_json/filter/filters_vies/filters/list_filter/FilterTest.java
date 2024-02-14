@@ -1,5 +1,6 @@
 package org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter;
 
+import com.squareup.javapoet.CodeBlock;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.helpclass.CreateEndpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
@@ -25,7 +26,7 @@ public class FilterTest {
     void filter(Filter.FilterNames name, List<String> list){
         ListStringFilter filter=new ListStringFilter(name, list, filterName);
         log.info(filter.makeFilterMethod(CreateEndpoint.makeEndpoint()).toString());
-        log.info(filter.makeFilter(funcName,"table","DSL.trueCondition()").toString());
+        log.info(filter.makeFilter(funcName,"table", CodeBlock.builder().add("DSL.trueCondition()").build()).toString());
         //TODO for all filters
     }
     static public Stream<Arguments> constructorParamsFilters() {

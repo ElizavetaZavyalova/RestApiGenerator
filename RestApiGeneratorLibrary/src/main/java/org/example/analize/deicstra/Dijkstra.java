@@ -8,7 +8,6 @@ import static org.example.analize.deicstra.Dijkstra.PathCost.*;
 
 
 public class Dijkstra {
-
     private final Map<String, Vertex> graph = new HashMap<>();
 
     @Setter
@@ -81,7 +80,7 @@ public class Dijkstra {
         graph.get(from).setCost(NO_COST);
         path(from);
         if (graph.get(to).cost == INFINITY) {
-            //clean();
+
             return List.of(from, to);
         }
         List<String> list = new ArrayList<>();
@@ -89,13 +88,8 @@ public class Dijkstra {
         while (!list.get(FIRST_ELEMENT).equals(from)) {
             list.add(FIRST_ELEMENT, graph.get(list.get(FIRST_ELEMENT)).getNamePrevious());
         }
-        // clean();
-        return list;
-    }
 
-    @Deprecated(since = "Паралелить если endpoints")
-    void clean() {
-        graph.forEach((k, v) -> v.setDefault());
+        return list;
     }
 
 }

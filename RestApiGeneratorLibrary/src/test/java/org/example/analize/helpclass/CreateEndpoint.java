@@ -64,7 +64,7 @@ public record CreateEndpoint() {
         Mockito.doReturn(List.of(mmTable2)).when(point).getRealJoinName(mmTable1,mmTable4);
         Mockito.doReturn(List.of(mmTable2)).when(point).getRealJoinName(mmTable4,mmTable1);
         Mockito.when(point.getRealTableName(Mockito.any(String.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
-        Mockito.when(point.findPath(Mockito.any(String.class),Mockito.any(String.class))).thenAnswer(invocation -> List.of(invocation.getArguments()[0],invocation.getArguments()[0]));
+        Mockito.when(point.findPath(Mockito.any(String.class),Mockito.any(String.class),Mockito.any(Boolean.class))).thenAnswer(invocation -> List.of(invocation.getArguments()[0],invocation.getArguments()[0]));
         return point;
     }
     public static Endpoint makePath() {
@@ -73,7 +73,8 @@ public record CreateEndpoint() {
 
         Mockito.doReturn(List.of(":",":")).when(point).getRealJoinName(pTable2,pTable3);
         Mockito.when(point.getRealTableName(Mockito.any(String.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
-        Mockito.doReturn(List.of(pTable1,pTable2,pTable3)).when(point).findPath(pTable1,pTable3);
+        Mockito.doReturn(List.of(pTable1,pTable2,pTable3)).when(point).findPath(pTable1,pTable3,true);
+        Mockito.doReturn(List.of(pTable1,pTable2,pTable3)).when(point).findPath(pTable1,pTable3,false);
         return point;
     }
 

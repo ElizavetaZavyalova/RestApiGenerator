@@ -57,7 +57,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         GE(_GE),
         GT(_GT),
         LE(_LE),
-        LT(_LT);
+        LT(_LT),
+        IN(_IN);
 
         final String names;
 
@@ -96,7 +97,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {
-        if (type.equals(BaseFieldCondition.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
+        if (type.equals(BaseFieldCondition.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE) || action.equals(IN))) {
             throw new IllegalArgumentException("TYPE BOOLEAN MUST BE EQ OR NE");
         }
         if (type.equals(Type.INTEGER) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {

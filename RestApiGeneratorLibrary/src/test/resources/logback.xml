@@ -12,11 +12,11 @@
     <logger name="org.example" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
+    <logger name="org.example" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
 
     <root level="ERROR">
-        <appender-ref ref="CONSOLE"/>
-    </root>
-    <root name="org.example" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>
 

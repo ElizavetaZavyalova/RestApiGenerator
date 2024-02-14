@@ -36,7 +36,7 @@ public class VarInfo {
     public ParameterSpec getAnnotationParameterSpec() {
         ParameterSpec.Builder parameterSpec = getParameterSpec().toBuilder();
         parameterSpec.addAnnotation(AnnotationSpec.builder(PATH_VARIABLE_ANNOTATION_CLASS)
-                .addMember("value",nameInRequest).build());
+                .addMember("value","$S",nameInRequest).build());
         return parameterSpec.build();
 
     }

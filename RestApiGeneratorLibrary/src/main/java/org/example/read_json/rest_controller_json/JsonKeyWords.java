@@ -57,6 +57,7 @@ public record JsonKeyWords() {
                 public static final String _ONE_TO_MANY = "<";
                 public static final String _ONE_TO_ONE_BY_ID = "-";
                 public static final String _ONE_TO_ONE_BY_TABLE_NAME = "=";
+                public static final String _IN_ONE_WAY = "!";
 
             }
 
@@ -75,6 +76,7 @@ public record JsonKeyWords() {
                 public static final String _GT = "gt";
                 public static final String _LE = "le";
                 public static final String _LT = "lt";
+                public static final String _IN = "in";
 
             }
 

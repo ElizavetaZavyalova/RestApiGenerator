@@ -92,9 +92,9 @@ public class RequestInformation {
         }
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
-        return addReturns(methodBuilder, type).addStatement(beanName + "." + funcName + "(" +
-                varInfos.stream().map(VarInfo::getName).collect(Collectors.joining(", ")) +
-                ", " + REQUEST_PARAM_NAME + ")").build();
+        return addReturns(methodBuilder, type).addStatement(beanName + "." +type.getRequestType().toString()+ funcName +
+                        "(" + REQUEST_PARAM_NAME+", "+ varInfos.stream().map(VarInfo::getName)
+                        .collect(Collectors.joining(", ")) + ")").build();
     }
 
     public List<MethodSpec> makeControllerMethods(String funcName, String beanName) {
