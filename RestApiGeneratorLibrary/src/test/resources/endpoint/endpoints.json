@@ -6,7 +6,7 @@
       "filter1:or": "s:eq_name|i:eq_age",
       "filter2:and": "s:eq_name1|i:eq_age1",
       "filter3:sql": "(r=18 and y=90)",
-      "filter4:call": "path#My.call"
+      "filter4:call": "path#My#call"
     }
   },
   "PseudonymsEntity2": {
