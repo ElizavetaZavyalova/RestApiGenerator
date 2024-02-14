@@ -1,22 +1,22 @@
 {
   "http": {
-    "getEndpoint": {
+    "NgetEndpoint": {
       "type": "get:price|id|age",
       "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
     },
-    "postEndpoint": {
-      "type": "post:price|id|age",
-      "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/"
-    },
-    "patchEndpoint": {
+    "NpatchEndpoint": {
       "type": "patch:price|id|age",
       "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
     },
-    "putEndpoint": {
+    "NpostEndpoint": {
+      "type": "post:price|id|age",
+      "request": "name/"
+    },
+    "NputEndpoint": {
       "type": "put:price|id|age",
       "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
     },
-    "deleteEndpoint": {
+    "NdeleteEndpoint": {
       "type": "delete",
       "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
     }

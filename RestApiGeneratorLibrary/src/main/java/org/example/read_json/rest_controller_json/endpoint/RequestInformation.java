@@ -85,17 +85,17 @@ public class RequestInformation {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
                 .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
+        StringBuilder params=new StringBuilder().append(REQUEST_PARAM_NAME);
         for (VarInfo parameterSpec : varInfos) {
             if (!parameterSpec.isFilter()) {
                 methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
+                params.append(", ").append(parameterSpec.getName());
             }
         }
-        List<VarInfo> varInfoList=varInfos.stream().filter(v->!v.isFilter()).toList();
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
         return addReturns(methodBuilder, type).addStatement(beanName + "." +type.getRequestType().toString()+ funcName +
-                        "(" + REQUEST_PARAM_NAME+(varInfoList.isEmpty()?"":", ")+ varInfoList.stream().map(VarInfo::getName)
-                        .collect(Collectors.joining(", ")) + ")").build();
+                        "(" +params + ")").build();
     }
 
     public List<MethodSpec> makeControllerMethods(String funcName, String beanName) {

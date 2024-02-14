@@ -295,6 +295,26 @@
     "type": "get:e1|e2",
     "request": "t11/t12",
     "filters": true
+  },
+  "BedgetEndpoint": {
+    "type": "get:price|id|age",
+    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+  },
+  "BedpatchEndpoint": {
+    "type": "patch:price|id|age",
+    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+  },
+  "BedpostEndpoint": {
+    "type": "post:price|id|age",
+    "request": "name/"
+  },
+  "BedputEndpoint": {
+    "type": "put:price|id|age",
+    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
+  },
+  "BeddeleteEndpoint": {
+    "type": "delete",
+    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
   }
 
 }

@@ -179,6 +179,16 @@ class EndpointTest {
         test((Map<String, Object>) jsonEndpoint.get(name),name);
 
     }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("slow")//PseudonymsJoins
+    void slowPseudonymsFields(String name) {
+        test((Map<String, Object>) jsonEndpoint.get(name),name);
+
+    }
+    static public Stream<Arguments> slow() {
+        return jsonEndpoint.keySet().stream().filter(k -> k.startsWith("Bed"))
+                .map(Arguments::of).toList().stream();
+    }
     static public Stream<Arguments> endpointPseudonymsJoins() {
         return jsonEndpoint.keySet().stream().filter(k -> k.startsWith("PseudonymsJoins"))
                 .map(Arguments::of).toList().stream();
