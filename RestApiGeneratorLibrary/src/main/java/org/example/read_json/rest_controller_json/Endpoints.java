@@ -31,7 +31,7 @@ public class Endpoints {
 
     public TypeSpec createRepository(String repositoryName, String beanName) throws IllegalArgumentException {
         List<MethodSpec> methods = endpoint.entrySet().
-                parallelStream().map(v -> v.getValue().getDBMethods()).flatMap(List::stream).toList();
+                stream().map(v -> v.getValue().getDBMethods()).flatMap(List::stream).toList();
         TypeSpec.Builder repository = TypeSpec.classBuilder(repositoryName)
                 .addModifiers(Modifier.PUBLIC);
         repository.addField(FieldSpec.builder(CONTEXT_CLASS, CONTEXT, Modifier.PRIVATE).build())

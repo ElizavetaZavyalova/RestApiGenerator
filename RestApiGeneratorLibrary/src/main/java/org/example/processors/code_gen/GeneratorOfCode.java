@@ -74,7 +74,6 @@ public class GeneratorOfCode implements GeneratingCode {
         String repositoryPackage = packageName + REPOSITORY_PACKAGE;
         String location = repositoryPackage + "." + className;
         log.info("generateRepositoryFunc");
-
         JavaFile file = rest.getJavaRepository(className, repositoryPackage);
         log.info("generateRepositoryJavaFile");
         writeClass(location, file);

@@ -7,7 +7,7 @@
       },
       "postEndpoint": {
         "type": "post:price|id|age",
-        "request": "user/name"
+        "request": "user/"
       },
       "patchEndpoint": {
         "type": "patch:price|id|age",

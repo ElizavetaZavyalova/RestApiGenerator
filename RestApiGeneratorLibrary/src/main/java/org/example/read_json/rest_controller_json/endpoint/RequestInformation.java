@@ -94,7 +94,7 @@ public class RequestInformation {
         }
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
-        return addReturns(methodBuilder, type).addStatement(beanName + "." +type.getRequestType().toString()+ funcName +
+        return addReturns(methodBuilder, type).addStatement( getReturnIfGet(type)+beanName + "." +type.getRequestType().toString()+ funcName +
                         "(" +params + ")").build();
     }
 
@@ -122,6 +122,12 @@ public class RequestInformation {
             builder.addCode("return ");
         }
         return builder.addCode(type.getInterpretDb().getInterpretation().interpret());
+    }
+    String getReturnIfGet( Type type) {
+        if (type.getRequestType().equals(RequestType.GET)) {
+           return "return ";
+        }
+        return "";
     }
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {
