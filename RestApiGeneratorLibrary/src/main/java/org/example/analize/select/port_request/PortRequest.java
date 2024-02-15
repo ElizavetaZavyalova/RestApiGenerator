@@ -15,12 +15,15 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.R
 
 @Slf4j
 public abstract class PortRequest<R> implements Interpretation<R> {
+    @Getter
     protected PortRequestWithCondition<R> selectNext;
     @Getter
     protected String tableName;
     @Getter
     protected String realTableName;
+    @Getter
     protected String id = "id";
+    @Getter
     protected String ref;
     TableRef tableRef = TableRef.DEFAULT;
 

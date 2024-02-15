@@ -1,7 +1,9 @@
 package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
+import org.slf4j.LoggerFactory;
 
+import java.util.logging.Logger;
 
 
 public record DefaultsVariablesName() {
@@ -62,10 +64,16 @@ public record DefaultsVariablesName() {
             }
 
             public static final ClassName VALUE_ANNOTATION_CLASS =createClass(beansFactoryAnnotations, "Value");
-
-            private static final String springUtil="org.springframework.util";
             private static final String javaLang="java.lang";
-            private static final String javaUtil="java.util"; //Optional
+            private static final String javaLangLevelLogger="java.util.logging";
+            private static final String javaUtil="java.util";
+            private static final String javaUtilLogging="java.util.logging";
+            public static final String LOG_NAME="log";
+            public static final String SHOW_SQL_NAME="showSql";
+            public static final String RESULT_NAME="result";
+            public static final String LOG_LEVE_NAME="INFO";
+            public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
+            public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");
             public static final ClassName OPTIONAL_CLASS=createClass(javaUtil, "Optional");
             public static final ClassName MAP_CLASS=createClass(javaUtil, "Map");
             public static final ClassName LIST_CLASS=createClass(javaUtil, "List");//STRRING_CLASS
@@ -75,8 +83,8 @@ public record DefaultsVariablesName() {
             public static final ClassName INTEGER_CLASS=createClass(javaLang, "Integer");
             public static final ClassName BOOLEAN_CLASS=createClass(javaLang, "Boolean");
 
-            public static final ClassName MULTI_VALUE_MAP=createClass(springUtil, "MultiValueMap");
-            public static final ParameterizedTypeName REQUEST_PARAMS= ParameterizedTypeName.get(MULTI_VALUE_MAP,
+
+            public static final ParameterizedTypeName REQUEST_PARAMS= ParameterizedTypeName.get(MAP_CLASS,
                     STRING_CLASS, createClass(javaLang,"Object"));
         }
 

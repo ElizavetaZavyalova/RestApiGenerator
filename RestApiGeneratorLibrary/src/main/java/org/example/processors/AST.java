@@ -45,16 +45,4 @@ public class AST {
         return ast;
     }
 
-    void tes(){
-        /*JCTree.JCFieldAccess springApplication = treeMaker.Select(treeMaker.Ident(names.fromString("org.springframework.boot.SpringApplication")), names.fromString("SpringApplication"));
-        //SpringApplication.run(Main.class, args);
-        JCTree.JCExpression runMethod = treeMaker.Select(springApplication, names.fromString("run"));
-        JCTree.JCMethodInvocation apply = treeMaker.Apply(
-                List.nil(),
-                runMethod,
-                List.of() // Аргументы метода
-        );*/
-
-    }
-
 }

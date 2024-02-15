@@ -28,7 +28,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
                 throw new IllegalArgumentException(string + "is must be bigger then 2");
             }
             for (Type type : Type.values()) {
-                if (string.startsWith(type.ident) || string.startsWith(type.ident.toUpperCase())) {
+                if (string.endsWith(type.ident)) {
                     return type;
 
                 }
@@ -37,8 +37,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         }
 
         static String deleteType(String string, Type type) {
-            if (string.startsWith(type.ident) || string.startsWith(type.ident.toUpperCase())) {
-                return string.substring(type.ident.length());
+            if (string.endsWith(type.ident)) {
+                return string.substring(0,string.length()-type.ident.length());
             }
             return string;
         }

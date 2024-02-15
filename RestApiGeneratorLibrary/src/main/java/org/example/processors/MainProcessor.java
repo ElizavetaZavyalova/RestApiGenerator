@@ -31,11 +31,11 @@ public class MainProcessor extends BaseProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
        var elements=roundEnv.getElementsAnnotatedWith(RestApiGenerator.class);
-        for(Element element:roundEnv.getElementsAnnotatedWith(RestApiGenerator.class)){
-            GeneratingCode generatingCode=new GeneratorOfCode(element);
+        for(Element element:roundEnv.getElementsAnnotatedWith(RestApiGenerator.class)) {
+            GeneratingCode generatingCode = new GeneratorOfCode(element);
             generatingCode.generate();
         }
-        return true;//стоп
+        return true;
     }
 
 }

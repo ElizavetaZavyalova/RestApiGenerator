@@ -83,7 +83,7 @@ class EndpointTest {
     @SneakyThrows
     static void loadJson() {
         ReadJson readJson = new ReadJson();
-        jsonEndpoint = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoint\\endpoints.json");
+        jsonEndpoint = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoint\\endpoint.json");
         jsonRequest = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\requestInformation\\requestInformationTest.json");
         jsonPseudonyms = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\pseudonyms\\pseudonyms.json");
     }
@@ -179,16 +179,7 @@ class EndpointTest {
         test((Map<String, Object>) jsonEndpoint.get(name),name);
 
     }
-    @ParameterizedTest(name = "{arguments} test")
-    @MethodSource("slow")//PseudonymsJoins
-    void slowPseudonymsFields(String name) {
-        test((Map<String, Object>) jsonEndpoint.get(name),name);
 
-    }
-    static public Stream<Arguments> slow() {
-        return jsonEndpoint.keySet().stream().filter(k -> k.startsWith("Bed"))
-                .map(Arguments::of).toList().stream();
-    }
     static public Stream<Arguments> endpointPseudonymsJoins() {
         return jsonEndpoint.keySet().stream().filter(k -> k.startsWith("PseudonymsJoins"))
                 .map(Arguments::of).toList().stream();

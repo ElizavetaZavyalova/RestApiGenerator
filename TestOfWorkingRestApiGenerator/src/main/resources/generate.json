@@ -1,25 +1,13 @@
 {
-  "MyController": {
+  "TypeNoEntity": {
     "http": {
-      "getEndpoint": {
-        "type": "get:price|id|age",
-        "request": "user/({i:eq_id}|{i:eq_id1}&{b:is_name})/name/{i:id}/{s:nick}"
+      "endpointGetNoEntity": {
+        "type": "get",
+        "request": "user"
       },
-      "postEndpoint": {
-        "type": "post:price|id|age",
-        "request": "user/"
-      },
-      "patchEndpoint": {
-        "type": "patch:price|id|age",
-        "request": "user/({i:eq_id}|{i:eq_id1}&{b:is_name})/name/{i:id}/{s:nick}"
-      },
-      "putEndpoint": {
-        "type": "put:price|id|age",
-        "request": "user/({i:eq_id}|{i:eq_id1}&{b:is_name})/name/{i:id}/{s:nick}"
-      },
-      "deleteEndpoint": {
+      "endpointDeleteNoEntity": {
         "type": "delete",
-        "request": "user/({i:eq_id}|{i:eq_id1}&{b:is_name})/name/{i:id}/{s:nick}"
+        "request": "user"
       }
     }
   }

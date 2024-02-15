@@ -125,7 +125,7 @@ public class RestJson {
         String driver = prop + DB.driver;
         String dialect = prop + DB.dialect;
         MethodSpec.Builder method = createConnectionBeanBuilder(beanName, url, password, user, driver, dialect);
-        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + url + ", " + password + ", " + user + ", " + driver + "), $T.valueOf(" + dialect + "))",
+        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + DB.url + ", " + DB.password + ", " + DB.user + ", " + DB.driver + ")), $T.valueOf(" + DB.dialect + "))",
                 DSL_CLASS, HIKARI_DATE_SOURCE_CLASS, SQL_DIALECT_CLASS);
         return method.build();
     }

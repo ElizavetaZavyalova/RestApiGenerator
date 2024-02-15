@@ -29,7 +29,7 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
         }
         block.add(makeChooseFields());
         block.add(StringWereInterpret.makeWhere(where,selectNext,tableName,ref));
-        return block.add(".execute();").build();
+        return block.build();
     }
 
     protected abstract CodeBlock makeChooseFields();

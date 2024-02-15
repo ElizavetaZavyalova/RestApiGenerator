@@ -1,9 +1,9 @@
 
 L
-java:S1066_"/Merge this if statement with the enclosing one.(–å€§8¦ò« Ú1
+java:S1066b"/Merge this if statement with the enclosing one.(–å€§8¦ò« Ú1
 h
-java:S13018"KReplace this "switch" statement by "if" statements to increase readability.(”Ê»Ñ8ª‚¹Ú1
+java:S1301;"KReplace this "switch" statement by "if" statements to increase readability.(”Ê»Ñ8ª‚¹Ú1
 h
-java:S1301D"KReplace this "switch" statement by "if" statements to increase readability.(”Ê»Ñ8š¯ƒ¹Ú1
+java:S1301G"KReplace this "switch" statement by "if" statements to increase readability.(”Ê»Ñ8š¯ƒ¹Ú1
 e
-java:S63530"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8½ò« Ú1
+java:S63533"CUse concise character class syntax '\\w' instead of '[a-zA-Z0-9_]'.(Ô£ŸŒüÿÿÿÿ8½ò« Ú1

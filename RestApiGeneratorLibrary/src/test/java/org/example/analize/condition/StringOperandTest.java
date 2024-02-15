@@ -66,7 +66,7 @@ class StringOperandTest {
     }
     static public Stream<Arguments> constructorParams() {
         return Stream.of(
-                Arguments.of("s:like_" + fieldName1,"s:like_" + fieldName2,"|"),
-                Arguments.of("s:like_" + fieldName1,"s:like_" + fieldName2,"&"));
+                Arguments.of("like_" + fieldName1+":s","like_" + fieldName2+":s","|"),
+                Arguments.of("like_" + fieldName1+":s","like_" + fieldName2+":s","&"));
     }
 }

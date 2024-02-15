@@ -1,9 +1,6 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,12 +8,12 @@ import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.InterpretDb;
 import org.example.read_json.rest_controller_json.MakeCast;
 
+
 import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
@@ -118,10 +115,15 @@ public class RequestInformation {
     }
 
     MethodSpec.Builder addCode(MethodSpec.Builder builder, Type type) {
+        builder.addStatement(CodeBlock.builder().add("var "+RESULT_NAME+" = ")
+                .add(type.getInterpretDb().getInterpretation().interpret()).build());
+        builder.beginControlFlow("if ("+SHOW_SQL_NAME+")")
+        .addStatement(LOG_NAME+".log($T."+LOG_LEVE_NAME+", $S+"+RESULT_NAME+".getSQL()+$S)",LOG_LEVEL,"\n","\n")
+                .endControlFlow();
         if (type.getRequestType().equals(RequestType.GET)) {
-            builder.addCode("return ");
+            return builder.addStatement("return "+RESULT_NAME+".fetch()");
         }
-        return builder.addCode(type.getInterpretDb().getInterpretation().interpret());
+        return builder.addStatement(RESULT_NAME+".execute()");
     }
     String getReturnIfGet( Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {

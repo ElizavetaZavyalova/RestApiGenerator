@@ -1,6 +1,7 @@
 package org.example.analize.select.port_request;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.example.analize.where.BaseWhere;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -10,7 +11,7 @@ import static org.example.analize.select.port_request.PortRequestWithCondition.R
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.AggregationFunction.*;
 
 public abstract class PortRequestWithCondition<R> extends PortRequest<R> {
-
+    @Getter
     protected BaseWhere<R> where;
 
     record RegExp() {

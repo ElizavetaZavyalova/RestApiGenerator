@@ -46,7 +46,7 @@ public class ParseJson {
         static final String openApi = "openApi";
         static final String description = "description";
         static final String version="version";
-        static public String getParam(String param){
+        static  String getParam(String param){
             return openApi+"."+param;
         }
     }
@@ -77,8 +77,8 @@ public class ParseJson {
         String driver = prop + RestJson.DB.driver;
         String dialect = prop + RestJson.DB.dialect;
         MethodSpec.Builder method = RestJson.createConnectionBeanBuilder(bean, url, password, user, driver, dialect);
-        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + url + ", " + password + ", "
-                        + user + ", " + driver + "), $T.valueOf(" + dialect + "))",
+        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + RestJson.DB.url + ", " + RestJson.DB.password + ", "
+                        + RestJson.DB.user + ", " + RestJson.DB.driver + ")), $T.valueOf(" + RestJson.DB.dialect + "))",
                 DSL_CLASS, HIKARI_DATE_SOURCE_CLASS, SQL_DIALECT_CLASS);
         return method.build();
     }
@@ -90,7 +90,8 @@ public class ParseJson {
     TypeSpec makeConfigurationClass(String className) {
         TypeSpec.Builder repository = TypeSpec.classBuilder(className)
                 .addAnnotation(CONFIGURATION_ANNOTATION_CLASS)
-                .addModifiers(Modifier.PUBLIC).addMethod(makeSwaggerConfiguration());
+                .addModifiers(Modifier.PUBLIC)
+                .addMethod(makeSwaggerConfiguration());
         restsJson.forEach(rest -> {
             if (rest.isCreateBDBean()) {
                 repository.addMethod(rest.getConnectionBean());
@@ -98,7 +99,6 @@ public class ParseJson {
         });
         repository.addMethod(RestJson.createConnectionMethod());
         repository.addMethod(makeDefaultDBBean());
-        repository.addMethod(makeSwaggerConfiguration());
         return repository.build();
     }
 

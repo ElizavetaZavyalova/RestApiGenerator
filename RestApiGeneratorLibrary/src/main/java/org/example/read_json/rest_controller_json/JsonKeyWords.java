@@ -79,9 +79,9 @@ public record JsonKeyWords() {
             }
 
             public record TypeVar() {
-                public static final String _STRING = "s:";
-                public static final String _INTEGER = "i:";
-                public static final String _BOOLEAN = "b:";
+                public static final String _STRING = ":s";
+                public static final String _INTEGER = ":i";
+                public static final String _BOOLEAN = ":b";
             }
 
         }

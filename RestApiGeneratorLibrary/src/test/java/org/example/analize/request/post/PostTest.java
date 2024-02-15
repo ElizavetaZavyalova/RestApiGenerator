@@ -25,7 +25,18 @@ public class PostTest {
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams")
-    void ConstructorParams(String req, List<String> par) {
+    void constructorParams(String req, List<String> par) {
+        Endpoint endpoint = makeEndpoint();
+        log.info(req);
+        StringPostRequest request=new  StringPostRequest(req,par,endpoint);
+        log.info(request.interpret().toString());
+        List<VarInfo> list=new ArrayList<>();
+        request.addParams(list);
+        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+    }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("constructorParams3Or2Table")
+    void constructorParams3Or2Table(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
@@ -46,6 +57,26 @@ public class PostTest {
                 Arguments.of(table1+"/{"+fieldName1+"}"+"/"+table2+"/{"+fieldName4+"}/"+table3,par3),
                 Arguments.of(table1+"/{"+fieldName2+"}/{"+fieldName1+"}"+"/"+table2+"/{"+fieldName4+"}/{"+fieldName3+"}/"+table3,par));
     }
+    static public Stream<Arguments> constructorParams3Or2Table() {
+        List<String> par=List.of(paramName1);
+        List<String> par2=List.of();
+        List<String> par3=List.of(paramName1,paramName2,paramName3);
+        return Stream.of(
+                Arguments.of(table1+"/"+table2+"/"+table3,par2),
+                Arguments.of(table1+"/"+table2+"/"+table3,par3),
+                Arguments.of(table1+"/{"+fieldName1+"}/"+table2+"/"+table3,par2),
+                Arguments.of(table1+"/"+table2+"/{"+fieldName1+"}/"+table3,par2),
+                Arguments.of(table1+"/{"+fieldName2+"}/"+table2+"/{"+fieldName1+"}/"+table3,par2),
+                Arguments.of(table1+"/{"+fieldName1+"}/"+table2+"/"+table3,par3),
+                Arguments.of(table1+"/"+table2+"/{"+fieldName1+"}/"+table3,par3),
+                Arguments.of(table1+"/{"+fieldName2+"}/"+table2+"/{"+fieldName1+"}/"+table3,par3),
+                Arguments.of(table2+"/"+table3,par3),
+                Arguments.of(table2+"/"+table3,par2),
+                Arguments.of(table2+"/{"+fieldName1+"}/"+table3,par2),
+                Arguments.of(table2+"/"+table3,par3),
+                Arguments.of(table2+"/{"+fieldName1+"}/"+table3,par3));
+    }
+
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsThrow")
     void ConstructorParamsThrow(String req,List<String> par) {

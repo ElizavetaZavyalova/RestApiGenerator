@@ -58,21 +58,21 @@ public class StringWhereTest {
 
     static public Stream<Arguments> constructorParams() {
         return Stream.of(
-                Arguments.of("/{s:eq_"+fieldName1+"}"),
+                Arguments.of("/{eq_"+fieldName1+"}"),
                 Arguments.of("/"),
-                Arguments.of("/{s:eq_"+fieldName1+"}&{s:eq_"+fieldName2+"}"),
-                Arguments.of("/{s:eq_"+fieldName1+"}/{s:eq_"+fieldName2+"}"),
-                Arguments.of("/{s:eq_"+fieldName1+"}/{s:eq_"+fieldName2+"}/{s:eq_"+fieldName3+"}/{s:eq_"+fieldName4+"}"),
-                Arguments.of("/{s:eq_"+fieldName1+"}&{s:eq_"+fieldName2+"}/{s:eq_"+fieldName3+"}"),
-                Arguments.of("/({s:eq_"+fieldName1+"}|{s:eq_"+fieldName2+"})&({s:eq_"+fieldName3+"}|{s:eq_"+fieldName4+"})"),
-                Arguments.of("/({s:eq_"+fieldName1+"}|{s:eq_"+fieldName2+"})&({s:eq_"+fieldName3+"}|{s:eq_"+fieldName4+"})/{s:like_"+fieldName1+"}"));
+                Arguments.of("/{eq_"+fieldName1+"}&{eq_"+fieldName2+":s}"),
+                Arguments.of("/{eq_"+fieldName1+"}/{eq_"+fieldName2+":s}"),
+                Arguments.of("/{eq_"+fieldName1+"}/{eq_"+fieldName2+"}/{eq_"+fieldName3+"}/{eq_"+fieldName4+"}"),
+                Arguments.of("/{eq_"+fieldName1+"}&{eq_"+fieldName2+"}/{eq_"+fieldName3+"}"),
+                Arguments.of("/({eq_"+fieldName1+"}|{eq_"+fieldName2+"})&({eq_"+fieldName3+"}|{eq_"+fieldName4+"})"),
+                Arguments.of("/({eq_"+fieldName1+"}|{eq_"+fieldName2+"})&({eq_"+fieldName3+"}|{eq_"+fieldName4+"})/{like_"+fieldName1+":s}"));
     }
 
     static public Stream<Arguments> constructorParamsFail() {
         return Stream.of(
-                Arguments.of("/s:eq_"+fieldName1+"}"),
-                Arguments.of("/{b:like_"+fieldName1+"}"),
-                Arguments.of("/{s:eq_"+fieldName1+"}&s:eq_"+fieldName2+"}"),
-                Arguments.of("/(/{b:like_"+fieldName1+"}"));
+                Arguments.of("/eq_"+fieldName1+"}"),
+                Arguments.of("/{like_"+fieldName1+":b}"),
+                Arguments.of("/{eq_"+fieldName1+"}&eq_"+fieldName2+"}"),
+                Arguments.of("/(/{like_"+fieldName1+":s}"));
     }
 }

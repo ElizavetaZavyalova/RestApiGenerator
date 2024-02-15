@@ -79,49 +79,49 @@ public class StringFieldConditionTest {
 
     static public Stream<Arguments> constructorParamsString() {
         return Stream.of(
-                Arguments.of("s:eq_" + fieldName),
-                Arguments.of("s:ne_" + fieldName),
-                Arguments.of("s:like_" + fieldName),
-                Arguments.of("s:not_like_" + fieldName),
-                Arguments.of("s:ge_" + fieldName),
-                Arguments.of("s:gt_" + fieldName),
-                Arguments.of("s:le_" + fieldName),
-                Arguments.of("s:lt_" + fieldName),
-                Arguments.of("s:in_" + fieldName));
+                Arguments.of("eq_" + fieldName+":s"),
+                Arguments.of("ne_" + fieldName+":s"),
+                Arguments.of("like_" + fieldName+":s"),
+                Arguments.of("not_like_" + fieldName+":s"),
+                Arguments.of("ge_" + fieldName+":s"),
+                Arguments.of("gt_" + fieldName+":s"),
+                Arguments.of("le_" + fieldName+":s"),
+                Arguments.of("lt_" + fieldName+":s"),
+                Arguments.of("in_" + fieldName+":s"));
     }
 
     static public Stream<Arguments> constructorParamsBoolean() {
         return Stream.of(
-                Arguments.of("b:eq_" + fieldName),
-                Arguments.of("b:ne_" + fieldName),
-                Arguments.of("b:in_" + fieldName));
+                Arguments.of("eq_" + fieldName+":b"),
+                Arguments.of("ne_" + fieldName+":b"),
+                Arguments.of("in_" + fieldName+":b"));
     }
 
     static public Stream<Arguments> constructorParamsNoBoolean() {
         return Stream.of(
-                Arguments.of("b:like_" + fieldName),
-                Arguments.of("b:not_like_" + fieldName),
-                Arguments.of("b:ge_" + fieldName),
-                Arguments.of("b:gt_" + fieldName),
-                Arguments.of("b:le_" + fieldName),
-                Arguments.of("b:lt_" + fieldName));
+                Arguments.of("like_" + fieldName+":b"),
+                Arguments.of("not_like_" + fieldName+":b"),
+                Arguments.of("ge_" + fieldName+":b"),
+                Arguments.of("gt_" + fieldName+":b"),
+                Arguments.of("le_" + fieldName+":b"),
+                Arguments.of("lt_" + fieldName+":b"));
     }
 
     static public Stream<Arguments> constructorParamsInteger() {
         return Stream.of(
-                Arguments.of("i:eq_" + fieldName),
-                Arguments.of("i:ne_" + fieldName),
-                Arguments.of("i:ge_" + fieldName),
-                Arguments.of("i:gt_" + fieldName),
-                Arguments.of("i:le_" + fieldName),
-                Arguments.of("i:lt_" + fieldName),
-                Arguments.of("i:in_" + fieldName));
+                Arguments.of("eq_" + fieldName+":i"),
+                Arguments.of("ne_" + fieldName+":i"),
+                Arguments.of("ge_" + fieldName+":i"),
+                Arguments.of("gt_" + fieldName+":i"),
+                Arguments.of("le_" + fieldName+":i"),
+                Arguments.of("lt_" + fieldName+":i"),
+                Arguments.of("in_" + fieldName+":i"));
     }
 
     static public Stream<Arguments> constructorParamsNoInteger() {
         return Stream.of(
-                Arguments.of("i:like_" + fieldName),
-                Arguments.of("i:not_like_" + fieldName));
+                Arguments.of("like_" + fieldName+":i"),
+                Arguments.of("not_like_" + fieldName+":i"));
     }
 
 }

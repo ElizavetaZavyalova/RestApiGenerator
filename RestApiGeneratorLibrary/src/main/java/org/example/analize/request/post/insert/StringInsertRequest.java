@@ -7,6 +7,7 @@ import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
+import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
@@ -28,22 +29,32 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
     protected BaseField<CodeBlock> makeField(String name, String table, Endpoint parent) {
         return new StringFieldReal(name, table, parent);
     }
+    /* context.insertInto(table("t1"),field("f_id"),
+                        field("f1"), field("f2"), field("f3") ,field("f4") )
+                .select(context.select(field("f_id"),
+                        DSL.val(map.get("f1")),DSL.val(map.get("f2")),DSL.val(map.get("f3")),DSL.val(map.get("f3")))
+                                .from(table("t2"))).execute();*/
 
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder().add(CONTEXT+".insertInto(").add(makeInsert()).add(")").add(makeValues()).build();
     }
 
+
     CodeBlock makeValues() {
         var block = CodeBlock.builder();
-        if (selectNext != null) {
-            block.add(".select(");
-            block.add("$T.field($S)",DSL_CLASS, tableName + "." + id);
-            if (!fields.isEmpty()) {
-                block.add(",\n ").add(values());
-
+        if (isSelectExist()) {
+            block.add(".select("+CONTEXT+".select(")
+                    .add("$T.field($S)",DSL_CLASS,getSelectPort().getTableName()+"."+getSelectPort().getId());
+            if(!values().isEmpty()){
+                block.add(", ").add(values());
             }
-            block.add(").from(").add(selectNext.interpret()).add(")");
+            block.add(").from($T.table($S)",DSL_CLASS,getSelectPort().getRealTableName());
+            if(!getSelectPort().getTableName().equals(getSelectPort().getRealTableName())){
+                block.add(".as(").add(getSelectPort().getTableName()).add(")");
+            }
+            block.add(StringWereInterpret.makeWhere(getWherePort(),getAddress(),
+                    getSelectPort().getTableName(),getSelectPort().getRef())).add("))");
             return block.build();
         }
         if (!fields.isEmpty()) {
@@ -55,7 +66,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
     CodeBlock values() {
         return fields.stream().map(BaseField::getName)
-                .map(name -> CodeBlock.builder().add("$T.inline("+REQUEST_PARAM_NAME+".get($S))", DSL_CLASS,name)
+                .map(name -> CodeBlock.builder().add("$T.val("+REQUEST_PARAM_NAME+".get($S))", DSL_CLASS,name)
                         .build()).reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());
     }
@@ -65,7 +76,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
         }
-        if (selectNext != null) {
+        if (isSelectExist()) {
             block.add(", $T.field($S)",DSL_CLASS, tableName + "." + ref);
         }
         if (!fields.isEmpty()) {

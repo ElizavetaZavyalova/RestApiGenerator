@@ -3,8 +3,8 @@
     "type": "put:age|name",
     "request": "user/[filter1]/[filter2]/[filter3]/[filter4]/name/",
     "filters": {
-      "filter1:or": "s:eq_name|i:eq_age",
-      "filter2:and": "s:eq_name1|i:eq_age1",
+      "filter1:or": "eq_name|eq_age",
+      "filter2:and": "eq_name1|eq_age1",
       "filter3:sql": "(r=18 and y=90)",
       "filter4:call": "path#My#call"
     }
@@ -94,7 +94,7 @@
     "request": "t11/t13",
     "pseudonyms": {
       "joins":{
-         "t11:t13": ["t12"]
+        "t11:t13": ["t12"]
       }
     }
   },
@@ -295,26 +295,5 @@
     "type": "get:e1|e2",
     "request": "t11/t12",
     "filters": true
-  },
-  "BedgetEndpoint": {
-    "type": "get:price|id|age",
-    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
-  },
-  "BedpatchEndpoint": {
-    "type": "patch:price|id|age",
-    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
-  },
-  "BedpostEndpoint": {
-    "type": "post:price|id|age",
-    "request": "name/"
-  },
-  "BedputEndpoint": {
-    "type": "put:price|id|age",
-    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
-  },
-  "BeddeleteEndpoint": {
-    "type": "delete",
-    "request": "user/({i:eq_id}|{i:eq_id}&{b:is_name})/name/{i:id}/{s:nick}"
   }
-
 }

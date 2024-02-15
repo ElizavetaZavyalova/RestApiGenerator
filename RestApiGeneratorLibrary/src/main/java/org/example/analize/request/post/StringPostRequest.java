@@ -19,7 +19,7 @@ public class StringPostRequest extends BasePostRequest<CodeBlock> {
 
     @Override
     public CodeBlock interpret() {
-        return CodeBlock.builder().add(insert.interpret()).add(".execute();").build();
+        return  insert.interpret();
     }
 
 

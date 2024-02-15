@@ -9,6 +9,7 @@ import org.example.read_json.ParseJson;
 import org.example.read_json.rest_controller_json.RestJson;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.PackageElement;
 import javax.tools.JavaFileObject;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -41,8 +42,7 @@ public class GeneratorOfCode implements GeneratingCode {
             log.info("generateController");
             generateController(rest);
         }
-
-
+        generateBeans();
     }
 
     void generateController(RestJson rest) {
@@ -79,11 +79,11 @@ public class GeneratorOfCode implements GeneratingCode {
         writeClass(location, file);
     }
 
-    void generateBeans(RestJson rest) {
-        String className = rest.getLocationName() + CONFIG;
-        String controllerPackage = packageName + CONFIG_PACKAGE;
-        String location = controllerPackage + "." + className;
-        JavaFile file = rest.getJavaRepository(className, controllerPackage);
+    void generateBeans() {
+        String className = CONFIG;
+        String configPackage = packageName + CONFIG_PACKAGE;
+        String location = configPackage + "." + className;
+        JavaFile file = parseJson.getConfiguration(className,configPackage);
         writeClass(location, file);
     }
 
@@ -93,7 +93,7 @@ public class GeneratorOfCode implements GeneratingCode {
         log.info("jsonFileName");
         parseJson = new ParseJson(jsonFileName);
         log.info("parseJson");
-        packageName = Optional.ofNullable(element.getEnclosingElement().getSimpleName().toString()).orElse("");
+        packageName = Optional.ofNullable(((PackageElement) element.getEnclosingElement()).getQualifiedName().toString()).orElse("");
         log.info("packageName:"+packageName);
     }
 }
