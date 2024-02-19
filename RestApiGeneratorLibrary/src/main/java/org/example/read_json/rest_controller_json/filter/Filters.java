@@ -6,7 +6,6 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.CallFilter;
 
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.SqlFilter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 
 import java.util.*;
@@ -61,11 +60,7 @@ public abstract class Filters {
     abstract String makeFilterVoidName(String key);
 
     void addFilter(String key, String val) throws IllegalArgumentException {
-        if (key.endsWith(SQL.getName())) {
-            key = key.substring(0, key.length() - SQL.length());
-            addKeyValToFilters(key, new SqlFilter(val, makeFilterVoidName(key)));
-            return;
-        } else if (key.endsWith(OR.getName())) {
+        if (key.endsWith(OR.getName())) {
             key = key.substring(0, key.length() - OR.length());
             addKeyValToFilters(key, new ListStringFilter(FilterNames.OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
             return;

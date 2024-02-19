@@ -2,7 +2,9 @@ package org.example.analize.select;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.port_request.PortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
+import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
@@ -22,10 +24,11 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
         block.add(CONTEXT + ".select(").add(makeField("$T.field($S)"))
-                .add(").from($S)", realTableName);
+                .add(").from($T.table($S)",DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
         }
+        block.add(")");
         block.add(StringWereInterpret.makeWhere(where, selectNext, tableName, ref));
         return block.build();//DSL_CLASS
     }
@@ -58,6 +61,11 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
         if (this.where != null) {
             where.addParams(params);
         }
+    }
+
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+        return new StringPortRequest(tableName, select, parent, isPathFound);
     }
 
     @Override

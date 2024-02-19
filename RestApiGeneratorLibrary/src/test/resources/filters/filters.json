@@ -5,9 +5,6 @@
   "And": {
     "filter:and": "s:eq_name|i:eq_age"
   },
-  "Sql": {
-    "filter:sql": "name='Hello' or age=17"
-  },
   "Call": {
     "filter:call": "path#Val#age"
   },
@@ -28,6 +25,6 @@
     "filter:type": "name='Hello' or age=17"
   },
   "ThrowFilterNoCorrectName": {
-    "filter?8987:sql": "name='Hello' or age=17"
+    "filter?8987:call": "Path#Name#func"
   }
 }

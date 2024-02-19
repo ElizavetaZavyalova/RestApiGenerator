@@ -9,18 +9,24 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 public record StringWereInterpret() {
     public static CodeBlock makeWhere(BaseWhere<CodeBlock> where, PortRequestWithCondition<CodeBlock> selectNext, String tableName, String ref) {
         var block = CodeBlock.builder().add(".where(");
-        if (where != null && selectNext != null) {
+        if (isWhereExist(where) && isSelectExist(selectNext)) {
             return block.add("$T.and($T.field($S)",DSL_CLASS,DSL_CLASS, tableName + "." + ref)
                     .add(".in(").add(selectNext.interpret()).add("), (").add(where.interpret()).add(")))").build();
         }
-        if (where != null) {
+        if (isWhereExist(where)) {
             return block.add(where.interpret()).add(")").build();
         }
-        if (selectNext != null) {
+        if (isSelectExist(selectNext)) {
             return block.add("$T.field($S)",DSL_CLASS, tableName + "." + ref)
                     .add(".in(").add(selectNext.interpret()).add("))").build();
 
         }
         return CodeBlock.builder().build();
+    }
+    private static boolean isWhereExist(BaseWhere<CodeBlock> where){
+        return where != null;
+    }
+    private static boolean isSelectExist(PortRequestWithCondition<CodeBlock> selectNext){
+        return selectNext != null;
     }
 }

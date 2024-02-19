@@ -5,7 +5,9 @@ import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
+import org.example.analize.select.port_request.PortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
+import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
@@ -19,6 +21,10 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
     protected StringUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
         super(request, fields, select, parent);
+    }
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+        return new StringPortRequest(tableName, select, parent, isPathFound);
     }
 
     @Override

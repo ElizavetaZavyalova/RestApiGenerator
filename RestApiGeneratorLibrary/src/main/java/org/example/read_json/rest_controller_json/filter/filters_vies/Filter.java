@@ -11,7 +11,7 @@ public abstract class Filter<Result> implements Filtering<Result> {
     protected   FilterNames names;
     protected String filter;
     public enum FilterNames{
-        AND(_AND),OR(_OR),CALL(_CALL),SQL(_SQL);
+        AND(_AND),OR(_OR),CALL(_CALL);
         @Getter
         final String name;
         FilterNames(String name){

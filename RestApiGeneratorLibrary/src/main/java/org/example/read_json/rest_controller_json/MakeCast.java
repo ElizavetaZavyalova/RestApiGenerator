@@ -42,9 +42,7 @@ public record MakeCast() {
         try {
             if (restJson.containsKey(keyWord)) {
                 Map<String, Object> map = (Map<String, Object>) restJson.get(keyWord);
-                map.forEach((k, v) -> {
-                    mapResult.put(k, makeMapOrMapFromString(v, addField));
-                });
+                map.forEach((k, v) -> mapResult.put(k, makeMapOrMapFromString(v, addField)));
                 return mapResult;
             } else if (!requiredParameter) {
                 return new HashMap<>();
@@ -81,9 +79,10 @@ public record MakeCast() {
             if (configJson.containsKey(keyWord)) {
                 return (String) configJson.get(keyWord);
             }
+            return "";
         } catch (ClassCastException ignored) {
+            return "";
         }
-        return "";
     }
 
     public static String makeString(Object configJson, String keyWord) throws IllegalArgumentException {

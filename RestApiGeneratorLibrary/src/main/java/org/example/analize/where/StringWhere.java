@@ -12,18 +12,24 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.analize.where.StringWhere.NoCondition.ONE_PORT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
 public class StringWhere extends BaseWhere<CodeBlock> {
     public StringWhere(String where, String table, Endpoint parent) {
         super(where, table, parent);
     }
-
+    record NoCondition(){
+        static final int ONE_PORT=1;
+    }
     @Override
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
         if (ports.isEmpty()) {
             return block.add("").build();
+        }
+        if (ports.size()==ONE_PORT) {
+            return block.add(ports.get(0).interpret()).build();
         }
         return block.add("$T.and(",DSL_CLASS).add(ports.stream()
                         .map(InterpretationBd::interpret)

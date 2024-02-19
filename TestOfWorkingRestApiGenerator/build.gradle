@@ -22,7 +22,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    implementation 'ch.qos.logback:logback-classic:1.4.5'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
     //spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     //spring boot thymeleaf template
@@ -40,7 +40,7 @@ dependencies {
     implementation 'org.jooq:jooq:3.17.8'
 
 
-    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.14'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
@@ -67,7 +67,7 @@ jar {
     def jars=configurations.runtimeClasspath.files.collect {
         "lib/${it.name}"
     }
-    manifest {
+   manifest {
         attributes 'Main-Class': 'org.example.Main',
         'Class-Path':jars.join(' ')
     }

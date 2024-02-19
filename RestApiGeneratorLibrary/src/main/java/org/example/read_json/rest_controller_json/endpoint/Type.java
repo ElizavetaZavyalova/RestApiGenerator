@@ -56,10 +56,6 @@ public class Type {
     public AnnotationSpec getMapping(String request) {
         AnnotationSpec.Builder mapping = null;
         switch (requestType) {
-            case GET: {
-                mapping = AnnotationSpec.builder(GET_MAPPING_ANNOTATION_CLASS);
-                break;
-            }
             case POST: {
                 mapping = AnnotationSpec.builder(POST_MAPPING_ANNOTATION_CLASS);
                 break;
@@ -74,6 +70,10 @@ public class Type {
             }
             case DELETE: {
                 mapping = AnnotationSpec.builder(DELETE_MAPPING_ANNOTATION_CLASS);
+                break;
+            }
+            default : {//GET
+                mapping = AnnotationSpec.builder(GET_MAPPING_ANNOTATION_CLASS);
                 break;
             }
         }
@@ -103,15 +103,18 @@ public class Type {
         params = Arrays.stream(paramList.split(SPLIT_PARAMS)).filter(s -> !s.isEmpty())
                 .map(parent::getEntity).flatMap(List::stream).toList();
         if (!requestType.equals(RequestType.DELETE)) {
-            if (requestType.equals(RequestType.GET) && params.isEmpty()) {
+            if (requestType.equals(RequestType.GET)&& !isHaveParams()) {
                 return;
-            } else if (!requestType.equals(RequestType.GET) && params.isEmpty()) {
+            } else if (params.isEmpty()) {
                 throw new IllegalArgumentException(paramList + "MUST be params in request post patch put");
             }
         }
-        if (requestType.equals(RequestType.DELETE) && !params.isEmpty()) {
+        if (requestType.equals(RequestType.DELETE) && isHaveParams()) {
             throw new IllegalArgumentException(paramList + "MUST be empty for delete");
         }
+    }
+    private boolean isHaveParams(){
+        return !params.isEmpty();
     }
 
     void setDefaultStatus() {

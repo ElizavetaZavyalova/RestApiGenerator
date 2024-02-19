@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "3.0.6"
+    id "io.freefair.lombok" version "8.3"
+}
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+String restApiGeneratorProjectPath=project.rootProject.rootDir
+String restApiGeneratorPath= restApiGeneratorProjectPath+'\\RestApiGeneratorLibrary\\build\\libs\\RestApiGeneratorLibrary-Java_18.0.jar'
+
+dependencies {
+    compileOnly files(restApiGeneratorPath)
+    annotationProcessor files(restApiGeneratorPath)
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    //spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //spring boot thymeleaf template
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.5'
+    //open api, swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
+    implementation 'io.swagger:swagger-models:1.6.10'
+    //spring actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.5'
+    implementation 'de.codecentric:spring-boot-admin-starter-client:3.0.3'
+
+    // databases
+    implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'org.jooq:jooq:3.17.8'
+
+
+    testImplementation 'ch.qos.logback:logback-classic:1.4.14'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+}
+test {
+    useJUnitPlatform()
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    //Запуск .jar если используются библиотеки внутренего
+    // апи(Нужно для запуска .jar препроцессора анотаций) лишние потом удалю
+    options.fork = true
+    options.forkOptions.jvmArgs += [
+            '--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED',
+            '--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED'
+    ]
+}
+
+jar {
+    def jars=configurations.runtimeClasspath.files.collect {
+        "lib/${it.name}"
+    }
+    manifest {
+        attributes 'Main-Class': 'org.example.Main',
+                'Class-Path':jars.join(' ')
+    }
+}
+tasks.register('copyAllDependencies', Copy) {
+    from(configurations.runtimeClasspath.files)
+    into("${buildDir}/libs/lib")
+}
+jar.dependsOn('copyAllDependencies')

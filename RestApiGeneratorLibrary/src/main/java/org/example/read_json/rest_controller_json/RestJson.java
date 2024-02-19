@@ -1,11 +1,9 @@
 package org.example.read_json.rest_controller_json;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.BaseFieldParser;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.filter.RestJsonFilters;
 import org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms;
@@ -20,6 +18,7 @@ import java.util.Map;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.BEAN_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RequestMapping.REQUEST_MAPPING_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.VALUE;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.*;
@@ -36,15 +35,17 @@ public class RestJson {
     @Getter
     RestJsonFilters filters;
     String beanName = "";
+    String mappingPrefix="";//ADDRESS_PREFIX
 
     @Getter
     boolean createBDBean = false;
-    ReadJson readeJson = new ReadJson();
+    ReadJson readeJson = new ReadJson();//@RequestMapping("deduplication")
 
     public RestJson(Map<String, Object> map, String locationName, String beanName) throws IllegalArgumentException {
         this.locationName = locationName;
         createBDBean = MakeCast.makeBoolean(map, CREATE_DB_BEAN, false);
         this.beanName = createBean(beanName);
+        this.mappingPrefix=MakeCast.makeStringIfContainsKeyMap(map,ADDRESS_PREFIX,false);
         pseudonyms = new RestJsonPseudonyms(readeJson.loadPseudonyms(map), this);
         filters = new RestJsonFilters(readeJson.loadFilters(map), this);
         http = new Endpoints(readeJson.loadEndpoints(map), this);
@@ -64,9 +65,19 @@ public class RestJson {
 
 
     }
+    private TypeSpec addMappingPrefix(TypeSpec typeSpec){
+        if(!mappingPrefix.isEmpty()) {
+            return typeSpec.toBuilder().addAnnotation(
+                    AnnotationSpec.builder(REQUEST_MAPPING_ANNOTATION_CLASS)
+                            .addMember(VALUE, "$S", mappingPrefix).build()).build();
+        }
+        return typeSpec;
+    }
 
     public JavaFile getJavaController(String className, String packageName, String repositoryName, String repositoryPath) {
-        return JavaFile.builder(packageName, http.createController(className, repositoryName, repositoryPath)).build();
+        TypeSpec typeSpec=http.createController(className, repositoryName, repositoryPath);
+        typeSpec=addMappingPrefix(typeSpec);
+        return JavaFile.builder(packageName, typeSpec).build();
     }
 
 

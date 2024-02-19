@@ -3,7 +3,9 @@ package org.example.analize.request.delete.delete;
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
+import org.example.analize.select.port_request.PortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
+import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.analize.where.BaseWhere;
 import org.example.analize.where.StringWhere;
@@ -18,7 +20,10 @@ public class StringDelete extends BaseDelete<CodeBlock> {
     public StringDelete(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         super(request, select, parent);
     }
-
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+        return new StringPortRequest(tableName, select, parent, isPathFound);
+    }
     @Override
     public CodeBlock interpret() {
         var block = CodeBlock.builder();

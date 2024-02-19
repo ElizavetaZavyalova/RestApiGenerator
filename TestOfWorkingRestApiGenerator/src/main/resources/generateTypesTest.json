@@ -1,0 +1,146 @@
+{
+  "TypeNoEntityInRequest": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": ""
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeEntity": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "entity": "f1"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeOperationEntity": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "operation": "Получить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypesHttpOk": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "httpOk": "CREATED"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypesHttpOkOperation": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "httpOk": "CREATED",
+            "operation": "Получить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypesEntityOperation": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "entity": "f1",
+            "operation": "Получить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypesEntityHttpOk": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": {
+            "entity": "f1",
+            "operation": "Получить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypesEntityInRequest": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": "f1"
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "Types2Request": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": "f1",
+          "post": "f1|f2"
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "Types2RequestOperation": {
+    "http": {
+      "endpoint": {
+        "types": {
+          "get": "f1",
+          "post": {
+            "entity": "f1|f2",
+            "operation": "Отправить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "Types2EndpointOperation": {
+    "http": {
+      "endpoint1": {
+        "types": {
+          "get": "f1",
+          "post": {
+            "entity": "f1|f2",
+            "operation": "Отправить"
+          }
+        },
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "endpoint2": {
+        "types": {
+          "get": "f1",
+          "post": {
+            "entity": "f1|f2",
+            "operation": "Отправить"
+          }
+        },
+        "request": "user/{id}/{name}/info/"
+      }
+    }
+  }
+}

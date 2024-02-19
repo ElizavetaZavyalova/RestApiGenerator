@@ -26,9 +26,14 @@ public abstract class PortRequestWithCondition<R> extends PortRequest<R> {
         String[] requestPorts = request.split(SPLIT, SPLIT_LIMIT);
         aggregationFunction = AggregationFunction.getAggregationFunction(requestPorts[TABLE_PORT]);
         super.initTableName(AggregationFunction.deleteAggregationFunction(requestPorts[TABLE_PORT], aggregationFunction), select, parent);
+        super.setJoins(parent,false);
         if (requestPorts.length == REQUEST_PORTS_MAX_LENGTH) {
             where = makeWhere(requestPorts[WHERE_PORT], tableName, parent);
         }
+    }
+    protected PortRequestWithCondition(String tableName, PortRequestWithCondition<R> select, Endpoint parent,boolean isPathFound) throws IllegalArgumentException {
+        super.initTableName(tableName, select, parent);
+        super.setJoins(parent,isPathFound);
     }
 
     protected AggregationFunction aggregationFunction = NO;

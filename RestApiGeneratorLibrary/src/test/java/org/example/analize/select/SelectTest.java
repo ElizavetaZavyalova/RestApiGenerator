@@ -120,7 +120,7 @@ public class SelectTest {
     }
     static public Stream<Arguments> constructorParamsManyToMany() {
         return Stream.of(
-                Arguments.of(mmTable1,mmTable4),
+                Arguments.of(mmTable1,mmTable3),
                 Arguments.of(mmTable4,mmTable2)
               );
     }

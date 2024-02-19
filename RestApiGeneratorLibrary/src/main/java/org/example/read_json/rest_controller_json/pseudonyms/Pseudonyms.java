@@ -43,7 +43,7 @@ public abstract class Pseudonyms {
     }
 
     void addPseudonymsToEntity(Map<String, List<String>> entity) {
-        entity.forEach((k,v)->{
+        entity.forEach((k, v) -> {
             throwExceptionIfNameIsNotCorrect(k);
             v.parallelStream().forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
         });
@@ -54,28 +54,29 @@ public abstract class Pseudonyms {
 
     void addToRefGraph(String name1, String name2, boolean inOneWay) {
         addRefGraph(name1, name2, refGraph);
-        addRefGraphReverse(name2, name1, refGraph,inOneWay);
+        addRefGraphReverse(name2, name1, refGraph, inOneWay);
         if (!tablesPseudonyms.containsKey(name1) && !tablesPseudonyms.containsKey(name2)) {
             addRefGraph(name1, name2, refGraphReal);
-            addRefGraphReverse(name2, name1, refGraphReal,inOneWay);
+            addRefGraphReverse(name2, name1, refGraphReal, inOneWay);
         }
     }
-    private boolean isVertexInGraph(String vertex, Map<String, List<String>> graph){
+
+    private boolean isVertexInGraph(String vertex, Map<String, List<String>> graph) {
         return graph.containsKey(vertex);
     }
 
-    void addRefGraphReverse(String vertex, String value, Map<String, List<String>> graph,boolean inOneWay) {
-       if(!inOneWay){
-           addRefGraph(vertex,value,graph);
-           return;
-       }
-       if(!isVertexInGraph(vertex,graph)){
-           graph.put(vertex,new ArrayList<>());
-       }
+    void addRefGraphReverse(String vertex, String value, Map<String, List<String>> graph, boolean inOneWay) {
+        if (!inOneWay) {
+            addRefGraph(vertex, value, graph);
+            return;
+        }
+        if (!isVertexInGraph(vertex, graph)) {
+            graph.put(vertex, new ArrayList<>());
+        }
     }
 
     void addRefGraph(String vertex, String value, Map<String, List<String>> graph) {
-        if (isVertexInGraph(vertex,graph)) {
+        if (isVertexInGraph(vertex, graph)) {
             graph.get(vertex).add(value);
         }
         graph.put(vertex, new ArrayList<>(List.of(value)));
@@ -117,9 +118,9 @@ public abstract class Pseudonyms {
                 throwExceptionIfNameIsNotCorrect(values.get(T2));
                 throw new IllegalArgumentException("JOINS:" + key + " MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :]");
             }
-            addToRefGraph(splitKey[T1], splitKey[T2],IN_ONE_WAY);
+            addToRefGraph(splitKey[T1], splitKey[T2], IN_ONE_WAY);
             joinsPseudonyms.put(key, values);
-            if(IN_ONE_WAY){
+            if (IN_ONE_WAY) {
                 return;
             }
             String revKey = splitKey[T2] + SPLIT + splitKey[T1];
@@ -185,20 +186,32 @@ public abstract class Pseudonyms {
         return key;
     }
 
+    String getTablePseudonymRef(String pseudonymName) {
+        if (pseudonymName.startsWith(_IN_ONE_WAY)) {
+            return _IN_ONE_WAY;
+        }
+        return _DEFAULT;
+    }
+    String deleteTablePseudonymRef(String pseudonymName,String ref) {
+       return pseudonymName.substring(ref.length());
+    }
+
 
     void addPseudonymsToTables(Map<String, List<String>> tables) throws IllegalArgumentException {
         tables.forEach((key, vals) -> {
             throwExceptionIfNameIsNotCorrect(key);
             log.debug(key + vals.toString());
             for (String val : vals) {
+                String ref=getTablePseudonymRef(val);
+                val=deleteTablePseudonymRef(val,ref);
                 throwExceptionIfNameIsNotCorrect(val);
                 if (tablesPseudonyms.containsKey(val)) {
                     throw new IllegalArgumentException("PSEUDONYM OF TABLE:" + val + " IS ALREADY EXIST");
                 }
                 if (val.isEmpty()) {
-                    throw new IllegalArgumentException("PSEUDONYM OF TABLE " + key + "isEmty");
+                    throw new IllegalArgumentException("PSEUDONYM OF TABLE " + key + "isEmpty");
                 }
-                tablesPseudonyms.put(val, key);
+                tablesPseudonyms.put(val, ref+key);
             }
         });
     }
@@ -219,7 +232,8 @@ public abstract class Pseudonyms {
             }
         });
     }
-     static void throwExceptionIfNameIsNotCorrect(String name)throws IllegalArgumentException{
+
+    static void throwExceptionIfNameIsNotCorrect(String name) throws IllegalArgumentException {
         if (!Pattern.matches(IS_CORRECT_NAME, name)) {
             throw new IllegalArgumentException(name + "MUST STARTS ON LETTER OR _ AND CONTAINS LATTER OR _ OR DIGIT");
         }

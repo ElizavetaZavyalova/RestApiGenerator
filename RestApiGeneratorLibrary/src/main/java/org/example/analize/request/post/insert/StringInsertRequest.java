@@ -6,7 +6,9 @@ import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
+
 import org.example.analize.select.port_request.PortRequestWithCondition;
+import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -23,17 +25,16 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
         super(request, fields, select, parent);
 
     }
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+        return new StringPortRequest(tableName, select, parent, isPathFound);
+    }
 
 
     @Override
     protected BaseField<CodeBlock> makeField(String name, String table, Endpoint parent) {
         return new StringFieldReal(name, table, parent);
     }
-    /* context.insertInto(table("t1"),field("f_id"),
-                        field("f1"), field("f2"), field("f3") ,field("f4") )
-                .select(context.select(field("f_id"),
-                        DSL.val(map.get("f1")),DSL.val(map.get("f2")),DSL.val(map.get("f3")),DSL.val(map.get("f3")))
-                                .from(table("t2"))).execute();*/
 
     @Override
     public CodeBlock interpret() {
@@ -51,7 +52,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
             }
             block.add(").from($T.table($S)",DSL_CLASS,getSelectPort().getRealTableName());
             if(!getSelectPort().getTableName().equals(getSelectPort().getRealTableName())){
-                block.add(".as(").add(getSelectPort().getTableName()).add(")");
+                block.add(".as($S)",getSelectPort().getTableName());
             }
             block.add(StringWereInterpret.makeWhere(getWherePort(),getAddress(),
                     getSelectPort().getTableName(),getSelectPort().getRef())).add("))");

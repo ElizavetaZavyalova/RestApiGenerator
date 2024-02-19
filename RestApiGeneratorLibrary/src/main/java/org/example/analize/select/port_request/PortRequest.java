@@ -1,5 +1,6 @@
 package org.example.analize.select.port_request;
 
+import com.squareup.javapoet.CodeBlock;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 
@@ -25,12 +27,24 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     protected String id = "id";
     @Getter
     protected String ref;
+    Boolean isRefByRealName=true;
     TableRef tableRef = TableRef.DEFAULT;
+
+
+    protected String getRefNameTable() {
+       if(isRefByRealName) {
+           return realTableName;
+       }
+       return tableName;
+    }
 
     @AllArgsConstructor
     enum TableRef {
-        MANY_TO_ONE(_MANY_TO_ONE), ONE_TO_MANY(_ONE_TO_MANY),
-        DEFAULT("");//ONE_TO_MANY
+        MANY_TO_ONE(_MANY_TO_ONE),
+        ONE_TO_MANY(_ONE_TO_MANY),
+
+        DEFAULT(_DEFAULT);//ONE_TO_MANY
+
         private final String name;
 
         public static TableRef getTableRef(String tableName) {
@@ -47,6 +61,8 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         }
     }
 
+    protected abstract PortRequestWithCondition<R> makePortRequest(String tableName, PortRequestWithCondition<R> select, Endpoint parent, boolean isPathFound);
+
     record RegExp() {
         static final String IS_CORRECT_TABLE_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
         static final String JOIN_SPLIT = ":";
@@ -56,27 +72,17 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     }
 
     String makeDefaultNextId() {
-        switch (tableRef) {
-            case MANY_TO_ONE -> {
-                return realTableName + "_id";
-            }
-
-            default -> {
-                return "id";
-            }
+        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
+            return getRefNameTable() + "_id";
         }
+        return "id";
     }
 
     String makeDefaultRef() {
-        switch (tableRef) {
-            case MANY_TO_ONE  -> {
-                return "id";
-            }
-
-            default -> {
-                return selectNext.realTableName + "_" + selectNext.id;
-            }
+        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
+            return "id";
         }
+        return selectNext.getRefNameTable() + "_" + "id";
     }
 
     private boolean isJoinAndSetItIfJoin(List<String> joins) {
@@ -88,25 +94,27 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         return true;
     }
 
-
-    void tryFindJoinsEndSetResult(Endpoint parent, boolean isPathFound) {
+    List<String> findJoins(Endpoint parent, boolean isTableRefFound) {
         List<String> joins = parent.getRealJoinName(tableName, selectNext.tableName);
-        if (joins.isEmpty()) {
+        if (!isJoinsFound(joins)) {
             joins = parent.getRealJoinName(realTableName, selectNext.realTableName);
         }
-        if (joins.size() == 1) {
-            if (!isJoinAndSetItIfJoin(joins)) {
-                makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
-                tryFindJoinsEndSetResult(parent, false);
-                return;
-            }
+        if ((joins.size() == 1 && (!isJoinAndSetItIfJoin(joins))) && (!isTableRefFound)) {
+            makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
+            return findJoins(parent, true);
         }
-        if (joins.isEmpty() && !isPathFound) {
-            findPath(parent);
-            tryFindJoinsEndSetResult(parent, true);
-            return;
+        if (isTableRefFound && !isJoinsFound(joins)) {
+            return List.of(":", ":");
         }
-        if (joins.isEmpty()) {
+        return joins;
+    }
+
+    boolean isJoinsFound(List<String> joins) {
+        return !joins.isEmpty();
+    }
+
+    void setJoins(List<String> joins) {
+        if (!isJoinsFound(joins)) {
             ref = makeDefaultRef();
             selectNext.id = makeDefaultNextId();
             return;
@@ -117,11 +125,22 @@ public abstract class PortRequest<R> implements Interpretation<R> {
                 (makeDefaultRef()) : joins.get(JOIN_CURRENT_REF_PORT);
     }
 
+
+    void tryFindJoinsEndSetResult(Endpoint parent, boolean isPathFound) {
+        List<String> joins = findJoins(parent, false);
+        if (!isJoinsFound(joins) && !isPathFound) {
+            findPath(parent);
+            tryFindJoinsEndSetResult(parent, true);
+            return;
+        }
+        setJoins(joins);
+    }
+
     void makeSelectManyToMany(String tableName, Endpoint parent) {
         if (tableRef.equals(TableRef.DEFAULT)) {
             tableRef = TableRef.MANY_TO_ONE;
         }
-        selectNext = makeSelect(tableName, selectNext, parent);
+        selectNext = makePortRequest(tableName, selectNext, parent, true);
     }
 
     protected abstract PortRequestWithCondition<R> makeSelect(String request, PortRequestWithCondition<R> select, Endpoint parent);
@@ -136,19 +155,47 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         }
     }
 
-    void findPath(Endpoint parent) {
+    boolean isNoPath(List<String> path) {
+        return path.size() == 2;
+    }
+
+    List<String> makePath(Endpoint parent) {
         List<String> path = parent.findPath(selectNext.getTableName(), tableName, false);
-        if (path.size() == 2) {
+        if (isNoPath(path)) {
             path = parent.findPath(selectNext.getRealTableName(), realTableName, true);
-            if (path.size() == 2) {
-                return;
-            }
+            return path;
+        }
+        return path;
+    }
+
+    void findPath(Endpoint parent) {
+        List<String> path = makePath(parent);
+        if (isNoPath(path)) {
+            return;
         }
         final int START_PORT = 1;
         final int LAST_PORT = path.size() - 1;
         for (int urlPortIndex = START_PORT; urlPortIndex < LAST_PORT; urlPortIndex++) {
-            selectNext = makeSelect(path.get(urlPortIndex), selectNext, parent);
+            selectNext = makePortRequest(path.get(urlPortIndex), selectNext, parent, true);
         }
+    }
+
+    protected void setJoins(Endpoint parent, boolean isPathFound) {
+        if (isSelectExist()) {
+            tryFindJoinsEndSetResult(parent, isPathFound);
+        }
+    }
+    protected String getRealTableNameAndSetRef(Endpoint parent){
+        String realName=parent.getRealTableName(tableName);
+        if(realName.startsWith(_IN_ONE_WAY)){
+            this.isRefByRealName=false;
+            return realName.substring(_IN_ONE_WAY.length());
+        }
+        return realName;
+    }
+
+    protected boolean isSelectExist() {
+        return selectNext != null;
     }
 
 
@@ -157,10 +204,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         tableName = TableRef.deleteTableRef(tableName, tableRef);
         throwException(tableName);
         this.tableName = tableName;
-        realTableName = parent.getRealTableName(tableName);
+        realTableName = getRealTableNameAndSetRef(parent);
         this.selectNext = select;
-        if (select != null) {
-            tryFindJoinsEndSetResult(parent, false);
-        }
     }
 }

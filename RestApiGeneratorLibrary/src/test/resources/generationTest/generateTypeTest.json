@@ -1,0 +1,1822 @@
+{
+  "TypeNoEntity1Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user"
+      }
+    }
+  },
+  "TypeNoEntity2Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info"
+      }
+    }
+  },
+  "TypeNoEntity3Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/{born}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity1Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}"
+      }
+    }
+  },
+  "TypeNoEntity2Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table1WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity1Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}"
+      }
+    }
+  },
+  "TypeNoEntity2Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeNoEntity2Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeNoEntity3Table2WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity1Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user"
+      }
+    }
+  },
+  "TypeOneEntity2Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info"
+      }
+    }
+  },
+  "TypeOneEntity3Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity1Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}"
+      }
+    }
+  },
+  "TypeOneEntity2Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table1WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity1Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}"
+      }
+    }
+  },
+  "TypeOneEntity2Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/{name}/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeOneEntity2Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeOneEntity3Table2WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity1Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user"
+      }
+    }
+  },
+  "TypeTwoEntity2Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info"
+      }
+    }
+  },
+  "TypeTwoEntity3Table": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity1Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table1WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity1Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/{name}/info"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable1WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable1WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable1WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/about/{Id}/{author}"
+      }
+    }
+  },
+  "TypeTwoEntity2Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable2WhereInSecondTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable2WhereInSecondTable1WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}"
+      }
+    }
+  },
+  "TypeTwoEntity3Table2WhereInFirstTable2WhereInSecondTable2WhereInThirdTable": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about/{Id}/{author}"
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "FilterInController": {
+    "filters": {
+      "filterCall:call": "org.example.filter#CallClass#make",
+      "filterAnd:and": "eq_name|eq_age",
+      "filterOr:or": "eq_name|eq_age"
+    },
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/{id}|[filterAnd]&[filterOr]/info/"
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/[filterCall]/info/"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/[filterOr]"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/[filterCall]"
+      }
+    }
+  },
+  "FilterInEndpoint": {
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/[filterCall]",
+        "filters": {
+          "filterCall:call": "org.example.filter#CallClass#make",
+          "filterAnd:and": "eq_name|eq_age",
+          "filterOr:or": "eq_name|eq_age"
+        }
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  },
+  "FilterInEndpointAndInController": {
+    "filters": {
+      "filterCall:call": "org.example.filter#CallClass#makeMain",
+      "filterAnd:and": "eq_name|eq_age",
+      "filterOr:or": "eq_name|eq_age"
+    },
+    "http": {
+      "getEndpoint": {
+        "type": "get:f1",
+        "request": "user/[filterCall]",
+        "filters": {
+          "filterCall:call": "org.example.filter#CallClass#make",
+          "filterAnd:and": "eq_name|eq_age",
+          "filterOr:or": "eq_name|eq_age"
+        }
+      },
+      "postEndpoint": {
+        "type": "post:f1",
+        "request": "user/[filterCall]/info/"
+      },
+      "putEndpoint": {
+        "type": "put:f1",
+        "request": "user/{id}/{name}/info/[filterCall]/{born}/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1",
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+      }
+    }
+  }
+}

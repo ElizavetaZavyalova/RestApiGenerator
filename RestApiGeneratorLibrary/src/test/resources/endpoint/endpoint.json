@@ -1,12 +1,11 @@
 {
   "Filter": {
     "type": "put:age|name",
-    "request": "user/[filter1]/[filter2]/[filter3]/[filter4]/name/",
+    "request": "user/[filter1]/[filter2]/[filter3]/name/",
     "filters": {
       "filter1:or": "eq_name|eq_age",
       "filter2:and": "eq_name1|eq_age1",
-      "filter3:sql": "(r=18 and y=90)",
-      "filter4:call": "path#My#call"
+      "filter3:call": "path#My#call"
     }
   },
   "PseudonymsEntity2": {
@@ -269,6 +268,38 @@
       },
       "tables":{
         "t1": ["t11","t12","t13","t14"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraPathByTable": {
+    "type": "get:e1|e2",
+    "request": "t1/t5",
+    "pseudonyms": {
+      "joins":{
+        "t1:t2": [":",":"],
+        "t2:t3": [":",":"],
+        "t3:t4": [":",":"],
+        "t4:t5": [":",":"],
+        "t5:t6": [":",":"],
+        "t1:t6": [":",":"],
+        "t1:t5": ["t3"]
+      }
+    }
+  },
+  "PseudonymsJoinsByDijkstraPathByTableUseNoDefaultPath": {
+    "type": "get:e1|e2",
+    "request": "t1/t5",
+    "pseudonyms": {
+      "joins":{
+        "t1:t2": [":",":"],
+        "t2:t3": [":",":"],
+        "t3:t4": [":",":"],
+        "t4:t5": [":",":"],
+        "t5:t6": [":",":"],
+        "t1:t6": [":",":"],
+        "t1:t3": ["t3_ref","t1_ref"],
+        "t3:t5": ["t5_ref","t3_ref"],
+        "t1:t5": ["t3"]
       }
     }
   },

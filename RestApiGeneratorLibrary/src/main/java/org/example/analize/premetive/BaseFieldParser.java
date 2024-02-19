@@ -12,7 +12,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.R
 
 public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String fieldName;
-    protected String nameInRequest = "";
+    protected String nameInRequest;
     protected String realFieldName;
 
     public enum Type {
@@ -58,7 +58,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         GT(_GT),
         LE(_LE),
         LT(_LT),
-        IN(_IN);
+        IN(_IN),
+        DEFAULT(_DEFAULT);
 
         final String names;
 
@@ -72,15 +73,25 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
                     return type;
                 }
             }
-            return EQ;
+            return getActionTypeIfDefault(DEFAULT);
         }
 
         static String deleteAction(String string, Action type) {
-            if (string.startsWith(type.names)) {
+            if(type.equals(DEFAULT)){
+                return string.substring(type.names.length());
+            }
+            else if (string.startsWith(type.names)) {
                 return string.substring(type.names.length() + 1);
             }
             return string;
         }
+        static  Action getActionTypeIfDefault(Action type){
+            if(type.equals(DEFAULT)){
+                return EQ;
+            }
+            return type;
+        }
+
 
     }
 
@@ -92,6 +103,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         this.fieldName = variable;
         this.realFieldName = Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
                 .orElse(fieldName);
+        action=Action.getActionTypeIfDefault(action);
         throwExceptionIfTypeAndActionIsNotCorrect();
     }
 

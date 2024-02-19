@@ -13,6 +13,7 @@ public abstract class BaseInsertRequest<R> extends PortRequest<R> {
 
     protected BaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent) {
         super.initTableName(request, select, parent);
+        super.setJoins(parent,false);
         this.fields = fields.stream().map(fieldName -> makeField(fieldName, tableName, parent)).toList();
     }
 

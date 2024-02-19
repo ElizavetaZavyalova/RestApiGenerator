@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.SqlFilter;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,13 +29,11 @@ public class StringFilterTest {
     static final String tableName = "MyTable";
     static final String filterNameOr = "filterOr";
     static final String filterNameAnd = "filterAnd";
-    static final String filterNameSql = "filterSql";
     static final String noFilter = "filterNo";
     static final List<String> listVal=List.of("i:eq_" + fieldName, "i:ne_" + fieldName,"s:like_" + fieldName);
     record Filters(){
         static final ListStringFilter filterAnd=new ListStringFilter(Filter.FilterNames.AND,listVal,filterNameAnd);
         static final ListStringFilter filterOr=new ListStringFilter(Filter.FilterNames.AND,listVal,filterNameOr);
-        static final SqlFilter filterSQL=new SqlFilter("(name=9 or age=7)",filterNameSql);
     }
 
     Endpoint make(String name) throws IllegalArgumentException {
@@ -44,7 +41,6 @@ public class StringFilterTest {
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName);
         Mockito.doReturn(filterAnd).when(endpoint).getFilter(filterNameAnd);
         Mockito.doReturn(filterOr).when(endpoint).getFilter(filterNameOr);
-        Mockito.doReturn(filterSQL).when(endpoint).getFilter(filterNameSql);
         Mockito.doReturn("funcName").when(endpoint).getFuncName();
         Mockito.doThrow(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
         //Mockito.doReturn(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
@@ -79,10 +75,8 @@ public class StringFilterTest {
         return Stream.of(
                 Arguments.of(filterNameOr,trueBlock),
                 Arguments.of(filterNameAnd,trueBlock),
-                Arguments.of(filterNameSql,trueBlock),
                 Arguments.of(filterNameOr,falseBlock),
-                Arguments.of(filterNameAnd,falseBlock),
-                Arguments.of(filterNameSql,falseBlock));
+                Arguments.of(filterNameAnd,falseBlock));
     }
     static public Stream<Arguments> constructorParamsNoFilter() {
         return Stream.of(Arguments.of(noFilter));

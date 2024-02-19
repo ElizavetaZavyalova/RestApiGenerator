@@ -4,14 +4,13 @@ public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
     public static final String CREATE_DB_BEAN = "create_bean";
+    public static final String ADDRESS_PREFIX = "http_prefix";
     public static final String HTTP = "http";
 
     public record FilterSuffix() {
         public static final String _AND = ":and";
         public static final String _OR = ":or";
         public static final String _CALL = ":call";
-        public static final String _SQL = ":sql";
-
     }
 
     public record Pseudonym() {
@@ -54,6 +53,7 @@ public record JsonKeyWords() {
 
             public record TableRef() {
                 public static final String _MANY_TO_ONE = ">";
+                public static final String _DEFAULT = "";
                 public static final String _ONE_TO_MANY = "<";
                 public static final String _IN_ONE_WAY = "!";
 
@@ -75,6 +75,7 @@ public record JsonKeyWords() {
                 public static final String _LE = "le";
                 public static final String _LT = "lt";
                 public static final String _IN = "in";
+                public static final String _DEFAULT="_";
 
             }
 

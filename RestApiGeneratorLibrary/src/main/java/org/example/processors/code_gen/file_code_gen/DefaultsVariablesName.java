@@ -1,10 +1,6 @@
 package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
-import org.slf4j.LoggerFactory;
-
-import java.util.logging.Logger;
-
 
 public record DefaultsVariablesName() {
     public static boolean DEBUG=false;
@@ -56,6 +52,7 @@ public record DefaultsVariablesName() {
             public static final ClassName REST_CONTROLLER_ANNOTATION_CLASS = createClass(webBindAnnotations, "RestController");
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
             public record RequestMapping(){
+                public static final ClassName REQUEST_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestMapping");
                 public static final ClassName PUT_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "PutMapping");
                 public static final ClassName GET_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "GetMapping");
                 public static final ClassName POST_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "PostMapping");
