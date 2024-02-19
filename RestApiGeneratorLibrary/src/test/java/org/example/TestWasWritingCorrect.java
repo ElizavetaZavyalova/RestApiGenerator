@@ -5,6 +5,7 @@ import org.example.read_json.ParseJson;
 import org.example.read_json.rest_controller_json.RestJson;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
+import org.jooq.SelectLimitStep;
 import org.jooq.impl.DSL;
 import org.jooq.impl.DefaultDSLContext;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -40,12 +42,7 @@ public class TestWasWritingCorrect {
         log.info(name);
         RunTest.test(rest);
     }
-    @Test
-    void testJooq(){
-        DSLContext context=new DefaultDSLContext(SQLDialect.POSTGRES);
-        var c=context.select(DSL.field("info.name").as("user_name"), DSL.field("info.age"), DSL.field("info.id").as("user_id")).from("info").where(DSL.field("info.user_id").in(context.select(DSL.field("user.id")).from(DSL.table("users").as("user").where(DSL.field("user.id").eq(12)))));
-        log.info(c.getSQL());
-    }
+
 
     record RunTest() {
         static void test(RestJson rest) {

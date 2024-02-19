@@ -62,7 +62,7 @@ public class Endpoints {
         List<MethodSpec> methods = endpoint.entrySet().
                 parallelStream().map(v -> v.getValue().getControllerMethods(repositoryBean)).flatMap(List::stream).toList();
         TypeSpec.Builder controller = TypeSpec.classBuilder(controllerName)
-                .addModifiers(Modifier.PUBLIC).addAnnotation(AnnotationSpec.builder(REST_CONTROLLER_ANNOTATION_CLASS).build());
+                .addModifiers(Modifier.PUBLIC);
         ClassName repository = createClass(repositoryPath,repositoryName);
         controller.addField(FieldSpec.builder(repository, repositoryBean, Modifier.PRIVATE).build())
                 .addMethod(MethodSpec.constructorBuilder()

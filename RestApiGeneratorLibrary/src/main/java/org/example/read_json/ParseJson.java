@@ -78,9 +78,9 @@ public class ParseJson {
         String driver = prop + RestJson.DB.driver;
         String dialect = prop + RestJson.DB.dialect;
         MethodSpec.Builder method = RestJson.createConnectionBeanBuilder(bean, url, password, user, driver, dialect);
-        method.addStatement("return $T.using(new $T("+CONNECTION_REST+"(" + RestJson.DB.url + ", " + RestJson.DB.password + ", "
-                        + RestJson.DB.user + ", " + RestJson.DB.driver + ")), $T.valueOf(" + RestJson.DB.dialect + "))",
-                DSL_CLASS, HIKARI_DATE_SOURCE_CLASS, SQL_DIALECT_CLASS);
+        method.addStatement("return $T.using("+CONNECTION_REST+"(" + RestJson.DB.url + ", " + RestJson.DB.password + ", "
+                        + RestJson.DB.user + ", " + RestJson.DB.driver + "), $T.valueOf(" + RestJson.DB.dialect + "))",
+                DSL_CLASS, SQL_DIALECT_CLASS);
         return method.build();
     }
 
@@ -93,13 +93,6 @@ public class ParseJson {
                 .addAnnotation(CONFIGURATION_ANNOTATION_CLASS)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(makeSwaggerConfiguration());
-        restsJson.forEach(rest -> {
-            if (rest.isCreateBDBean()) {
-                repository.addMethod(rest.getConnectionBean());
-            }
-        });
-        repository.addMethod(RestJson.createConnectionMethod());
-        repository.addMethod(makeDefaultDBBean());
         return repository.build();
     }
 

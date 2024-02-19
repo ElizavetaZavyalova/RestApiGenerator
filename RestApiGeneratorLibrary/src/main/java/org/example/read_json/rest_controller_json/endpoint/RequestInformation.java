@@ -24,6 +24,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.T
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
 
 
+
 @Setter
 @Getter
 @ToString
@@ -37,24 +38,24 @@ public class RequestInformation {
     static class Types {
         private final List<Type> typeList;
 
-        Types(Map<String, Object> enpointMap,Endpoint parent) throws IllegalArgumentException {
+        Types(Map<String, Object> enpointMap, Endpoint parent) throws IllegalArgumentException {
             if (enpointMap.containsKey(TYPES) && enpointMap.containsKey(TYPE)) {
                 throw new IllegalArgumentException("NOT USE:" + TYPES + " and " + TYPE + " in one endpoint");
             }
             if (enpointMap.containsKey(TYPES)) {
                 typeList = MakeCast.makeMapOfStringMap(enpointMap, TYPES, ENTITY, false)
-                        .entrySet().stream().map(e -> new Type(e.getKey(), e.getValue(),parent)).toList();
+                        .entrySet().stream().map(e -> new Type(e.getKey(), e.getValue(), parent)).toList();
                 return;
             } else if (enpointMap.containsKey(TYPE)) {
-                typeList = List.of(Type.makeType(enpointMap,parent));
+                typeList = List.of(Type.makeType(enpointMap, parent));
                 return;
             }
-            typeList = List.of(new Type(_GET, new HashMap<>(),parent));
+            typeList = List.of(new Type(_GET, new HashMap<>(), parent));
         }
     }
 
-    RequestInformation(Map<String, Object> enpointMap,Endpoint parent) throws IllegalArgumentException {
-        types = new Types(enpointMap,parent);
+    RequestInformation(Map<String, Object> enpointMap, Endpoint parent) throws IllegalArgumentException {
+        types = new Types(enpointMap, parent);
         request = MakeCast.makeStringIfContainsKeyMap(enpointMap, REQUEST, true).replace(" ", "");
     }
 
@@ -82,7 +83,7 @@ public class RequestInformation {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
                 .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
-        StringBuilder params=new StringBuilder().append(REQUEST_PARAM_NAME);
+        StringBuilder params = new StringBuilder().append(REQUEST_PARAM_NAME);
         for (VarInfo parameterSpec : varInfos) {
             if (!parameterSpec.isFilter()) {
                 methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
@@ -91,8 +92,8 @@ public class RequestInformation {
         }
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
-        return addReturns(methodBuilder, type).addStatement( getReturnIfGet(type)+beanName + "." +type.getRequestType().toString()+ funcName +
-                        "(" +params + ")").build();
+        return addReturns(methodBuilder, type).addStatement(getReturnIfGet(type) + beanName + "." + type.getRequestType().toString() + funcName +
+                "(" + params + ")").build();
     }
 
     public List<MethodSpec> makeControllerMethods(String funcName, String beanName) {
@@ -114,23 +115,26 @@ public class RequestInformation {
         return methodSpecs;
     }
 
+
     MethodSpec.Builder addCode(MethodSpec.Builder builder, Type type) {
-        builder.addStatement(CodeBlock.builder().add("var "+RESULT_NAME+" = ")
+        builder.addStatement(CodeBlock.builder().add("var " + RESULT_NAME + " = ")
                 .add(type.getInterpretDb().getInterpretation().interpret()).build());
-        builder.beginControlFlow("if ("+SHOW_SQL_NAME+")")
-        .addStatement(LOG_NAME+".log($T."+LOG_LEVE_NAME+", $S+"+RESULT_NAME+".getSQL()+$S)",LOG_LEVEL,"\n","\n")
+        builder.beginControlFlow("if (" + SHOW_SQL_NAME + ")")
+                .addStatement(LOG_NAME + ".log($T." + LOG_LEVE_NAME + ", $S+" + RESULT_NAME + ".getSQL()+$S)", LOG_LEVEL, "\n", "\n")
                 .endControlFlow();
         if (type.getRequestType().equals(RequestType.GET)) {
-            return builder.addStatement("return "+RESULT_NAME+".fetch()");
+            return builder.addStatement("return " + RESULT_NAME + ".fetch()");
         }
-        return builder.addStatement(RESULT_NAME+".execute()");
+        return builder.addStatement(RESULT_NAME + ".execute()");
     }
-    String getReturnIfGet( Type type) {
+
+    String getReturnIfGet(Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {
-           return "return ";
+            return "return ";
         }
         return "";
     }
+
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {
             builder.returns(RESULT_OF_RECORD_CLASS);

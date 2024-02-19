@@ -68,6 +68,7 @@ public record DefaultsVariablesName() {
             public static final String LOG_NAME="log";
             public static final String SHOW_SQL_NAME="showSql";
             public static final String RESULT_NAME="result";
+            public static final String RESULT_NAME_NO_LIMIT="resultNoLimit";
             public static final String LOG_LEVE_NAME="INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
             public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");

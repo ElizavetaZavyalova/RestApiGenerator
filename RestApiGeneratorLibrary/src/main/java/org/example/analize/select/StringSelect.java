@@ -30,7 +30,7 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
         }
         block.add(")");
         block.add(StringWereInterpret.makeWhere(where, selectNext, tableName, ref));
-        return block.build();//DSL_CLASS
+        return block.build();
     }
 
     CodeBlock makeField(String choseField) {
