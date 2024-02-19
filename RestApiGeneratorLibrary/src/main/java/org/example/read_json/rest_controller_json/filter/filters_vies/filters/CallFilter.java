@@ -33,6 +33,6 @@ public class CallFilter extends StringFilter<CodeBlock> {
 
     @Override
     public CodeBlock makeFilter(Object...args) {
-        return CodeBlock.builder().add("$T."+callPort+"("+REQUEST_PARAM_NAME+", "+"$S)",createClass(path,classPort),(String)args[1]).build();
+        return CodeBlock.builder().add("$T."+callPort+"("+REQUEST_PARAM_NAME+", "+"$S)",createClass(path,classPort),args[1]).build();
     }
 }

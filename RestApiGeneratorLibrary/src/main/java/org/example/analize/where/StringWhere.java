@@ -5,7 +5,7 @@ import org.example.analize.condition.StringOperand;
 import org.example.analize.interpretation.Interpretation;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.fields_cond.StringFieldCondition;
 import org.example.analize.premetive.filters.StringFilter;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;

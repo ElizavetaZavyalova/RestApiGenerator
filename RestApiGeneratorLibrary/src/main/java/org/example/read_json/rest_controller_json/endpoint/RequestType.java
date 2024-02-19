@@ -1,18 +1,18 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
 
-
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType.*;
 
 public enum RequestType {
     GET(_GET), POST(_POST), PUT(_PUT), DELETE(_DELETE), PATCH(_PATCH);
     private final String type;
 
-    RequestType(String type){
-        this.type=type;
+    RequestType(String type) {
+        this.type = type;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return type;
     }
 

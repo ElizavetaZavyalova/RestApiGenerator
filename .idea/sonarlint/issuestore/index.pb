@@ -260,3 +260,9 @@ V
 &TestOfWorkingGenerateCode/build.gradle,3\5\3540a2e12eb56295797cc4801456057ca17ca302
 m
 =TestOfWorkingGenerateCode/src/main/java/org/example/Main.java,4\6\465fa75ab919c55620a1f8112973b3efd0a1234e
+™
+iRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields_cond/StringFieldCondition.java,5\4\54d3c6f53422ae949ad5ce6f95b35aeab27b1f16
+•
+eRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/filters/FilterInterpritation.java,3\e\3e43179b04aadfe9ca7f0ed20ae819095f056bb9
+•
+eRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/filters/FilterInterpretation.java,e\c\eca8c03785bfe90d57bec4e4d1c8d3eee2b19659

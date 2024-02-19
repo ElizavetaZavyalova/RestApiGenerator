@@ -1,4 +1,4 @@
-package org.example.analize.premetive.fieldsCond;
+package org.example.analize.premetive.fields_cond;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.VarInfo;

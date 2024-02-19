@@ -1,7 +1,6 @@
 package org.example.read_json.rest_controller_json.pseudonyms;
 
 import lombok.Getter;
-import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.RestJson;
 
 import java.util.List;

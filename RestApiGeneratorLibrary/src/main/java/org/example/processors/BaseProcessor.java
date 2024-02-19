@@ -16,7 +16,6 @@ public abstract class BaseProcessor extends AbstractProcessor {
         processingEnv = jbUnwrap(ProcessingEnvironment.class, processingEnv);
         super.init(processingEnv);
         AST.setAst(new AST(processingEnv));
-        log.debug("------ASTTreeComponents was init-----");
     }
     @Override
     public SourceVersion getSupportedSourceVersion() {
@@ -30,12 +29,11 @@ public abstract class BaseProcessor extends AbstractProcessor {
             final Class<?> apiWrappers = wrapper.getClass().getClassLoader().loadClass("org.jetbrains.jps.javac.APIWrappers");
             final Method unwrapMethod = apiWrappers.getDeclaredMethod("unwrap", Class.class, Object.class);
             unwrapped = iface.cast(unwrapMethod.invoke(null, iface, wrapper));
-            log.debug("UNWRUPPER");
+            return Optional.ofNullable(unwrapped).orElse(wrapper);
         }
         catch (Throwable ignored) {
-            log.debug("WRUPPER");
+            return Optional.ofNullable(unwrapped).orElse(wrapper);
         }
-        return Optional.ofNullable(unwrapped).orElse(wrapper);
     }
 
 }

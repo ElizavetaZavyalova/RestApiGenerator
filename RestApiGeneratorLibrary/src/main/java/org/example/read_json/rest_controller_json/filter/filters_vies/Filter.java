@@ -9,10 +9,10 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.FilterSuff
 @Getter
 public abstract class Filter<Result> implements Filtering<Result> {
     protected   FilterNames names;
-    protected String filter;
+    protected String filterName;
+    @Getter
     public enum FilterNames{
         AND(_AND),OR(_OR),CALL(_CALL);
-        @Getter
         final String name;
         FilterNames(String name){
             this.name=name;

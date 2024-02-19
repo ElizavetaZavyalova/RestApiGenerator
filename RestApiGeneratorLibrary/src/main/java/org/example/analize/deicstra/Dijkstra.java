@@ -28,12 +28,6 @@ public class Dijkstra {
                 namePrevious = current;
             }
         }
-
-        public void setDefault() {
-            this.visited = false;
-            this.namePrevious = "";
-            this.cost = INFINITY;
-        }
     }
 
     record PathCost() {

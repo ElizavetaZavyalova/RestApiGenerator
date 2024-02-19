@@ -3,7 +3,6 @@ package org.example.read_json.rest_controller_json;
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
-    public static final String CREATE_DB_BEAN = "create_bean";
     public static final String ADDRESS_PREFIX = "http_prefix";
     public static final String HTTP = "http";
 

@@ -118,25 +118,10 @@ public class Type {
     }
 
     void setDefaultStatus() {
-        //TODO default
         switch (requestType) {
-            case GET -> {
-                httpOk = "OK";
-                httpException = "NOT_FOUND";
-            }
-            case POST -> {
-                httpOk = "CREATED";
-            }
-            case PATCH -> {
-                httpOk = "OK";
-
-            }
-            case DELETE -> {
-                httpOk = "NO_CONTENT";
-            }
-            case PUT -> {
-                httpOk = "OK";
-            }
+            case GET, PATCH, PUT -> httpOk = "OK";
+            case POST -> httpOk = "CREATED";
+            case DELETE ->httpOk = "NO_CONTENT";
         }
     }
 

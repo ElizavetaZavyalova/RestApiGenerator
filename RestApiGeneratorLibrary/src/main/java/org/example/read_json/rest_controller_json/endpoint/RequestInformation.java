@@ -24,7 +24,6 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.T
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
 
 
-
 @Setter
 @Getter
 @ToString
@@ -60,8 +59,7 @@ public class RequestInformation {
     }
 
     public void generateBd(Endpoint endpoint) {
-        List<Type> types = this.types.getTypeList();
-        for (Type type : types) {
+        for (Type type : types.getTypeList()) {
             type.setInterpretDb(new InterpretDb(endpoint, type));
         }
         varInfos = new ArrayList<>();

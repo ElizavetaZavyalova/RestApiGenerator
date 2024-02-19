@@ -10,6 +10,7 @@ import org.example.read_json.rest_controller_json.RestJson;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
+import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,7 +24,6 @@ public class GeneratorOfCode implements GeneratingCode {
     String packageName;
 
     record Expansion() {
-        public static final String JSON = ".json";
         public static final String REPOSITORY_PACKAGE = ".repository";
         public static final String REPOSITORY = "Repository";
         public static final String CONTROLLER = "Controller";
@@ -37,9 +37,7 @@ public class GeneratorOfCode implements GeneratingCode {
     @Override
     public void generate() {
         for (RestJson rest : parseJson.getRestsJson()) {
-            log.info("generateRepository");
             generateRepository(rest);
-            log.info("generateController");
             generateController(rest);
         }
         generateBeans();
@@ -64,8 +62,8 @@ public class GeneratorOfCode implements GeneratingCode {
             bufferedWriter.append(file.toString());
             bufferedWriter.close();
         } catch (IOException e) {
-            //TODO stopCompile
             log.info(e.getMessage());
+            AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR, "rename:" + location);
         }
     }
 
@@ -73,9 +71,7 @@ public class GeneratorOfCode implements GeneratingCode {
         String className = rest.getLocationName() + REPOSITORY;
         String repositoryPackage = packageName + REPOSITORY_PACKAGE;
         String location = repositoryPackage + "." + className;
-        log.info("generateRepositoryFunc");
         JavaFile file = rest.getJavaRepository(className, repositoryPackage);
-        log.info("generateRepositoryJavaFile");
         writeClass(location, file);
     }
 
@@ -83,17 +79,14 @@ public class GeneratorOfCode implements GeneratingCode {
         String className = CONFIG;
         String configPackage = packageName + CONFIG_PACKAGE;
         String location = configPackage + "." + className;
-        JavaFile file = parseJson.getConfiguration(className,configPackage);
+        JavaFile file = parseJson.getConfiguration(className, configPackage);
         writeClass(location, file);
     }
 
     public GeneratorOfCode(Element element) {
         RestApiGenerator restApiGenerator = element.getAnnotation(RestApiGenerator.class);
         jsonFileName = restApiGenerator.jsonPath();
-        log.info("jsonFileName");
         parseJson = new ParseJson(jsonFileName);
-        log.info("parseJson");
         packageName = Optional.ofNullable(((PackageElement) element.getEnclosingElement()).getQualifiedName().toString()).orElse("");
-        log.info("packageName:"+packageName);
     }
 }

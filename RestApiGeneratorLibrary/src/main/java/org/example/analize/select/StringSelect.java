@@ -2,7 +2,6 @@ package org.example.analize.select;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.analize.select.port_request.PortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;

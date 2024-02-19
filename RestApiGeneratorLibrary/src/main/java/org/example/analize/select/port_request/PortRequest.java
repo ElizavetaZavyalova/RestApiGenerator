@@ -1,6 +1,6 @@
 package org.example.analize.select.port_request;
 
-import com.squareup.javapoet.CodeBlock;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     protected String id = "id";
     @Getter
     protected String ref;
-    Boolean isRefByRealName=true;
+    boolean isRefByRealName=true;
     TableRef tableRef = TableRef.DEFAULT;
 
 
@@ -64,7 +64,7 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     protected abstract PortRequestWithCondition<R> makePortRequest(String tableName, PortRequestWithCondition<R> select, Endpoint parent, boolean isPathFound);
 
     record RegExp() {
-        static final String IS_CORRECT_TABLE_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
+        static final String IS_CORRECT_TABLE_NAME = "[a-zA-Z_]\\w*";
         static final String JOIN_SPLIT = ":";
         static final int JOIN_CURRENT_REF_PORT = 0;
         static final int JOIN_PREVIOUS_REF_PORT = 1;

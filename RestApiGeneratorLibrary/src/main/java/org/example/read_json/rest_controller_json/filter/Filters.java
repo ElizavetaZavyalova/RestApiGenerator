@@ -18,12 +18,12 @@ import static org.example.read_json.rest_controller_json.filter.filters_vies.Fil
 
 public abstract class Filters {
     @Getter
-    Map<String, Filtering<CodeBlock>> filters = new HashMap<>();
+    Map<String, Filtering<CodeBlock>> filtersMap = new HashMap<>();
     protected void initParent(Map<String, String> filters) throws IllegalArgumentException{
         filters.forEach(this::addFilter);
     }
     record Regexp(){
-        static final String IS_CORRECT_FILTER_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
+        static final String IS_CORRECT_FILTER_NAME = "[a-zA-Z_]\\w*";
         static final String SPLIT_PARAMS = "[|]";
     }
     void throwException(String filterName) throws IllegalArgumentException {
@@ -36,25 +36,25 @@ public abstract class Filters {
     }
 
     public boolean isFilterExist(String key) {
-        return filters.containsKey(key);
+        return filtersMap.containsKey(key);
     }
 
     public Filtering<CodeBlock> getFilterIfExist(String key) throws IllegalArgumentException {
         if (isFilterExist(key)) {
-           return filters.get(key);
+           return filtersMap.get(key);
         }
         throw new IllegalArgumentException("FILTER " + key + " NOT EXIST");
     }
 
     void addKeyValToFilters(String key, Filtering<CodeBlock> filter) throws IllegalArgumentException {
         throwException(key);
-        if (filters.containsKey(key)) {
+        if (filtersMap.containsKey(key)) {
             throw new IllegalArgumentException("FILTER:" + key + "IS ALREADY EXIST");
         }
         if (key.isEmpty()) {
             throw new IllegalArgumentException("FILTER CANT BE EMPTY");
         }
-        filters.put(key, filter);
+        filtersMap.put(key, filter);
     }
 
     abstract String makeFilterVoidName(String key);

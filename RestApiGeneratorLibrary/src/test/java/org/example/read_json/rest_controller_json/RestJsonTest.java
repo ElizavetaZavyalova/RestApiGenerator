@@ -42,21 +42,6 @@ class RestJsonTest {
       log.info("\n"+rest.getJavaController(controllerName,controllerPath,repositoryName,repositoryPath).toString());
 
    }
-   void testDebug(Map<String, Object> object,String name){
-      log.info(name);
-      log.info(object.toString());
-      DefaultsVariablesName.DEBUG=true;
-      RestJson rest=new RestJson(object,lockation,beanName);
-      log.info("\n"+rest.getConnectionBean().toString());
-      DefaultsVariablesName.DEBUG=false;
-   }
-
-
-   @ParameterizedTest(name = "{arguments} test")
-   @MethodSource("restTest")
-   void restTestDebug(String name) {
-      testDebug((Map<String, Object>) json.get(name),name);
-   }
    @ParameterizedTest(name = "{arguments} test")
    @MethodSource("restTest")
    void restTest(String name) {

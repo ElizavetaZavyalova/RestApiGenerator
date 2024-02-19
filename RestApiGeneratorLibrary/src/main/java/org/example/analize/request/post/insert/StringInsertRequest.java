@@ -88,7 +88,6 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
     }
 
     CodeBlock makeFields() {
-        //TODO fields
         return fields.stream().map(InterpretationBd::interpret)
                 .reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());

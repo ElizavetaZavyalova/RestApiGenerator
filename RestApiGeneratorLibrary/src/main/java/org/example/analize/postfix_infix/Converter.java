@@ -3,9 +3,7 @@ package org.example.analize.postfix_infix;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static org.example.analize.postfix_infix.Converter.RegExp.*;
@@ -47,7 +45,7 @@ public class Converter {
 
     public static Queue<String> toPostfix(String condition) throws IllegalArgumentException {
         throwIfNotCorrect(condition);
-        Stack<String> stack = new Stack<>();
+        Deque<String> stack = new ArrayDeque<>();
         Queue<String> queue = new LinkedList<>();
         String[] elements = condition.split(FIND_OPERATOR_OR_BRACKET, NOT_DELETE_EMPTY_STRING_ON_END);
         int operatorIndex = 0;
@@ -73,7 +71,7 @@ public class Converter {
         return queue;
     }
 
-    void operatorProcessing(Stack<String> stack, Queue<String> queue, String operand) throws IllegalArgumentException {
+    void operatorProcessing(Deque<String> stack, Queue<String> queue, String operand) throws IllegalArgumentException {
         if (stack.isEmpty()) {
             pushOperatorOnStack(stack, operand);
         } else if (getPriority(operand) > getPriority(stack.peek())) {
@@ -83,7 +81,7 @@ public class Converter {
         }
     }
 
-    static void addAllToQueue(Stack<String> stack, Queue<String> queue) throws IllegalArgumentException {
+    static void addAllToQueue(Deque<String> stack, Queue<String> queue) throws IllegalArgumentException {
         while (!stack.isEmpty()) {
             if (isLeftBracket(stack.peek())) {
                 throw new IllegalArgumentException(RIGHT_BRACKET + " NOT FOUND");
@@ -92,7 +90,7 @@ public class Converter {
         }
     }
 
-    static void pushOperatorOnStack(Stack<String> stack, String operand) {
+    static void pushOperatorOnStack(Deque<String> stack, String operand) {
         stack.push(operand);
     }
 
@@ -102,7 +100,7 @@ public class Converter {
         }
     }
 
-    static void pushStackOnQueryWhilePriorityIsBigger(Stack<String> stack, Queue<String> queue, String operand) {
+    static void pushStackOnQueryWhilePriorityIsBigger(Deque<String> stack, Queue<String> queue, String operand) {
         if (stack.isEmpty()) {
             pushOperatorOnStack(stack, operand);
             return;
@@ -116,7 +114,7 @@ public class Converter {
         pushOperatorOnStack(stack, operand);
     }
 
-    static void pushStackOnQueryWhileLeftBracketNotFound(Stack<String> stack, Queue<String> queue) throws IllegalArgumentException {
+    static void pushStackOnQueryWhileLeftBracketNotFound(Deque<String> stack, Queue<String> queue) throws IllegalArgumentException {
         boolean isLeftBracketFound = false;
         while (!stack.isEmpty()) {
             String stackOperand = stack.pop();

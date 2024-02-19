@@ -10,7 +10,7 @@ public abstract class BaseOperand<R> implements Interpretation<R> {
 
     enum OperandVal {
         AND(AND_), OR(OR_);
-        String val;
+        final String val;
 
         OperandVal(String op) {
             val = op;

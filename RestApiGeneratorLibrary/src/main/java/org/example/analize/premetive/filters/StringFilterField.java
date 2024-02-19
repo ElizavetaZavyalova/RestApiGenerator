@@ -22,7 +22,7 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     public CodeBlock interpret() {
         return CodeBlock.builder()
                 .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".containsKey($S))", fieldName)
-                .addStatement(makeCondition(),DSL_CLASS, "." + realFieldName, fieldName)
+                .addStatement(makeCondition(), DSL_CLASS, "." + realFieldName, fieldName)
                 .endControlFlow()
                 .build();
     }
@@ -30,20 +30,49 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     protected String makeCondition() {
         StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).");
         switch (action) {
-            case EQ -> builder.append("eq");
-            case NE -> builder.append("ne");
-            case LE -> builder.append("le");
-            case LT -> builder.append("lt");
-            case GE -> builder.append("ge");
-            case GT -> builder.append("gt");
-            case LIKE -> builder.append("like");
-            case NOT_LIKE -> builder.append("not_like");
-            case IN -> builder.append("in");
+            case NE: {
+                builder.append("ne");
+                break;
+            }
+            case LE: {
+                builder.append("le");
+                break;
+            }
+            case LT: {
+                builder.append("lt");
+                break;
+            }
+            case GE: {
+                builder.append("ge");
+                break;
+            }
+            case GT: {
+                builder.append("gt");
+                break;
+            }
+            case LIKE: {
+                builder.append("like");
+                break;
+            }
+            case NOT_LIKE: {
+                builder.append("not_like");
+                break;
+            }
+            case IN: {
+                builder.append("in");
+                break;
+            }
+            default:{
+                builder.append("eq");
+                break;
+            }
         }
         return builder.append("(").append(REQUEST_PARAM_NAME + ".get($S)))").toString();
     }
 
 
     @Override
-    public void addParams(List<VarInfo> params) {}
+    public void addParams(List<VarInfo> params) {
+          //not in request
+    }
 }

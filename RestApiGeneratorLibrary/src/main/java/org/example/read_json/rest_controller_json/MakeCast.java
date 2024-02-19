@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@SuppressWarnings("unchecked")
 public record MakeCast() {
+
     public static Map<String, Object> makeMap(Object object, String name) throws IllegalArgumentException {
         try {
             return (Map<String, Object>) object;
@@ -18,9 +19,7 @@ public record MakeCast() {
         try {
             return (Map<String, String>) object;
         } catch (ClassCastException ex) {
-
             return Map.of(keyWord, makeString(object, keyWord));
-
         }
     }
 
@@ -106,7 +105,6 @@ public record MakeCast() {
         }
         throw new IllegalArgumentException("NO " + keyWord);
     }
-
     public static Map<String, Map<String, List<String>>> makeMapOfMapOfList(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
             if (configJson.containsKey(keyWord)) {

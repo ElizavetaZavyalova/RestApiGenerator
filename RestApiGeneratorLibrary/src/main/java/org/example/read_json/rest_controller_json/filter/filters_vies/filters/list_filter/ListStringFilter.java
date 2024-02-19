@@ -46,13 +46,13 @@ public class ListStringFilter extends ListFilter<CodeBlock> {
     }
 
     String getFuncName(String funcName) {
-        return filter + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
+        return filterName + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
     }
 
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + REQUEST_PARAM_NAME + ", $S, ", (String) args[1])
+                .add("(" + REQUEST_PARAM_NAME + ", $S, ",  args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }

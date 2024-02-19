@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-public class StringFilter implements Interpretation<CodeBlock>, FilterCreation<CodeBlock> {
+public class StringFilter implements FilterInterpretation<CodeBlock> {
     CodeBlock result;
     String filterName;
 

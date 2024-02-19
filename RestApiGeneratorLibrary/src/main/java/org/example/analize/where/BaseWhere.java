@@ -3,12 +3,10 @@ package org.example.analize.where;
 
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.filters.FilterCreation;
+import org.example.analize.premetive.filters.FilterInterpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 
 import static org.example.analize.where.BaseWhere.RegExp.*;
@@ -32,7 +30,7 @@ public abstract class BaseWhere<R> implements Interpretation<R> {
 
     Interpretation<R> makePort(String port, String table, Endpoint parent) {
         Queue<String> postfix = Converter.toPostfix(port);
-        Stack<Interpretation<R>> stack = new Stack<>();
+        Deque<Interpretation<R>> stack = new ArrayDeque<>();
         while (!postfix.isEmpty()) {
             String argument = postfix.poll();
             if (Converter.isOperator(argument)) {
@@ -58,8 +56,7 @@ public abstract class BaseWhere<R> implements Interpretation<R> {
     }
 
     void makeFilterResult(Interpretation<R> interpretation, R operand, String table, Endpoint parent) {
-        if (interpretation instanceof FilterCreation) {
-            FilterCreation<R> filterCreation = (FilterCreation<R>) interpretation;
+        if (interpretation instanceof FilterInterpretation<R> filterCreation) {
             filterCreation.makeFilter(parent, operand, table);
         }
     }

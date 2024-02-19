@@ -1,7 +1,7 @@
 package org.example.analize.premetive;
 
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.fieldsCond.BaseFieldCondition;
+import org.example.analize.premetive.fields_cond.BaseFieldCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.Optional;

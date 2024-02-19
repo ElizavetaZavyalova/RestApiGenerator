@@ -1,4 +1,4 @@
-package org.example.analize.premetive.fieldsCond;
+package org.example.analize.premetive.fields_cond;
 
 
 import org.example.analize.premetive.BaseFieldParser;

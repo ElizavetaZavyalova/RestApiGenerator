@@ -3,17 +3,11 @@ package org.example;
 import lombok.extern.slf4j.Slf4j;
 import org.example.read_json.ParseJson;
 import org.example.read_json.rest_controller_json.RestJson;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.SelectLimitStep;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultDSLContext;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
+
 import java.util.stream.Stream;
 
 @Slf4j

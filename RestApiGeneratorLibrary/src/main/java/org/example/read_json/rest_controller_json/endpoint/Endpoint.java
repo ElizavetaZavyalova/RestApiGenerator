@@ -4,7 +4,6 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
 
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.ReadJson;
@@ -20,10 +19,6 @@ import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
 
 import java.util.*;
 
-import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.PERMS;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.FILTERS;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.PSEUDONYMS;
-
 @Slf4j
 public class Endpoint {
     @Getter
@@ -34,15 +29,14 @@ public class Endpoint {
     Pseudonyms pseudonyms;
     @Getter
     Endpoints parent;
-    private ReadJson readeJson = new ReadJson();
 
     public Endpoint(Map<String, Object> enpointMap, Endpoints parent, String funcName) throws IllegalArgumentException {
         this.funcName = funcName;
         this.parent = parent;
+        ReadJson readeJson = new ReadJson();
         filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
         pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
         requestInformation = new RequestInformation(enpointMap,this);
-
     }
     public List<String> findPath(String table1 ,String table2,boolean real){
         List<String> result=pseudonyms.findPath(table1,table2,real);
@@ -54,16 +48,14 @@ public class Endpoint {
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {
         this.requestInformation.generateBd(this);
-        List<MethodSpec> list = new ArrayList<>();
-        list.addAll(requestInformation.makeDBMethods(funcName));
+        List<MethodSpec> list = new ArrayList<>(requestInformation.makeDBMethods(funcName));
         List<String> useFilters = requestInformation.getVarInfos().stream()
                 .filter(VarInfo::isFilter)
                 .map(VarInfo::getName).distinct().toList();
         for (String useFilter : useFilters) {
             Filtering<CodeBlock> filtering = getFilter(useFilter);
-            if (filtering instanceof ListStringFilter) {
-                ListStringFilter filter = (ListStringFilter) filtering;
-                list.add(filter.makeFilterMethod(this));
+            if (filtering instanceof ListStringFilter listStringFilter) {
+                list.add(listStringFilter.makeFilterMethod(this));
             }
         }
         return list;

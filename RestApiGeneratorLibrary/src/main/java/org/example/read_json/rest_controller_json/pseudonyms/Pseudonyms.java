@@ -88,36 +88,38 @@ public abstract class Pseudonyms {
         }
         return key;
     }
+    void throwExceptionsInJoins(String key,List<String> values,String[]splitKey)throws IllegalArgumentException{
+        if (joinsPseudonyms.containsKey(key)) {
+            throw new IllegalArgumentException(key + "IN JOINS IS ALREADY EXIST");
+        }
+        if (splitKey.length != 2) {
+            throw new IllegalArgumentException(key + "IN JOINS  IS MUST BE LIKE T1:T2");
+        }
+        if (splitKey[T1].isEmpty() || splitKey[T2].isEmpty()) {
+            throw new IllegalArgumentException(key + "IN JOINS  IS MUST BE LIKE T1:T2");
+        }
+        if (values.size() != 2 && values.size() != 1) {
+            throw new IllegalArgumentException(key + "IN JOINS MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :] or [:,:] or [table]");
+        }
+        throwExceptionIfNameIsNotCorrect(splitKey[T1]);
+        if (values.size() == 1) {
+            if (values.get(T1).isEmpty()) {
+                throw new IllegalArgumentException(key + "IN JOINS MUST BE [Table] ");
+            }
+        } else if (values.get(T1).isEmpty() || values.get(T2).isEmpty()) {
+            throwExceptionIfNameIsNotCorrect(splitKey[T2]);
+            throwExceptionIfNameIsNotCorrect(values.get(T1));
+            throwExceptionIfNameIsNotCorrect(values.get(T2));
+            throw new IllegalArgumentException(key + "IN JOINS MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :]");
+        }
+    }
 
     void addPseudonymsToJoins(Map<String, List<String>> joins) throws IllegalArgumentException {
         joins.forEach((key, values) -> {
-            log.debug(key + values.toString());
             final boolean IN_ONE_WAY = key.startsWith(_IN_ONE_WAY);
-            if (joinsPseudonyms.containsKey(key)) {
-                throw new IllegalArgumentException("JOINS:" + key + " IS ALREADY EXIST");
-            }
             key = deleteInOneWay(key, IN_ONE_WAY);
             String[] splitKey = key.split(SPLIT);
-            if (splitKey.length != 2) {
-                throw new IllegalArgumentException("JOINS:" + key + " IS MUST BE LIKE T1:T2");
-            }
-            if (splitKey[T1].isEmpty() || splitKey[T2].isEmpty()) {
-                throw new IllegalArgumentException("JOINS:" + key + " IS MUST BE LIKE T1:T2");
-            }
-            if (values.size() != 2 && values.size() != 1) {
-                throw new IllegalArgumentException("JOINS:" + key + " MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :] or [:,:] or [table]");
-            }
-            throwExceptionIfNameIsNotCorrect(splitKey[T1]);
-            if (values.size() == 1) {
-                if (values.get(T1).isEmpty()) {
-                    throw new IllegalArgumentException("JOINS:" + key + " MUST BE [Table] ");
-                }
-            } else if (values.get(T1).isEmpty() || values.get(T2).isEmpty()) {
-                throwExceptionIfNameIsNotCorrect(splitKey[T2]);
-                throwExceptionIfNameIsNotCorrect(values.get(T1));
-                throwExceptionIfNameIsNotCorrect(values.get(T2));
-                throw new IllegalArgumentException("JOINS:" + key + " MUST BE [ref1, ref2] OR  [:, ref2] or[ref1, :]");
-            }
+            throwExceptionsInJoins(key,values,splitKey);
             addToRefGraph(splitKey[T1], splitKey[T2], IN_ONE_WAY);
             joinsPseudonyms.put(key, values);
             if (IN_ONE_WAY) {
@@ -192,18 +194,18 @@ public abstract class Pseudonyms {
         }
         return _DEFAULT;
     }
-    String deleteTablePseudonymRef(String pseudonymName,String ref) {
-       return pseudonymName.substring(ref.length());
+
+    String deleteTablePseudonymRef(String pseudonymName, String ref) {
+        return pseudonymName.substring(ref.length());
     }
 
 
     void addPseudonymsToTables(Map<String, List<String>> tables) throws IllegalArgumentException {
-        tables.forEach((key, vals) -> {
+        tables.forEach((key, values) -> {
             throwExceptionIfNameIsNotCorrect(key);
-            log.debug(key + vals.toString());
-            for (String val : vals) {
-                String ref=getTablePseudonymRef(val);
-                val=deleteTablePseudonymRef(val,ref);
+            for (String val : values) {
+                String ref = getTablePseudonymRef(val);
+                val = deleteTablePseudonymRef(val, ref);
                 throwExceptionIfNameIsNotCorrect(val);
                 if (tablesPseudonyms.containsKey(val)) {
                     throw new IllegalArgumentException("PSEUDONYM OF TABLE:" + val + " IS ALREADY EXIST");
@@ -211,17 +213,17 @@ public abstract class Pseudonyms {
                 if (val.isEmpty()) {
                     throw new IllegalArgumentException("PSEUDONYM OF TABLE " + key + "isEmpty");
                 }
-                tablesPseudonyms.put(val, ref+key);
+                tablesPseudonyms.put(val, ref + key);
             }
         });
     }
 
     void addPseudonymsToFields(Map<String, List<String>> fields) throws IllegalArgumentException {
-        fields.forEach((key, vals) -> {
+        fields.forEach((key, values) -> {
             throwExceptionIfNameIsNotCorrect(key);
-            for (String val : vals) {
+            for (String val : values) {
                 throwExceptionIfNameIsNotCorrect(val);
-                log.debug(key + vals.toString());
+                log.debug(key + values);
                 if (fieldsPseudonyms.containsKey(val)) {
                     throw new IllegalArgumentException("PSEUDONYM OF FIELD:" + val + " IS ALREADY EXIST");
                 }
@@ -243,7 +245,7 @@ public abstract class Pseudonyms {
         static final String SPLIT = ":";
         static final int T1 = 0;
         static final int T2 = 1;
-        static final String IS_CORRECT_NAME = "[a-zA-Z_][a-zA-Z0-9_]*";
+        static final String IS_CORRECT_NAME = "[a-zA-Z_]\\w*";
     }
 
 

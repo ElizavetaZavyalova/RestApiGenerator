@@ -1,18 +1,22 @@
 package org.example.processors.code_gen.file_code_gen;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
 public record DefaultsVariablesName() {
-    public static boolean DEBUG=false;
-    private static String getPath(String path){
-        if(!DEBUG){
+    public static boolean DEBUG = false;
+
+    private static String getPath(String path) {
+        if (!DEBUG) {
             return path;
         }
         return "";
     }
-    public static ClassName createClass(String path,String className){
+
+    public static ClassName createClass(String path, String className) {
         return ClassName.get(getPath(path), className);
     }
+
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
         public static final String REQUEST_PARAM_NAME = "requestParam";
@@ -20,30 +24,33 @@ public record DefaultsVariablesName() {
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
 
     }
+
     public static final String CONTEXT = "context";
-    public record Annotations(){
+
+    public record Annotations() {
         public static final String VALUE = "value";
 
 
-        private static final String contestAnnotations="org.springframework.context.annotation";
-        private static final String beansFactoryAnnotations="org.springframework.beans.factory.annotation";
-        public static final ClassName CONFIGURATION_ANNOTATION_CLASS = createClass(contestAnnotations,"Configuration");
+        private static final String contestAnnotations = "org.springframework.context.annotation";
+        private static final String beansFactoryAnnotations = "org.springframework.beans.factory.annotation";
+        public static final ClassName CONFIGURATION_ANNOTATION_CLASS = createClass(contestAnnotations, "Configuration");
         public static final ClassName BEAN_ANNOTATION_CLASS = createClass(contestAnnotations, "Bean");
-        public static final ClassName QUALIFIER_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Qualifier");
-        public record SwaggerConfig(){
-            private static final String swaggerV3OasModels="io.swagger.v3.oas.models";
-            private static final String swaggerV3OasModelsInfo="io.swagger.v3.oas.models.info";
+
+        public record SwaggerConfig() {
+            private static final String swaggerV3OasModels = "io.swagger.v3.oas.models";
+            private static final String swaggerV3OasModelsInfo = "io.swagger.v3.oas.models.info";
             public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
             public static final ClassName OPEN_API_CLASS = createClass(swaggerV3OasModels, "OpenAPI");
         }
-        public record Controller(){
-            private static final String webBindAnnotations="org.springframework.web.bind.annotation";
-            private static final String http="org.springframework.http";
+
+        public record Controller() {
+            private static final String webBindAnnotations = "org.springframework.web.bind.annotation";
+            private static final String springStereotype="org.springframework.stereotype";
+            private static final String http = "org.springframework.http";
 
 
-            private static final String swaggerV3OasAnnotations="io.swagger.v3.oas.annotations";
+            private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
-
 
 
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
@@ -51,7 +58,8 @@ public record DefaultsVariablesName() {
             public static final ClassName REQUEST_PARAM_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestParam");
             public static final ClassName REST_CONTROLLER_ANNOTATION_CLASS = createClass(webBindAnnotations, "RestController");
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
-            public record RequestMapping(){
+
+            public record RequestMapping() {
                 public static final ClassName REQUEST_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestMapping");
                 public static final ClassName PUT_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "PutMapping");
                 public static final ClassName GET_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "GetMapping");
@@ -59,48 +67,46 @@ public record DefaultsVariablesName() {
                 public static final ClassName PATCH_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "PatchMapping");
                 public static final ClassName DELETE_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "DeleteMapping");
             }
-
-            public static final ClassName VALUE_ANNOTATION_CLASS =createClass(beansFactoryAnnotations, "Value");
-            private static final String javaLang="java.lang";
-            private static final String javaLangLevelLogger="java.util.logging";
-            private static final String javaUtil="java.util";
-            private static final String javaUtilLogging="java.util.logging";
-            public static final String LOG_NAME="log";
-            public static final String SHOW_SQL_NAME="showSql";
-            public static final String RESULT_NAME="result";
-            public static final String RESULT_NAME_NO_LIMIT="resultNoLimit";
-            public static final String LOG_LEVE_NAME="INFO";
+            public static final ClassName REPOSITORY_ANNOTATION_CLASS = createClass(springStereotype, "Repository");
+            public static final ClassName AUTOWIRED_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Autowired");
+            public static final ClassName VALUE_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Value");
+            private static final String javaLang = "java.lang";
+            private static final String javaLangLevelLogger = "java.util.logging";
+            private static final String javaUtil = "java.util";
+            private static final String javaUtilLogging = "java.util.logging";
+            public static final String LOG_NAME = "log";
+            public static final String SHOW_SQL_NAME = "showSql";
+            public static final String RESULT_NAME = "result";
+            public static final String LOG_LEVE_NAME = "INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
             public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");
-            public static final ClassName OPTIONAL_CLASS=createClass(javaUtil, "Optional");
-            public static final ClassName MAP_CLASS=createClass(javaUtil, "Map");
-            public static final ClassName LIST_CLASS=createClass(javaUtil, "List");//STRRING_CLASS
-            public static final ClassName STRING_CLASS=createClass(javaLang, "String");
+            public static final ClassName OPTIONAL_CLASS = createClass(javaUtil, "Optional");
+            public static final ClassName MAP_CLASS = createClass(javaUtil, "Map");
+            public static final ClassName LIST_CLASS = createClass(javaUtil, "List");
+            public static final ClassName STRING_CLASS = createClass(javaLang, "String");
 
-            public static final ClassName ARRAY_LIST_CLASS=createClass(javaUtil, "ArrayList");
-            public static final ClassName INTEGER_CLASS=createClass(javaLang, "Integer");
-            public static final ClassName BOOLEAN_CLASS=createClass(javaLang, "Boolean");
+            public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
+            public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
+            public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");
 
 
-            public static final ParameterizedTypeName REQUEST_PARAMS= ParameterizedTypeName.get(MAP_CLASS,
-                    STRING_CLASS, createClass(javaLang,"Object"));
+            public static final ParameterizedTypeName REQUEST_PARAMS = ParameterizedTypeName.get(MAP_CLASS,
+                    STRING_CLASS, createClass(javaLang, "Object"));
         }
 
 
     }
-    public record DB(){
-        //Optional
-        private static final String orgJooq="org.jooq";
-        private static final String orgJooqIml="org.jooq.impl";
-        private static final String comZaxXerHikari="com.zaxxer.hikari";
-        public static final ClassName SQL_DIALECT_CLASS = createClass(orgJooq, "SQLDialect");
-        public static final ClassName HIKARI_CONFIG_CLASS = createClass(comZaxXerHikari, "HikariConfig");
+
+    public record DB() {
+
+        private static final String orgJooq = "org.jooq";
+        private static final String orgJooqIml = "org.jooq.impl";
+
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");
-        public static final ClassName HIKARI_DATE_SOURCE_CLASS = createClass(comZaxXerHikari, "HikariDataSource");
         public static final ClassName CONDITION_CLASS = createClass(orgJooq, "Condition");
         public static final ClassName RECORD_CLASS = createClass("", "?");
         public static final ClassName RESULT_CLASS = createClass(orgJooq, "Result");
-        public static final ParameterizedTypeName RESULT_OF_RECORD_CLASS = ParameterizedTypeName.get(RESULT_CLASS,RECORD_CLASS);
+        public static final ParameterizedTypeName RESULT_OF_RECORD_CLASS = ParameterizedTypeName.get(RESULT_CLASS, RECORD_CLASS);
     }
 }

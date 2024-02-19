@@ -5,7 +5,7 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
 
 import java.util.List;
 @Getter
-public abstract class ListFilter<Result> extends Filter<Result> {
+public abstract class ListFilter<R> extends Filter<R> {
     protected List<String> val;
     protected ListFilter(FilterNames names,List<String> val,String filter) {
         super(names,filter);

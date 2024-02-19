@@ -27,6 +27,6 @@ public class StringField extends BaseField<CodeBlock>{
 
     @Override
     public void addParams(List<VarInfo> params) {
-
+        //Not use in request
     }
 }

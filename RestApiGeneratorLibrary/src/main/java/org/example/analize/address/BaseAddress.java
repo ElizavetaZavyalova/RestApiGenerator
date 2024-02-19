@@ -9,16 +9,17 @@ import java.util.Arrays;
 
 import static org.example.analize.address.BaseAddress.RegExp.*;
 
+@Getter
 public abstract class BaseAddress<R> implements Interpretation<R> {
     record RegExp() {
         static final String SPLIT = "/(?![{\\[(])";
         static final int START = 0;
     }
 
-    @Getter
+
     PortRequestWithCondition<R> selectCurrent = null;
-    @Getter
-    String endUrl = "";
+
+    String endUrl;
 
     BaseAddress(String url, Endpoint parent) throws IllegalArgumentException {
         String[] urlPorts = Arrays.stream(url.split(SPLIT))

@@ -5,7 +5,6 @@ import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.MAP_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;

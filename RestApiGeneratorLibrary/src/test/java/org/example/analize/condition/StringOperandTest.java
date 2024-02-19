@@ -2,7 +2,7 @@ package org.example.analize.condition;
 
 import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.premetive.fieldsCond.StringFieldCondition;
+import org.example.analize.premetive.fields_cond.StringFieldCondition;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
