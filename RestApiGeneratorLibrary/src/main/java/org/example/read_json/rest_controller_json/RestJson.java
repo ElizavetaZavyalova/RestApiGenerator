@@ -34,22 +34,29 @@ public class RestJson {
     ReadJson readeJson = new ReadJson();
 
     public RestJson(Map<String, Object> map, String locationName, String beanName) throws IllegalArgumentException {
-        this.locationName = locationName;
-        this.beanName = beanName;
-        this.mappingPrefix = MakeCast.makeStringIfContainsKeyMap(map, ADDRESS_PREFIX, false);
-        pseudonyms = new RestJsonPseudonyms(readeJson.loadPseudonyms(map), this);
-        filters = new RestJsonFilters(readeJson.loadFilters(map), this);
-        http = new Endpoints(readeJson.loadEndpoints(map), this);
+       try {
+           this.locationName = locationName;
+           this.beanName = beanName;
+           this.mappingPrefix = MakeCast.makeStringIfContainsKeyMap(map, ADDRESS_PREFIX, false);
+           pseudonyms = new RestJsonPseudonyms(readeJson.loadPseudonyms(map), this);
+           filters = new RestJsonFilters(readeJson.loadFilters(map), this);
+           http = new Endpoints(readeJson.loadEndpoints(map), this);
+       }catch (IllegalArgumentException ex){
+           throw new IllegalArgumentException("in: "+locationName+" "+ex.getMessage());
+       }
     }
 
 
-    public JavaFile getJavaRepository(String className, String packageName) {
+    public JavaFile getJavaRepository(String className, String packageName)  throws IllegalArgumentException {
         TypeSpec typeSpec = http.createRepository(className, beanName);
         typeSpec = addRepositoryAnnotation(typeSpec);
         return JavaFile.builder(packageName, typeSpec)
                 .addStaticImport(HTTP_STATUS_CLASS, "*").build();
 
 
+    }
+    public void generate(){
+        http.generate();
     }
 
     private static TypeSpec addRepositoryAnnotation(TypeSpec typeSpec) {
@@ -69,7 +76,7 @@ public class RestJson {
         return typeSpec.toBuilder().addAnnotation(AnnotationSpec.builder(REST_CONTROLLER_ANNOTATION_CLASS).build()).build();
     }
 
-    public JavaFile getJavaController(String className, String packageName, String repositoryName, String repositoryPath) {
+    public JavaFile getJavaController(String className, String packageName, String repositoryName, String repositoryPath) throws IllegalArgumentException {
         TypeSpec typeSpec = http.createController(className, repositoryName, repositoryPath);
         typeSpec = addMappingPrefix(typeSpec);
         typeSpec = addRestAnnotation(typeSpec);

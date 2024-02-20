@@ -47,7 +47,8 @@ public class VarInfo {
         switch (type) {
             case STRING -> parameterSpec = ParameterSpec.builder(STRING_CLASS, name);
             case BOOLEAN -> parameterSpec = ParameterSpec.builder(TypeName.BOOLEAN, name);
-            default -> parameterSpec = ParameterSpec.builder(TypeName.INT, name);
+            case INTEGER -> parameterSpec = ParameterSpec.builder(TypeName.INT, name);
+            default -> parameterSpec = ParameterSpec.builder(TypeName.LONG, name);
         }
         return parameterSpec.build();
     }

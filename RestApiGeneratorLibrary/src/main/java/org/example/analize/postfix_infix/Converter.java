@@ -84,7 +84,7 @@ public class Converter {
     static void addAllToQueue(Deque<String> stack, Queue<String> queue) throws IllegalArgumentException {
         while (!stack.isEmpty()) {
             if (isLeftBracket(stack.peek())) {
-                throw new IllegalArgumentException(RIGHT_BRACKET + " NOT FOUND");
+                throw new IllegalArgumentException(RIGHT_BRACKET + " not found");
             }
             addElementOnQueue(queue, stack.pop());
         }
@@ -125,7 +125,7 @@ public class Converter {
             addElementOnQueue(queue, stackOperand);
         }
         if (!isLeftBracketFound) {
-            throw new IllegalArgumentException(LEFT_BRACKET + " NOT FOUND");
+            throw new IllegalArgumentException(LEFT_BRACKET + " not found");
         }
     }
 
@@ -142,7 +142,7 @@ public class Converter {
             case AND_ -> 2;
             case OR_ -> 1;
             case LEFT_BRACKET -> -1;
-            default -> throw new IllegalStateException("NOT CORRECT: " + operand);
+            default -> throw new IllegalStateException("not correct: " + operand);
         };
     }
 }

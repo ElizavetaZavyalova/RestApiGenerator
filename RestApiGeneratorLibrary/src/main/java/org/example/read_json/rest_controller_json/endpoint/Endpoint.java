@@ -11,13 +11,17 @@ import org.example.read_json.rest_controller_json.*;
 import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
 
+import org.example.read_json.rest_controller_json.filter.RestJsonFilters;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
+import org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms;
 
 
 import java.util.*;
+
+import static org.example.read_json.rest_controller_json.JsonKeyWords.ADDRESS_PREFIX;
 
 @Slf4j
 public class Endpoint {
@@ -31,12 +35,17 @@ public class Endpoint {
     Endpoints parent;
 
     public Endpoint(Map<String, Object> enpointMap, Endpoints parent, String funcName) throws IllegalArgumentException {
-        this.funcName = funcName;
-        this.parent = parent;
-        ReadJson readeJson = new ReadJson();
-        filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
-        pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
-        requestInformation = new RequestInformation(enpointMap,this);
+        try {
+            this.funcName = funcName;
+            this.parent = parent;
+            ReadJson readeJson = new ReadJson();
+            filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
+            pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
+            requestInformation = new RequestInformation(enpointMap,this);
+        }catch (IllegalArgumentException ex){
+            throw new IllegalArgumentException("In: "+funcName+" "+ex.getMessage());
+        }
+
     }
     public List<String> findPath(String table1 ,String table2,boolean real){
         List<String> result=pseudonyms.findPath(table1,table2,real);
@@ -45,9 +54,12 @@ public class Endpoint {
         }
         return parent.getParent().getPseudonyms().findPath(table1,table2,real);
     }
+    public void generate(){
+        this.requestInformation.generateBd(this);
+        this.requestInformation.generateVarInfos();
+    }
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {
-        this.requestInformation.generateBd(this);
         List<MethodSpec> list = new ArrayList<>(requestInformation.makeDBMethods(funcName));
         List<String> useFilters = requestInformation.getVarInfos().stream()
                 .filter(VarInfo::isFilter)

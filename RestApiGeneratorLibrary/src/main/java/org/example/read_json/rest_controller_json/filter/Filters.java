@@ -28,10 +28,10 @@ public abstract class Filters {
     }
     void throwException(String filterName) throws IllegalArgumentException {
         if (filterName.isEmpty()) {
-            throw new IllegalArgumentException("NO FILTER NAME");
+            throw new IllegalArgumentException("no filter name");
         }
         if (!Pattern.matches(IS_CORRECT_FILTER_NAME, filterName)) {
-            throw new IllegalArgumentException(filterName + "MUST STARTS ON LETTER OR _ AND CONTAINS LATTER OR _ OR DIGIT");
+            throw new IllegalArgumentException(filterName + "must starts on later or _ and contains later or _ or digit");
         }
     }
 
@@ -43,16 +43,16 @@ public abstract class Filters {
         if (isFilterExist(key)) {
            return filtersMap.get(key);
         }
-        throw new IllegalArgumentException("FILTER " + key + " NOT EXIST");
+        throw new IllegalArgumentException("filter " + key + " not exist");
     }
 
     void addKeyValToFilters(String key, Filtering<CodeBlock> filter) throws IllegalArgumentException {
         throwException(key);
         if (filtersMap.containsKey(key)) {
-            throw new IllegalArgumentException("FILTER:" + key + "IS ALREADY EXIST");
+            throw new IllegalArgumentException("filter: " + key + "is already exist");
         }
         if (key.isEmpty()) {
-            throw new IllegalArgumentException("FILTER CANT BE EMPTY");
+            throw new IllegalArgumentException("filter can't be empty");
         }
         filtersMap.put(key, filter);
     }
@@ -73,8 +73,8 @@ public abstract class Filters {
             addKeyValToFilters(key, new CallFilter(val, makeFilterVoidName(key)));
             return;
         }
-        throw new IllegalArgumentException("FILTER" + key + "MUST END ON " +
-                Arrays.stream(values()).map(FilterNames::getName).collect(Collectors.joining(" OR ")));
+        throw new IllegalArgumentException("filter " + key + "must be end " +
+                Arrays.stream(values()).map(FilterNames::getName).collect(Collectors.joining(" or ")));
     }
 
 

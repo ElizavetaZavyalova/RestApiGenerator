@@ -23,7 +23,7 @@ public enum RequestType {
             case _PUT -> PUT;
             case _PATCH -> PATCH;
             case _DELETE -> DELETE;
-            default -> throw new IllegalArgumentException("NO REQUEST TYPE:" + name);
+            default -> throw new IllegalArgumentException("no request type:" + name);
         };
     }
 }

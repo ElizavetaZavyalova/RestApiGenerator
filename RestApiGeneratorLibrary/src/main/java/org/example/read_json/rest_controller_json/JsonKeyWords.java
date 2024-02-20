@@ -3,7 +3,7 @@ package org.example.read_json.rest_controller_json;
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
-    public static final String ADDRESS_PREFIX = "http_prefix";
+    public static final String ADDRESS_PREFIX = "httpPrefix";
     public static final String HTTP = "http";
 
     public record FilterSuffix() {
@@ -17,11 +17,27 @@ public record JsonKeyWords() {
         public static final String FIELDS = "fields";
         public static final String JOINS = "joins";
     }
+    public record ApplicationProperties(){
+        public static final String restApi = "restApi";
+        public static final String showSql = "showSql";
+        public static String getParamShowSql() {
+            return restApi + "." + showSql+":false";
+        }
+        public record Swagger() {
+            public static final String title = "title";
+            public static final String openApi = "openApi";
+            public static final String description = "description";
+            public static final String version = "version";
+
+            public static String getParam(String param) {
+                return restApi+"."+openApi + "." + param+":";
+            }
+        }
+    }
 
     public record Endpoint() {
         public static final String REQUEST = "request";
         public static final String TYPES = "types";
-        public static final String PERMS = "perms";
         public static final String TYPE = "type";
 
         public record Types() {
@@ -81,6 +97,7 @@ public record JsonKeyWords() {
             public record TypeVar() {
                 public static final String _STRING = ":s";
                 public static final String _INTEGER = ":i";
+                public static final String _LONG = ":l";
                 public static final String _BOOLEAN = ":b";
             }
 

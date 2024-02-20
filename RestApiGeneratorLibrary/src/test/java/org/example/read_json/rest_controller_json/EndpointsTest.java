@@ -82,6 +82,7 @@ class EndpointsTest {
         log.info(name);
         log.info(object.toString());
         Endpoints points=new Endpoints(object,createParent());
+        points.generate();
         log.info("\n"+points.createRepository(repositoryName,beanName).toString());
         log.info("\n"+points.createController(controllerName,repositoryName,repositoryPath).toString());
     }

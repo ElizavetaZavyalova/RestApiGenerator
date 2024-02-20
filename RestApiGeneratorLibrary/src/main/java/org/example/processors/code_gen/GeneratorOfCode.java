@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static org.example.processors.code_gen.GeneratorOfCode.Expansion.*;
+import static org.example.processors.code_gen.GeneratorOfCode.LoggerColor.*;
 
 @Slf4j
 public class GeneratorOfCode implements GeneratingCode {
@@ -31,16 +32,32 @@ public class GeneratorOfCode implements GeneratingCode {
         public static final String CONFIG = "ConfigRest";
         public static final String CONFIG_PACKAGE = ".config";
     }
+    public record LoggerColor(){
+        public static final String RESET = "\u001B[0m";
+        public static final String GREEN = "\u001B[32m";
+        public static final String YELLOW = "\u001B[33m";
+        public static final String BLUE = "\u001B[34m";
+        public static final String PURPLE = "\u001B[35m";
+        public static final String BRIGHT_CYAN = "\u001B[96m";
+        public static final String LIGHT_BLUE = "\u001B[94m";
+        public static final String LIGHT_GREEN = "\u001B[92m";
+        public static final String LIGHT_PURPLE = "\u001B[95m";
+    }
 
     ParseJson parseJson;
 
     @Override
     public void generate() {
-        for (RestJson rest : parseJson.getRestsJson()) {
-            generateRepository(rest);
-            generateController(rest);
+        try {
+            parseJson.generate();
+            parseJson.getRestsJson().forEach(rest -> {
+                generateRepository(rest);
+                generateController(rest);
+            });
+            generateBeans();
+        }catch (IllegalArgumentException ex){
+            AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR,ex.getMessage());
         }
-        generateBeans();
     }
 
     void generateController(RestJson rest) {
@@ -53,6 +70,7 @@ public class GeneratorOfCode implements GeneratingCode {
 
         JavaFile file = rest.getJavaController(className, controllerPackage, classRepository, repositoryPackage);
         writeClass(location, file);
+        log.info(LIGHT_GREEN+"-GENERATE CONTROLLER-"+YELLOW+controllerPackage+"."+GREEN+className+RESET);
     }
 
     void writeClass(String location, JavaFile file) {
@@ -73,6 +91,7 @@ public class GeneratorOfCode implements GeneratingCode {
         String location = repositoryPackage + "." + className;
         JavaFile file = rest.getJavaRepository(className, repositoryPackage);
         writeClass(location, file);
+        log.info(LIGHT_BLUE+"-GENERATE REPOSITORY-"+YELLOW+ repositoryPackage+"."+BLUE+className+RESET);
     }
 
     void generateBeans() {
@@ -81,6 +100,7 @@ public class GeneratorOfCode implements GeneratingCode {
         String location = configPackage + "." + className;
         JavaFile file = parseJson.getConfiguration(className, configPackage);
         writeClass(location, file);
+        log.info(LIGHT_PURPLE+"-GENERATE SWAGGER CONFIG-"+YELLOW+configPackage+"."+PURPLE+className+RESET);
     }
 
     public GeneratorOfCode(Element element) {

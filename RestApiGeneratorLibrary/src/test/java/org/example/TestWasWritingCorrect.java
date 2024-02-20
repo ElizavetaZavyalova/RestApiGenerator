@@ -41,6 +41,7 @@ public class TestWasWritingCorrect {
     record RunTest() {
         static void test(RestJson rest) {
             try {
+                rest.generate();
                 log.info("\n" + rest.getJavaRepository(getRepository(rest.getLocationName()), getRepositoryPath()).toString());
                 log.info("\n" + rest.getJavaController(getController(rest.getLocationName()), getControllerPath(), getRepository(rest.getLocationName()), getRepositoryPath()).toString());
             } catch (IllegalArgumentException ex) {

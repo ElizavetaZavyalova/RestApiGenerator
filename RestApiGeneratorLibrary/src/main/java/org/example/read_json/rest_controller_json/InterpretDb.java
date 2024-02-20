@@ -24,7 +24,7 @@ public class InterpretDb {
             case PATCH -> interpretation = new StringPatchRequest(request, type.getParams(), parent);
             case DELETE -> interpretation = new StringDeleteRequest(request, parent);
             case PUT -> interpretation = new StringPutRequest(request, type.getParams(), parent);
-            default -> throw new IllegalArgumentException("NO ENDPOINT TYPE");
+            default -> throw new IllegalArgumentException("no endpoint type");
         }
     }
 }

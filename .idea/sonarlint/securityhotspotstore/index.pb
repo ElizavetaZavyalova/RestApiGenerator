@@ -266,3 +266,5 @@ iRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields_cond
 eRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/filters/FilterInterpritation.java,3\e\3e43179b04aadfe9ca7f0ed20ae819095f056bb9
 •
 eRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/filters/FilterInterpretation.java,e\c\eca8c03785bfe90d57bec4e4d1c8d3eee2b19659
+—
+gRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields_cond/BaseFieldCondition.java,1\6\1693d9faa173e8e6639158837d897778a2a9ebdd

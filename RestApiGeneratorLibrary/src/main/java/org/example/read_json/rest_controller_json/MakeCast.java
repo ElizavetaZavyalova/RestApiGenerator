@@ -11,7 +11,7 @@ public record MakeCast() {
         try {
             return (Map<String, Object>) object;
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(name + " MUST BE MAP");
+            throw new IllegalArgumentException(name + " must be map");
         }
     }
 
@@ -30,9 +30,9 @@ public record MakeCast() {
             } else if (!requiredParameter) {
                 return new HashMap<>();
             }
-            throw new IllegalArgumentException("NO " + keyWord);
+            throw new IllegalArgumentException("no " + keyWord);
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE STRING MAP");
+            throw new IllegalArgumentException(keyWord + " must be string map");
         }
     }
 
@@ -46,15 +46,15 @@ public record MakeCast() {
             } else if (!requiredParameter) {
                 return new HashMap<>();
             }
-            throw new IllegalArgumentException("NO " + keyWord);
+            throw new IllegalArgumentException("no " + keyWord);
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE STRING MAP");
+            throw new IllegalArgumentException(keyWord + " must be string map");
         }
     }
 
     public static Map<String, Object> makeMapAndCheckKey(Map<String, Object> restJson, String keyWord) throws IllegalArgumentException {
         if (!restJson.containsKey(keyWord)) {
-            throw new IllegalArgumentException("NO " + keyWord);
+            throw new IllegalArgumentException("no " + keyWord);
         }
         return makeMap(restJson.get(keyWord), keyWord);
     }
@@ -68,9 +68,9 @@ public record MakeCast() {
                 return "";
             }
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE STRING");
+            throw new IllegalArgumentException(keyWord + " must be string");
         }
-        throw new IllegalArgumentException("NO " + keyWord);
+        throw new IllegalArgumentException("no " + keyWord);
     }
 
     public static String makeStringIfContainsKeyMapElseReturnEmpty(Map<String, Object> configJson, String keyWord) throws IllegalArgumentException {
@@ -88,7 +88,7 @@ public record MakeCast() {
         try {
             return (String) Optional.ofNullable(configJson).orElse("");
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE STRING");
+            throw new IllegalArgumentException(keyWord + " must be string");
         }
 
     }
@@ -101,9 +101,9 @@ public record MakeCast() {
                 return false;
             }
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE BOOLEAN");
+            throw new IllegalArgumentException(keyWord + " must be boolean");
         }
-        throw new IllegalArgumentException("NO " + keyWord);
+        throw new IllegalArgumentException("no " + keyWord);
     }
     public static Map<String, Map<String, List<String>>> makeMapOfMapOfList(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
@@ -113,9 +113,9 @@ public record MakeCast() {
                 return new HashMap<>();
             }
         } catch (ClassCastException ex) {
-            throw new IllegalArgumentException(keyWord + " MUST BE MAP OF MAP OF LIST");
+            throw new IllegalArgumentException(keyWord + " must be map of map of list");
         }
-        throw new IllegalArgumentException("NO " + keyWord);
+        throw new IllegalArgumentException("no " + keyWord);
     }
 
 }

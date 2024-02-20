@@ -25,7 +25,7 @@ public abstract class BaseAddress<R> implements Interpretation<R> {
         String[] urlPorts = Arrays.stream(url.split(SPLIT))
                 .filter(urlPort -> !urlPort.isEmpty()).toArray(String[]::new);
         if (urlPorts.length == 0) {
-            throw new IllegalArgumentException("NO URL");
+            throw new IllegalArgumentException("no url");
         }
         final int LAST_PORT = urlPorts.length - 1;
         endUrl = urlPorts[LAST_PORT];

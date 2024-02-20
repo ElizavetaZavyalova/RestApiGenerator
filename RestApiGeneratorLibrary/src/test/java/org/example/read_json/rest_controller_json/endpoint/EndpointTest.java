@@ -11,15 +11,12 @@ import org.example.read_json.rest_controller_json.Endpoints;
 import org.example.read_json.rest_controller_json.RestJson;
 import org.example.read_json.rest_controller_json.filter.RestJsonFilters;
 import org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms;
-import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -202,6 +199,7 @@ class EndpointTest {
         log.info(name);
         log.info(object.toString());
         Endpoint information = new Endpoint(object, createParent(), funcName);
+        information.generate();
         log.info(information.pseudonyms.toString());
         log.info("\n" + information.getDBMethods().stream().map(MethodSpec::toString).collect(Collectors.joining("\n")));
         log.info("\n" + information.getControllerMethods(beanName).stream().map(MethodSpec::toString).collect(Collectors.joining("\n")));

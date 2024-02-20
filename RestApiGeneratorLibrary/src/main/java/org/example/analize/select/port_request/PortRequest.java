@@ -148,10 +148,10 @@ public abstract class PortRequest<R> implements Interpretation<R> {
 
     void throwException(String tableName) throws IllegalArgumentException {
         if (tableName.isEmpty()) {
-            throw new IllegalArgumentException("REQUEST PORT TABLE NO TABLE");
+            throw new IllegalArgumentException("request port table is empty");
         }
         if (!Pattern.matches(IS_CORRECT_TABLE_NAME, tableName)) {
-            throw new IllegalArgumentException(tableName + "MUST STARTS ON LETTER OR _ AND CONTAINS LATTER OR _ OR DIGIT");
+            throw new IllegalArgumentException(tableName + "must starts on later or _ and contains later or digit or _");
         }
     }
 

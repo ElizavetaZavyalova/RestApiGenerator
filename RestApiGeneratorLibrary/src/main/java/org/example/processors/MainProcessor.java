@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.processors.annotations.RestApiGenerator;
 import org.example.processors.code_gen.GeneratingCode;
 import org.example.processors.code_gen.GeneratorOfCode;
+import org.example.processors.code_gen.GeneratorOfCode.LoggerColor;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
@@ -31,7 +32,7 @@ public class MainProcessor extends BaseProcessor {
             GeneratingCode generatingCode = new GeneratorOfCode(element);
             generatingCode.generate();
         }
-        log.info("Compiling.....");
+        log.info(LoggerColor.BRIGHT_CYAN+"Compiling....."+LoggerColor.RESET);
         return true;
     }
 

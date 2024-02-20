@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.example.analize.helpclass.CreateEndpoint.*;
-import static org.jooq.impl.DSL.field;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j

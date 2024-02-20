@@ -24,7 +24,7 @@ public class CallFilter extends StringFilter<CodeBlock> {
         super(CALL, val,filter);
         String[] split=val.split(SPLIT_PATH);
         if(split.length!=SPLIT_COUNT){
-            throw new IllegalArgumentException("NO PATH MUST BE LIKE path#Class#Method:"+val);
+            throw new IllegalArgumentException("In :"+filterName+  "no path must be like path#Class#Method:"+val);
         }
         path=split[PATH_PORT];
         callPort=split[METHOD_PORT];

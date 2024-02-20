@@ -1,7 +1,6 @@
 package org.example.analize.premetive;
 
 import org.example.analize.interpretation.Interpretation;
-import org.example.analize.premetive.fields_cond.BaseFieldCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.Optional;
@@ -16,7 +15,13 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
     protected String realFieldName;
 
     public enum Type {
-        STRING(_STRING), BOOLEAN(_BOOLEAN), INTEGER(_INTEGER);
+        STRING(_STRING),
+
+        BOOLEAN(_BOOLEAN),
+
+        INTEGER(_INTEGER),
+
+        LONG(_LONG);
         final String ident;
 
         Type(String ident) {
@@ -33,12 +38,16 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
                 }
             }
-            return INTEGER;
+            return LONG;
+        }
+
+        public static boolean isTypeDigit(Type type) {
+            return type.equals(INTEGER) || type.equals(LONG);
         }
 
         static String deleteType(String string, Type type) {
             if (string.endsWith(type.ident)) {
-                return string.substring(0,string.length()-type.ident.length());
+                return string.substring(0, string.length() - type.ident.length());
             }
             return string;
         }
@@ -77,16 +86,16 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         }
 
         static String deleteAction(String string, Action type) {
-            if(type.equals(DEFAULT)){
+            if (type.equals(DEFAULT)) {
                 return string.substring(type.names.length());
-            }
-            else if (string.startsWith(type.names)) {
+            } else if (string.startsWith(type.names)) {
                 return string.substring(type.names.length() + 1);
             }
             return string;
         }
-        static  Action getActionTypeIfDefault(Action type){
-            if(type.equals(DEFAULT)){
+
+        static Action getActionTypeIfDefault(Action type) {
+            if (type.equals(DEFAULT)) {
                 return EQ;
             }
             return type;
@@ -103,17 +112,17 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         this.fieldName = variable;
         this.realFieldName = Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
                 .orElse(fieldName);
-        action=Action.getActionTypeIfDefault(action);
+        action = Action.getActionTypeIfDefault(action);
         throwExceptionIfTypeAndActionIsNotCorrect();
     }
 
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {
-        if (type.equals(BaseFieldCondition.Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE) || action.equals(IN))) {
-            throw new IllegalArgumentException("TYPE BOOLEAN MUST BE EQ OR NE");
+        if (type.equals(Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE) || action.equals(IN))) {
+            throw new IllegalArgumentException("type boolean must be eq or ne");
         }
-        if (type.equals(Type.INTEGER) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {
-            throw new IllegalArgumentException("TYPE INTEGER CAN NOT BE LIKE OR NOT_LIKE");
+        if (Type.isTypeDigit(type) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {
+            throw new IllegalArgumentException("type number can't be like or not_like");
         }
     }
 }

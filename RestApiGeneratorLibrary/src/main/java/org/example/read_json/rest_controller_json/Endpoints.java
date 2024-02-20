@@ -4,6 +4,7 @@ import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties;
 
 import javax.lang.model.element.Modifier;
 import java.util.List;
@@ -39,22 +40,26 @@ public class Endpoints {
         TypeSpec.Builder repository = TypeSpec.classBuilder(repositoryName)
                 .addModifiers(Modifier.PUBLIC);
 
-        repository.addField(FieldSpec.builder(BOOLEAN_CLASS, SHOW_SQL_NAME, Modifier.PRIVATE, Modifier.FINAL).build());
+        repository.addField(FieldSpec.builder(BOOLEAN_CLASS, ApplicationProperties.showSql, Modifier.PRIVATE, Modifier.FINAL).build());
         repository.addField(FieldSpec.builder(CONTEXT_CLASS, CONTEXT, Modifier.PRIVATE, Modifier.FINAL).build())
                 .addField(FieldSpec.builder(LOGGER_CLASS, LOG_NAME, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                         .initializer("$T.getLogger(" + repositoryName + ".class.getName());", LOGGER_CLASS).build())
                 .addMethod(MethodSpec.constructorBuilder()
                         .addAnnotation(AnnotationSpec.builder(AUTOWIRED_ANNOTATION_CLASS).build())
                         .addParameter(ParameterSpec.builder(CONTEXT_CLASS, beanName).build())
-                        .addParameter(ParameterSpec.builder(BOOLEAN_CLASS, SHOW_SQL_NAME)
+                        .addParameter(ParameterSpec.builder(BOOLEAN_CLASS, ApplicationProperties.showSql)
                                 .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
-                                        .addMember(VALUE, "$S", "${" + "restGenerator." + SHOW_SQL_NAME + "}").build()).build())
+                                        .addMember(VALUE, "$S", "${" + ApplicationProperties.getParamShowSql() + "}").build()).build())
                         .addModifiers(Modifier.PUBLIC)
                         .addStatement(thisName + CONTEXT + " = " + beanName)
-                        .addStatement(thisName + SHOW_SQL_NAME + " = " + SHOW_SQL_NAME)
+                        .addStatement(thisName + ApplicationProperties.showSql + " = " + ApplicationProperties.showSql)
                         .build());
         methods.forEach(repository::addMethod);
         return repository.build();
+    }
+
+    void generate() {
+        endpoint.entrySet().parallelStream().forEach(e -> e.getValue().generate());
     }
 
     public TypeSpec createController(String controllerName, String repositoryName, String repositoryPath) throws IllegalArgumentException {

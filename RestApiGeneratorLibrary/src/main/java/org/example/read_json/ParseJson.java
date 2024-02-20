@@ -20,8 +20,7 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.VALUE_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.INFO_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.OPEN_API_CLASS;
-
-import static org.example.read_json.ParseJson.Swagger.*;
+import  org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.Swagger;
 
 
 @Getter
@@ -40,33 +39,27 @@ public class ParseJson {
             AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
         }
     }
-
-    public record Swagger() {
-        static final String title = "title";
-        static final String openApi = "restApi.openApi";
-        static final String description = "description";
-        static final String version = "version";
-
-        static String getParam(String param) {
-            return openApi + "." + param;
-        }
+    public void generate(){
+        restsJson.parallelStream().forEach(RestJson::generate);
     }
+
+
 
     static MethodSpec makeSwaggerConfiguration() {
         return MethodSpec.methodBuilder("usersMicroserviceOpenAPI").addModifiers(Modifier.PUBLIC)
-                .addParameter(ParameterSpec.builder(STRING_CLASS, title)
+                .addParameter(ParameterSpec.builder(STRING_CLASS, Swagger.title)
                         .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
-                                .addMember(VALUE, "$S", "${" + getParam(title) + "}").build()).build())
-                .addParameter(ParameterSpec.builder(STRING_CLASS, description)
+                                .addMember(VALUE, "$S", "${" + Swagger.getParam(Swagger.title) + "}").build()).build())
+                .addParameter(ParameterSpec.builder(STRING_CLASS, Swagger.description)
                         .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
-                                .addMember(VALUE, "$S", "${" + getParam(description) + "}").build()).build())
-                .addParameter(ParameterSpec.builder(STRING_CLASS, version)
+                                .addMember(VALUE, "$S", "${" +  Swagger.getParam(Swagger.description) + "}").build()).build())
+                .addParameter(ParameterSpec.builder(STRING_CLASS, Swagger.version)
                         .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
-                                .addMember(VALUE, "$S", "${" + getParam(version) + "}").build()).build())
+                                .addMember(VALUE, "$S", "${" + Swagger.getParam(Swagger.version) + "}").build()).build())
                 .addAnnotation(AnnotationSpec.builder(BEAN_ANNOTATION_CLASS).build())
                 .returns(OPEN_API_CLASS)
-                .addStatement("return new $T().info(new $T().title(" + title + ")" +
-                        ".description(" + description + ").version(" + version + "))", OPEN_API_CLASS, INFO_CLASS)
+                .addStatement("return new $T().info(new $T().title(" + Swagger.title + ")" +
+                        ".description(" + Swagger.description + ").version(" + Swagger.version + "))", OPEN_API_CLASS, INFO_CLASS)
                 .build();
     }
 

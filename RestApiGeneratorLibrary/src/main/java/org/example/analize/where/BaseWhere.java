@@ -51,8 +51,8 @@ public abstract class BaseWhere<R> implements Interpretation<R> {
         if (port.endsWith(RIGHT_CURLY_BRACKET) && port.startsWith(LEFT_CURLY_BRACKET)) {
             return makePrimitive(port.substring(LEFT_CURLY_BRACKET.length(), port.length() - RIGHT_CURLY_BRACKET.length()), table, parent);
         }
-        throw new IllegalArgumentException("FILTER MUST BE IN:" + LEFT_SQUARE_BRACKET + RIGHT_SQUARE_BRACKET + " OR " +
-                "PRIMITIVE MUST BE IN:" + LEFT_CURLY_BRACKET + RIGHT_CURLY_BRACKET);
+        throw new IllegalArgumentException("filter must be in:" + LEFT_SQUARE_BRACKET + RIGHT_SQUARE_BRACKET + " or " +
+                "primitive must be  in:" + LEFT_CURLY_BRACKET + RIGHT_CURLY_BRACKET);
     }
 
     void makeFilterResult(Interpretation<R> interpretation, R operand, String table, Endpoint parent) {

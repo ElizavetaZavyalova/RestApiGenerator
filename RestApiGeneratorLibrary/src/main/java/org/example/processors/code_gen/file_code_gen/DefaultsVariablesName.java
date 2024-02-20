@@ -75,7 +75,7 @@ public record DefaultsVariablesName() {
             private static final String javaUtil = "java.util";
             private static final String javaUtilLogging = "java.util.logging";
             public static final String LOG_NAME = "log";
-            public static final String SHOW_SQL_NAME = "showSql";
+
             public static final String RESULT_NAME = "result";
             public static final String LOG_LEVE_NAME = "INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
@@ -87,6 +87,7 @@ public record DefaultsVariablesName() {
 
             public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
             public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
+            public static final ClassName LONG_CLASS = createClass(javaLang, "Long");
             public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");
 
 

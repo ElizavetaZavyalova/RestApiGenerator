@@ -4,8 +4,11 @@ import com.squareup.javapoet.AnnotationSpec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.InterpretDb;
 import org.example.read_json.rest_controller_json.MakeCast;
+import org.example.read_json.rest_controller_json.filter.EndpointFilters;
+import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 
 import java.util.*;
 
@@ -92,10 +95,14 @@ public class Type {
 
 
     public Type(String type, Map<String, String> info,Endpoint parent) throws IllegalArgumentException {
-        requestType = RequestType.fromName(type);
-        setDefaultStatus();
-        setInfo(info);
-        createParams(info,parent);
+        try {
+            requestType = RequestType.fromName(type);
+            setDefaultStatus();
+            setInfo(info);
+            createParams(info,parent);
+        }catch (IllegalArgumentException ex){
+            throw new IllegalArgumentException("In: "+type+" "+ex.getMessage());
+        }
     }
 
     void createParams(Map<String, String> info,Endpoint parent) {
