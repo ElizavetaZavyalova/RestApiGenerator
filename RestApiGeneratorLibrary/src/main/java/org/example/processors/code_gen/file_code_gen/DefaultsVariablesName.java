@@ -29,8 +29,6 @@ public record DefaultsVariablesName() {
 
     public record Annotations() {
         public static final String VALUE = "value";
-
-
         private static final String contestAnnotations = "org.springframework.context.annotation";
         private static final String beansFactoryAnnotations = "org.springframework.beans.factory.annotation";
         public static final ClassName CONFIGURATION_ANNOTATION_CLASS = createClass(contestAnnotations, "Configuration");
@@ -45,14 +43,10 @@ public record DefaultsVariablesName() {
 
         public record Controller() {
             private static final String webBindAnnotations = "org.springframework.web.bind.annotation";
-            private static final String springStereotype="org.springframework.stereotype";
+            private static final String springStereotype = "org.springframework.stereotype";
             private static final String http = "org.springframework.http";
-
-
             private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
-
-
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
             public static final ClassName PATH_VARIABLE_ANNOTATION_CLASS = createClass(webBindAnnotations, "PathVariable");
             public static final ClassName REQUEST_PARAM_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestParam");
@@ -67,6 +61,7 @@ public record DefaultsVariablesName() {
                 public static final ClassName PATCH_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "PatchMapping");
                 public static final ClassName DELETE_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "DeleteMapping");
             }
+
             public static final ClassName REPOSITORY_ANNOTATION_CLASS = createClass(springStereotype, "Repository");
             public static final ClassName AUTOWIRED_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Autowired");
             public static final ClassName VALUE_ANNOTATION_CLASS = createClass(beansFactoryAnnotations, "Value");
@@ -75,7 +70,6 @@ public record DefaultsVariablesName() {
             private static final String javaUtil = "java.util";
             private static final String javaUtilLogging = "java.util.logging";
             public static final String LOG_NAME = "log";
-
             public static final String RESULT_NAME = "result";
             public static final String LOG_LEVE_NAME = "INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
@@ -84,25 +78,19 @@ public record DefaultsVariablesName() {
             public static final ClassName MAP_CLASS = createClass(javaUtil, "Map");
             public static final ClassName LIST_CLASS = createClass(javaUtil, "List");
             public static final ClassName STRING_CLASS = createClass(javaLang, "String");
-
             public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
             public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
             public static final ClassName LONG_CLASS = createClass(javaLang, "Long");
             public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");
-
-
+            public static final ClassName OBJECT_CLASS = createClass(javaLang, "Object");
             public static final ParameterizedTypeName REQUEST_PARAMS = ParameterizedTypeName.get(MAP_CLASS,
-                    STRING_CLASS, createClass(javaLang, "Object"));
+                    STRING_CLASS, OBJECT_CLASS);
         }
-
-
     }
 
     public record DB() {
-
         private static final String orgJooq = "org.jooq";
         private static final String orgJooqIml = "org.jooq.impl";
-
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");
         public static final ClassName CONDITION_CLASS = createClass(orgJooq, "Condition");

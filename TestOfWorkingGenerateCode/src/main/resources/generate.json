@@ -1,0 +1,30 @@
+{
+  "TypeTestSpring": {
+    "http": {
+      "Endpoint1": {
+        "type": "get",
+        "request": "user"
+      },
+      "deleteEndpoint": {
+        "type": "delete",
+        "request": "user"
+      },
+      "Endpoint2": {
+        "type": "get:f1|f2",
+        "request": "user/{id:i}/info/{Id:i}/about"
+      },
+      "postEndpoint": {
+        "type": "post:f1|f2",
+        "request": "user/info/about"
+      },
+      "putEndpoint": {
+        "type": "put:f1|f2",
+        "request": "user/info/about"
+      },
+      "patchEndpoint": {
+        "type": "patch:f1|f2",
+        "request": "user/info/about"
+      }
+    }
+  }
+}

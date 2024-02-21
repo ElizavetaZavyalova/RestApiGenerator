@@ -63,7 +63,7 @@ public class Endpoints {
     }
 
     public TypeSpec createController(String controllerName, String repositoryName, String repositoryPath) throws IllegalArgumentException {
-        String repositoryBean = repositoryName.substring(0, 1).toLowerCase() + repositoryName.substring(1) + "Bean";
+        String repositoryBean = repositoryName.substring(0, 1).toLowerCase() + repositoryName.substring(1);
         List<MethodSpec> methods = endpoint.entrySet().
                 parallelStream().map(v -> v.getValue().getControllerMethods(repositoryBean)).flatMap(List::stream).toList();
         TypeSpec.Builder controller = TypeSpec.classBuilder(controllerName)
