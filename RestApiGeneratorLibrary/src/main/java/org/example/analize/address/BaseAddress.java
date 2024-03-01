@@ -18,6 +18,9 @@ public abstract class BaseAddress<R> implements Interpretation<R> {
 
 
     PortRequestWithCondition<R> selectCurrent = null;
+    protected boolean isSelectCurrentExist(){
+        return selectCurrent!=null;
+    }
 
     String endUrl;
 

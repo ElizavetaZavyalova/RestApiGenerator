@@ -21,6 +21,10 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 
+    //delete
+    implementation 'org.jooq:jooq:3.17.8'
+    //delete
+
 
     testCompileOnly "org.projectlombok:lombok:1.18.26"
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'

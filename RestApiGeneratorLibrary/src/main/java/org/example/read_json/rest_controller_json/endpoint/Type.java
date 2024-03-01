@@ -1,14 +1,14 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.read_json.ReadJson;
-import org.example.read_json.rest_controller_json.InterpretDb;
+import org.example.analize.request.BaseRequest;
+
 import org.example.read_json.rest_controller_json.MakeCast;
-import org.example.read_json.rest_controller_json.filter.EndpointFilters;
-import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 
 import java.util.*;
 
@@ -29,7 +29,7 @@ public class Type {
     String httpOk = "OK";
     String httpException = "NOT_FOUND";
     @Setter
-    InterpretDb interpretDb;
+    BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
 
     public record RegExp() {
         public static final String SPLIT_PARAMS = "[|]";

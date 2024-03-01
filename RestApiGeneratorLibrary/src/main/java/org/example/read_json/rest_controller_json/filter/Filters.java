@@ -16,8 +16,8 @@ import static org.example.read_json.rest_controller_json.filter.Filters.Regexp.S
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.*;
 
+@Getter
 public abstract class Filters {
-    @Getter
     Map<String, Filtering<CodeBlock>> filtersMap = new HashMap<>();
     protected void initParent(Map<String, String> filters) throws IllegalArgumentException{
         filters.forEach(this::addFilter);

@@ -42,6 +42,7 @@ public class GeneratorOfCode implements GeneratingCode {
         public static final String LIGHT_BLUE = "\u001B[94m";
         public static final String LIGHT_GREEN = "\u001B[92m";
         public static final String LIGHT_PURPLE = "\u001B[95m";
+
     }
 
     ParseJson parseJson;

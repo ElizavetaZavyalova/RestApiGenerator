@@ -29,7 +29,7 @@ public class DeleteTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringDeleteRequest request=new StringDeleteRequest(req,endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.delete.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         request.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));

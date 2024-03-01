@@ -44,7 +44,7 @@ public class StringWhereTest {
         log.info("\n" + where.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         where.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
 
     @ParameterizedTest(name = "{arguments} test")

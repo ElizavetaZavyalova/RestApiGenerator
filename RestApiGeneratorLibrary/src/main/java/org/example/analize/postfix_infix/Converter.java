@@ -16,8 +16,6 @@ public class Converter {
         static final int NOT_DELETE_EMPTY_STRING_ON_END = -1;
         public static final String FIND_OPERATOR_OR_BRACKET = "([|)&(])";
         public static final String NOT_CORRECT_PATTERN = "([&|]{2})";
-
-
     }
 
 

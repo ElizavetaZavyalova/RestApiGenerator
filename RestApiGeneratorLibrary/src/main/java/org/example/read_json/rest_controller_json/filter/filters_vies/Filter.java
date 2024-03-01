@@ -7,7 +7,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.FilterSuff
 
 @AllArgsConstructor
 @Getter
-public abstract class Filter<Result> implements Filtering<Result> {
+public abstract class Filter<R> implements Filtering<R> {
     protected   FilterNames names;
     protected String filterName;
     @Getter

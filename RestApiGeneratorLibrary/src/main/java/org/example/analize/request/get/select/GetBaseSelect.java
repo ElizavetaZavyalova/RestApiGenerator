@@ -7,10 +7,13 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.List;
 
 public abstract class GetBaseSelect<R> extends PortRequestWithCondition<R> {
-    protected List<BaseField<R>> fields;
+    protected final List<BaseField<R>> fields;
     protected GetBaseSelect(String request, PortRequestWithCondition<R> select, List<String> fields, Endpoint parent) {
         super(request, select, parent);
         this.fields=fields.stream().map(fieldName->makeField(fieldName,tableName,parent)).toList();
+    }
+    protected boolean isFieldsExist(){
+        return !fields.isEmpty();
     }
     protected  abstract BaseField<R> makeField(String name,String table,Endpoint parent);
 

@@ -34,7 +34,7 @@ public class SelectTest {
         log.info(select.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         select.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams2Select")
@@ -48,7 +48,7 @@ public class SelectTest {
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         select2.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsMaxMin")
@@ -61,7 +61,7 @@ public class SelectTest {
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         select2.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsNoId")
@@ -74,7 +74,7 @@ public class SelectTest {
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         select2.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsManyToMany")
@@ -87,7 +87,7 @@ public class SelectTest {
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         select2.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams1Select() {
         return Stream.of(

@@ -43,10 +43,10 @@ public class StringDelete extends BaseDelete<CodeBlock> {
 
     @Override
     public void addParams(List<VarInfo> params) {
-        if (this.selectNext != null) {
+        if (isSelectExist()) {
             selectNext.addParams(params);
         }
-        if (this.where != null) {
+        if (isWhereExist()) {
             where.addParams(params);
         }
     }

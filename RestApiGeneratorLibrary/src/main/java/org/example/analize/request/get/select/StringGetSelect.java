@@ -55,7 +55,7 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock>{
 
 
     CodeBlock makeFields(){
-        if(fields==null||fields.isEmpty()){
+        if(!isFieldsExist()){
             return CodeBlock.builder().build();
         }
         return fields.stream().map(InterpretationBd::interpret)
@@ -72,11 +72,11 @@ public class StringGetSelect extends GetBaseSelect<CodeBlock>{
 
     @Override
     public void addParams(List<VarInfo> params) {
-           if(this.where!=null){
-               where.addParams(params);
-           }
-        if(this.selectNext!=null){
+        if (isSelectExist()) {
             selectNext.addParams(params);
+        }
+        if (isWhereExist()) {
+            where.addParams(params);
         }
     }
 }

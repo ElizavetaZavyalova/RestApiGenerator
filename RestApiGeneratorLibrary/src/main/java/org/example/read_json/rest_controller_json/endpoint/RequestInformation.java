@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.read_json.rest_controller_json.InterpretDb;
 import org.example.read_json.rest_controller_json.MakeCast;
+import org.example.read_json.rest_controller_json.RequestFactory;
 
 
 import javax.lang.model.element.Modifier;
@@ -19,8 +19,6 @@ import java.util.Map;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.RESULT_OF_RECORD_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.getParamShowSql;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.showSql;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
@@ -62,7 +60,7 @@ public class RequestInformation {
 
     public void generateBd(Endpoint endpoint) {
         for (Type type : types.getTypeList()) {
-            type.setInterpretDb(new InterpretDb(endpoint, type));
+            type.setInterpretDb(RequestFactory.createRequestFromType(endpoint, type));
         }
         varInfos = new ArrayList<>();
     }
@@ -76,7 +74,7 @@ public class RequestInformation {
                 methodBuilder.addParameter(parameterSpec.getParameterSpec());
             }
         }
-        return addCode(addReturns(methodBuilder, type), type).build();
+        return  type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
 
     public MethodSpec makeControllerMethod(String funcName, Type type, String beanName) {
@@ -104,8 +102,9 @@ public class RequestInformation {
         }
         return methodSpecs;
     }
-    public void generateVarInfos(){
-        types.getTypeList().get(0).getInterpretDb().getInterpretation().addParams(varInfos);
+
+    public void generateVarInfos() {
+        types.getTypeList().get(0).getInterpretDb().addParams(varInfos);
     }
 
     public List<MethodSpec> makeDBMethods(String funcName) {
@@ -115,19 +114,6 @@ public class RequestInformation {
             methodSpecs.add(makeDBMethod(funcName, type));
         }
         return methodSpecs;
-    }
-
-
-    MethodSpec.Builder addCode(MethodSpec.Builder builder, Type type) {
-        builder.addStatement(CodeBlock.builder().add("var " + RESULT_NAME + " = ")
-                .add(type.getInterpretDb().getInterpretation().interpret()).build());
-        builder.beginControlFlow("if (" + showSql + ")")
-                .addStatement(LOG_NAME + ".log($T." + LOG_LEVE_NAME + ", $S+" + RESULT_NAME + ".getSQL()+$S)", LOG_LEVEL, "\n", "\n")
-                .endControlFlow();
-        if (type.getRequestType().equals(RequestType.GET)) {
-            return builder.addStatement("return " + RESULT_NAME + ".fetch()");
-        }
-        return builder.addStatement(RESULT_NAME + ".execute()");
     }
 
     String getReturnIfGet(Type type) {

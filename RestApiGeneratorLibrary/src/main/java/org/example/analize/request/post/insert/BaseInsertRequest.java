@@ -17,6 +17,7 @@ public abstract class BaseInsertRequest<R> extends PortRequest<R> {
         this.fields = fields.stream().map(fieldName -> makeField(fieldName, tableName, parent)).toList();
     }
 
+
     protected PortRequestWithCondition<R> getAddress() {
         if (isAddressExist()) {
             return selectNext.getSelectNext();
@@ -26,13 +27,9 @@ public abstract class BaseInsertRequest<R> extends PortRequest<R> {
 
     protected boolean isAddressExist() {
         if (isSelectExist()) {
-            return selectNext.getSelectNext() != null;
+            return selectNext.getSelectNext()!=null;
         }
         return false;
-    }
-
-    protected boolean isSelectExist() {
-        return selectNext != null;
     }
 
     protected PortRequestWithCondition<R> getSelectPort() {

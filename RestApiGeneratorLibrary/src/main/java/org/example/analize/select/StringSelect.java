@@ -22,7 +22,7 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
     @Override
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
-        block.add(CONTEXT + ".select(").add(makeField("$T.field($S)"))
+        block.add(CONTEXT + ".select(").add(makeField())
                 .add(").from($T.table($S)",DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
@@ -32,7 +32,8 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
         return block.build();
     }
 
-    CodeBlock makeField(String choseField) {
+    CodeBlock makeField() {
+        String choseField="$T.field($S)";
         CodeBlock.Builder block= CodeBlock.builder();
         switch (aggregationFunction) {
             case MAX -> {
@@ -54,10 +55,10 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
     }
 
     public void addParams(List<VarInfo> params) {
-        if (this.selectNext != null) {
+        if (isSelectExist()) {
             selectNext.addParams(params);
         }
-        if (this.where != null) {
+        if (isWhereExist()) {
             where.addParams(params);
         }
     }

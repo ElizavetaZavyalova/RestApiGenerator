@@ -23,7 +23,7 @@ class DijkstraTest {
     void pathTest() {
         Dijkstra dijkstra=new Dijkstra(map);
         log.info(dijkstra.findPath("2","5").toString());
-        //log.info(dijkstra.findPath("3","5").toString());
+
     }
     @Test
     void NoPathTest() {

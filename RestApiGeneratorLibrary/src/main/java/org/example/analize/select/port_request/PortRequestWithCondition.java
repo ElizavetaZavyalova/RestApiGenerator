@@ -21,6 +21,9 @@ public abstract class PortRequestWithCondition<R> extends PortRequest<R> {
         static final int WHERE_PORT = 1;
         static final int REQUEST_PORTS_MAX_LENGTH = 2;
     }
+    protected boolean isWhereExist(){
+        return where!=null;
+    }
 
     protected PortRequestWithCondition(String request, PortRequestWithCondition<R> select, Endpoint parent) throws IllegalArgumentException {
         String[] requestPorts = request.split(SPLIT, SPLIT_LIMIT);

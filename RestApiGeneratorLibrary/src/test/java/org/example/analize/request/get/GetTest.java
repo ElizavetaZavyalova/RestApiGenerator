@@ -29,7 +29,7 @@ public class GetTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringGetRequest request = new StringGetRequest(req, par, endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.select.interpret().toString());
         List<VarInfo> list = new ArrayList<>();
         request.addParams(list);
         log.info(list.stream().map(v -> v.toString()).collect(Collectors.joining("\n")));
@@ -76,7 +76,7 @@ public class GetTest {
         Endpoint endpoint = makePath();
         log.info(req);
         StringGetRequest request = new StringGetRequest(req, par, endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.select.interpret().toString());
 
     }
 

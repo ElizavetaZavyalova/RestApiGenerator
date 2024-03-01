@@ -29,7 +29,7 @@ public class PostTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         request.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
@@ -40,7 +40,7 @@ public class PostTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         request.addParams(list);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));

@@ -96,7 +96,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
     @Override
     public void addParams(List<VarInfo> params) {
-        if (this.selectNext != null) {
+        if (isSelectExist()) {
             selectNext.addParams(params);
         }
     }

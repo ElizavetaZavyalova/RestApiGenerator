@@ -7,7 +7,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BaseGetRequest<R> extends BaseRequest<R> {
+public abstract class BaseGetRequest<R,M> extends BaseRequest<R,M> {
     PortRequestWithCondition<R> select;
     protected BaseGetRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);

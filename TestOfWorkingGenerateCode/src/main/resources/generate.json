@@ -1,13 +1,13 @@
 {
-  "TypeTestSpring": {
+  "TestOneRequest": {
     "http": {
-      "Endpoint1": {
+      "GetR1": {
         "type": "get",
-        "request": "user"
+        "request": "table1"
       },
-      "deleteEndpoint": {
+      "DeleteR2": {
         "type": "delete",
-        "request": "user"
+        "request": "table1"
       },
       "Endpoint2": {
         "type": "get:f1|f2",

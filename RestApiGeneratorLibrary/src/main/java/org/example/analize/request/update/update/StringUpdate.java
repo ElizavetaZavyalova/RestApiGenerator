@@ -1,6 +1,7 @@
 package org.example.analize.request.update.update;
 
 import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.MethodSpec;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;

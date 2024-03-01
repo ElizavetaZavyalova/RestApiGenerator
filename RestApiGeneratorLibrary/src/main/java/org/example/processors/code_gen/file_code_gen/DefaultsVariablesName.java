@@ -71,6 +71,9 @@ public record DefaultsVariablesName() {
             private static final String javaUtilLogging = "java.util.logging";
             public static final String LOG_NAME = "log";
             public static final String RESULT_NAME = "result";
+            public static final String RESULT_NAME_ORDER = "resultOrder";
+            public static final String RESULT_NAME_OFFSET = "resultOffset";
+            public static final String RESULT_NAME_LIMIT = "resultLimit";
             public static final String LOG_LEVE_NAME = "INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
             public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");
@@ -89,6 +92,14 @@ public record DefaultsVariablesName() {
     }
 
     public record DB() {
+       public record LoggerColor(){
+           public static final String _DELETE_COLOR="\n\u001B[35m";
+           public static final String _GET_COLOR="\n\u001B[34m";
+           public static final String _PUT_COLOR="\n\u001B[33m";
+           public static final String _POST_COLOR="\n\u001B[32m";
+           public static final String _PATCH_COLOR="\n\u001B[36m";
+           public static final String _RESET_COLOR="\n\u001B[0m";
+        }
         private static final String orgJooq = "org.jooq";
         private static final String orgJooqIml = "org.jooq.impl";
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");

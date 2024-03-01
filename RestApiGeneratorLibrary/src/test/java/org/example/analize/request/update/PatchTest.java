@@ -1,7 +1,8 @@
-package org.example.analize.request.update.patch;
+package org.example.analize.request.update;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.request.update.patch.StringPatchRequest;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,10 +29,10 @@ public class PatchTest {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
         StringPatchRequest request=new  StringPatchRequest(req,par,endpoint);
-        log.info(request.interpret().toString());
+        log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         request.addParams(list);
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {
         List<String> par=List.of(paramName1);

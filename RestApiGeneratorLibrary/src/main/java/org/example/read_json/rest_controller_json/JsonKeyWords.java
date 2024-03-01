@@ -16,6 +16,7 @@ public record JsonKeyWords() {
         public static final String TABLES = "tables";
         public static final String FIELDS = "fields";
         public static final String JOINS = "joins";
+        public static final String REFS = "refs";
     }
     public record ApplicationProperties(){
         public static final String restApi = "restApi";

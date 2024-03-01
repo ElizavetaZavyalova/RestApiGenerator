@@ -43,7 +43,6 @@ public class StringFilterTest {
         Mockito.doReturn(filterOr).when(endpoint).getFilter(filterNameOr);
         Mockito.doReturn("funcName").when(endpoint).getFuncName();
         Mockito.doThrow(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
-        //Mockito.doReturn(new IllegalArgumentException("NO FILTER")).when(endpoint).getFilter(noFilter);
         return endpoint;
     }
     @ParameterizedTest(name = "{arguments} test")

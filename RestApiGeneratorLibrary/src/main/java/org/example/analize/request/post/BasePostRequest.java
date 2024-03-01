@@ -8,7 +8,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BasePostRequest<R> extends BaseRequest<R> {
+public abstract class BasePostRequest<R,M> extends BaseRequest<R,M> {
     protected BaseInsertRequest<R> insert;
 
     protected BasePostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {

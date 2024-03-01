@@ -12,7 +12,6 @@ public class CallFilter extends StringFilter<CodeBlock> {
     record Regexp(){
         static final String SPLIT_PATH="#";
         static final int PATH_PORT=0;
-
         static final int CLASS_CALL=1;
         static final int METHOD_PORT=2;
         static final int SPLIT_COUNT=3;

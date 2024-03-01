@@ -20,7 +20,7 @@ public class StringAddress extends BaseAddress<CodeBlock> {
 
     @Override
     public CodeBlock interpret() {
-        if (selectCurrent != null) {
+        if (isSelectCurrentExist()) {
             return selectCurrent.interpret();
         }
         return CodeBlock.builder().build();
@@ -29,7 +29,7 @@ public class StringAddress extends BaseAddress<CodeBlock> {
 
     @Override
     public void addParams(List<VarInfo> params) {
-        if (this.selectCurrent != null) {
+        if (isSelectCurrentExist()) {
             selectCurrent.addParams(params);
         }
     }
