@@ -47,10 +47,10 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
     }
     @Override
     public void addParams(List<VarInfo> params) {
-        if(this.where!=null){
+        if(isWhereExist()){
             where.addParams(params);
         }
-        if(this.selectNext!=null){
+        if(isSelectExist()){
             selectNext.addParams(params);
         }
     }
