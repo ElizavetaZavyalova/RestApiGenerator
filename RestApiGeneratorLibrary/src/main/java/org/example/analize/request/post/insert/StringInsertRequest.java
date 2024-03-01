@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_BODY;
 
 
 public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
@@ -67,7 +67,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
     CodeBlock values() {
         return fields.stream().map(BaseField::getName)
-                .map(name -> CodeBlock.builder().add("$T.val("+REQUEST_PARAM_NAME+".get($S))", DSL_CLASS,name)
+                .map(name -> CodeBlock.builder().add("$T.val("+REQUEST_PARAM_BODY+".get($S))", DSL_CLASS,name)
                         .build()).reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());
     }

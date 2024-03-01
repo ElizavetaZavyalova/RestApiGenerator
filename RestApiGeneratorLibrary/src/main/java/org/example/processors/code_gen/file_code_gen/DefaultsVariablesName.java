@@ -20,6 +20,7 @@ public record DefaultsVariablesName() {
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
         public static final String REQUEST_PARAM_NAME = "requestParam";
+        public static final String REQUEST_PARAM_BODY = "requestBody";
         public static final String CONDITION_LIST_IN_FILTER = "conditions";
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
 
@@ -49,6 +50,7 @@ public record DefaultsVariablesName() {
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
             public static final ClassName PATH_VARIABLE_ANNOTATION_CLASS = createClass(webBindAnnotations, "PathVariable");
+            public static final ClassName REQUEST_BODY_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestBody");
             public static final ClassName REQUEST_PARAM_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestParam");
             public static final ClassName REST_CONTROLLER_ANNOTATION_CLASS = createClass(webBindAnnotations, "RestController");
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");

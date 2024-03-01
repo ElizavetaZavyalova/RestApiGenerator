@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.RESULT_OF_RECORD_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_BODY;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
@@ -74,6 +75,9 @@ public class RequestInformation {
                 methodBuilder.addParameter(parameterSpec.getParameterSpec());
             }
         }
+        if(type.isParamsBodyExist()){
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY).build());
+        }
         return  type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
 
@@ -90,6 +94,11 @@ public class RequestInformation {
         }
         methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
+        if(type.isParamsBodyExist()){
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS).build()).build());
+            params.append(", ").append(REQUEST_PARAM_BODY);
+        }
         return addReturns(methodBuilder, type).addStatement(getReturnIfGet(type) + beanName + "." + type.getRequestType().toString() + funcName +
                 "(" + params + ")").build();
     }

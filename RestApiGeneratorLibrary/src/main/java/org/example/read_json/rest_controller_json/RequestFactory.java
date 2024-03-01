@@ -17,11 +17,11 @@ public record RequestFactory() {
     public static  BaseRequest<CodeBlock, MethodSpec.Builder> createRequestFromType(Endpoint parent, Type type) {
         String request = parent.getRequestInformation().getRequest();
         return switch (type.getRequestType()) {
-            case GET -> new StringGetRequest(request, type.getParams(), parent);
-            case POST -> new StringPostRequest(request, type.getParams(), parent);
-            case PATCH -> new StringPatchRequest(request, type.getParams(), parent);
+            case GET -> new StringGetRequest(request, type.getParamsBody(), parent);
+            case POST -> new StringPostRequest(request, type.getParamsBody(), parent);
+            case PATCH -> new StringPatchRequest(request, type.getParamsBody(), parent);
             case DELETE -> new StringDeleteRequest(request, parent);
-            case PUT -> new StringPutRequest(request, type.getParams(), parent);
+            case PUT -> new StringPutRequest(request, type.getParamsBody(), parent);
             default -> throw new IllegalArgumentException("no endpoint type");
         };
     }

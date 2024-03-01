@@ -13,9 +13,8 @@ import org.example.read_json.rest_controller_json.endpoint.RequestType;
 
 import java.util.List;
 
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RESULT_NAME;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.showSql;
+
 
 public class StringPatchRequest extends BaseUpdateRequest<CodeBlock,MethodSpec.Builder> {
     public StringPatchRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {

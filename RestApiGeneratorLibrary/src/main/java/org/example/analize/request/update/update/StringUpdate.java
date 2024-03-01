@@ -1,12 +1,11 @@
 package org.example.analize.request.update.update;
 
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.MethodSpec;
+
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
-import org.example.analize.select.port_request.PortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringPortRequest;
 import org.example.analize.select.port_request.StringWereInterpret;

@@ -24,12 +24,15 @@ import static org.example.read_json.rest_controller_json.endpoint.Type.RegExp.*;
 @ToString
 public class Type {
     final RequestType requestType;
-    List<String> params = new ArrayList<>();
+    List<String> paramsBody = new ArrayList<>();
     String operationSummary = "";
     String httpOk = "OK";
     String httpException = "NOT_FOUND";
     @Setter
     BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
+    public boolean isParamsBodyExist(){
+        return !paramsBody.isEmpty();
+    }
 
     public record RegExp() {
         public static final String SPLIT_PARAMS = "[|]";
@@ -107,13 +110,13 @@ public class Type {
 
     void createParams(Map<String, String> info,Endpoint parent) {
         String paramList = Optional.ofNullable(info.get(ENTITY)).orElse("");
-        params = Arrays.stream(paramList.split(SPLIT_PARAMS)).filter(s -> !s.isEmpty())
+        paramsBody = Arrays.stream(paramList.split(SPLIT_PARAMS)).filter(s -> !s.isEmpty())
                 .map(parent::getEntity).flatMap(List::stream).toList();
         if (!requestType.equals(RequestType.DELETE)) {
             if (requestType.equals(RequestType.GET)&& !isHaveParams()) {
                 return;
-            } else if (params.isEmpty()) {
-                throw new IllegalArgumentException(paramList + "MUST be params in request post patch put");
+            } else if (paramsBody.isEmpty()) {
+                throw new IllegalArgumentException(paramList + "MUST be paramsBody in request post patch put");
             }
         }
         if (requestType.equals(RequestType.DELETE) && isHaveParams()) {
@@ -121,7 +124,7 @@ public class Type {
         }
     }
     private boolean isHaveParams(){
-        return !params.isEmpty();
+        return !paramsBody.isEmpty();
     }
 
     void setDefaultStatus() {
