@@ -1,5 +1,6 @@
 package org.example.analize.request.get;
 
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
@@ -14,8 +15,8 @@ public abstract class BaseGetRequest<R,M> extends BaseRequest<R,M> {
         select=makeSelect(address.getEndUrl(),fields,address.getSelectCurrent(),parent);
     }
     @Override
-    public void addParams(List<VarInfo> params) {
-        select.addParams(params);
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        select.addParams(params,filters);
     }
     protected abstract PortRequestWithCondition<R> makeSelect(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent);
 }

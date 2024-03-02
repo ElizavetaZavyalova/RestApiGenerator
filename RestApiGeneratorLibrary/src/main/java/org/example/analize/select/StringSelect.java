@@ -1,6 +1,7 @@
 package org.example.analize.select;
 
 import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.port_request.StringPortRequest;
@@ -54,12 +55,12 @@ public class StringSelect extends PortRequestWithCondition<CodeBlock> {
         return new StringWhere(request, tableName, parent);
     }
 
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         if (isSelectExist()) {
-            selectNext.addParams(params);
+            selectNext.addParams(params,filters);
         }
         if (isWhereExist()) {
-            where.addParams(params);
+            where.addParams(params,filters);
         }
     }
 

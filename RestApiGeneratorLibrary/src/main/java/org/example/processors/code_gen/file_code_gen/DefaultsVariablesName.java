@@ -3,6 +3,8 @@ package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
+import java.util.HashMap;
+
 public record DefaultsVariablesName() {
     public static boolean DEBUG = false;
 
@@ -19,8 +21,8 @@ public record DefaultsVariablesName() {
 
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
-        public static final String REQUEST_PARAM_NAME = "requestParam";
-        public static final String REQUEST_PARAM_BODY = "requestBody";
+        public static final String REQUEST_PARAM_NAME = "filterParam";
+        public static final String REQUEST_PARAM_BODY = "entity";
         public static final String CONDITION_LIST_IN_FILTER = "conditions";
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
 
@@ -73,23 +75,31 @@ public record DefaultsVariablesName() {
             private static final String javaUtilLogging = "java.util.logging";
             public static final String LOG_NAME = "log";
             public static final String RESULT_NAME = "result";
+            public static final String RESULT_LIST = "resultList";
+            public static final String RESULT_MAP = "resultMap";
             public static final String RESULT_NAME_ORDER = "resultOrder";
             public static final String RESULT_NAME_OFFSET = "resultOffset";
             public static final String RESULT_NAME_LIMIT = "resultLimit";
             public static final String LOG_LEVE_NAME = "INFO";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
             public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");
-            public static final ClassName OPTIONAL_CLASS = createClass(javaUtil, "Optional");
             public static final ClassName MAP_CLASS = createClass(javaUtil, "Map");
+            public static final ClassName HASH_MAP_CLASS = createClass(javaUtil, " HashMap");
             public static final ClassName LIST_CLASS = createClass(javaUtil, "List");
+            public static final ClassName ARRAYS_CLASS = createClass(javaUtil, "Arrays");
             public static final ClassName STRING_CLASS = createClass(javaLang, "String");
             public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
             public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
             public static final ClassName LONG_CLASS = createClass(javaLang, "Long");
             public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");
             public static final ClassName OBJECT_CLASS = createClass(javaLang, "Object");
-            public static final ParameterizedTypeName REQUEST_PARAMS = ParameterizedTypeName.get(MAP_CLASS,
+            public static final ParameterizedTypeName PARAMETRIZED_MAP = ParameterizedTypeName.get(MAP_CLASS,
                     STRING_CLASS, OBJECT_CLASS);
+            //HttpServletRequest request
+            private static final String servletHttp="jakarta.servlet.http";
+            public static final ClassName REQUEST_PARAMS = createClass(servletHttp, "HttpServletRequest");
+            public static final ParameterizedTypeName PARAMETERIZED_LIST = ParameterizedTypeName.get(LIST_CLASS,
+                    PARAMETRIZED_MAP);
         }
     }
 

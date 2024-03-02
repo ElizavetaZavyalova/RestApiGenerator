@@ -4,6 +4,7 @@ import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.MakeCast;
 import org.example.read_json.rest_controller_json.RequestFactory;
@@ -32,6 +33,10 @@ public class RequestInformation {
     String request;
     Types types;
     List<VarInfo> varInfos;
+    List<FilterInfo> filterInfos;
+    public boolean isParamsExist(Type type){
+        return !filterInfos.isEmpty()||type.isGetParamsExist();
+    }
 
     @Getter
     @ToString
@@ -64,44 +69,67 @@ public class RequestInformation {
             type.setInterpretDb(RequestFactory.createRequestFromType(endpoint, type));
         }
         varInfos = new ArrayList<>();
+        filterInfos=new ArrayList<>();
     }
 
     public MethodSpec makeDBMethod(String funcName, Type type) {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC);
-        methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
+        if(isParamsExist(type)) {
+            methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
+        }
         for (VarInfo parameterSpec : varInfos) {
-            if (!parameterSpec.isFilter()) {
-                methodBuilder.addParameter(parameterSpec.getParameterSpec());
-            }
+            methodBuilder.addParameter(parameterSpec.getParameterSpec());
         }
         if(type.isParamsBodyExist()){
             methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY).build());
         }
         return  type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
+    MethodSpec.Builder addParametersToControllerMethod(MethodSpec.Builder methodBuilder,Type type){
+        if(isParamsExist(type)) {
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME).build());
+                    //.addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
+        }
+        for (VarInfo parameterSpec : varInfos) {
+            methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
+        }
+        if(type.isParamsBodyExist()) {
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY).build());
+                   // .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS).build()).build());
+        }
+        return  methodBuilder;
+    }
+    StringBuilder addParametersToCallBDMethodInController(Type type){
+        StringBuilder params = new StringBuilder();
+        if(isParamsExist(type)) {
+            params.append(REQUEST_PARAM_NAME);
+        }
+        for (VarInfo parameterSpec : varInfos) {
+            if(!params.isEmpty()) {
+                params.append(", ");
+            }
+            params.append(parameterSpec.getName());
+        }
+        if(type.isParamsBodyExist()){
+            if(!params.isEmpty()) {
+                params.append(", ");
+            }
+            params.append(REQUEST_PARAM_BODY);
+        }
+        return params;
+    }
+
 
     public MethodSpec makeControllerMethod(String funcName, Type type, String beanName) {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
                 .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
-        StringBuilder params = new StringBuilder().append(REQUEST_PARAM_NAME);
-        for (VarInfo parameterSpec : varInfos) {
-            if (!parameterSpec.isFilter()) {
-                methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
-                params.append(", ").append(parameterSpec.getName());
-            }
-        }
-        methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
-                .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
-        if(type.isParamsBodyExist()){
-            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY)
-                    .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS).build()).build());
-            params.append(", ").append(REQUEST_PARAM_BODY);
-        }
+        methodBuilder=addParametersToControllerMethod(methodBuilder,type);
         return addReturns(methodBuilder, type).addStatement(getReturnIfGet(type) + beanName + "." + type.getRequestType().toString() + funcName +
-                "(" + params + ")").build();
+                "(" + addParametersToCallBDMethodInController(type) + ")").build();
     }
+
 
     public List<MethodSpec> makeControllerMethods(String funcName, String beanName) {
         List<Type> typeList = this.types.getTypeList();
@@ -113,7 +141,7 @@ public class RequestInformation {
     }
 
     public void generateVarInfos() {
-        types.getTypeList().get(0).getInterpretDb().addParams(varInfos);
+        types.getTypeList().get(0).getInterpretDb().addParams(varInfos,filterInfos);
     }
 
     public List<MethodSpec> makeDBMethods(String funcName) {
@@ -134,7 +162,7 @@ public class RequestInformation {
 
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
         if (type.getRequestType().equals(RequestType.GET)) {
-            builder.returns(RESULT_OF_RECORD_CLASS);
+            builder.returns(PARAMETERIZED_LIST);
         }
         return builder;
     }

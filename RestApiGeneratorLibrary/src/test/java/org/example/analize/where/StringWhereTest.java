@@ -2,6 +2,7 @@ package org.example.analize.where;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -43,7 +44,8 @@ public class StringWhereTest {
         log.info(req);
         log.info("\n" + where.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        where.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        where.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
 

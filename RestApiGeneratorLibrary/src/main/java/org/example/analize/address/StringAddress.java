@@ -1,6 +1,7 @@
 package org.example.analize.address;
 
 import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.select.StringSelect;
@@ -28,9 +29,9 @@ public class StringAddress extends BaseAddress<CodeBlock> {
 
 
     @Override
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         if (isSelectCurrentExist()) {
-            selectCurrent.addParams(params);
+            selectCurrent.addParams(params,filters);
         }
     }
 }

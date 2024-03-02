@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
 
@@ -67,7 +68,7 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
     CodeBlock values() {
         return fields.stream().map(BaseField::getName)
-                .map(name -> CodeBlock.builder().add("$T.val("+REQUEST_PARAM_BODY+".get($S))", DSL_CLASS,name)
+                .map(name -> CodeBlock.builder().add("$T.val("+REQUEST_PARAM_BODY+".getParameter($S))", DSL_CLASS,name)
                         .build()).reduce((v, h) -> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().build());
     }
@@ -95,9 +96,9 @@ public class StringInsertRequest extends BaseInsertRequest<CodeBlock> {
 
 
     @Override
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         if (isSelectExist()) {
-            selectNext.addParams(params);
+            selectNext.addParams(params,filters);
         }
     }
 

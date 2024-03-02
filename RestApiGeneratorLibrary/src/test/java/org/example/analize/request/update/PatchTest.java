@@ -1,6 +1,7 @@
 package org.example.analize.request.update;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.update.patch.StringPatchRequest;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
@@ -31,7 +32,8 @@ public class PatchTest {
         StringPatchRequest request=new  StringPatchRequest(req,par,endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        request.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        request.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {

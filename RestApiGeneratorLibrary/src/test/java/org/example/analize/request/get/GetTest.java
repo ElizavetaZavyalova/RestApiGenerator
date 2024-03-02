@@ -1,6 +1,7 @@
 package org.example.analize.request.get;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -31,7 +32,8 @@ public class GetTest {
         StringGetRequest request = new StringGetRequest(req, par, endpoint);
         log.info(request.select.interpret().toString());
         List<VarInfo> list = new ArrayList<>();
-        request.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        request.addParams(list,filters);
         log.info(list.stream().map(v -> v.toString()).collect(Collectors.joining("\n")));
     }
 

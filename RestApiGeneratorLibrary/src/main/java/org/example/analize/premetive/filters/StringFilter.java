@@ -2,6 +2,7 @@ package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.interpretation.Interpretation;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -30,7 +31,7 @@ public class StringFilter implements FilterInterpretation<CodeBlock> {
         result = parent.getFilter(filterName).makeFilter(parent.getFuncName(),table, def);
     }
     @Override
-    public void addParams(List<VarInfo> params) {
-        params.add(new VarInfo(filterName));
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        filters.add(new FilterInfo(filterName));
     }
 }

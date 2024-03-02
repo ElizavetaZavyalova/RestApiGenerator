@@ -1,6 +1,7 @@
 package org.example.analize.premetive.fields_cond;
 
 import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -49,7 +50,7 @@ public class StringFieldCondition extends BaseFieldCondition<CodeBlock> {
         return type;
     }
 
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         params.add(new VarInfo(createTypeByAction(), this.fieldName, this.nameInRequest));
     }
 }

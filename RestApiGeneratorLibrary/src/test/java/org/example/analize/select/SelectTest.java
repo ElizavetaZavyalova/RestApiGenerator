@@ -1,6 +1,7 @@
 package org.example.analize.select;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -33,7 +34,8 @@ public class SelectTest {
         log.info(req);
         log.info(select.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        select.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        select.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -47,7 +49,8 @@ public class SelectTest {
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        select2.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        select2.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -60,7 +63,8 @@ public class SelectTest {
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        select2.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        select2.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -73,7 +77,8 @@ public class SelectTest {
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        select2.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        select2.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -86,7 +91,8 @@ public class SelectTest {
         StringSelect select2=new StringSelect(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        select2.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        select2.addParams(list,filters);
         log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams1Select() {

@@ -58,8 +58,6 @@ public abstract class PortRequestWithCondition<R> extends PortRequest<R> {
         public static String deleteAggregationFunction(String tableName, AggregationFunction func) {
             return tableName.substring(func.name.length());
         }
-
-
     }
 
     protected abstract BaseWhere<R> makeWhere(String request, String tableName, Endpoint parent);

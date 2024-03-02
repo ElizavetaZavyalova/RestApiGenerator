@@ -1,6 +1,7 @@
 package org.example.analize.premetive.fields;
 
 import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -21,7 +22,7 @@ public class StringFieldReal extends BaseField<CodeBlock>{
 
 
     @Override
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
        //not use in request
     }
 }

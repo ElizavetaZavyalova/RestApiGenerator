@@ -1,6 +1,7 @@
 package org.example.analize.request.post;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -31,7 +32,8 @@ public class PostTest {
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
         log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        request.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        request.addParams(list,filters);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     @ParameterizedTest(name = "{arguments} test")
@@ -42,7 +44,8 @@ public class PostTest {
         StringPostRequest request=new  StringPostRequest(req,par,endpoint);
         log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        request.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        request.addParams(list,filters);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {

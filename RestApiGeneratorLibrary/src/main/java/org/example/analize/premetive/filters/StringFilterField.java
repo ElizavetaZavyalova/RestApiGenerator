@@ -2,6 +2,7 @@ package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.BaseFieldParser;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -18,7 +19,7 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder()
-                .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".containsKey($S))", fieldName)
+                .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".getParameter($S)!=null", fieldName)
                 .addStatement(makeCondition(), DSL_CLASS, "." + realFieldName, fieldName)
                 .endControlFlow()
                 .build();
@@ -64,12 +65,12 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
                 break;
             }
         }
-        return builder.append("(").append(REQUEST_PARAM_NAME + ".get($S)))").toString();
+        return builder.append("(").append(REQUEST_PARAM_NAME + ".getParameter($S)))").toString();
     }
 
 
     @Override
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
           //not in request
     }
 }

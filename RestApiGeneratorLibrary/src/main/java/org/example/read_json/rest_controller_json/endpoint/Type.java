@@ -31,7 +31,10 @@ public class Type {
     @Setter
     BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
     public boolean isParamsBodyExist(){
-        return !paramsBody.isEmpty();
+        return !paramsBody.isEmpty()&&!requestType.equals(RequestType.GET);
+    }
+    public boolean isGetParamsExist(){
+        return requestType.equals(RequestType.GET)&&!paramsBody.isEmpty();
     }
 
     public record RegExp() {

@@ -1,5 +1,6 @@
 package org.example.analize.request.post;
 
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.request.post.insert.BaseInsertRequest;
@@ -17,8 +18,8 @@ public abstract class BasePostRequest<R,M> extends BaseRequest<R,M> {
     }
 
     @Override
-    public void addParams(List<VarInfo> params) {
-        this.insert.addParams(params);
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        this.insert.addParams(params,filters);
     }
 
     abstract BaseInsertRequest<R> makeBaseInsertRequest(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent);

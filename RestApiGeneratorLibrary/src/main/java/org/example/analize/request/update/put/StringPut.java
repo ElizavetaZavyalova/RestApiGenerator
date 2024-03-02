@@ -25,7 +25,7 @@ public class StringPut extends StringUpdate {
         }
         block.add(fields.stream()
                         .map(name->CodeBlock.builder()
-                                .add(name.interpret()).add(", "+REQUEST_PARAM_BODY+".containsKey($S)?($T.val("+REQUEST_PARAM_BODY+".get($S))):$T.defaultValue()",name.getName(),DSL_CLASS,name.getName(),DSL_CLASS).build())
+                                .add(name.interpret()).add(", "+REQUEST_PARAM_BODY+".getParameter($S)!=null?($T.val("+REQUEST_PARAM_BODY+".getParameter($S))):$T.defaultValue()",name.getName(),DSL_CLASS,name.getName(),DSL_CLASS).build())
                 .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                 .orElse(CodeBlock.builder().add(fields.get(0).interpret()).build()));
         block.add("))");

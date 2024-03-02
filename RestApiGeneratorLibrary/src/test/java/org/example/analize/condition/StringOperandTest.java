@@ -3,6 +3,7 @@ package org.example.analize.condition;
 import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.fields_cond.StringFieldCondition;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -46,22 +47,24 @@ class StringOperandTest {
         log.info("\n"+operand.interpret().toString());
 
         List<VarInfo> list=new ArrayList<>();
-        operand.addParams(list);
+        List<FilterInfo> filters = new ArrayList<>();
+        operand.addParams(list,filters);
+
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand2=new StringOperand(field1,makeStringFieldCondition(),op);
         List<ParameterSpec> list2=new ArrayList<>();
-        operand2.addParams(list);
+        operand2.addParams(list,filters);
         log.info(list2.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand3=new StringOperand(makeStringFieldCondition(),field2,op);
         List<ParameterSpec> list3=new ArrayList<>();
-        operand3.addParams(list);
+        operand3.addParams(list,filters);
         log.info(list3.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
         StringOperand operand4=new StringOperand(makeStringFieldCondition(),makeStringFieldCondition(),op);
         List<ParameterSpec> list4=new ArrayList<>();
-        operand4.addParams(list);
+        operand4.addParams(list,filters);
         log.info(list4.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {

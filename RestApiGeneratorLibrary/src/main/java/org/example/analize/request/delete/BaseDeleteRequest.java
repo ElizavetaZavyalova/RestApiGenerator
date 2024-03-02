@@ -1,5 +1,6 @@
 package org.example.analize.request.delete;
 
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
@@ -15,8 +16,8 @@ public abstract class BaseDeleteRequest<R,M> extends BaseRequest<R,M> {
         delete = makeDelete(address.getEndUrl(), address.getSelectCurrent(), parent);
     }
     @Override
-    public void addParams(List<VarInfo> params) {
-        delete.addParams(params);
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        delete.addParams(params,filters);
     }
 
     protected abstract PortRequestWithCondition<R> makeDelete(String request, PortRequestWithCondition<R> select, Endpoint parent);

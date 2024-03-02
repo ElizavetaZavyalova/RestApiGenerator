@@ -7,6 +7,7 @@ import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.premetive.fields_cond.StringFieldCondition;
 import org.example.analize.premetive.filters.StringFilter;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -61,7 +62,7 @@ public class StringWhere extends BaseWhere<CodeBlock> {
     }
 
     @Override
-    public void addParams(List<VarInfo> params) {
-        ports.forEach(port -> port.addParams(params));
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        ports.forEach(port -> port.addParams(params,filters));
     }
 }

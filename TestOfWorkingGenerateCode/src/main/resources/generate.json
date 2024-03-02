@@ -1,29 +1,32 @@
 {
   "TestOneRequest": {
+    "pseudonyms": {
+      "entity": {
+        "table1": ["fieldStr1","fieldInt1","fieldBool1"],
+        "table2": ["fieldStr2","fieldInt2","fieldBool2"],
+        "table3": ["fieldStr3","fieldInt3","fieldBool3"]
+      }
+    },
     "http": {
-      "GetR1": {
-        "type": "get",
-        "request": "table1"
-      },
-      "DeleteR2": {
+      "DeleteR1": {
         "type": "delete",
+        "request": "table1/{id}"
+      },
+      "GetR1Entity": {
+        "type": "get:table1",
+        "request": "table1/{id}"
+      },
+      "postR1": {
+        "type": "post:table1",
         "request": "table1"
       },
-      "Endpoint2": {
-        "type": "get:f1|f2",
-        "request": "user/{id:i}/info/{Id:i}/about"
+      "putR1": {
+        "type": "put:table1",
+        "request": "table1/{id}"
       },
-      "postEndpoint": {
-        "type": "post:f1|f2",
-        "request": "user/info/about"
-      },
-      "putEndpoint": {
-        "type": "put:f1|f2",
-        "request": "user/info/about"
-      },
-      "patchEndpoint": {
-        "type": "patch:f1|f2",
-        "request": "user/info/about"
+      "patchR1": {
+        "type": "patch:table1",
+        "request": "table1/{id}"
       }
     }
   }

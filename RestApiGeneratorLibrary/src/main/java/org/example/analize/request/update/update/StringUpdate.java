@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.StringFieldReal;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.StringSelect;
 import org.example.analize.select.port_request.PortRequestWithCondition;
@@ -46,12 +47,12 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
         return  new StringFieldReal(name,table,parent);
     }
     @Override
-    public void addParams(List<VarInfo> params) {
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         if(isWhereExist()){
-            where.addParams(params);
+            where.addParams(params,filters);
         }
         if(isSelectExist()){
-            selectNext.addParams(params);
+            selectNext.addParams(params,filters);
         }
     }
 

@@ -1,0 +1,51 @@
+
+o
+java:S1192("RDefine a constant instead of duplicating this literal "table1.fieldBool1" 5 times.(£”©Ä8»ïÑ†à1
+m
+java:S11922"KDefine a constant instead of duplicating this literal "fieldBool1" 5 times.(‹úòÿúÿÿÿÿ8¼ïÑ†à1
+n
+java:S1192("QDefine a constant instead of duplicating this literal "table1.fieldInt1" 5 times.(£”©Ä8½ïÑ†à1
+n
+java:S1192("QDefine a constant instead of duplicating this literal "table1.fieldStr1" 5 times.(£”©Ä8½ïÑ†à1
+l
+java:S1192"JDefine a constant instead of duplicating this literal "table1.id" 4 times.(û³Çûÿÿÿÿ8½ïÑ†à1
+l
+java:S11922"JDefine a constant instead of duplicating this literal "fieldStr1" 5 times.(‹úòÿúÿÿÿÿ8½ïÑ†à1
+i
+java:S1192"GDefine a constant instead of duplicating this literal "table1" 5 times.(û³Çûÿÿÿÿ8¾ïÑ†à1
+l
+java:S11922"JDefine a constant instead of duplicating this literal "fieldInt1" 5 times.(‹úòÿúÿÿÿÿ8¿ïÑ†à1
+g
+java:S1192""JDefine a constant instead of duplicating this literal "\u001b[0m" 5 times.(£¶·‚8¿ïÑ†à1
+E
+java:S5411"(Use a primitive boolean expression here.(’ÒÇâ8ÂïÑ†à1
+E
+java:S5411)"(Use a primitive boolean expression here.(’ÒÇâ8ÂïÑ†à1
+E
+java:S54113"(Use a primitive boolean expression here.(’ÒÇâ8ÂïÑ†à1
+E
+java:S5411="(Use a primitive boolean expression here.(’ÒÇâ8ÄïÑ†à1
+E
+java:S5411G"(Use a primitive boolean expression here.(’ÒÇâ8ÄïÑ†à1
+>
+java:S1116"Remove this empty statement.(µéÃğûÿÿÿÿ8€ğÑ†à1
+T
+java:S1172"2Remove this unused method parameter "filterParam".(ŒşÅıÿÿÿÿ8ğÑ†à1
+m
+java:S3457 "KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ƒğÑ†à1
+H
+java:S1452'"&Remove usage of generic wildcard type.(”Äæ×øÿÿÿÿ8¿™–‡à1
+m
+java:S3457*"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8…ğÑ†à1
+T
+java:S11721"2Remove this unused method parameter "filterParam".(–“°¨ùÿÿÿÿ8ˆğÑ†à1
+m
+java:S34574"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8‹ğÑ†à1
+T
+java:S1172;"2Remove this unused method parameter "filterParam".(˜Ââæúÿÿÿÿ8ğÑ†à1
+m
+java:S3457>"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ğÑ†à1
+N
+java:S1172E"2Remove this unused method parameter "filterParam".(§Æåz8‘ğÑ†à1
+m
+java:S3457H"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8•ğÑ†à1

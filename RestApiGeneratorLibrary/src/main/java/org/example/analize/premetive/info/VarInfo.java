@@ -19,19 +19,14 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 public class VarInfo {
     BaseFieldParser.Type type;
     String name;
-    boolean filter;
+
+
     String nameInRequest;
 
     public VarInfo(BaseFieldParser.Type type, String name, String nameInRequest) {
-        filter = false;
         this.type = type;
         this.name = name;
         this.nameInRequest=nameInRequest;
-    }
-
-    public VarInfo(String name) {
-        filter = true;
-        this.name = name;
     }
 
     public ParameterSpec getAnnotationParameterSpec() {

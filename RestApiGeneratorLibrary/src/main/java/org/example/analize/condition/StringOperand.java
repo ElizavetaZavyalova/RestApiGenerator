@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 
 import org.example.analize.interpretation.Interpretation;
 
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 
 import java.util.List;
@@ -31,9 +32,9 @@ public class StringOperand extends BaseOperand<CodeBlock> {
 
 
     @Override
-    public void addParams(List<VarInfo> params) {
-        left.addParams(params);
-        right.addParams(params);
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        left.addParams(params,filters);
+        right.addParams(params,filters);
 
     }
 }

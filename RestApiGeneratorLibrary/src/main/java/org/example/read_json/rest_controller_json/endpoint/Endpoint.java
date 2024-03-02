@@ -5,6 +5,7 @@ import com.squareup.javapoet.MethodSpec;
 import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.*;
@@ -61,9 +62,8 @@ public class Endpoint {
 
     public List<MethodSpec> getDBMethods() throws IllegalArgumentException {
         List<MethodSpec> list = new ArrayList<>(requestInformation.makeDBMethods(funcName));
-        List<String> useFilters = requestInformation.getVarInfos().stream()
-                .filter(VarInfo::isFilter)
-                .map(VarInfo::getName).distinct().toList();
+        List<String> useFilters = requestInformation.getFilterInfos().stream()
+                .map(FilterInfo::getFilterName).distinct().toList();
         for (String useFilter : useFilters) {
             Filtering<CodeBlock> filtering = getFilter(useFilter);
             if (filtering instanceof ListStringFilter listStringFilter) {

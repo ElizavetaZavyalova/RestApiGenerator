@@ -1,6 +1,7 @@
 package org.example.analize.request.update;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.update.put.StringPutRequest;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
@@ -32,7 +33,8 @@ public class PutTest {
         StringPutRequest request=new  StringPutRequest(req,par,endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
-        request.addParams(list);
+        List<FilterInfo> filters=new ArrayList<>();
+        request.addParams(list,filters);
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {
