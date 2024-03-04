@@ -2,9 +2,9 @@
   "TestOneRequest": {
     "pseudonyms": {
       "entity": {
-        "table1": ["fieldStr1","fieldInt1","fieldBool1"],
-        "table2": ["fieldStr2","fieldInt2","fieldBool2"],
-        "table3": ["fieldStr3","fieldInt3","fieldBool3"]
+        "table1": ["fieldStr1:s=str","fieldInt1:i=0","fieldBool1:b=true"],
+        "table2": ["fieldStr2:s=str","fieldInt2:i=0","fieldBool2:b=true"],
+        "table3": ["fieldStr3:s=str","fieldInt3:i=0","fieldBool3:b=true"]
       }
     },
     "http": {
@@ -12,9 +12,17 @@
         "type": "delete",
         "request": "table1/{id}"
       },
-      "GetR1Entity": {
+      "DeleteAll": {
+        "type": "delete",
+        "request": "table1"
+      },
+      "Get": {
         "type": "get:table1",
         "request": "table1/{id}"
+      },
+      "GetAll": {
+        "type": "get",
+        "request": "table1"
       },
       "postR1": {
         "type": "post:table1",

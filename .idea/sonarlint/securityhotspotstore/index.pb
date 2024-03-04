@@ -272,3 +272,5 @@ z
 JTestOfWorkingGenerateCode/src/main/java/org/example/config/ConfigRest.java,5\7\5785e208d9a5c440881b5a316c8742e59deda39a
 à
 XRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/info/FilterInfo.java,5\b\5b9ed4e6e81d5518a899cb4dfd2ee81f6d02b4c4
+ç
+]RestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/BaseFieldReal.java,a\4\a447c10dacc61abc2d05c8dabd5406cfc250d0cd

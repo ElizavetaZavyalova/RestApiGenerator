@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.jooq.impl.DSL;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public class StringField extends BaseField<CodeBlock>{
     @Override
     public CodeBlock interpret() {
         var block= CodeBlock.builder().add("$T.field($S)",DSL_CLASS, tableName + "." + realFieldName);
-        if(!realFieldName.equals(name)){
+       // if(!realFieldName.equals(name)){
             block.add(".as($S)",name);
-        }
+       // }
         return  block.build();
     }
 

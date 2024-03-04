@@ -1,0 +1,9 @@
+
+d
+java:S1128	"GRemove this unused import 'org.example.analize.premetive.info.VarInfo'.(Şù©ò8’³Êà1
+€
+java:S1128"^Remove this unused import 'org.example.read_json.rest_controller_json.filter.RestJsonFilters'.(’Ğ¬ûÿÿÿÿ8“³Êà1
+‡
+java:S1128"eRemove this unused import 'org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms'.(±Í‡´úÿÿÿÿ8“³Êà1
+€
+java:S1128"cRemove this unused import 'org.example.read_json.rest_controller_json.JsonKeyWords.ADDRESS_PREFIX'.(ŸšªĞ8“³Êà1

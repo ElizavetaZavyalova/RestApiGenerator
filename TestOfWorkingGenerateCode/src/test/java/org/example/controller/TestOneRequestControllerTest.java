@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
+import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,6 +63,16 @@ class TestOneRequestControllerTest extends RestTest {
     @MethodSource("getParams")
     void get(String request,String params) {
         super.getTest(request,params);
+    }
+    List<Map<String, Object>> selectAllFrom(String table){
+        var result = dsl.select().from(table);
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        result.fetch().forEach(r ->  {
+            Map<String, Object> resultMap = new HashMap<>();
+            Arrays.stream(r.fields()).forEach(field -> resultMap.put(field.getName(), r.getValue(field)));
+            resultList.add(resultMap);
+        });
+        return resultList;
     }
 
 

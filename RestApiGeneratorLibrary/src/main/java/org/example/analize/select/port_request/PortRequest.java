@@ -3,6 +3,7 @@ package org.example.analize.select.port_request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -27,6 +28,8 @@ public abstract class PortRequest<R> implements Interpretation<R> {
     protected String id = "id";
     @Getter
     protected String ref;
+    @Getter
+    boolean refAddressPortIsManyToMay=false;
     boolean isRefByRealName=true;
     TableRef tableRef = TableRef.DEFAULT;
 
@@ -136,10 +139,12 @@ public abstract class PortRequest<R> implements Interpretation<R> {
         setJoins(joins);
     }
 
+
     void makeSelectManyToMany(String tableName, Endpoint parent) {
         if (tableRef.equals(TableRef.DEFAULT)) {
             tableRef = TableRef.MANY_TO_ONE;
         }
+        refAddressPortIsManyToMay=true;
         selectNext = makePortRequest(tableName, selectNext, parent, true);
     }
 

@@ -8,3 +8,6 @@ VALUES (1, 'String1',101,true),
        (6, 'String6',102,false),
        (7, 'String7',104,false),
        (8, 'String8',108,true);
+INSERT INTO Table1
+(fieldStr1,fieldInt1,fieldBool1)
+VALUES ('StringNoId',101,true);

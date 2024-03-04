@@ -3,7 +3,6 @@ package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
-import java.util.HashMap;
 
 public record DefaultsVariablesName() {
     public static boolean DEBUG = false;
@@ -18,14 +17,12 @@ public record DefaultsVariablesName() {
     public static ClassName createClass(String path, String className) {
         return ClassName.get(getPath(path), className);
     }
-
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
         public static final String REQUEST_PARAM_NAME = "filterParam";
         public static final String REQUEST_PARAM_BODY = "entity";
         public static final String CONDITION_LIST_IN_FILTER = "conditions";
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
-
     }
 
     public static final String CONTEXT = "context";
@@ -96,8 +93,11 @@ public record DefaultsVariablesName() {
             public static final ParameterizedTypeName PARAMETRIZED_MAP = ParameterizedTypeName.get(MAP_CLASS,
                     STRING_CLASS, OBJECT_CLASS);
             //HttpServletRequest request
-            private static final String servletHttp="jakarta.servlet.http";
-            public static final ClassName REQUEST_PARAMS = createClass(servletHttp, "HttpServletRequest");
+            private static final String springUtil="org.springframework.util";//org.springframework.util.MultiValueMap
+            public static final ClassName MULTI_VALUE_MAP_CLASS = createClass(springUtil, "MultiValueMap");
+            public static final ParameterizedTypeName REQUEST_PARAMS  = ParameterizedTypeName.get(MULTI_VALUE_MAP_CLASS,
+                    STRING_CLASS, OBJECT_CLASS);
+
             public static final ParameterizedTypeName PARAMETERIZED_LIST = ParameterizedTypeName.get(LIST_CLASS,
                     PARAMETRIZED_MAP);
         }

@@ -1,7 +1,6 @@
 package org.example.analize.request.update.patch;
 
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.*;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.StringAddress;
 import org.example.analize.request.LoggerCreator;
@@ -13,13 +12,16 @@ import org.example.read_json.rest_controller_json.endpoint.RequestType;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.REQUEST_PARAM_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RESULT_NAME;
 
 
-public class StringPatchRequest extends BaseUpdateRequest<CodeBlock,MethodSpec.Builder> {
+public class StringPatchRequest extends BaseUpdateRequest<CodeBlock,MethodSpec.Builder, ClassName> {
     public StringPatchRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields, parent);
     }
+
+
 
     @Override
     protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
@@ -27,7 +29,7 @@ public class StringPatchRequest extends BaseUpdateRequest<CodeBlock,MethodSpec.B
     }
 
     @Override
-    protected BaseUpdate<CodeBlock> makeUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
+    protected BaseUpdate<CodeBlock,ClassName> makeUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
         return new StringPatch(request, fields,select,parent);
     }
 

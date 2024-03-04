@@ -88,15 +88,19 @@ public class RequestInformation {
     }
     MethodSpec.Builder addParametersToControllerMethod(MethodSpec.Builder methodBuilder,Type type){
         if(isParamsExist(type)) {
-            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME).build());
-                    //.addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build()).build());
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
+                            .addMember("defaultValue" ,"$S","{}").build()).build());
         }
         for (VarInfo parameterSpec : varInfos) {
             methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
         }
         if(type.isParamsBodyExist()) {
-            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY).build());
-                   // .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS).build()).build());
+            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
+                            .addMember("defaultValue" ,"$S",type.getDefaultString()).build()).build());
+             //.addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS)
+              //      .addMember("defaultValue" ,"$S","{}").build()).build());
         }
         return  methodBuilder;
     }

@@ -1,8 +1,10 @@
 package org.example.analize.request.update.update;
 
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 
 import org.example.analize.premetive.fields.BaseField;
+import org.example.analize.premetive.fields.BaseFieldReal;
 import org.example.analize.premetive.fields.StringFieldReal;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
@@ -19,7 +21,7 @@ import java.util.List;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
+public abstract class StringUpdate extends BaseUpdate<CodeBlock, ClassName>{
     protected StringUpdate(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
         super(request, fields, select, parent);
     }
@@ -27,6 +29,8 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
     protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
         return new StringPortRequest(tableName, select, parent, isPathFound);
     }
+
+
 
     @Override
     public CodeBlock interpret() {
@@ -43,7 +47,7 @@ public abstract class StringUpdate extends BaseUpdate<CodeBlock>{
 
 
     @Override
-    protected BaseField<CodeBlock> makeField(String name, String table, Endpoint parent) {
+    protected BaseFieldReal<CodeBlock,ClassName> makeField(String name, String table, Endpoint parent) {
         return  new StringFieldReal(name,table,parent);
     }
     @Override

@@ -1,5 +1,6 @@
 package org.example.analize.premetive.filters;
 
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.BaseFieldParser;
 import org.example.analize.premetive.info.FilterInfo;
@@ -8,6 +9,8 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.STRING_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
@@ -15,12 +18,20 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     public StringFilterField(String variable, Endpoint parent) throws IllegalArgumentException {
         super(variable, parent);
     }
+    public ClassName makeType() {
+        return switch (type) {
+            case STRING -> STRING_CLASS;
+            case BOOLEAN -> BOOLEAN_CLASS;
+            case INTEGER -> INTEGER_CLASS;
+            default -> LONG_CLASS;
+        };
+    }
 
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder()
-                .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".getParameter($S)!=null", fieldName)
-                .addStatement(makeCondition(), DSL_CLASS, "." + realFieldName, fieldName)
+                .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".containsKey($S))", fieldName)
+                .addStatement(makeCondition(), DSL_CLASS, "." + realFieldName,DSL_CLASS, fieldName,makeType())
                 .endControlFlow()
                 .build();
     }
@@ -65,7 +76,7 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
                 break;
             }
         }
-        return builder.append("(").append(REQUEST_PARAM_NAME + ".getParameter($S)))").toString();
+        return builder.append("($T.val(").append(REQUEST_PARAM_NAME + ".getFirst($S), $T.class)))").toString();
     }
 
 

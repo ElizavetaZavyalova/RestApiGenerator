@@ -29,8 +29,11 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         }
 
         static Type getType(String string) throws IllegalArgumentException {
+            return getType(string,LONG);
+        }
+        public static Type getType(String string,Type defaultType) throws IllegalArgumentException {
             if (string.length() < 2) {
-                throw new IllegalArgumentException(string + "is must be bigger then 2");
+                throw new IllegalArgumentException(string + "is not must be bigger then 2");
             }
             for (Type type : Type.values()) {
                 if (string.endsWith(type.ident)) {
@@ -38,14 +41,14 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
                 }
             }
-            return LONG;
+            return defaultType;
         }
 
         public static boolean isTypeDigit(Type type) {
             return type.equals(INTEGER) || type.equals(LONG);
         }
 
-        static String deleteType(String string, Type type) {
+        public static String deleteType(String string, Type type) {
             if (string.endsWith(type.ident)) {
                 return string.substring(0, string.length() - type.ident.length());
             }

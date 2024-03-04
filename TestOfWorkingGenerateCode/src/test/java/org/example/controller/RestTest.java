@@ -65,6 +65,7 @@ class RestTest extends BaseTest {
             assert false;
         }
     }
+
     protected void getTest(String request,String params) {
         request+=params.isEmpty()?(params):"?"+params;
         try {

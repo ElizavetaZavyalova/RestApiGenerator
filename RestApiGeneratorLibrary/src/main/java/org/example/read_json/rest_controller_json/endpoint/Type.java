@@ -3,6 +3,7 @@ package org.example.read_json.rest_controller_json.endpoint;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,6 +33,9 @@ public class Type {
     BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
     public boolean isParamsBodyExist(){
         return !paramsBody.isEmpty()&&!requestType.equals(RequestType.GET);
+    }
+    public String getDefaultString(){
+        return interpretDb.getDefaultString();
     }
     public boolean isGetParamsExist(){
         return requestType.equals(RequestType.GET)&&!paramsBody.isEmpty();
