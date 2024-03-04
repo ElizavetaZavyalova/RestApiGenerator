@@ -324,3 +324,9 @@ URestApiGeneratorLibrary/src/main/java/org/example/analize/request/update/put/Pu
 YRestApiGeneratorLibrary/src/main/java/org/example/analize/request/update/patch/Patch.java,9\2\92f52d0f1445d48238b85bce0c5ad41ae9df4dd0
 ï
 eRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/BaseFieldInsertUpdate.java,a\a\aa136933d1af12394119e1c035c42d84d44e8716
+è
+_RestApiGeneratorLibrary/src/main/java/org/example/analize/request/post/insert/InsertValues.java,6\1\61587fb4b553d0b248bccf5fb7c0084beaa719f4
+ò
+hRestApiGeneratorLibrary/src/main/java/org/example/analize/request/post/insert/InsertValuesReturning.java,f\5\f5dbc15096c0440d53a80a87ade6483609828ac8
+¢
+rRestApiGeneratorLibrary/src/main/java/org/example/analize/request/post/insert/InserInterpretator/InsertValues.java,9\c\9c2840c8d4e5ab7b9bb20df5947cf868f4795e51

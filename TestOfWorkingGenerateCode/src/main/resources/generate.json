@@ -3,22 +3,31 @@
     "pseudonyms": {
       "entity": {
         "table1": ["fieldStr1:s=str","fieldInt1:i=0","fieldBool1:b=true"],
+        "table7": ["fieldInt7:i=6","fieldStr7:s=str"],
         "table2": ["fieldStr2:s=str","fieldInt2:i=0","fieldBool2:b=true"],
         "table3": ["fieldStr3:s=str","fieldInt3:i=0","fieldBool3:b=true"]
       }
     },
     "http": {
-      "DeleteR1": {
-        "type": "delete",
+      "DeleteFromTable1ById": {
+        "types": "delete",
         "request": "table1/{id}"
+      },
+      "PostFromTable1ByIdToTable7": {
+        "type": "post:table7",
+        "request": "table1/{id}/table7"
       },
       "DeleteAll": {
         "type": "delete",
         "request": "table1"
       },
-      "Get": {
+      "GetTable1": {
         "type": "get:table1",
         "request": "table1/{id}"
+      },
+      "GetTable7": {
+        "type": "get",
+        "request": "table7"
       },
       "GetAll": {
         "type": "get",
@@ -30,7 +39,7 @@
       },
       "putR1": {
         "type": "put:table1",
-        "request": "table1/{id}"
+        "request": "table1/{id}&{fieldStr1:s}"
       },
       "patchR1": {
         "type": "patch:table1",

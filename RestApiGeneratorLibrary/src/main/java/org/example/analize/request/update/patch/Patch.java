@@ -22,7 +22,7 @@ public class Patch extends Update {
             return   block.add("))").build();
         }
         block.add(fields.stream().map(name-> CodeBlock.builder().add(name.interpret()).add(", !"+
-                        REQUEST_PARAM_BODY+".containsKey($S)?", name.getName()).add(name.interpret()).add(":$T.val("+REQUEST_PARAM_BODY+".getFirst($S), $T.class)",DSL_CLASS,name.getName(),name.getType()).build())
+                        REQUEST_PARAM_BODY+".containsKey($S)?", name.getName()).add(name.interpret()).add(":$T.val("+REQUEST_PARAM_BODY+".get($S))",DSL_CLASS,name.getName()).build())
                .reduce((v,h)-> CodeBlock.builder().add(v).add(", ").add(h).build())
                .orElse(CodeBlock.builder().add(fields.get(0).interpret()).build()));
         block.add("))");

@@ -1,55 +1,65 @@
 
-n
-java:S1192("LDefine a constant instead of duplicating this literal "fieldBool1" 11 times.(§Ä¸Øúÿÿÿÿ8Üâ˜®à1
-l
-java:S1192"JDefine a constant instead of duplicating this literal "table1.id" 4 times.(û³Çûÿÿÿÿ8Şâ˜®à1
-m
-java:S1192("KDefine a constant instead of duplicating this literal "fieldStr1" 11 times.(§Ä¸Øúÿÿÿÿ8ßâ˜®à1
-i
-java:S1192"GDefine a constant instead of duplicating this literal "table1" 6 times.(û³Çûÿÿÿÿ8ßâ˜®à1
-m
-java:S1192("KDefine a constant instead of duplicating this literal "fieldInt1" 11 times.(§Ä¸Øúÿÿÿÿ8àâ˜®à1
+h
+java:S11928"KDefine a constant instead of duplicating this literal "\u001b[34m" 3 times.(Õ áë8­ÂØà1
 g
-java:S1192""JDefine a constant instead of duplicating this literal "\u001b[0m" 6 times.(£¶·‚8àâ˜®à1
-F
-java:S2629T"$Invoke method(s) only conditionally.(şëÒöÿÿÿÿÿ8ìâ˜®à1
-F
-java:S2629U"$Invoke method(s) only conditionally.(‚¦©Şıÿÿÿÿ8å÷™®à1
-F
-java:S2629V"$Invoke method(s) only conditionally.(š¨“Àÿÿÿÿÿ8ÜÜš®à1
-A
-java:S2629W"$Invoke method(s) only conditionally.(œó¼¡8İÜš®à1
-E
-java:S5411"(Use a primitive boolean expression here.(’ÒÇâ8ïâ˜®à1
-E
-java:S5411)"(Use a primitive boolean expression here.(’ÒÇâ8ğâ˜®à1
-E
-java:S5411:"(Use a primitive boolean expression here.(’ÒÇâ8ğâ˜®à1
-E
-java:S5411K"(Use a primitive boolean expression here.(’ÒÇâ8ğâ˜®à1
-E
-java:S5411Y"(Use a primitive boolean expression here.(’ÒÇâ8ñâ˜®à1
-E
-java:S5411c"(Use a primitive boolean expression here.(’ÒÇâ8ñâ˜®à1
-i
-java:S2259U"GA "NullPointerException" could be thrown; "getFirst()" can return null.(‚¦©Şıÿÿÿÿ8ˆİš®à1
-i
-java:S2259V"GA "NullPointerException" could be thrown; "getFirst()" can return null.(š¨“Àÿÿÿÿÿ8‡İš®à1
+java:S1192i"JDefine a constant instead of duplicating this literal "fieldInt7" 3 times.(õÖË´8‘­ÂØà1
+g
+java:S1192i"JDefine a constant instead of duplicating this literal "fieldStr7" 3 times.(õÖË´8‘­ÂØà1
+n
+java:S1192G"LDefine a constant instead of duplicating this literal "fieldBool1" 11 times.(§Ä¸Øúÿÿÿÿ8‘­ÂØà1
+l
+java:S1192+"JDefine a constant instead of duplicating this literal "table1.id" 6 times.(û³Çûÿÿÿÿ8‘­ÂØà1
+m
+java:S1192G"KDefine a constant instead of duplicating this literal "fieldStr1" 11 times.(§Ä¸Øúÿÿÿÿ8’­ÂØà1
 d
-java:S2259W"GA "NullPointerException" could be thrown; "getFirst()" can return null.(œó¼¡8Ãø™®à1
+java:S1192!"GDefine a constant instead of duplicating this literal "table1" 8 times.(Ò¨²ô8’­ÂØà1
+m
+java:S1192G"KDefine a constant instead of duplicating this literal "fieldInt1" 11 times.(§Ä¸Øúÿÿÿÿ8’­ÂØà1
+g
+java:S1192%"JDefine a constant instead of duplicating this literal "\u001b[0m" 9 times.(£¶·‚8’­ÂØà1
+E
+java:S5411""(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+E
+java:S5411,"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+E
+java:S54116"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+E
+java:S5411H"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+E
+java:S5411Y"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+E
+java:S5411j"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+E
+java:S5411t"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+E
+java:S5411~"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+F
+java:S5411ˆ"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 >
-java:S1116"Remove this empty statement.(µéÃğûÿÿÿÿ8Ôã˜®à1
+java:S1116"Remove this empty statement.(µéÃğûÿÿÿÿ8»­ÂØà1
 m
-java:S3457 "KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ûã˜®à1
-T
-java:S1172'"2Remove this unused method parameter "filterParam".(Ï”‘‰ıÿÿÿÿ8İã˜®à1
+java:S3457#"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8½­ÂØà1
 m
-java:S3457*"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ßã˜®à1
+java:S3457-"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¾­ÂØà1
 m
-java:S3457;"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8æã˜®à1
+java:S34577"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¿­ÂØà1
+O
+java:S1172E"2Remove this unused method parameter "filterParam".(–İºş8Ã­ÂØà1
 m
-java:S3457L"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8íã˜®à1
+java:S3457I"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Å­ÂØà1
 m
-java:S3457Z"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8òã˜®à1
+java:S3457Z"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ç­ÂØà1
+F
+java:S1905i")Remove this unnecessary cast to "Select".(õÖË´8É­ÂØà1
 m
-java:S3457d"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ùã˜®à1
+java:S3457k"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ê­ÂØà1
+m
+java:S3457u"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Í­ÂØà1
+I
+java:S1125}"'Remove the unnecessary boolean literal.(½“¨¡ùÿÿÿÿ8Î­ÂØà1
+m
+java:S3457"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ï­ÂØà1
+J
+java:S1125‡"'Remove the unnecessary boolean literal.(ÀÎ¸øÿÿÿÿ8Ñ­ÂØà1
+n
+java:S3457‰"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ñ­ÂØà1

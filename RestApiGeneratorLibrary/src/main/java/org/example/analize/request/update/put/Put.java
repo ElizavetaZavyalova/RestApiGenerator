@@ -18,14 +18,9 @@ public class Put extends Update {
     protected Put(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
         super(request, fields, select, parent);
     }
-    CodeBlock makeValue(BaseFieldInsertUpdate<CodeBlock, ClassName> fieldReal){
-        if(!fieldReal.isTypeString()){
-            return CodeBlock.builder().add(REQUEST_PARAM_BODY+".containsKey($S)?($T.val("+REQUEST_PARAM_BODY+".getFirst($S), $T.class)):$T.val("+fieldReal.getDefaultValue()+", $T.class)",
-                            fieldReal.getName(),DSL_CLASS,fieldReal.getName(),fieldReal.getType(),DSL_CLASS,fieldReal.getType())
-                    .build();
-        }
-        return CodeBlock.builder().add(REQUEST_PARAM_BODY+".containsKey($S)?"+REQUEST_PARAM_BODY+".getFirst($S):$T.val("+fieldReal.getDefaultValue()+", $T.class)",
-                        fieldReal.getName(),fieldReal.getName(),DSL_CLASS,fieldReal.getType())
+    CodeBlock makeValue(BaseFieldInsertUpdate<CodeBlock,ClassName> fieldReal){
+        return CodeBlock.builder().add("$T.val("+REQUEST_PARAM_BODY+".containsKey($S)?"+REQUEST_PARAM_BODY+".get($S):"+fieldReal.getDefaultValue()+")",
+                        DSL_CLASS,fieldReal.getName(),fieldReal.getName())
                 .build();
     }
 

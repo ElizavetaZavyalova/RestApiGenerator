@@ -25,7 +25,7 @@ public record DefaultsVariablesName() {
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
     }
 
-    public static final String CONTEXT = "context";
+    public static final String CONTEXT = "context";//
 
     public record Annotations() {
         public static final String VALUE = "value";
@@ -114,6 +114,7 @@ public record DefaultsVariablesName() {
         }
         private static final String orgJooq = "org.jooq";
         private static final String orgJooqIml = "org.jooq.impl";
+        public static final ClassName SELECT_CLASS=createClass(orgJooq, "Select");
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");
         public static final ClassName CONDITION_CLASS = createClass(orgJooq, "Condition");

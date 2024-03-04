@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.SELECT_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_BODY;
 
 
@@ -48,7 +49,7 @@ public class Insert extends BaseInsert<CodeBlock, ClassName> {
     CodeBlock makeValues() {
         var block = CodeBlock.builder();
         if (isSelectExist()) {
-            block.add(".select("+CONTEXT+".select(")
+            block.add(".select(($T)"+CONTEXT+".select(",SELECT_CLASS)
                     .add("$T.field($S)",DSL_CLASS,getSelectPort().getTableName()+"."+getSelectPort().getId());
             if(!fields.isEmpty()){
                 block.add(", ").add(values());
@@ -68,15 +69,11 @@ public class Insert extends BaseInsert<CodeBlock, ClassName> {
         return block.add(".defaultValues()").build();
     }
     CodeBlock makeValue(BaseFieldInsertUpdate<CodeBlock,ClassName> fieldReal){
-        if(!fieldReal.isTypeString()){
-            return CodeBlock.builder().add(REQUEST_PARAM_BODY+".containsKey($S)?($T.val("+REQUEST_PARAM_BODY+".getFirst($S), $T.class)):$T.val("+fieldReal.getDefaultValue()+", $T.class)",
-                            fieldReal.getName(),DSL_CLASS,fieldReal.getName(),fieldReal.getType(),DSL_CLASS,fieldReal.getType())
+        return CodeBlock.builder().add("$T.val("+REQUEST_PARAM_BODY+".containsKey($S)?"+REQUEST_PARAM_BODY+".get($S):"+fieldReal.getDefaultValue()+")",
+                           DSL_CLASS,fieldReal.getName(),fieldReal.getName())
                     .build();
-        }
-        return CodeBlock.builder().add(REQUEST_PARAM_BODY+".containsKey($S)?"+REQUEST_PARAM_BODY+".getFirst($S):$T.val("+fieldReal.getDefaultValue()+", $T.class)",
-                        fieldReal.getName(),fieldReal.getName(),DSL_CLASS,fieldReal.getType())
-                .build();
     }
+
 
     CodeBlock values() {
         return fields.stream()
@@ -87,7 +84,7 @@ public class Insert extends BaseInsert<CodeBlock, ClassName> {
     CodeBlock makeInsert() {
         var block = CodeBlock.builder().add("$T.table($S)",DSL_CLASS, realTableName);
         if (isSelectExist()) {
-            block.add(", $T.field($S)",DSL_CLASS, tableName + "." + ref);
+            block.add(", $T.field($S)",DSL_CLASS,  ref);
         }
         if (!fields.isEmpty()) {
             block.add(", ").add(makeFields());

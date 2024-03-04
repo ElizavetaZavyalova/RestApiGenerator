@@ -9,6 +9,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import java.util.List;
 
 public abstract class BaseInsert<R,N> extends BasePortRequest<R> {
+
     protected List<BaseFieldInsertUpdate<R,N>> fields;
 
     protected BaseInsert(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent) {
@@ -39,7 +40,7 @@ public abstract class BaseInsert<R,N> extends BasePortRequest<R> {
         return null;
     }
     protected BaseWhere<R> getWherePort() {
-       return getSelectPort().getWhere();
+        return getSelectPort().getWhere();
     }
 
 

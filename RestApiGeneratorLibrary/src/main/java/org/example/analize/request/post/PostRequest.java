@@ -20,10 +20,6 @@ public class PostRequest extends BasePostRequest<CodeBlock, MethodSpec.Builder, 
     public PostRequest(String url, List<String> params, Endpoint parent) throws IllegalArgumentException {
         super(url, params, parent);
     }
-
-
-
-
     @Override
     protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
         return new Address(url,parent);

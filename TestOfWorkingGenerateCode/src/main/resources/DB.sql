@@ -44,3 +44,12 @@ CREATE TABLE IF NOT EXISTS Table4
     FOREIGN KEY (Table4_id) REFERENCES Table4 (id)
 
 );
+CREATE TABLE IF NOT EXISTS Table7
+(
+    id  SERIAL PRIMARY KEY,
+    fieldStr7  VARCHAR(50),
+    fieldInt7  INT,
+    Table1_id INT,
+    FOREIGN KEY (Table1_id) REFERENCES Table1 (id)
+
+);

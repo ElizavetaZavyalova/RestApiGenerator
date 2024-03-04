@@ -82,7 +82,7 @@ public class RequestInformation {
             methodBuilder.addParameter(parameterSpec.getParameterSpec());
         }
         if(type.isParamsBodyExist()){
-            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY).build());
+            methodBuilder.addParameter(ParameterSpec.builder(PARAMETRIZED_MAP, REQUEST_PARAM_BODY).build());
         }
         return  type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
@@ -96,11 +96,10 @@ public class RequestInformation {
             methodBuilder.addParameter(parameterSpec.getAnnotationParameterSpec());
         }
         if(type.isParamsBodyExist()) {
-            methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_BODY)
-                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
-                            .addMember("defaultValue" ,"$S",type.getDefaultString()).build()).build());
-             //.addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS)
-              //      .addMember("defaultValue" ,"$S","{}").build()).build());
+            methodBuilder.addParameter(ParameterSpec.builder(PARAMETRIZED_MAP, REQUEST_PARAM_BODY)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS)
+                            .addMember("required" ,"true").build()).build());
+
         }
         return  methodBuilder;
     }

@@ -20,8 +20,6 @@ public class PutRequest extends BaseUpdateRequest<CodeBlock, MethodSpec.Builder,
     public PutRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields, parent);
     }
-
-
     @Override
     protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
         return new Address(url,parent);
