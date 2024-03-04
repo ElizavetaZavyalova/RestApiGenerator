@@ -3,7 +3,7 @@ package org.example.analize.request.update;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.analize.request.update.put.StringPutRequest;
+import org.example.analize.request.update.put.PutRequest;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,7 +30,7 @@ public class PutTest {
     void ConstructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        StringPutRequest request=new  StringPutRequest(req,par,endpoint);
+        PutRequest request=new PutRequest(req,par,endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -56,7 +56,7 @@ public class PutTest {
     void ConstructorParamsThrow(String req,List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new  StringPutRequest(req,par,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new PutRequest(req,par,endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

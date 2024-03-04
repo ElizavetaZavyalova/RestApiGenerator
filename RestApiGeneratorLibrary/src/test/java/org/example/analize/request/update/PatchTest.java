@@ -3,7 +3,7 @@ package org.example.analize.request.update;
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
-import org.example.analize.request.update.patch.StringPatchRequest;
+import org.example.analize.request.update.patch.PatchRequest;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,7 +29,7 @@ public class PatchTest {
     void ConstructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        StringPatchRequest request=new  StringPatchRequest(req,par,endpoint);
+        PatchRequest request=new PatchRequest(req,par,endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -55,7 +55,7 @@ public class PatchTest {
     void ConstructorParamsThrow(String req,List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new  StringPatchRequest(req,par,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new PatchRequest(req,par,endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

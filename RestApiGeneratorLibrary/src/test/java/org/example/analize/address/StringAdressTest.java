@@ -27,7 +27,7 @@ public class StringAdressTest {
     void ConstructorParamsTest(String req) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        StringAddress address = new StringAddress(req, endpoint);
+        Address address = new Address(req, endpoint);
         log.info(address.endUrl);
         log.info(address.interpret().toString());
         List<VarInfo> list = new ArrayList<>();
@@ -45,7 +45,7 @@ public class StringAdressTest {
     void ConstructorParamsNoRefTest(String req) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        StringAddress address = new StringAddress(req, endpoint);
+        Address address = new Address(req, endpoint);
         log.info(address.endUrl);
         log.info(address.interpret().toString());
         List<VarInfo> list = new ArrayList<>();
@@ -59,7 +59,7 @@ public class StringAdressTest {
     void ConstructorParamsThrow(String req) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () -> new StringAddress(req, endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () -> new Address(req, endpoint));
         log.info(ex.getMessage());
 
     }

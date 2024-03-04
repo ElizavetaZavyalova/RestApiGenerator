@@ -30,7 +30,7 @@ public class SelectTest {
     @MethodSource("constructorParams1Select")
     void ConstructorParams1SelectTest(String req) {
         Endpoint endpoint = makeEndpoint();
-        StringSelect select=new StringSelect(req,null,endpoint);
+        Select select=new Select(req,null,endpoint);
         log.info(req);
         log.info(select.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
@@ -43,10 +43,10 @@ public class SelectTest {
     void ConstructorParams2SelectTest(String req1,String req2) {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
-        StringSelect select1=new StringSelect(req1,null,endpoint);
+        Select select1=new Select(req1,null,endpoint);
         log.info(select1.interpret().toString());
 
-        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        Select select2=new Select(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -58,9 +58,9 @@ public class SelectTest {
     void ConstructorParamsMaxMin(String req1,String req2) {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
-        StringSelect select1=new StringSelect(req1,null,endpoint);
+        Select select1=new Select(req1,null,endpoint);
         log.info(select1.interpret().toString());
-        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        Select select2=new Select(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -72,9 +72,9 @@ public class SelectTest {
     void ConstructorParamsNoIdTest(String req1,String req2) {
         Endpoint endpoint = makeEndpoint();
         log.info(req1+"/"+req2);
-        StringSelect select1=new StringSelect(req1,null,endpoint);
+        Select select1=new Select(req1,null,endpoint);
         log.info(select1.interpret().toString());
-        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        Select select2=new Select(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -86,9 +86,9 @@ public class SelectTest {
     void ConstructorParamsManyToMany(String req1,String req2) {
         Endpoint endpoint = makeEndpointManyToManyEndpoint();
         log.info(req1+"/"+req2);
-        StringSelect select1=new StringSelect(req1,null,endpoint);
+        Select select1=new Select(req1,null,endpoint);
         log.info(select1.interpret().toString());
-        StringSelect select2=new StringSelect(req2,select1,endpoint);
+        Select select2=new Select(req2,select1,endpoint);
         log.info(select2.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();

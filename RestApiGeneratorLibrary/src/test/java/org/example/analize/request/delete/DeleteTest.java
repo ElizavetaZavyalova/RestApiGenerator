@@ -29,7 +29,7 @@ public class DeleteTest {
     void ConstructorParams(String req) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        StringDeleteRequest request=new StringDeleteRequest(req,endpoint);
+        DeleteRequest request=new DeleteRequest(req,endpoint);
         log.info(request.delete.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -50,7 +50,7 @@ public class DeleteTest {
     void ConstructorParamsThrow(String req) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new  StringDeleteRequest(req,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new DeleteRequest(req,endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

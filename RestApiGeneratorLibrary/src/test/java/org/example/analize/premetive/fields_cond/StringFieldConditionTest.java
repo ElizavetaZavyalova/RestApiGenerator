@@ -31,7 +31,7 @@ public class StringFieldConditionTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsString")
     void ConstructorTestString(String name) {
-        StringFieldCondition stringField = make(name);
+        FieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -42,7 +42,7 @@ public class StringFieldConditionTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsInteger")
     void ConstructorTestInteger(String name) {
-        StringFieldCondition stringField = make(name);
+        FieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -60,7 +60,7 @@ public class StringFieldConditionTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsBoolean")
     void ConstructorTestBoolean(String name) {
-        StringFieldCondition stringField = make(name);
+        FieldCondition stringField = make(name);
         log.info(stringField.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -68,10 +68,10 @@ public class StringFieldConditionTest {
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
     }
 
-    static StringFieldCondition make(String name) throws IllegalArgumentException {
+    static FieldCondition make(String name) throws IllegalArgumentException {
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName);
-        return new StringFieldCondition(name, tableName, endpoint);
+        return new FieldCondition(name, tableName, endpoint);
     }
 
     @ParameterizedTest(name = "{arguments} test")

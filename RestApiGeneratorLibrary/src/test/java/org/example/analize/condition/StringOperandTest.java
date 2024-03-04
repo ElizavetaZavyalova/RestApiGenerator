@@ -2,7 +2,7 @@ package org.example.analize.condition;
 
 import com.squareup.javapoet.ParameterSpec;
 import lombok.extern.slf4j.Slf4j;
-import org.example.analize.premetive.fields_cond.StringFieldCondition;
+import org.example.analize.premetive.fields_cond.FieldCondition;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
@@ -34,16 +34,16 @@ class StringOperandTest {
         Mockito.doReturn(fieldName2).when(endpoint).getRealFieldName(fieldName2);
         return endpoint;
     }
-    StringFieldCondition makeStringFieldCondition(){
-        StringFieldCondition stringFieldCondition = Mockito.mock(StringFieldCondition.class);
+    FieldCondition makeStringFieldCondition(){
+        FieldCondition stringFieldCondition = Mockito.mock(FieldCondition.class);
         return stringFieldCondition;
     }
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParams")
     void StringOperandTest(String f1, String f2,String op){
-        StringFieldCondition field1=new StringFieldCondition(f1,tableName,makeEndpoint());
-        StringFieldCondition field2=new StringFieldCondition(f2,tableName,makeEndpoint());
-        StringOperand operand=new StringOperand(field1,field2,op);
+        FieldCondition field1=new FieldCondition(f1,tableName,makeEndpoint());
+        FieldCondition field2=new FieldCondition(f2,tableName,makeEndpoint());
+        Operand operand=new Operand(field1,field2,op);
         log.info("\n"+operand.interpret().toString());
 
         List<VarInfo> list=new ArrayList<>();
@@ -52,17 +52,17 @@ class StringOperandTest {
 
         log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
-        StringOperand operand2=new StringOperand(field1,makeStringFieldCondition(),op);
+        Operand operand2=new Operand(field1,makeStringFieldCondition(),op);
         List<ParameterSpec> list2=new ArrayList<>();
         operand2.addParams(list,filters);
         log.info(list2.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
-        StringOperand operand3=new StringOperand(makeStringFieldCondition(),field2,op);
+        Operand operand3=new Operand(makeStringFieldCondition(),field2,op);
         List<ParameterSpec> list3=new ArrayList<>();
         operand3.addParams(list,filters);
         log.info(list3.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
 
-        StringOperand operand4=new StringOperand(makeStringFieldCondition(),makeStringFieldCondition(),op);
+        Operand operand4=new Operand(makeStringFieldCondition(),makeStringFieldCondition(),op);
         List<ParameterSpec> list4=new ArrayList<>();
         operand4.addParams(list,filters);
         log.info(list4.stream().map(v->v.toString()).collect(Collectors.joining("\n")));

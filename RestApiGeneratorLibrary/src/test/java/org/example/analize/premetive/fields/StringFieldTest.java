@@ -19,7 +19,7 @@ class StringFieldTest {
     void testInterpret(){
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName);
-        StringField stringField=new StringField(fieldName,tableName,endpoint);
+        Field stringField=new Field(fieldName,tableName,endpoint);
         log.info(stringField.interpret().toString());
     }
 }

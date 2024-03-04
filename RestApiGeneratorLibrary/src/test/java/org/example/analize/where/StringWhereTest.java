@@ -40,7 +40,7 @@ public class StringWhereTest {
     @MethodSource("constructorParams")
     void ConstructorParamsTest(String req) {
         Endpoint endpoint = makeEndpoint();
-        StringWhere where = new StringWhere(req, table1, endpoint);
+        Where where = new Where(req, table1, endpoint);
         log.info(req);
         log.info("\n" + where.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
@@ -53,7 +53,7 @@ public class StringWhereTest {
     @MethodSource("constructorParamsFail")
     void ConstructorParamsFailTest(String req) {
         Endpoint endpoint = makeEndpoint();
-        var ex = assertThrows(IllegalArgumentException.class, () -> new StringWhere(req, table1, endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () -> new Where(req, table1, endpoint));
         log.info(ex.getMessage());
     }
 

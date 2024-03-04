@@ -1,215 +1,55 @@
 package org.example.analize.select.port_request;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.example.analize.interpretation.Interpretation;
+import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.info.FilterInfo;
+import org.example.analize.premetive.info.VarInfo;
+import org.example.analize.select.Select;
+import org.example.analize.where.BaseWhere;
+import org.example.analize.where.Where;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-import static org.example.analize.select.port_request.PortRequest.RegExp.*;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
-
-@Slf4j
-public abstract class PortRequest<R> implements Interpretation<R> {
-    @Getter
-    protected PortRequestWithCondition<R> selectNext;
-    @Getter
-    protected String tableName;
-    @Getter
-    protected String realTableName;
-    @Getter
-    protected String id = "id";
-    @Getter
-    protected String ref;
-    @Getter
-    boolean refAddressPortIsManyToMay=false;
-    boolean isRefByRealName=true;
-    TableRef tableRef = TableRef.DEFAULT;
-
-
-    protected String getRefNameTable() {
-       if(isRefByRealName) {
-           return realTableName;
-       }
-       return tableName;
+public class PortRequest extends PortRequestWithCondition<CodeBlock> {
+    @Override
+    public CodeBlock interpret() {
+        var block = CodeBlock.builder();
+        block.add(CONTEXT + ".select(").add("$T.field($S)", DSL_CLASS, tableName + "." + id)
+                .add(").from($T.table($S)",DSL_CLASS, realTableName);
+        if (!realTableName.equals(tableName)) {
+            block.add(".as($S)", tableName);
+        }
+        block.add(")");
+        block.add(WereInterpret.makeWhere(null, selectNext, tableName, ref));
+        return block.build();
     }
 
-    @AllArgsConstructor
-    enum TableRef {
-        MANY_TO_ONE(_MANY_TO_ONE),
-        ONE_TO_MANY(_ONE_TO_MANY),
+    public PortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+    super(tableName,select,parent,isPathFound);
+    }
 
-        DEFAULT(_DEFAULT);//ONE_TO_MANY
+    @Override
+    protected BaseWhere<CodeBlock> makeWhere(String request, String tableName, Endpoint parent) {
+        return new Where(request, tableName, parent);
+    }
 
-        private final String name;
-
-        public static TableRef getTableRef(String tableName) {
-            for (TableRef type : TableRef.values()) {
-                if (tableName.startsWith(type.name) && !type.equals(DEFAULT)) {
-                    return type;
-                }
-            }
-            return DEFAULT;
-        }
-
-        public static String deleteTableRef(String tableName, TableRef tableRef) {
-            return tableName.substring(tableRef.name.length());
+    @Override
+    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+        if (isSelectExist()){
+            selectNext.addParams(params,filters);
         }
     }
 
-    protected abstract PortRequestWithCondition<R> makePortRequest(String tableName, PortRequestWithCondition<R> select, Endpoint parent, boolean isPathFound);
-
-    record RegExp() {
-        static final String IS_CORRECT_TABLE_NAME = "[a-zA-Z_]\\w*";
-        static final String JOIN_SPLIT = ":";
-        static final int JOIN_CURRENT_REF_PORT = 0;
-        static final int JOIN_PREVIOUS_REF_PORT = 1;
-        static final int JOIN_TABLE_PORT = 0;
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makePortRequest(String tableName, PortRequestWithCondition<CodeBlock> select, Endpoint parent, boolean isPathFound) {
+        return new PortRequest(tableName, select, parent, isPathFound);
     }
 
-    String makeDefaultNextId() {
-        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
-            return getRefNameTable() + "_id";
-        }
-        return "id";
-    }
-
-    String makeDefaultRef() {
-        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
-            return "id";
-        }
-        return selectNext.getRefNameTable() + "_" + "id";
-    }
-
-    private boolean isJoinAndSetItIfJoin(List<String> joins) {
-        TableRef joinRef = TableRef.getTableRef(joins.get(0));
-        if (joinRef == TableRef.DEFAULT) {
-            return false;
-        }
-        tableRef = joinRef;
-        return true;
-    }
-
-    List<String> findJoins(Endpoint parent, boolean isTableRefFound) {
-        List<String> joins = parent.getRealJoinName(tableName, selectNext.tableName);
-        if (!isJoinsFound(joins)) {
-            joins = parent.getRealJoinName(realTableName, selectNext.realTableName);
-        }
-        if ((joins.size() == 1 && (!isJoinAndSetItIfJoin(joins))) && (!isTableRefFound)) {
-            makeSelectManyToMany(joins.get(JOIN_TABLE_PORT), parent);
-            return findJoins(parent, true);
-        }
-        if (isTableRefFound && !isJoinsFound(joins)) {
-            return List.of(":", ":");
-        }
-        return joins;
-    }
-
-    boolean isJoinsFound(List<String> joins) {
-        return !joins.isEmpty();
-    }
-
-    void setJoins(List<String> joins) {
-        if (!isJoinsFound(joins)) {
-            ref = makeDefaultRef();
-            selectNext.id = makeDefaultNextId();
-            return;
-        }
-        selectNext.id = joins.get(JOIN_PREVIOUS_REF_PORT).equals(JOIN_SPLIT) ?
-                (makeDefaultNextId()) : joins.get(JOIN_PREVIOUS_REF_PORT);
-        ref = joins.get(JOIN_CURRENT_REF_PORT).equals(JOIN_SPLIT) ?
-                (makeDefaultRef()) : joins.get(JOIN_CURRENT_REF_PORT);
-    }
-
-
-    void tryFindJoinsEndSetResult(Endpoint parent, boolean isPathFound) {
-        List<String> joins = findJoins(parent, false);
-        if (!isJoinsFound(joins) && !isPathFound) {
-            findPath(parent);
-            tryFindJoinsEndSetResult(parent, true);
-            return;
-        }
-        setJoins(joins);
-    }
-
-
-    void makeSelectManyToMany(String tableName, Endpoint parent) {
-        if (tableRef.equals(TableRef.DEFAULT)) {
-            tableRef = TableRef.MANY_TO_ONE;
-        }
-        refAddressPortIsManyToMay=true;
-        selectNext = makePortRequest(tableName, selectNext, parent, true);
-    }
-
-    protected abstract PortRequestWithCondition<R> makeSelect(String request, PortRequestWithCondition<R> select, Endpoint parent);
-
-
-    void throwException(String tableName) throws IllegalArgumentException {
-        if (tableName.isEmpty()) {
-            throw new IllegalArgumentException("request port table is empty");
-        }
-        if (!Pattern.matches(IS_CORRECT_TABLE_NAME, tableName)) {
-            throw new IllegalArgumentException(tableName + "must starts on later or _ and contains later or digit or _");
-        }
-    }
-
-    boolean isNoPath(List<String> path) {
-        return path.size() == 2;
-    }
-
-    List<String> makePath(Endpoint parent) {
-        List<String> path = parent.findPath(selectNext.getTableName(), tableName, false);
-        if (isNoPath(path)) {
-            path = parent.findPath(selectNext.getRealTableName(), realTableName, true);
-            return path;
-        }
-        return path;
-    }
-
-    void findPath(Endpoint parent) {
-        List<String> path = makePath(parent);
-        if (isNoPath(path)) {
-            return;
-        }
-        final int START_PORT = 1;
-        final int LAST_PORT = path.size() - 1;
-        for (int urlPortIndex = START_PORT; urlPortIndex < LAST_PORT; urlPortIndex++) {
-            selectNext = makePortRequest(path.get(urlPortIndex), selectNext, parent, true);
-        }
-    }
-
-    protected void setJoins(Endpoint parent, boolean isPathFound) {
-        if (isSelectExist()) {
-            tryFindJoinsEndSetResult(parent, isPathFound);
-        }
-    }
-    protected String getRealTableNameAndSetRef(Endpoint parent){
-        String realName=parent.getRealTableName(tableName);
-        if(realName.startsWith(_IN_ONE_WAY)){
-            this.isRefByRealName=false;
-            return realName.substring(_IN_ONE_WAY.length());
-        }
-        return realName;
-    }
-
-    protected boolean isSelectExist() {
-        return selectNext != null;
-    }
-
-
-    protected void initTableName(String tableName, PortRequestWithCondition<R> select, Endpoint parent) throws IllegalArgumentException {
-        tableRef = TableRef.getTableRef(tableName);
-        tableName = TableRef.deleteTableRef(tableName, tableRef);
-        throwException(tableName);
-        this.tableName = tableName;
-        realTableName = getRealTableNameAndSetRef(parent);
-        this.selectNext = select;
+    @Override
+    protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
+        return new Select(request, select, parent);
     }
 }
