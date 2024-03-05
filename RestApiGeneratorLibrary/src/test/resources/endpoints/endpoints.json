@@ -2,11 +2,11 @@
   "http": {
     "getEndpoint": {
       "type": "get:price|id|age",
-      "request": "user/({eq_id:i}|{eq_id:i}&{is_name:b})/name/{id:i}/{nick:s}"
+      "request": "user/({eq_id-i}|{eq_id-i}&{is_name-b})/name/{id-i}/{nick-s}"
     },
     "patchEndpoint": {
       "type": "patch:price|id|age",
-      "request": "user/({eq_id:i}|{eq_id:i}&{is_name:b})/name/{id:i}/{nick:s}"
+      "request": "user/({eq_id-i}|{eq_id-i}&{is_name-b})/name/{id-i}/{nick-s}"
     },
     "postEndpoint": {
       "type": "post:price|id|age",
@@ -14,11 +14,11 @@
     },
     "putEndpoint": {
       "type": "put:price|id|age",
-      "request": "user/({eq_id:i}|{eq_id:i}&{is_name:b})/name/{id:i}/{nick:s}"
+      "request": "user/({eq_id-i}|{eq_id-i}&{is_name-b})/name/{id-i}/{nick-s}"
     },
     "deleteEndpoint": {
       "type": "delete",
-      "request": "user/({eq_id:i}|{eq_id:i}&{is_name:b})/name/{id:i}/{nick:s}"
+      "request": "user/({eq_id-i}|{eq_id-i}&{is_name-b})/name/{id-i}/{nick-s}"
     }
   }
 }

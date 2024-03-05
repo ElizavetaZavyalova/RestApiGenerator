@@ -7,6 +7,7 @@ import org.example.analize.where.BaseWhere;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BaseInsert<R,N> extends BasePortRequest<R> {
 
@@ -16,6 +17,9 @@ public abstract class BaseInsert<R,N> extends BasePortRequest<R> {
         super.initTableName(request, select, parent);
         super.setJoins(parent,false);
         this.fields = fields.stream().map(fieldName -> makeField(fieldName, tableName, parent)).toList();
+    }
+    public String getExampleFields(){
+        return fields.stream().map(BaseFieldInsertUpdate::getExample).collect(Collectors.joining(", "));
     }
 
 

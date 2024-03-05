@@ -55,6 +55,8 @@ public record JsonKeyWords() {
             public static final String OPERATION = "operation";
             public static final String HTTP_EXCEPTION = "httpException";
             public static final String ENTITY = "entity";
+
+            public static final String FIELDS = "fields";
         }
 
         public record Request() {
@@ -96,10 +98,10 @@ public record JsonKeyWords() {
             }
 
             public record TypeVar() {
-                public static final String _STRING = ":s";
-                public static final String _INTEGER = ":i";
-                public static final String _LONG = ":l";
-                public static final String _BOOLEAN = ":b";
+                public static final String _STRING = "-s";
+                public static final String _INTEGER = "-i";
+                public static final String _LONG = "-l";
+                public static final String _BOOLEAN = "-b";
             }
 
         }

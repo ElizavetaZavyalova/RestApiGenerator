@@ -1,65 +1,69 @@
 
 h
-java:S11928"KDefine a constant instead of duplicating this literal "\u001b[34m" 3 times.(Õ áë8­ÂØà1
+java:S11927"KDefine a constant instead of duplicating this literal "\u001b[34m" 3 times.(Õ áë8­ÂØà1
 g
-java:S1192i"JDefine a constant instead of duplicating this literal "fieldInt7" 3 times.(õÖË´8‘­ÂØà1
+java:S1192p"JDefine a constant instead of duplicating this literal "fieldInt7" 3 times.(õÖË´8‘­ÂØà1
 g
-java:S1192i"JDefine a constant instead of duplicating this literal "fieldStr7" 3 times.(õÖË´8‘­ÂØà1
-n
-java:S1192G"LDefine a constant instead of duplicating this literal "fieldBool1" 11 times.(§Ä¸Øúÿÿÿÿ8‘­ÂØà1
+java:S1192p"JDefine a constant instead of duplicating this literal "fieldStr7" 3 times.(õÖË´8‘­ÂØà1
+i
+java:S1192F"LDefine a constant instead of duplicating this literal "fieldBool1" 13 times.(ÙÌÜ¾8ü¡²€á1
 l
-java:S1192+"JDefine a constant instead of duplicating this literal "table1.id" 6 times.(û³Çûÿÿÿÿ8‘­ÂØà1
-m
-java:S1192G"KDefine a constant instead of duplicating this literal "fieldStr1" 11 times.(§Ä¸Øúÿÿÿÿ8’­ÂØà1
+java:S1192*"JDefine a constant instead of duplicating this literal "table1.id" 5 times.(û³Çûÿÿÿÿ8‘­ÂØà1
+h
+java:S1192F"KDefine a constant instead of duplicating this literal "fieldStr1" 13 times.(ÙÌÜ¾8ÿ¡²€á1
 d
-java:S1192!"GDefine a constant instead of duplicating this literal "table1" 8 times.(Ò¨²ô8’­ÂØà1
-m
-java:S1192G"KDefine a constant instead of duplicating this literal "fieldInt1" 11 times.(§Ä¸Øúÿÿÿÿ8’­ÂØà1
+java:S1192 "GDefine a constant instead of duplicating this literal "table1" 8 times.(Ò¨²ô8’­ÂØà1
+h
+java:S1192F"KDefine a constant instead of duplicating this literal "fieldInt1" 13 times.(ÙÌÜ¾8¢²€á1
 g
-java:S1192%"JDefine a constant instead of duplicating this literal "\u001b[0m" 9 times.(£¶·‚8’­ÂØà1
+java:S1192$"JDefine a constant instead of duplicating this literal "\u001b[0m" 9 times.(£¶·‚8’­ÂØà1
 E
-java:S5411""(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+java:S5411!"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
 E
-java:S5411,"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+java:S5411+"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
 E
-java:S54116"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
+java:S54115"(Use a primitive boolean expression here.(’ÒÇâ8•­ÂØà1
 E
-java:S5411H"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+java:S5411O"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 E
-java:S5411Y"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+java:S5411`"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 E
-java:S5411j"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+java:S5411q"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 E
-java:S5411t"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
-E
-java:S5411~"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+java:S5411{"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 F
-java:S5411ˆ"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+java:S5411…"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
+F
+java:S5411"(Use a primitive boolean expression here.(’ÒÇâ8–­ÂØà1
 >
-java:S1116"Remove this empty statement.(µéÃğûÿÿÿÿ8»­ÂØà1
+java:S1116"Remove this empty statement.(µéÃğûÿÿÿÿ8»­ÂØà1
 m
-java:S3457#"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8½­ÂØà1
+java:S3457""KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8½­ÂØà1
 m
-java:S3457-"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¾­ÂØà1
-m
-java:S34577"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¿­ÂØà1
+java:S3457,"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¾­ÂØà1
 O
-java:S1172E"2Remove this unused method parameter "filterParam".(–İºş8Ã­ÂØà1
+java:S11723"2Remove this unused method parameter "filterParam".(½‰ œ8ª£²€á1
 m
-java:S3457I"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Å­ÂØà1
+java:S34576"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8¿­ÂØà1
+a
+java:S1612I"DReplace this lambda with method reference 'fieldsName::containsKey'.(ò™‹Ó8¶£²€á1
 m
-java:S3457Z"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ç­ÂØà1
+java:S3457P"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Å­ÂØà1
+T
+java:S1172^"2Remove this unused method parameter "filterParam".(İÉ¿‘üÿÿÿÿ8À£²€á1
+m
+java:S3457a"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ç­ÂØà1
 F
-java:S1905i")Remove this unnecessary cast to "Select".(õÖË´8É­ÂØà1
+java:S1905p")Remove this unnecessary cast to "Select".(õÖË´8É­ÂØà1
 m
-java:S3457k"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ê­ÂØà1
+java:S3457r"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ê­ÂØà1
 m
-java:S3457u"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Í­ÂØà1
-I
-java:S1125}"'Remove the unnecessary boolean literal.(½“¨¡ùÿÿÿÿ8Î­ÂØà1
-m
-java:S3457"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ï­ÂØà1
+java:S3457|"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Í­ÂØà1
 J
-java:S1125‡"'Remove the unnecessary boolean literal.(ÀÎ¸øÿÿÿÿ8Ñ­ÂØà1
+java:S1125„"'Remove the unnecessary boolean literal.(½“¨¡ùÿÿÿÿ8Î­ÂØà1
 n
-java:S3457‰"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ñ­ÂØà1
+java:S3457†"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ï­ÂØà1
+J
+java:S1125"'Remove the unnecessary boolean literal.(ÀÎ¸øÿÿÿÿ8Ñ­ÂØà1
+n
+java:S3457"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ñ­ÂØà1

@@ -3,7 +3,6 @@ package org.example.read_json.rest_controller_json.endpoint;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +14,7 @@ import java.util.*;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RequestMapping.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.OPERATION_ANNOTATION_CLASS;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.TYPE;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.*;
 
@@ -28,18 +28,21 @@ public class Type {
     List<String> paramsBody = new ArrayList<>();
     String operationSummary = "";
     String httpOk = "OK";
-    String httpException = "NOT_FOUND";
     @Setter
     BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
     public boolean isParamsBodyExist(){
         return !paramsBody.isEmpty()&&!requestType.equals(RequestType.GET);
     }
-    public String getDefaultString(){
-        return interpretDb.getDefaultString();
-    }
     public boolean isGetParamsExist(){
         return requestType.equals(RequestType.GET)&&!paramsBody.isEmpty();
     }
+    public String getExampleParams(){
+        return interpretDb.getExampleParams();
+    }
+    public String getExampleEntity(){
+        return  interpretDb.getExampleEntity();
+    }
+
 
     public record RegExp() {
         public static final String SPLIT_PARAMS = "[|]";
@@ -49,6 +52,7 @@ public class Type {
         public static final int MAX_PORT_COUNT = 2;
 
     }
+
 
     public static Type makeType(Map<String, Object> map,Endpoint parent) throws IllegalArgumentException {
         Map<String, String> result = new HashMap<>();
@@ -67,7 +71,7 @@ public class Type {
     }
 
     public AnnotationSpec getMapping(String request) {
-        AnnotationSpec.Builder mapping = null;
+        AnnotationSpec.Builder mapping;
         switch (requestType) {
             case POST: {
                 mapping = AnnotationSpec.builder(POST_MAPPING_ANNOTATION_CLASS);
@@ -145,9 +149,6 @@ public class Type {
     void setInfo(Map<String, String> info) {
         if (info.containsKey(HTTP_OK)) {
             httpOk = info.get(HTTP_OK);
-        }
-        if (info.containsKey(HTTP_EXCEPTION)) {
-            httpException = info.get(HTTP_EXCEPTION);
         }
         if (info.containsKey(OPERATION)) {
             operationSummary = info.get(OPERATION);

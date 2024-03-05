@@ -1,8 +1,12 @@
 package org.example.analize.premetive.fields;
+
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.BaseFieldParser;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import static org.example.analize.premetive.fields.BaseFieldInsertUpdate.RegExp.*;
+import static org.example.analize.premetive.fields.BaseFieldInsertUpdate.RegExpPattern.IS_BOOL;
+import static org.example.analize.premetive.fields.BaseFieldInsertUpdate.RegExpPattern.IS_DIGIT;
 
 public abstract class BaseFieldInsertUpdate<C,N> extends BaseField<C> {
     protected BaseFieldParser.Type type;
@@ -36,7 +40,32 @@ public abstract class BaseFieldInsertUpdate<C,N> extends BaseField<C> {
         if(ports.length>LENGTH_IF_CONTAINS_PORT){
             throw new IllegalArgumentException(name+": must be like name:type=defaultValue");
         }
+       throwExceptionIfDefaultValueIsNotCorrect();
         return name;
+    }
+    record RegExpPattern(){
+        static final String IS_DIGIT="^-?\\d+$";
+        static final String IS_BOOL="^(true|false)$";
+    }
+    boolean isDefaultDigit(){
+        return defaultValue.matches(IS_DIGIT);
+    }
+    boolean isDefaultBoolean(){
+        return defaultValue.matches(IS_BOOL);
+    }
+    void throwExceptionIfDefaultValueIsNotCorrect(){
+        if(!isDefaultExist()){
+            return;
+        }
+        if((type.equals(BaseFieldParser.Type.INTEGER)||type.equals(BaseFieldParser.Type.LONG))
+                &&!isDefaultDigit()){
+               throw new IllegalArgumentException(name+": not correct default value of digit");
+        }
+        else if(type.equals(BaseFieldParser.Type.BOOLEAN)
+                && (!isDefaultBoolean())){
+                throw new IllegalArgumentException(name+": not correct default value of bool");
+
+        }
     }
     public String getDefaultValue(){
         if(!isDefaultExist()){
@@ -46,6 +75,11 @@ public abstract class BaseFieldInsertUpdate<C,N> extends BaseField<C> {
              return "\""+defaultValue+"\"";
          }
          return defaultValue;
+    }
+
+
+    public  String getExample(){
+        return CodeBlock.builder().add("$S:",name).add(getDefaultValue()).build().toString();
     }
 
 }

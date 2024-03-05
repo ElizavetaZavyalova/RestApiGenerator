@@ -50,26 +50,26 @@ class StringOperandTest {
         List<FilterInfo> filters = new ArrayList<>();
         operand.addParams(list,filters);
 
-        log.info(list.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list.stream().map(VarInfo::toString).collect(Collectors.joining("\n")));
 
         Operand operand2=new Operand(field1,makeStringFieldCondition(),op);
         List<ParameterSpec> list2=new ArrayList<>();
         operand2.addParams(list,filters);
-        log.info(list2.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list2.stream().map(ParameterSpec::toString).collect(Collectors.joining("\n")));
 
         Operand operand3=new Operand(makeStringFieldCondition(),field2,op);
         List<ParameterSpec> list3=new ArrayList<>();
         operand3.addParams(list,filters);
-        log.info(list3.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list3.stream().map(ParameterSpec::toString).collect(Collectors.joining("\n")));
 
         Operand operand4=new Operand(makeStringFieldCondition(),makeStringFieldCondition(),op);
         List<ParameterSpec> list4=new ArrayList<>();
         operand4.addParams(list,filters);
-        log.info(list4.stream().map(v->v.toString()).collect(Collectors.joining("\n")));
+        log.info(list4.stream().map(ParameterSpec::toString).collect(Collectors.joining("\n")));
     }
     static public Stream<Arguments> constructorParams() {
         return Stream.of(
-                Arguments.of("like_" + fieldName1+":s","like_" + fieldName2+":s","|"),
-                Arguments.of("like_" + fieldName1+":s","like_" + fieldName2+":s","&"));
+                Arguments.of("like_" + fieldName1+"-s","like_" + fieldName2+"-s","|"),
+                Arguments.of("like_" + fieldName1+"-s","like_" + fieldName2+"-s","&"));
     }
 }

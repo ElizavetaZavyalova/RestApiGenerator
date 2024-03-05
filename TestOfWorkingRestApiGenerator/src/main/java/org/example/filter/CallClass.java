@@ -7,11 +7,11 @@ import org.jooq.Condition;
 import org.springframework.util.MultiValueMap;
 
 public record CallClass() {
-    public static Condition make(MultiValueMap<String,Object> map,String table){
+    public static Condition make(MultiValueMap<String,String> map,String table){
         return DSL.and(DSL.trueCondition(),DSL.falseCondition());
     }
 
-    public static Condition makeMain(MultiValueMap<String,Object> map, String table){
+    public static Condition makeMain(MultiValueMap<String,String> map, String table){
         return DSL.and(DSL.trueCondition(),DSL.falseCondition());
     }
 }

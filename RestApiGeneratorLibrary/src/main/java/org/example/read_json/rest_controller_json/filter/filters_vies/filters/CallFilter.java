@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.read_json.rest_controller_json.filter.filters_vies.StringFilter;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.USER_FILTER_NAME;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.createClass;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.Filter.FilterNames.CALL;
 import static org.example.read_json.rest_controller_json.filter.filters_vies.filters.CallFilter.Regexp.*;
@@ -32,6 +33,16 @@ public class CallFilter extends StringFilter<CodeBlock> {
 
     @Override
     public CodeBlock makeFilter(Object...args) {
-        return CodeBlock.builder().add("$T."+callPort+"("+REQUEST_PARAM_NAME+", "+"$S)",createClass(path,classPort),args[1]).build();
+        return CodeBlock.builder().add("$T."+callPort+"("+USER_FILTER_NAME+", "+"$S)",createClass(path,classPort),args[1]).build();
+    }
+
+    @Override
+    public boolean isHasExample() {
+        return false;
+    }
+
+    @Override
+    public String getExample() {
+        return "{}";
     }
 }

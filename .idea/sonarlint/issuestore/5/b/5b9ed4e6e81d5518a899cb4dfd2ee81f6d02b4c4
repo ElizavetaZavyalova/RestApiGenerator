@@ -1,0 +1,7 @@
+
+\
+java:S6213":Rename this variable to not match a restricted identifier.(ÌÆŽ‹ÿÿÿÿÿ8Â¼ˆ„á1
+]
+java:S1128";Remove this unused import 'lombok.RequiredArgsConstructor'.(ÑØŽúøÿÿÿÿ8Ä¼ˆ„á1
+G
+java:S1128"*Remove this unused import 'lombok.Setter'.(ó¸çµ8Ä¼ˆ„á1

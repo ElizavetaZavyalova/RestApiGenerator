@@ -19,7 +19,8 @@ public record DefaultsVariablesName() {
     }
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
-        public static final String REQUEST_PARAM_NAME = "filterParam";
+        public static final String REQUEST_PARAM_NAME = "returnFields";
+        public static final String USER_FILTER_NAME = "userFilter";
         public static final String REQUEST_PARAM_BODY = "entity";
         public static final String CONDITION_LIST_IN_FILTER = "conditions";
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
@@ -36,7 +37,10 @@ public record DefaultsVariablesName() {
 
         public record SwaggerConfig() {
             private static final String swaggerV3OasModels = "io.swagger.v3.oas.models";
+            private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             private static final String swaggerV3OasModelsInfo = "io.swagger.v3.oas.models.info";
+            public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
+            public static final ClassName PARAMETER_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Parameter");
             public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
             public static final ClassName OPEN_API_CLASS = createClass(swaggerV3OasModels, "OpenAPI");
         }
@@ -45,14 +49,13 @@ public record DefaultsVariablesName() {
             private static final String webBindAnnotations = "org.springframework.web.bind.annotation";
             private static final String springStereotype = "org.springframework.stereotype";
             private static final String http = "org.springframework.http";
-            private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
             public static final ClassName PATH_VARIABLE_ANNOTATION_CLASS = createClass(webBindAnnotations, "PathVariable");
             public static final ClassName REQUEST_BODY_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestBody");
             public static final ClassName REQUEST_PARAM_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestParam");
             public static final ClassName REST_CONTROLLER_ANNOTATION_CLASS = createClass(webBindAnnotations, "RestController");
-            public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
+
 
             public record RequestMapping() {
                 public static final ClassName REQUEST_MAPPING_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestMapping");
@@ -78,6 +81,9 @@ public record DefaultsVariablesName() {
             public static final String RESULT_NAME_OFFSET = "resultOffset";
             public static final String RESULT_NAME_LIMIT = "resultLimit";
             public static final String LOG_LEVE_NAME = "INFO";
+            public static final String FIELDS_NAME="fieldsName";
+            public static final String LIST_NAME="list";
+            public static final String LIST_NAME_DEFAULT="listDefault";
             public static final ClassName LOG_LEVEL = createClass(javaLangLevelLogger, "Level");
             public static final ClassName LOGGER_CLASS = createClass(javaUtilLogging, "Logger");
             public static final ClassName MAP_CLASS = createClass(javaUtil, "Map");
@@ -96,12 +102,13 @@ public record DefaultsVariablesName() {
             private static final String springUtil="org.springframework.util";//org.springframework.util.MultiValueMap
             public static final ClassName MULTI_VALUE_MAP_CLASS = createClass(springUtil, "MultiValueMap");
             public static final ParameterizedTypeName REQUEST_PARAMS  = ParameterizedTypeName.get(MULTI_VALUE_MAP_CLASS,
-                    STRING_CLASS, OBJECT_CLASS);
+                    STRING_CLASS, STRING_CLASS);
 
             public static final ParameterizedTypeName PARAMETERIZED_LIST = ParameterizedTypeName.get(LIST_CLASS,
                     PARAMETRIZED_MAP);
         }
     }
+
 
     public record DB() {
        public record LoggerColor(){
@@ -113,7 +120,8 @@ public record DefaultsVariablesName() {
            public static final String _RESET_COLOR="\n\u001B[0m";
         }
         private static final String orgJooq = "org.jooq";
-        private static final String orgJooqIml = "org.jooq.impl";
+        private static final String orgJooqIml = "org.jooq.impl";//Field
+        public static final ClassName FIELD_CLASS=createClass(orgJooq, "Field");
         public static final ClassName SELECT_CLASS=createClass(orgJooq, "Select");
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");

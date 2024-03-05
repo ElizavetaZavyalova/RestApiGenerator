@@ -61,19 +61,19 @@ public class StringWhereTest {
         return Stream.of(
                 Arguments.of("/{eq_"+fieldName1+"}"),
                 Arguments.of("/"),
-                Arguments.of("/{eq_"+fieldName1+"}&{eq_"+fieldName2+":s}"),
-                Arguments.of("/{eq_"+fieldName1+"}/{eq_"+fieldName2+":s}"),
+                Arguments.of("/{eq_"+fieldName1+"}&{eq_"+fieldName2+"-s}"),
+                Arguments.of("/{eq_"+fieldName1+"}/{eq_"+fieldName2+"-s}"),
                 Arguments.of("/{eq_"+fieldName1+"}/{eq_"+fieldName2+"}/{eq_"+fieldName3+"}/{eq_"+fieldName4+"}"),
                 Arguments.of("/{eq_"+fieldName1+"}&{eq_"+fieldName2+"}/{eq_"+fieldName3+"}"),
                 Arguments.of("/({eq_"+fieldName1+"}|{eq_"+fieldName2+"})&({eq_"+fieldName3+"}|{eq_"+fieldName4+"})"),
-                Arguments.of("/({eq_"+fieldName1+"}|{eq_"+fieldName2+"})&({eq_"+fieldName3+"}|{eq_"+fieldName4+"})/{like_"+fieldName1+":s}"));
+                Arguments.of("/({eq_"+fieldName1+"}|{eq_"+fieldName2+"})&({eq_"+fieldName3+"}|{eq_"+fieldName4+"})/{like_"+fieldName1+"-s}"));
     }
 
     static public Stream<Arguments> constructorParamsFail() {
         return Stream.of(
                 Arguments.of("/eq_"+fieldName1+"}"),
-                Arguments.of("/{like_"+fieldName1+":b}"),
+                Arguments.of("/{like_"+fieldName1+"-b}"),
                 Arguments.of("/{eq_"+fieldName1+"}&eq_"+fieldName2+"}"),
-                Arguments.of("/(/{like_"+fieldName1+":s}"));
+                Arguments.of("/(/{like_"+fieldName1+"-s}"));
     }
 }

@@ -2,15 +2,15 @@
   "TestOneRequest": {
     "pseudonyms": {
       "entity": {
-        "table1": ["fieldStr1:s=str","fieldInt1:i=0","fieldBool1:b=true"],
-        "table7": ["fieldInt7:i=6","fieldStr7:s=str"],
-        "table2": ["fieldStr2:s=str","fieldInt2:i=0","fieldBool2:b=true"],
-        "table3": ["fieldStr3:s=str","fieldInt3:i=0","fieldBool3:b=true"]
+        "table1": ["fieldStr1-s=str","fieldInt1-i=0","fieldBool1-b=true"],
+        "table7": ["fieldInt7-i=6","fieldStr7-s=str"],
+        "table2": ["fieldStr2-s=str","fieldInt2-i=0","fieldBool2-b=true"],
+        "table3": ["fieldStr3-s=str","fieldInt3-i=0","fieldBool3-b=true"]
       }
     },
     "http": {
       "DeleteFromTable1ById": {
-        "types": "delete",
+        "type": "delete",
         "request": "table1/{id}"
       },
       "PostFromTable1ByIdToTable7": {
@@ -37,12 +37,12 @@
         "type": "post:table1",
         "request": "table1"
       },
-      "putR1": {
-        "type": "put:table1",
-        "request": "table1/{id}&{fieldStr1:s}"
-      },
-      "patchR1": {
+      "patch": {
         "type": "patch:table1",
+        "request": "table1/{fieldInt1-i}&{fieldStr1-s}"
+      },
+      "put": {
+        "type": "put:table1",
         "request": "table1/{id}"
       }
     }

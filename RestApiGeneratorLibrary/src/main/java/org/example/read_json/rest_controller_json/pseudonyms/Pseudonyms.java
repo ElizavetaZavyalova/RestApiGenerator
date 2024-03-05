@@ -50,7 +50,7 @@ public abstract class Pseudonyms {
     private void addPseudonymsToEntity(Map<String, List<String>> entity) {
         entity.forEach((k, v) -> {
             throwExceptionIfNameIsNotCorrect(k);
-            v.parallelStream().map(n->n.split(":",2)[0]).forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
+            v.parallelStream().map(n->n.split("[-=]",2)[0]).forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
         });
         entityPseudonyms = entity;
     }

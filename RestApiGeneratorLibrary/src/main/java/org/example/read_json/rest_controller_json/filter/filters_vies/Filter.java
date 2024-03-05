@@ -21,4 +21,10 @@ public abstract class Filter<R> implements Filtering<R> {
             return name.length();
         }
     }
+    public String getVarName(){
+        return filterName;
+    }
+    protected String getDefault(){
+        return "";
+    }
 }

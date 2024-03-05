@@ -1,5 +1,6 @@
 package org.example.analize.request.post;
 
+import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.request.BaseRequest;
@@ -17,6 +18,10 @@ public abstract class BasePostRequest<R,M,N> extends BaseRequest<R,M> {
         super();
         super.init(url,parent);
         insert = makeBaseInsertRequest(address.getEndUrl(), params, address.getSelectCurrent(), parent);
+    }
+    @Override
+    public String getExampleEntity(){
+        return CodeBlock.builder().add("{").add(insert.getExampleFields()).add("}").toString();
     }
 
     @Override

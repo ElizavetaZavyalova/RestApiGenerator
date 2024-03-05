@@ -4,6 +4,7 @@ import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BaseUpdate<R,N> extends PortRequestWithCondition<R> {
 
@@ -11,6 +12,9 @@ public abstract class BaseUpdate<R,N> extends PortRequestWithCondition<R> {
     protected BaseUpdate(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent) throws IllegalArgumentException {
         super(request, select, parent);
         this.fields=fields.stream().map(fieldName->makeField(fieldName,tableName,parent)).toList();
+    }
+    public String getExampleFields(){
+        return fields.stream().map(BaseFieldInsertUpdate::getExample).collect(Collectors.joining(", "));
     }
     protected  abstract BaseFieldInsertUpdate<R,N> makeField(String name, String table, Endpoint parent);
 }

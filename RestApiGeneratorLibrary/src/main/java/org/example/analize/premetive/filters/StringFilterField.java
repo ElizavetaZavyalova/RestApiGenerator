@@ -18,6 +18,9 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     public StringFilterField(String variable, Endpoint parent) throws IllegalArgumentException {
         super(variable, parent);
     }
+    public StringFilterField(String variable) throws IllegalArgumentException {
+        super(variable);
+    }
     public ClassName makeType() {
         return switch (type) {
             case STRING -> STRING_CLASS;
@@ -25,6 +28,16 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             case INTEGER -> INTEGER_CLASS;
             default -> LONG_CLASS;
         };
+    }
+    public String makeTypeOfDefaultValue(CodeBlock.Builder builder) {
+        return switch (type) {
+            case STRING -> builder.add("$S","String").build().toString();
+            case BOOLEAN -> builder.add("true").build().toString();
+            default -> builder.add("0").build().toString();
+        };
+    }
+    public String defaultValue(){
+        return makeTypeOfDefaultValue(CodeBlock.builder().add("$S:",fieldName));
     }
 
     @Override
@@ -65,10 +78,6 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
             }
             case NOT_LIKE: {
                 builder.append("not_like");
-                break;
-            }
-            case IN: {
-                builder.append("in");
                 break;
             }
             default:{

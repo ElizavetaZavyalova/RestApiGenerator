@@ -70,7 +70,6 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         GT(_GT),
         LE(_LE),
         LT(_LT),
-        IN(_IN),
         DEFAULT(_DEFAULT);
 
         final String names;
@@ -103,16 +102,21 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
             }
             return type;
         }
-
-
     }
-
-    protected BaseFieldParser(String variable, Endpoint parent) throws IllegalArgumentException {
+    protected BaseFieldParser(String variable) throws IllegalArgumentException {
+        initFieldInfo(variable);
+    }
+    String initFieldInfo(String variable){
         nameInRequest = variable;
         type = Type.getType(variable);
         variable = Type.deleteType(variable, type);
-        action = Action.getAction(variable);
         this.fieldName = variable;
+        return variable;
+    }
+
+    protected BaseFieldParser(String variable, Endpoint parent) throws IllegalArgumentException {
+        variable=initFieldInfo(variable);
+        action = Action.getAction(variable);
         this.realFieldName = Optional.ofNullable(parent.getRealFieldName(Action.deleteAction(variable, action)))
                 .orElse(fieldName);
         action = Action.getActionTypeIfDefault(action);
@@ -121,7 +125,7 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
 
 
     void throwExceptionIfTypeAndActionIsNotCorrect() throws IllegalArgumentException {
-        if (type.equals(Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE) || action.equals(IN))) {
+        if (type.equals(Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
             throw new IllegalArgumentException("type boolean must be eq or ne");
         }
         if (Type.isTypeDigit(type) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {

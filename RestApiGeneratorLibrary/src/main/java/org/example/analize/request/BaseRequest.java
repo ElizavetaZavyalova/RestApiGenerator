@@ -23,7 +23,10 @@ public abstract class BaseRequest<R,M> implements InterpretationRequestDBBody<M>
             throw new IllegalArgumentException("NO URL");
         }
     }
-    public String getDefaultString(){
+    public String getExampleParams(){
+        return "{}";
+    }
+    public String getExampleEntity(){
         return "{}";
     }
     protected abstract BaseAddress<R> make(String url, Endpoint parent);

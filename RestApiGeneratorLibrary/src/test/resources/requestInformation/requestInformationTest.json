@@ -1,70 +1,70 @@
 {
   "TypeGet": {
     "type": "get:age|name|price",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypeGetNoFields": {
     "type": "get",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypePost": {
     "type": "post:age|name",
-    "request": "user/{eq_id:i}/{is_name:b}/name//"
+    "request": "user/{eq_id-i}/{is_name-b}/name//"
   },
   "TypePut": {
     "type": "put:age|name",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypePatch": {
     "type": "patch:age|name",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypeDelete": {
     "type": "delete",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapGet": {
     "types": {
       "get": "age|name|price"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapGetNoFields": {
     "types": {
       "get": ""
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapDelete": {
     "types": {
       "delete": ""
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapPost": {
     "types": {
       "post": "name"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapPut": {
     "types": {
       "put": "name|age"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMapPatch": {
     "types": {
       "patch": "name|age"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMap2Types": {
     "types": {
       "get": "age|name|price",
       "post": "age|name|price"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesNoMap3Types": {
     "types": {
@@ -72,7 +72,7 @@
       "post": "age|name|price",
       "patch": "age|name|price"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityGet": {
     "types": {
@@ -80,7 +80,7 @@
         "entity": "age|name|price"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityPost": {
     "types": {
@@ -88,7 +88,7 @@
         "entity": "age|name|price"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityPatch": {
     "types": {
@@ -96,7 +96,7 @@
         "entity": "age|name|price"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityDelete": {
     "types": {
@@ -104,7 +104,7 @@
         "entity": ""
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityPut": {
     "types": {
@@ -112,7 +112,7 @@
         "entity": "name"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesEntityGetNoField": {
     "types": {
@@ -120,10 +120,10 @@
         "entity": ""
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "NoTypeNoTypes": {
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesTestEntityAndNoEntity": {
     "types": {
@@ -133,7 +133,7 @@
       "post": "age",
       "patch": "age"
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesTestNoEntityGet": {
     "types": {
@@ -143,7 +143,7 @@
         "httpException": "Exception"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "TypesTestNoEntityDelete": {
     "types": {
@@ -152,7 +152,7 @@
         "httpOk": "OK"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypesAndType": {
     "types": {
@@ -162,7 +162,7 @@
       }
     },
     "type": "delete",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypesNotCorrectType": {
     "types": {
@@ -175,7 +175,7 @@
         "httpOk": "OK"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypesPostNoEntity": {
     "types": {
@@ -184,11 +184,11 @@
         "httpOk": "OK"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypePostNoEntity": {
     "type": "post",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypesPutNoEntity": {
     "types": {
@@ -197,11 +197,11 @@
         "httpOk": "OK"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypePutNoEntity": {
     "type": "put",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypesPatchNoEntity": {
     "types": {
@@ -210,14 +210,14 @@
         "httpOk": "OK"
       }
     },
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowTypePatchNoEntity": {
     "type": "patch",
-    "request": "user/{eq_id:i}/{is_name:b}/name/"
+    "request": "user/{eq_id-i}/{is_name-b}/name/"
   },
   "ThrowInRequestPostWhere": {
     "type": "post:field1",
-    "request": "user/{like_id:i}/{is_name:b}/name/"
+    "request": "user/{like_id-i}/{is_name-b}/name/"
   }
 }

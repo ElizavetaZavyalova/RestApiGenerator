@@ -38,19 +38,13 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
             case GT -> block.add(".gt(" + fieldName + ")");
             case LIKE -> block.add(".like(" + fieldName + ")");
             case NOT_LIKE -> block.add(".not_like(" + fieldName + ")");
-            case IN -> block.add(".in(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");
-            default ->  block.add(".eq(" + fieldName + ")");//EQ
+            default ->  block.add(".eq(" + fieldName + ")");
         }
         return block.build();
     }
-    Type createTypeByAction(){
-        if(action.equals(Action.IN)){
-            return Type.STRING;
-        }
-        return type;
-    }
+
 
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        params.add(new VarInfo(createTypeByAction(), this.fieldName, this.nameInRequest));
+        params.add(new VarInfo(type, this.fieldName, this.nameInRequest));
     }
 }
