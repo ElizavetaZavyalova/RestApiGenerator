@@ -24,6 +24,8 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.LIMIT;
+import static org.example.read_json.rest_controller_json.endpoint.RequestType.GET;
 
 
 @Setter
@@ -106,6 +108,9 @@ public class RequestInformation {
         for (var filter : getFilterDBNamesParameters()) {
             methodBuilder.addParameter(filter);
         }
+        if(type.getRequestType().equals(GET)) {
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, LIMIT).build());
+        }
         return type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
 
@@ -136,6 +141,11 @@ public class RequestInformation {
         for (var filter : getFilterControllerNameParameters()) {
             methodBuilder.addParameter(filter);
         }
+        if(type.getRequestType().equals(GET)){
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, LIMIT)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
+                            .addMember("defaultValue","$S", "-1").build()).build());
+        }
         return methodBuilder;
     }
 
@@ -160,6 +170,9 @@ public class RequestInformation {
         String filterParams=getFilterCallDBParameters();
         if(!filterParams.isEmpty()) {
             params = addACommaIfBuilderIsNotEmpty(params).append(filterParams);
+        }
+        if(type.getRequestType().equals(GET)){
+            params = addACommaIfBuilderIsNotEmpty(params).append(LIMIT);
         }
         return params;
     }
@@ -199,14 +212,14 @@ public class RequestInformation {
     }
 
     String getReturnIfGet(Type type) {
-        if (type.getRequestType().equals(RequestType.GET)) {
+        if (type.getRequestType().equals(GET)) {
             return "return ";
         }
         return "";
     }
 
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
-        if (type.getRequestType().equals(RequestType.GET)) {
+        if (type.getRequestType().equals(GET)) {
             builder.returns(PARAMETERIZED_LIST);
         }
         return builder;

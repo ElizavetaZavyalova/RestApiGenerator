@@ -18,5 +18,10 @@ public abstract class ListFilter<R> extends Filter<R> {
         this.val=val;
     }
 
+    public String getExample(){
+        return Optional.ofNullable(example).orElse(createExample());
+    }
 
+
+    protected abstract String createExample();
 }

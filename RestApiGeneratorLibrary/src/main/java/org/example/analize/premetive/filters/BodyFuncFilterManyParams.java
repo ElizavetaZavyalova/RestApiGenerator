@@ -34,7 +34,7 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
         };
     }
     @Override
-    protected String defaultValue(){
+    public String defaultValue(){
         return makeTypeOfDefaultValue(CodeBlock.builder().add("$S:",fieldName));
     }
     protected CodeBlock makeCondition() {

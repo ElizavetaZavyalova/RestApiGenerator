@@ -3,7 +3,6 @@ package org.example.read_json.rest_controller_json.filter.filters_vies.filters.l
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import org.example.analize.premetive.filters.BaseBodyFuncFilter;
-import org.example.analize.premetive.filters.BodyFuncFilterManyParams;
 import org.example.analize.premetive.filters.BodyFuncFilterOneParam;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
@@ -60,10 +59,8 @@ public class ListOneParamFilter extends ListFilter<CodeBlock> {
     String getFuncName(String funcName) {
         return filterName + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
     }
+
     @Override
-    public String getExample(){
-        return Optional.ofNullable(example).orElse(createExample());
-    }
     protected String createExample(){
         example="{\""+filterName+"\":\""+val.stream().map(BodyFuncFilterOneParam::new).map(BaseBodyFuncFilter::defaultValue)
                 .collect(Collectors.joining(", "))+"\"}";

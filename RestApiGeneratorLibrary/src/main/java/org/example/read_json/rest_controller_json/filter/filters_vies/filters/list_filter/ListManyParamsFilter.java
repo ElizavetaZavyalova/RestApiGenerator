@@ -24,7 +24,7 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 
 public class ListManyParamsFilter extends ListFilter<CodeBlock> {
     String func;
-    boolean isNot=false;
+    boolean isNot;
 
     public ListManyParamsFilter(FilterNames name, List<String> val, String filter) {
         super(name, val, filter);
@@ -62,12 +62,9 @@ public class ListManyParamsFilter extends ListFilter<CodeBlock> {
         return filterName + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
     }
     @Override
-    public String getExample(){
-        return Optional.ofNullable(example).orElse(createExample());
-    }
     protected String createExample(){
         example="{"+val.stream().map(BodyFuncFilterManyParams::new).map(BaseBodyFuncFilter::defaultValue)
-                .collect(Collectors.joining(","))+"}";
+                .collect(Collectors.joining(", "))+"}";
         return example;
     }
 

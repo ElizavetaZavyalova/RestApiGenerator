@@ -22,6 +22,7 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.FIELD_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.FIELDS;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.LIMIT;
 
 
 public class Get extends BaseGet<CodeBlock, MethodSpec.Builder> {
@@ -49,7 +50,7 @@ public class Get extends BaseGet<CodeBlock, MethodSpec.Builder> {
         }
         block.add(")");
         block.add(WereInterpret.makeWhere(where,selectNext,tableName,ref));
-        return block.build();
+        return block.add(".limit(").add(LIMIT).add(")").build();
     }
     @Override
     protected PortRequestWithCondition<CodeBlock> makeSelect(String request, PortRequestWithCondition<CodeBlock> select, Endpoint parent) {
