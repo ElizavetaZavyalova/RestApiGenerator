@@ -1,7 +1,8 @@
 package org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter;
 
 import lombok.Getter;
-import org.example.analize.premetive.filters.StringFilterField;
+import org.example.analize.premetive.filters.BaseBodyFuncFilter;
+import org.example.analize.premetive.filters.BodyFuncFilterManyParams;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
 
 import java.util.List;
@@ -16,14 +17,6 @@ public abstract class ListFilter<R> extends Filter<R> {
         super(names,filter);
         this.val=val;
     }
-    @Override
-    public String getExample(){
-        return Optional.ofNullable(example).orElse(createExample());
-    }
-    String createExample(){
-        example="{"+val.stream().map(StringFilterField::new).map(e->e.defaultValue())
-                .collect(Collectors.joining(","))+"}";
-        return example;
-    }
+
 
 }

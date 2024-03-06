@@ -9,6 +9,12 @@ public record JsonKeyWords() {
     public record FilterSuffix() {
         public static final String _AND = ":and";
         public static final String _OR = ":or";
+        public static final String _NOT_AND = ":!and";
+        public static final String _ONE_AND = ":1-and";
+        public static final String _ONE_OR = ":1-or";
+        public static final String _ONE_NOT_AND = ":!1-and";
+        public static final String _ONE_NOT_OR = ":!1-or";
+        public static final String _NOT_OR = ":!or";
         public static final String _CALL = ":call";
     }
 

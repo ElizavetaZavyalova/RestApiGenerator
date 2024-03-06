@@ -20,12 +20,12 @@ class StringFilterFieldTest {
 
     @Test
     void StringFilterFieldIfTest() {
-        StringFilterField stringField = make("s:like_" + fieldName);
+        BodyFuncFilterManyParams stringField = make("s:like_" + fieldName);
         log.info("\n"+stringField.interpret().toString());
     }
-    StringFilterField make(String name) throws IllegalArgumentException {
+    BodyFuncFilterManyParams make(String name) throws IllegalArgumentException {
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName);
-        return new StringFilterField(name, endpoint);
+        return new BodyFuncFilterManyParams(name, endpoint);
     }
 }

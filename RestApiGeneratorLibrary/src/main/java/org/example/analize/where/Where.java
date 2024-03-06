@@ -6,7 +6,7 @@ import org.example.analize.interpretation.Interpretation;
 import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.postfix_infix.Converter;
 import org.example.analize.premetive.fields_cond.FieldCondition;
-import org.example.analize.premetive.filters.StringFilter;
+import org.example.analize.premetive.filters.CallPortFilter;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -43,7 +43,7 @@ public class Where extends BaseWhere<CodeBlock> {
 
     @Override
     Interpretation<CodeBlock> makeFilter(String filter) {
-        return new StringFilter(filter);
+        return new CallPortFilter(filter);
     }
 
     @Override

@@ -6,7 +6,8 @@ import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.CallFilter;
 
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListManyParamsFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListOneParamFilter;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -62,13 +63,39 @@ public abstract class Filters {
     void addFilter(String key, String val) throws IllegalArgumentException {
         if (key.endsWith(OR.getName())) {
             key = key.substring(0, key.length() - OR.length());
-            addKeyValToFilters(key, new ListStringFilter(FilterNames.OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            addKeyValToFilters(key, new ListManyParamsFilter(FilterNames.OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
             return;
         } else if (key.endsWith(AND.getName())) {
             key = key.substring(0, key.length() - AND.length());
-            addKeyValToFilters(key, new ListStringFilter(FilterNames.AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            addKeyValToFilters(key, new ListManyParamsFilter(FilterNames.AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
             return;
-        } else if (key.endsWith(CALL.getName())) {
+        } else if (key.endsWith(NOT_OR.getName())) {
+            key = key.substring(0, key.length() - NOT_OR.length());
+            addKeyValToFilters(key, new ListManyParamsFilter(FilterNames.NOT_OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        } else if (key.endsWith(NOT_AND.getName())) {
+            key = key.substring(0, key.length() - NOT_AND.length());
+            addKeyValToFilters(key, new ListManyParamsFilter(FilterNames.NOT_AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        }
+        else if (key.endsWith(ONE_OR.getName())) {
+            key = key.substring(0, key.length() - ONE_OR.length());
+            addKeyValToFilters(key, new ListOneParamFilter(FilterNames.ONE_OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        } else if (key.endsWith(ONE_AND.getName())) {
+            key = key.substring(0, key.length() - ONE_AND.length());
+            addKeyValToFilters(key, new ListOneParamFilter(FilterNames.ONE_AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        } else if (key.endsWith(ONE_NOT_OR.getName())) {
+            key = key.substring(0, key.length() - ONE_NOT_OR.length());
+            addKeyValToFilters(key, new ListOneParamFilter(FilterNames.ONE_NOT_OR, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        } else if (key.endsWith(ONE_NOT_AND.getName())) {
+            key = key.substring(0, key.length() - ONE_NOT_AND.length());
+            addKeyValToFilters(key, new ListOneParamFilter(FilterNames.ONE_NOT_AND, Arrays.stream(val.split(SPLIT_PARAMS)).toList(), makeFilterVoidName(key)));
+            return;
+        }
+        else if (key.endsWith(CALL.getName())) {
             key = key.substring(0, key.length() - CALL.length());
             addKeyValToFilters(key, new CallFilter(val, makeFilterVoidName(key)));
             return;

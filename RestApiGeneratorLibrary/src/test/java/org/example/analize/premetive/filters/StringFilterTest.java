@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.processors.code_gen.file_code_gen.DefaultsVariablesName;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filter;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListManyParamsFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,8 +32,8 @@ public class StringFilterTest {
     static final String noFilter = "filterNo";
     static final List<String> listVal=List.of("i:eq_" + fieldName, "i:ne_" + fieldName,"s:like_" + fieldName);
     record Filters(){
-        static final ListStringFilter filterAnd=new ListStringFilter(Filter.FilterNames.AND,listVal,filterNameAnd);
-        static final ListStringFilter filterOr=new ListStringFilter(Filter.FilterNames.AND,listVal,filterNameOr);
+        static final ListManyParamsFilter filterAnd=new ListManyParamsFilter(Filter.FilterNames.AND,listVal,filterNameAnd);
+        static final ListManyParamsFilter filterOr=new ListManyParamsFilter(Filter.FilterNames.AND,listVal,filterNameOr);
     }
 
     Endpoint make(String name) throws IllegalArgumentException {
@@ -49,7 +49,7 @@ public class StringFilterTest {
     @MethodSource("constructorParamsFilters")
     void ConstructorTestFilter(String filterName,CodeBlock cond) {
         log.info(filterName);
-        StringFilter filter=new StringFilter(filterName);
+        CallPortFilter filter=new CallPortFilter(filterName);
         filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName);
         log.info(filter.interpret().toString());
 
@@ -58,7 +58,7 @@ public class StringFilterTest {
     @MethodSource("constructorParamsFiltersThrow")
     void ConstructorTestThrowFilter(String filterName,CodeBlock cond) {
         log.info(filterName);
-        StringFilter filter=new StringFilter(filterName);
+        CallPortFilter filter=new CallPortFilter(filterName);
         var ex = assertThrows(IllegalArgumentException.class, () -> filter.makeFilter(make(filterName), CodeBlock.builder().add(cond).build(),tableName));
         log.info(ex.getMessage());
     }

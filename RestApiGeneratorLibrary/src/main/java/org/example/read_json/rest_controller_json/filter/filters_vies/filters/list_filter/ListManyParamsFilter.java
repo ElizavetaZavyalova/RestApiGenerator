@@ -3,8 +3,8 @@ package org.example.read_json.rest_controller_json.filter.filters_vies.filters.l
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
-import com.squareup.javapoet.TypeName;
-import org.example.analize.premetive.filters.StringFilterField;
+import org.example.analize.premetive.filters.BaseBodyFuncFilter;
+import org.example.analize.premetive.filters.BodyFuncFilterManyParams;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import javax.lang.model.element.Modifier;
@@ -12,23 +12,28 @@ import javax.lang.model.element.Modifier;
 import java.util.List;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONDITION_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 
-public class ListStringFilter extends ListFilter<CodeBlock> {
+public class ListManyParamsFilter extends ListFilter<CodeBlock> {
     String func;
+    boolean isNot=false;
 
-    public ListStringFilter(FilterNames name, List<String> val, String filter) {
+    public ListManyParamsFilter(FilterNames name, List<String> val, String filter) {
         super(name, val, filter);
-        if (Objects.requireNonNull(name) == FilterNames.OR) {
+        if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
-        } else if (name == FilterNames.AND) {
+        } else if (FilterNames.isAnd(name)) {
             func = "and";
         }
+        isNot=FilterNames.isNot(name);
     }
 
     public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
@@ -39,14 +44,31 @@ public class ListStringFilter extends ListFilter<CodeBlock> {
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
                 .returns(CONDITION_CLASS)
                 .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", LIST_CLASS, CONDITION_CLASS, ARRAY_LIST_CLASS);
-        val.forEach(v -> methodBuilder.addCode(new StringFilterField(v, parent).interpret()));
-        methodBuilder.addStatement("return " + CONDITION_LIST_IN_FILTER + ".stream().reduce($T::" + func + ")\n" +
-                ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()", CONDITION_CLASS);
+        val.forEach(v -> methodBuilder.addCode(new BodyFuncFilterManyParams(v, parent).interpret()));
+        methodBuilder.addStatement(makeCondition());
         return methodBuilder.build();
+    }
+    CodeBlock makeCondition(){
+        CodeBlock.Builder block= CodeBlock.builder();
+        block.add(CONDITION_LIST_IN_FILTER + ".stream().reduce($T::" + func + ")\n" +
+                ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()", CONDITION_CLASS);
+        if(isNot){
+            return CodeBlock.builder().add("return $T.not(",DSL_CLASS).add(block.build()).add(")").build();
+        }
+        return CodeBlock.builder().add("return ").add(block.build()).build();
     }
 
     String getFuncName(String funcName) {
         return filterName + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
+    }
+    @Override
+    public String getExample(){
+        return Optional.ofNullable(example).orElse(createExample());
+    }
+    protected String createExample(){
+        example="{"+val.stream().map(BodyFuncFilterManyParams::new).map(BaseBodyFuncFilter::defaultValue)
+                .collect(Collectors.joining(","))+"}";
+        return example;
     }
 
     @Override
@@ -55,6 +77,4 @@ public class ListStringFilter extends ListFilter<CodeBlock> {
                 .add("(" + filterName + ", $S, ",  args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
-
-
 }

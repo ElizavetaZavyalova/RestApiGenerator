@@ -12,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,7 +27,7 @@ public class FilterTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsFilters")
     void filter(Filter.FilterNames name, List<String> list){
-        ListStringFilter filter=new ListStringFilter(name, list, filterName);
+        ListManyParamsFilter filter=new ListManyParamsFilter(name, list, filterName);
         log.info(filter.makeFilterMethod(CreateEndpoint.makeEndpoint()).toString());
         log.info(filter.makeFilter(funcName,"table", CodeBlock.builder().add("DSL.trueCondition()").build()).toString());
         //TODO for all filters

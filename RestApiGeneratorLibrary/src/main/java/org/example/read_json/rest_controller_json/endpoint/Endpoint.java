@@ -6,23 +6,18 @@ import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.FilterInfo;
-import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.ReadJson;
 import org.example.read_json.rest_controller_json.*;
 import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
 
-import org.example.read_json.rest_controller_json.filter.RestJsonFilters;
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListStringFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListManyParamsFilter;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
-import org.example.read_json.rest_controller_json.pseudonyms.RestJsonPseudonyms;
 
 
 import java.util.*;
-
-import static org.example.read_json.rest_controller_json.JsonKeyWords.ADDRESS_PREFIX;
 
 @Slf4j
 public class Endpoint {
@@ -66,7 +61,7 @@ public class Endpoint {
                 .map(FilterInfo::getFilterName).distinct().toList();
         for (String useFilter : useFilters) {
             Filtering<CodeBlock> filtering = getFilter(useFilter);
-            if (filtering instanceof ListStringFilter listStringFilter) {
+            if (filtering instanceof ListManyParamsFilter listStringFilter) {
                 list.add(listStringFilter.makeFilterMethod(this));
             }
         }
