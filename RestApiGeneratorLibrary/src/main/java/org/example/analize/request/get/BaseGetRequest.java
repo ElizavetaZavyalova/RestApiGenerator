@@ -20,7 +20,7 @@ public abstract class BaseGetRequest<R,M> extends BaseRequest<R,M> {
     }
     @Override
     public String getExampleParams(){
-        return CodeBlock.builder().add("{").add("$S:[", FIELDS_NAME).add(select.getExampleFields()).add("]}").toString();
+        return CodeBlock.builder().add("{").add("$S:[", FIELDS_NAME).add(select.getExampleFields()).add("]}").build().toString();
     }
     @Override
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {

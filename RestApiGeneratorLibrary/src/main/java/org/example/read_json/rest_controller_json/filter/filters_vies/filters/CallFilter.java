@@ -33,16 +33,11 @@ public class CallFilter extends StringFilter<CodeBlock> {
 
     @Override
     public CodeBlock makeFilter(Object...args) {
-        return CodeBlock.builder().add("$T."+callPort+"("+USER_FILTER_NAME+", "+"$S)",createClass(path,classPort),args[1]).build();
-    }
-
-    @Override
-    public boolean isHasExample() {
-        return false;
+        return CodeBlock.builder().add("$T."+callPort+"("+filterName+", "+"$S)",createClass(path,classPort),args[1]).build();
     }
 
     @Override
     public String getExample() {
-        return "{}";
+        return "{"+filterName+":\""+path+":"+classPort+"."+callPort+"("+filterName+", table, default)\"}";
     }
 }

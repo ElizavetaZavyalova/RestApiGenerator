@@ -4,6 +4,7 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.jooq.impl.DSL;
 
 import java.util.List;
 
@@ -37,7 +38,9 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
             case GE -> block.add(".ge(" + fieldName + ")");
             case GT -> block.add(".gt(" + fieldName + ")");
             case LIKE -> block.add(".like(" + fieldName + ")");
-            case NOT_LIKE -> block.add(".not_like(" + fieldName + ")");
+            case NOT_LIKE -> block.add(".notLike(" + fieldName + ")");
+            case IN -> block.add(".in(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");
+            case NOT_IN -> block.add(".notIn(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");
             default ->  block.add(".eq(" + fieldName + ")");
         }
         return block.build();
@@ -45,6 +48,6 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
 
 
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        params.add(new VarInfo(type, this.fieldName, this.nameInRequest));
+        params.add(new VarInfo(this.getTypeByAction(), this.fieldName, this.nameInRequest));
     }
 }

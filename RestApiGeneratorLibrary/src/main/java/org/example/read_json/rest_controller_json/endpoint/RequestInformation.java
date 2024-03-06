@@ -11,14 +11,14 @@ import org.example.read_json.rest_controller_json.RequestFactory;
 
 
 import javax.lang.model.element.Modifier;
-import javax.swing.text.html.Option;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.PARAMETER_ANNOTATION_CLASS;
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.RESULT_OF_RECORD_CLASS;
+
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_BODY;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
@@ -74,11 +74,11 @@ public class RequestInformation {
     }
 
     List<ParameterSpec> getFilterDBNamesParameters() {
-        return filterInfos.stream().filter(FilterInfo::isVar).map(f -> ParameterSpec.builder(REQUEST_PARAMS, f.getVarName()).build()).toList();
+        return filterInfos.stream().map(f -> ParameterSpec.builder(REQUEST_PARAMS, f.getVarName()).build()).toList();
     }
 
     List<ParameterSpec> getFilterControllerNameParameters() {
-        return filterInfos.stream().filter(FilterInfo::isVar).map(f -> ParameterSpec.builder(REQUEST_PARAMS, f.getVarName())
+        return filterInfos.stream().map(f -> ParameterSpec.builder(REQUEST_PARAMS, f.getVarName())
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
                         .addMember("defaultValue", "$S", "{}").build())
                 .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
@@ -88,7 +88,7 @@ public class RequestInformation {
     }
 
     String getFilterCallDBParameters() {
-        return filterInfos.stream().filter(FilterInfo::isVar).map(FilterInfo::getVarName).collect(Collectors.joining(","));
+        return filterInfos.stream().map(FilterInfo::getVarName).collect(Collectors.joining(","));
     }
 
     public MethodSpec makeDBMethod(String funcName, Type type) {
@@ -128,8 +128,10 @@ public class RequestInformation {
                             .addMember("required", "true").build())
                     .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
                             .addMember("name", "$S",REQUEST_PARAM_BODY )
-                            .addMember("example", "$S", type.getExampleEntity()).build())
-                    .build());
+                            .addMember("example", "$S", type.getExampleEntity())
+                            /*.addMember("schema", "$L",AnnotationSpec.builder(SCHEMA_ANNOTATION_CLASS)
+                                    .addMember("example","$S",type.getExampleEntity()).build())*/
+                            .build()).build());
         }
         for (var filter : getFilterControllerNameParameters()) {
             methodBuilder.addParameter(filter);

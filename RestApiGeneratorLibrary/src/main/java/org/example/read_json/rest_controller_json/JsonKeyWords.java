@@ -93,6 +93,7 @@ public record JsonKeyWords() {
                 public static final String _LE = "le";
                 public static final String _LT = "lt";
                 public static final String _IN = "in";
+                public static final String _NOT_IN="not_in";
                 public static final String _DEFAULT="_";
 
             }

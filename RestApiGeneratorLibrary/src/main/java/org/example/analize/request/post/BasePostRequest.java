@@ -21,7 +21,7 @@ public abstract class BasePostRequest<R,M,N> extends BaseRequest<R,M> {
     }
     @Override
     public String getExampleEntity(){
-        return CodeBlock.builder().add("{").add(insert.getExampleFields()).add("}").toString();
+        return CodeBlock.builder().add("{").add(insert.getExampleFields()).add("}").build().toString();
     }
 
     @Override

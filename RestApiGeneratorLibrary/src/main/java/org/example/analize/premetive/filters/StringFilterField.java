@@ -6,7 +6,9 @@ import org.example.analize.premetive.BaseFieldParser;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
+import org.jooq.impl.DSL;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
@@ -44,48 +46,59 @@ public class StringFilterField extends BaseFieldParser<CodeBlock> {
     public CodeBlock interpret() {
         return CodeBlock.builder()
                 .beginControlFlow("if (" + REQUEST_PARAM_NAME + ".containsKey($S))", fieldName)
-                .addStatement(makeCondition(), DSL_CLASS, "." + realFieldName,DSL_CLASS, fieldName,makeType())
+                .addStatement(makeCondition())
                 .endControlFlow()
                 .build();
     }
+    CodeBlock makeArray(){
+        return  CodeBlock.builder().add(REQUEST_PARAM_NAME+".get($S).stream().map(t-> $T.val(t, $T.class))",fieldName,DSL_CLASS,makeType()).build();
+    }
 
-    protected String makeCondition() {
-        StringBuilder builder = new StringBuilder(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).");
+    protected CodeBlock makeCondition() {
+        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).", DSL_CLASS, "." + realFieldName);
         switch (action) {
+            case IN:{
+                builder.add("in");
+                return builder.add("(").add(makeArray()).add(")").build();
+            }
+            case NOT_IN:{
+                builder.add("notIn");
+                return builder.add("(").add(makeArray()).add(")").build();
+            }
             case NE: {
-                builder.append("ne");
+                builder.add("ne");
                 break;
             }
             case LE: {
-                builder.append("le");
+                builder.add("le");
                 break;
             }
             case LT: {
-                builder.append("lt");
+                builder.add("lt");
                 break;
             }
             case GE: {
-                builder.append("ge");
+                builder.add("ge");
                 break;
             }
             case GT: {
-                builder.append("gt");
+                builder.add("gt");
                 break;
             }
             case LIKE: {
-                builder.append("like");
+                builder.add("like");
                 break;
             }
             case NOT_LIKE: {
-                builder.append("not_like");
+                builder.add("not_like");
                 break;
             }
             default:{
-                builder.append("eq");
+                builder.add("eq");
                 break;
             }
         }
-        return builder.append("($T.val(").append(REQUEST_PARAM_NAME + ".getFirst($S), $T.class)))").toString();
+        return builder.add("($T.val(",DSL_CLASS).add(REQUEST_PARAM_NAME + ".getFirst($S), $T.class)))",fieldName,makeType()).build();
     }
 
 

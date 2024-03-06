@@ -34,12 +34,11 @@ public class StringFilter implements FilterInterpretation<CodeBlock> {
         def = Optional.ofNullable(def).orElse(CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build());
         Filtering<CodeBlock> filtering=parent.getFilter(filterName);
         result =filtering.makeFilter(parent.getFuncName(),table, def);
-        isVar=filtering.isHasExample();
         example=filtering.getExample();
         varName=filtering.getVarName();
     }
     @Override
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        filters.add(new FilterInfo(filterName,isVar,example,varName));
+        filters.add(new FilterInfo(filterName,example,varName));
     }
 }

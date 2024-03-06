@@ -56,8 +56,5 @@ public class ListStringFilter extends ListFilter<CodeBlock> {
                 .add((CodeBlock) args[2]).add(")").build();
     }
 
-    @Override
-    public boolean isHasExample() {
-        return true;
-    }
+
 }

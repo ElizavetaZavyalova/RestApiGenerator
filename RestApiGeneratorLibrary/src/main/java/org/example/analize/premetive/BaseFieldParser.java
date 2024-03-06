@@ -70,6 +70,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         GT(_GT),
         LE(_LE),
         LT(_LT),
+        IN(_IN),
+        NOT_IN(_NOT_IN),
         DEFAULT(_DEFAULT);
 
         final String names;
@@ -112,6 +114,12 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         variable = Type.deleteType(variable, type);
         this.fieldName = variable;
         return variable;
+    }
+    protected Type getTypeByAction(){
+        if(action.equals(IN)||action.equals(NOT_IN)){
+            return Type.STRING;
+        }
+        return type;
     }
 
     protected BaseFieldParser(String variable, Endpoint parent) throws IllegalArgumentException {

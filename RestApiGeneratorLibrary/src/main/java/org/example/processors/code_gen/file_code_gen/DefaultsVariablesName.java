@@ -36,11 +36,14 @@ public record DefaultsVariablesName() {
         public static final ClassName BEAN_ANNOTATION_CLASS = createClass(contestAnnotations, "Bean");
 
         public record SwaggerConfig() {
+
+            private static final String swaggerV3OasAnnotationsMedia = "io.swagger.v3.oas.annotations.media";
             private static final String swaggerV3OasModels = "io.swagger.v3.oas.models";
             private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             private static final String swaggerV3OasModelsInfo = "io.swagger.v3.oas.models.info";
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
             public static final ClassName PARAMETER_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Parameter");
+            public static final ClassName SCHEMA_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotationsMedia, "Schema");
             public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
             public static final ClassName OPEN_API_CLASS = createClass(swaggerV3OasModels, "OpenAPI");
         }

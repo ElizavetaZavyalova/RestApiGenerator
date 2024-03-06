@@ -20,7 +20,7 @@ public abstract class BaseUpdateRequest<R,M,N> extends BaseRequest<R,M> {
     }
     @Override
     public String getExampleEntity(){
-        return CodeBlock.builder().add("{").add(update.getExampleFields()).add("}").toString();
+        return CodeBlock.builder().add("{").add(update.getExampleFields()).add("}").build().toString();
     }
 
 

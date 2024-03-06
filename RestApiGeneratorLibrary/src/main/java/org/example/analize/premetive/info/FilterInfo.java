@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 public class FilterInfo {
     final String filterName;
-    boolean var;
     String example;
     String varName;
 }
