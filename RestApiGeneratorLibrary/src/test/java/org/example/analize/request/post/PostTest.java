@@ -29,7 +29,7 @@ public class PostTest {
     void constructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        PostRequest request=new PostRequest(req,par,endpoint);
+        PostRequest request=new PostRequest(req,par,new ArrayList<>(),endpoint);
         log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -41,7 +41,7 @@ public class PostTest {
     void constructorParams3Or2Table(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        PostRequest request=new PostRequest(req,par,endpoint);
+        PostRequest request=new PostRequest(req,par,new ArrayList<>(),endpoint);
         log.info(request.insert.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -85,7 +85,7 @@ public class PostTest {
     void ConstructorParamsThrow(String req,List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new PostRequest(req,par,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new PostRequest(req,par,new ArrayList<>(),endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

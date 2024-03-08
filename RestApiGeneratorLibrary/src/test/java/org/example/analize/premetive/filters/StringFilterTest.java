@@ -32,8 +32,8 @@ public class StringFilterTest {
     static final String noFilter = "filterNo";
     static final List<String> listVal=List.of("i:eq_" + fieldName, "i:ne_" + fieldName,"s:like_" + fieldName);
     record Filters(){
-        static final ListManyParamsFilter filterAnd=new ListManyParamsFilter(Filter.FilterNames.AND,listVal,filterNameAnd);
-        static final ListManyParamsFilter filterOr=new ListManyParamsFilter(Filter.FilterNames.AND,listVal,filterNameOr);
+        static final ListManyParamsFilter filterAnd=new ListManyParamsFilter(Filter.FilterNames.AND,"hi",listVal,filterNameAnd,filterNameAnd);
+        static final ListManyParamsFilter filterOr=new ListManyParamsFilter(Filter.FilterNames.AND,"hi",listVal,filterNameOr,filterNameOr);
     }
 
     Endpoint make(String name) throws IllegalArgumentException {

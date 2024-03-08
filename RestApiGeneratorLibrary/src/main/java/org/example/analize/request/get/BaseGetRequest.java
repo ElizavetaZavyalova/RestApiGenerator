@@ -12,10 +12,14 @@ import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.FIELDS_NAME;
 
-public abstract class BaseGetRequest<R,M> extends BaseRequest<R,M> {
+public abstract class BaseGetRequest<R,M,P> extends BaseRequest<R,M,P> {
     BaseGet<R,M> select;
-    protected BaseGetRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
+    boolean isPorts=false;
+    boolean isSort=false;
+    protected BaseGetRequest(String url, List<String> fields, Endpoint parent, boolean isPorts, boolean isSort) throws IllegalArgumentException {
         super(url, parent);
+        this.isPorts=isPorts;
+        this.isSort=isSort;
         select=makeSelect(address.getEndUrl(),fields,address.getSelectCurrent(),parent);
     }
     @Override

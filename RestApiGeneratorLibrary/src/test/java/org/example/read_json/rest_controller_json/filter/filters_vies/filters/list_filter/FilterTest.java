@@ -27,7 +27,7 @@ public class FilterTest {
     @ParameterizedTest(name = "{arguments} test")
     @MethodSource("constructorParamsFilters")
     void filter(Filter.FilterNames name, List<String> list){
-        ListManyParamsFilter filter=new ListManyParamsFilter(name, list, filterName);
+        ListManyParamsFilter filter=new ListManyParamsFilter(name, "hi",list, filterName,filterName);
         log.info(filter.makeFilterMethod(CreateEndpoint.makeEndpoint()).toString());
         log.info(filter.makeFilter(funcName,"table", CodeBlock.builder().add("DSL.trueCondition()").build()).toString());
         //TODO for all filters

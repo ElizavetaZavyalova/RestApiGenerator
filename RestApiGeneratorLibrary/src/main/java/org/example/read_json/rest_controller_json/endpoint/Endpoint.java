@@ -12,7 +12,8 @@ import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListManyParamsFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.BaseListFilter;
+import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListFilter;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
 
@@ -61,7 +62,7 @@ public class Endpoint {
                 .map(FilterInfo::getFilterName).distinct().toList();
         for (String useFilter : useFilters) {
             Filtering<CodeBlock> filtering = getFilter(useFilter);
-            if (filtering instanceof ListManyParamsFilter listStringFilter) {
+            if (filtering instanceof ListFilter listStringFilter) {
                 list.add(listStringFilter.makeFilterMethod(this));
             }
         }

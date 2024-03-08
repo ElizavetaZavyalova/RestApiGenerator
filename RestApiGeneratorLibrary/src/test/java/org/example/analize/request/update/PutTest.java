@@ -30,7 +30,7 @@ public class PutTest {
     void ConstructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        PutRequest request=new PutRequest(req,par,endpoint);
+        PutRequest request=new PutRequest(req,par,new ArrayList<>(),endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -56,7 +56,7 @@ public class PutTest {
     void ConstructorParamsThrow(String req,List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new PutRequest(req,par,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new PutRequest(req,par,new ArrayList<>(),endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

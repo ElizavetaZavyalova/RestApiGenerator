@@ -29,7 +29,7 @@ public class PatchTest {
     void ConstructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        PatchRequest request=new PatchRequest(req,par,endpoint);
+        PatchRequest request=new PatchRequest(req,par,new ArrayList<>(),endpoint);
         log.info(request.update.interpret().toString());
         List<VarInfo> list=new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -55,7 +55,7 @@ public class PatchTest {
     void ConstructorParamsThrow(String req,List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () ->new PatchRequest(req,par,endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () ->new PatchRequest(req,par,new ArrayList<>(),endpoint));
         log.info(ex.getMessage());
     }
     static public Stream<Arguments> constructorParamsThrow() {

@@ -36,14 +36,11 @@ public record DefaultsVariablesName() {
         public static final ClassName BEAN_ANNOTATION_CLASS = createClass(contestAnnotations, "Bean");
 
         public record SwaggerConfig() {
-
-            private static final String swaggerV3OasAnnotationsMedia = "io.swagger.v3.oas.annotations.media";
             private static final String swaggerV3OasModels = "io.swagger.v3.oas.models";
             private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
             private static final String swaggerV3OasModelsInfo = "io.swagger.v3.oas.models.info";
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
             public static final ClassName PARAMETER_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Parameter");
-            public static final ClassName SCHEMA_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotationsMedia, "Schema");
             public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
             public static final ClassName OPEN_API_CLASS = createClass(swaggerV3OasModels, "OpenAPI");
         }
@@ -52,11 +49,14 @@ public record DefaultsVariablesName() {
             private static final String webBindAnnotations = "org.springframework.web.bind.annotation";
             private static final String springStereotype = "org.springframework.stereotype";
             private static final String http = "org.springframework.http";
+            private static final String validConstants = "jakarta.validation.constraints";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
             public static final ClassName RESPONSE_STATUS_ANNOTATION_CLASS = createClass(webBindAnnotations, "ResponseStatus");
             public static final ClassName PATH_VARIABLE_ANNOTATION_CLASS = createClass(webBindAnnotations, "PathVariable");
             public static final ClassName REQUEST_BODY_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestBody");
             public static final ClassName REQUEST_PARAM_ANNOTATION_CLASS = createClass(webBindAnnotations, "RequestParam");
+
+            public static final ClassName MIN_PARAM_ANNOTATION_CLASS = createClass(validConstants, "Min");
             public static final ClassName REST_CONTROLLER_ANNOTATION_CLASS = createClass(webBindAnnotations, "RestController");
 
 
@@ -122,9 +122,10 @@ public record DefaultsVariablesName() {
            public static final String _PATCH_COLOR="\n\u001B[36m";
            public static final String _RESET_COLOR="\n\u001B[0m";
         }
-        private static final String orgJooq = "org.jooq";
+        private static final String orgJooq = "org.jooq";//org.jooq.SortField;
         private static final String orgJooqIml = "org.jooq.impl";//Field
         public static final ClassName FIELD_CLASS=createClass(orgJooq, "Field");
+        public static final ClassName SORT_FIELD_CLASS=createClass(orgJooq, "SortField");
         public static final ClassName SELECT_CLASS=createClass(orgJooq, "Select");
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");

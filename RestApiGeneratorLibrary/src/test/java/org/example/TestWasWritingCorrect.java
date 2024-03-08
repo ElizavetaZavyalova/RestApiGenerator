@@ -30,6 +30,12 @@ public class TestWasWritingCorrect {
         RunTest.test(rest);
     }
     @ParameterizedTest(name = "{0} test")
+    @MethodSource("postTest")
+    void postTest(String name, RestJson rest) {
+        log.info(name);
+        RunTest.test(rest);
+    }
+    @ParameterizedTest(name = "{0} test")
     @MethodSource("filtersTest")
     void filtersTest(String name, RestJson rest) {
         log.info(name);
@@ -69,6 +75,11 @@ public class TestWasWritingCorrect {
         static String getControllerPath() {
             return "path.controller";
         }
+    }
+    static public Stream<Arguments> postTest() {
+        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\postTest.json";
+        return new ParseJson(fileName).getRestsJson().stream()
+                .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }
     static public Stream<Arguments> filtersTest() {
         String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\filtersTest.json";

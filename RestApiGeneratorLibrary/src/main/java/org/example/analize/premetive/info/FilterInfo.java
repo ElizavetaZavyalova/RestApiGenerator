@@ -9,6 +9,10 @@ import lombok.Setter;
 @Getter
 public class FilterInfo {
     final String filterName;
+    final String nameInRequest;
     String example;
     String varName;
+    public boolean isNameInRequestAndFilterNameIdent(){
+        return filterName.equals(nameInRequest);
+    }
 }

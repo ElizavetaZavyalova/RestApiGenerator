@@ -2,6 +2,7 @@ package org.example.analize.request.delete;
 
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import org.example.analize.address.BaseAddress;
 import org.example.analize.address.Address;
 import org.example.analize.request.LoggerCreator;
@@ -12,11 +13,10 @@ import org.example.read_json.rest_controller_json.endpoint.RequestType;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RESULT_NAME;
 
-public class DeleteRequest extends BaseDeleteRequest<CodeBlock, MethodSpec.Builder>{
+public class DeleteRequest extends BaseDeleteRequest<CodeBlock, MethodSpec.Builder, TypeName>{
     public DeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
     }
-
 
 
 
@@ -36,5 +36,10 @@ public class DeleteRequest extends BaseDeleteRequest<CodeBlock, MethodSpec.Build
                 .add(delete.interpret()).build());
         method= LoggerCreator.createLog(method,RequestType.DELETE,RESULT_NAME);
         return method.addStatement(RESULT_NAME + ".execute()");
+    }
+
+    @Override
+    public TypeName returnParam() {
+        return TypeName.VOID;
     }
 }

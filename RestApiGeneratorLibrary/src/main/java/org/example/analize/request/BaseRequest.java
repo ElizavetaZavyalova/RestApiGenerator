@@ -11,7 +11,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
-public abstract class BaseRequest<R,M> implements InterpretationRequestDBBody<M>, InterpretationParams {
+public abstract class BaseRequest<R,M,P> implements InterpretationRequestDBBody<M,P>, InterpretationParams {
     protected BaseAddress<R> address = null;
 
     protected BaseRequest(String url, Endpoint parent) throws IllegalArgumentException {

@@ -1,0 +1,31 @@
+{
+  "PostController": {
+    "http": {
+      "postManyToOne": {
+        "type": "post:price|id|age",
+        "request": "user/name/>val"
+      },
+      "postOneToMany": {
+        "type": "post:price|id|age",
+        "request": "user/name/<val"
+      },
+      "postDefault": {
+        "type": "post:price|id|age",
+        "request": "user/name/val"
+      },
+      "postOnly": {
+        "type": "post:price|id|age",
+        "request": "/val"
+      },
+      "postManyToMany": {
+        "type": "post:price|id|age",
+        "request": "user/val",
+        "pseudonyms": {
+          "joins": {
+            "user:val": ["name"]
+          }
+        }
+      }
+    }
+  }
+}

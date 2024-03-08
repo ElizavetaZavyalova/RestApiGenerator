@@ -12,7 +12,6 @@ import javax.lang.model.element.Modifier;
 import java.util.List;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -22,12 +21,12 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
 
-public class ListManyParamsFilter extends ListFilter<CodeBlock> {
+public class ListManyParamsFilter extends ListFilter {
     String func;
     boolean isNot;
 
-    public ListManyParamsFilter(FilterNames name, List<String> val, String filter) {
-        super(name, val, filter);
+    public ListManyParamsFilter(FilterNames name, String key,List<String> val, String filter,String nameInRequest) {
+        super(name,key, val, filter,nameInRequest);
         if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
         } else if (FilterNames.isAnd(name)) {

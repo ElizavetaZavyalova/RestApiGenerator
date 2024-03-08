@@ -10,7 +10,7 @@ import static org.example.analize.select.port_request.PortRequestWithCondition.A
 import static org.example.analize.select.port_request.PortRequestWithCondition.RegExp.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.AggregationFunction.*;
 
-public abstract class PortRequestWithCondition<R> extends BasePortRequest<R> {
+public abstract class PortRequestWithCondition<R> extends BasePortRequest<R,R> {
     @Getter
     protected BaseWhere<R> where;
 

@@ -1,52 +1,94 @@
 package org.example.analize.request.post.insert;
 
+import com.squareup.javapoet.CodeBlock;
+import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
+import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.BaseFieldInsertUpdate;
+import org.example.analize.premetive.fields.Field;
 import org.example.analize.select.port_request.BasePortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.analize.where.BaseWhere;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class BaseInsert<R,N> extends BasePortRequest<R> {
+import static org.example.analize.request.post.insert.BaseInsert.InsertType.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RESULT_NAME;
 
-    protected List<BaseFieldInsertUpdate<R,N>> fields;
 
-    protected BaseInsert(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent) {
-        super.initTableName(request, select, parent);
-        super.setJoins(parent,false);
-        this.fields = fields.stream().map(fieldName -> makeField(fieldName, tableName, parent)).toList();
+public abstract class BaseInsert<R, N, I,M> extends BasePortRequest<R, I> {
+
+    protected List<BaseFieldInsertUpdate<R, N>> fields;
+    protected List<BaseField<R>> returnFields;
+    boolean isReturnSomething(){
+        return !returnFields.isEmpty();
     }
-    public String getExampleFields(){
+    public String getFieldNameChose() {
+        return RESULT_NAME+"_"+ref;
+    }
+   public boolean isAlwaysReturn(){
+            return insertType.equals(MANY_TO_MANY)||insertType.equals(MANY_TO_ONE);
+    }
+    public boolean isReturn(){
+        return isAlwaysReturn()||isReturnSomething();
+    }
+
+    protected enum InsertType {
+        ONLY_INSERT,//[1]Insert=return-
+        MANY_TO_MANY,//[1]Insert(<ref>+return)->[2]Insert from select-
+        ONE_TO_MANY,//[1]Insert from select=return-
+        MANY_TO_ONE;//[1]Insert(return)->[2]update<ref>-
+    }
+    public boolean isFetchOne(){
+        return !insertType.equals(ONE_TO_MANY);
+    }
+   public boolean isFetch(){
+        return insertType.equals(ONE_TO_MANY);
+    }
+    public boolean isExecute(){
+        return  !isReturnSomething();
+    }
+
+    protected InsertType insertType = InsertType.ONLY_INSERT;
+
+    protected BaseInsert(String request, List<String> fields, List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent) {
+        super.initTableName(request, select, parent);
+        super.setJoins(parent, false);
+        this.fields = fields.stream().map(fieldName -> makeField(fieldName, tableName, parent)).toList();
+        this.setInsertType();
+        this.setReturnFields(returnFields, parent);
+    }
+
+    void setReturnFields(List<String> returnFields, Endpoint parent) {
+        this.returnFields = returnFields.stream().map(fieldName -> makeReturnField(fieldName, tableName, parent)).toList();
+    }
+
+    protected abstract BaseField<R> makeReturnField(String name, String table, Endpoint parent);
+
+    void setInsertType() {
+        if (isSelectExist()) {
+            if (isRefAddressPortIsManyToMay()) {
+                this.insertType = MANY_TO_MANY;
+                return;
+            } else if (isTableRefManyToOne()) {
+                this.insertType = MANY_TO_ONE;
+                return;
+            }
+            this.insertType = InsertType.ONE_TO_MANY;
+            return;
+
+        }
+        this.insertType = InsertType.ONLY_INSERT;
+    }
+    public abstract M addReturn(M method);
+
+    public String getExampleFields() {
         return fields.stream().map(BaseFieldInsertUpdate::getExample).collect(Collectors.joining(", "));
     }
 
 
-    protected PortRequestWithCondition<R> getAddress() {
-        if (isAddressExist()) {
-            return selectNext.getSelectNext();
-        }
-        return null;
-    }
-
-    protected boolean isAddressExist() {
-        if (isSelectExist()) {
-            return selectNext.getSelectNext()!=null;
-        }
-        return false;
-    }
-
-    protected PortRequestWithCondition<R> getSelectPort() {
-        if (isSelectExist()) {
-            return selectNext;
-        }
-        return null;
-    }
-    protected BaseWhere<R> getWherePort() {
-        return getSelectPort().getWhere();
-    }
-
-
-    protected abstract BaseFieldInsertUpdate<R,N> makeField(String name, String table, Endpoint parent);
+    protected abstract BaseFieldInsertUpdate<R, N> makeField(String name, String table, Endpoint parent);
 }

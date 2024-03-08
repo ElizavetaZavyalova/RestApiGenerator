@@ -29,7 +29,7 @@ public class GetTest {
     void ConstructorParams(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        GetRequest request = new GetRequest(req, par, endpoint);
+        GetRequest request = new GetRequest(req, par, endpoint,true,true);
         log.info(request.select.interpret().toString());
         List<VarInfo> list = new ArrayList<>();
         List<FilterInfo> filters=new ArrayList<>();
@@ -57,7 +57,7 @@ public class GetTest {
     void ConstructorParamsThrow(String req, List<String> par) {
         Endpoint endpoint = makeEndpoint();
         log.info(req);
-        var ex = assertThrows(IllegalArgumentException.class, () -> new GetRequest(req, par, endpoint));
+        var ex = assertThrows(IllegalArgumentException.class, () -> new GetRequest(req, par, endpoint,true,true));
         log.info(ex.getMessage());
     }
 
@@ -77,7 +77,7 @@ public class GetTest {
     void ConstructorParamsPath(String req, List<String> par) {
         Endpoint endpoint = makePath();
         log.info(req);
-        GetRequest request = new GetRequest(req, par, endpoint);
+        GetRequest request = new GetRequest(req, par, endpoint,true,true);
         log.info(request.select.interpret().toString());
 
     }

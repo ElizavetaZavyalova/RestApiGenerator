@@ -12,11 +12,11 @@ import java.util.List;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.FIELDS_NAME;
 
-public abstract class BaseUpdateRequest<R,M,N> extends BaseRequest<R,M> {
+public abstract class BaseUpdateRequest<R,M,N,P> extends BaseRequest<R,M,P> {
     protected BaseUpdate<R,N> update;
-    protected BaseUpdateRequest(String url, List<String> fields, Endpoint parent) throws IllegalArgumentException {
+    protected BaseUpdateRequest(String url, List<String> fields,List<String> returnFields, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
-        update=makeUpdate(address.getEndUrl(),fields,address.getSelectCurrent(),parent);
+        update=makeUpdate(address.getEndUrl(),fields,returnFields,address.getSelectCurrent(),parent);
     }
     @Override
     public String getExampleEntity(){
@@ -29,5 +29,5 @@ public abstract class BaseUpdateRequest<R,M,N> extends BaseRequest<R,M> {
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         update.addParams(params,filters);
     }
-    protected abstract BaseUpdate<R,N> makeUpdate(String request, List<String> fields, PortRequestWithCondition<R> select, Endpoint parent);
+    protected abstract BaseUpdate<R,N> makeUpdate(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent);
 }

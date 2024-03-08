@@ -13,10 +13,11 @@ import java.util.regex.Pattern;
 
 
 import static org.example.analize.select.port_request.BasePortRequest.RegExp.*;
+import static org.example.analize.select.port_request.BasePortRequest.TableRef.MANY_TO_ONE;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 
 @Slf4j
-public abstract class BasePortRequest<R> implements Interpretation<R> {
+public abstract class BasePortRequest<R,I> implements Interpretation<I> {
     @Getter
     protected PortRequestWithCondition<R> selectNext;
     @Getter
@@ -38,6 +39,9 @@ public abstract class BasePortRequest<R> implements Interpretation<R> {
            return realTableName;
        }
        return tableName;
+    }
+    protected boolean isTableRefManyToOne(){
+        return tableRef.equals(MANY_TO_ONE);
     }
 
     @AllArgsConstructor
@@ -74,14 +78,14 @@ public abstract class BasePortRequest<R> implements Interpretation<R> {
     }
 
     String makeDefaultNextId() {
-        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
+        if (Objects.requireNonNull(tableRef) == MANY_TO_ONE) {
             return getRefNameTable() + "_id";
         }
         return "id";
     }
 
     String makeDefaultRef() {
-        if (Objects.requireNonNull(tableRef) == TableRef.MANY_TO_ONE) {
+        if (Objects.requireNonNull(tableRef) == MANY_TO_ONE) {
             return "id";
         }
         return selectNext.getRefNameTable() + "_" + "id";
@@ -141,7 +145,7 @@ public abstract class BasePortRequest<R> implements Interpretation<R> {
 
     void makeSelectManyToMany(String tableName, Endpoint parent) {
         if (tableRef.equals(TableRef.DEFAULT)) {
-            tableRef = TableRef.MANY_TO_ONE;
+            tableRef = MANY_TO_ONE;
         }
         refAddressPortIsManyToMay=true;
         selectNext = makePortRequest(tableName, selectNext, parent, true);

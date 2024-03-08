@@ -8,7 +8,7 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BaseDeleteRequest<R,M> extends BaseRequest<R,M> {
+public abstract class BaseDeleteRequest<R,M,P> extends BaseRequest<R,M,P> {
     PortRequestWithCondition<R> delete;
 
     protected BaseDeleteRequest(String url, Endpoint parent) throws IllegalArgumentException {

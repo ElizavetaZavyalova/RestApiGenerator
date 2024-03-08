@@ -62,6 +62,7 @@ class EndpointsTest {
         return rest;
     }
     static Map<String,Object> json;
+    static Map<String,Object> postJson;
     record Constants(){
         static final String controllerName="ControllerName";
         static final String repositoryName="RepositoryName";
@@ -77,6 +78,7 @@ class EndpointsTest {
     static void loadJson(){
         ReadJson readJson=new ReadJson();
         json=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoints\\endpoints.json");
+        postJson=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoints\\postTest.json");
     }
     void test(Map<String, Object> object,String name){
         log.info(name);
@@ -93,6 +95,15 @@ class EndpointsTest {
     }
     static public Stream<Arguments> endpointsTest() {
         return json.keySet().stream().filter(k->k.startsWith("http"))
+                .map(Arguments::of).toList().stream();
+    }
+    @ParameterizedTest(name = "{arguments} test")
+    @MethodSource("postTest")
+    void postTest(String name) {
+        test((Map<String, Object>) postJson.get(name),name);
+    }
+    static public Stream<Arguments> postTest() {
+        return postJson.keySet().stream()
                 .map(Arguments::of).toList().stream();
     }
 }

@@ -1,0 +1,37 @@
+{
+  "ManyToOne": {
+    "postManyToOne": {
+      "type": "post:price|id|age",
+      "request": "user/name/>val"
+    }
+  },
+  "OneToMany": {
+    "postOneToMany": {
+      "type": "post:price|id|age",
+      "request": "user/name/<val"
+    }
+  },
+  "Default": {
+    "postDefault": {
+      "type": "post:price|id|age",
+      "request": "user/name/val"
+    }
+  },
+  "Only": {
+    "postOnly": {
+      "type": "post:price|id|age",
+      "request": "/val"
+    }
+  },
+  "ManyToMany": {
+    "postManyToMany": {
+      "type": "post:price|id|age",
+      "request": "user/val",
+      "pseudonyms": {
+        "joins": {
+          "user:val": ["name"]
+        }
+      }
+    }
+  }
+}

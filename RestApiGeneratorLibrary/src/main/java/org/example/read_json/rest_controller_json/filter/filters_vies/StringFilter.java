@@ -6,8 +6,8 @@ import lombok.Getter;
 public abstract class StringFilter<Result> extends Filter<Result> {
     protected String val;
 
-    protected StringFilter(FilterNames names, String val, String filter) {
-        super(names, filter);
+    protected StringFilter(FilterNames names,String key, String val, String filter,String nameInRequest) {
+        super(names, filter,nameInRequest,key);
         this.val = val;
     }
 }

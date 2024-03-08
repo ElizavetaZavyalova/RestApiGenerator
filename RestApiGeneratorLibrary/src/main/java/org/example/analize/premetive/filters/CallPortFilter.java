@@ -16,6 +16,7 @@ public class CallPortFilter implements FilterInterpretation<CodeBlock> {
     String filterName;
     String example="";
     String varName;
+    String nameInRequest;
 
 
     @Override
@@ -34,9 +35,10 @@ public class CallPortFilter implements FilterInterpretation<CodeBlock> {
         result =filtering.makeFilter(parent.getFuncName(),table, def);
         example=filtering.getExample();
         varName=filtering.getVarName();
+        nameInRequest=filtering.getNameInRequest();
     }
     @Override
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        filters.add(new FilterInfo(filterName,example,varName));
+        filters.add(new FilterInfo(filterName,example,varName,nameInRequest));
     }
 }

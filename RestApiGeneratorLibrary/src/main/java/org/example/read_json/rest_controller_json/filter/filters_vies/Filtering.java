@@ -5,5 +5,6 @@ public interface Filtering<R> {
     R makeFilter(Object... args);
     public String getExample();
     public String getVarName();
+    public String getNameInRequest();
 
 }

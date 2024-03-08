@@ -1,5 +1,7 @@
 package org.example.analize.request.update.patch;
 import com.squareup.javapoet.CodeBlock;
+import org.example.analize.premetive.fields.BaseField;
+import org.example.analize.premetive.fields.Field;
 import org.example.analize.request.update.update.Update;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -11,8 +13,12 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_BODY;
 
 public class Patch extends Update {
-    protected Patch(String request, List<String> fields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
-        super(request, fields, select, parent);
+    protected Patch(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<CodeBlock> select, Endpoint parent) throws IllegalArgumentException {
+        super(request, fields,returnFields, select, parent);
+    }
+    @Override
+    protected BaseField<CodeBlock> makeReturnField(String name, String table, Endpoint parent) {
+        return new Field(name, table, parent);
     }
 
     @Override

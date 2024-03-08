@@ -3,7 +3,6 @@ package org.example.read_json.rest_controller_json;
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
-    public static final String LIMIT="limit";
     public static final String ADDRESS_PREFIX = "httpPrefix";
     public static final String HTTP = "http";
 
@@ -57,11 +56,20 @@ public record JsonKeyWords() {
                 public static final String _PATCH = "patch";
 
             }
-
+            public record Ports() {
+                public static final String LIMIT="limit";
+                public static final String OFFSET="offset";
+                public static final String SORT="sort";
+                public static final String DIRECTION="direction";
+                public static final String PORTS = "ports";
+                public static final String USE = "use";
+                public static final String NOT_USE = "!use";
+            }
             public static final String HTTP_OK = "httpOk";
             public static final String OPERATION = "operation";
             public static final String HTTP_EXCEPTION = "httpException";
             public static final String ENTITY = "entity";
+            public static final String RETURN = "return";
 
             public static final String FIELDS = "fields";
         }

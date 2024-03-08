@@ -23,9 +23,10 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.ENTITY;
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.Ports.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
-import static org.example.read_json.rest_controller_json.JsonKeyWords.LIMIT;
-import static org.example.read_json.rest_controller_json.endpoint.RequestType.GET;
+
+import static org.example.read_json.rest_controller_json.endpoint.RequestInformation.KeyWords.*;
 
 
 @Setter
@@ -36,6 +37,14 @@ public class RequestInformation {
     Types types;
     List<VarInfo> varInfos;
     List<FilterInfo> filterInfos;
+    record KeyWords(){
+        static final String DEFAULT_VALUE="defaultValue";
+        static final String DESCRIPTION="description";
+        static final String EXAMPLE="example";
+        static final String NAME="name";
+        static final String REQUIRED="required";
+        static final String VALUE="value";
+    }
 
     public boolean isParamsExist(Type type) {
         return  type.isGetParamsExist();
@@ -82,10 +91,10 @@ public class RequestInformation {
     List<ParameterSpec> getFilterControllerNameParameters() {
         return filterInfos.stream().map(f -> ParameterSpec.builder(REQUEST_PARAMS, f.getVarName())
                 .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
-                        .addMember("defaultValue", "$S", "{}").build())
+                        .addMember(DEFAULT_VALUE, "$S", "{}").build())
                 .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
-                        .addMember("name", "$S", f.getVarName())
-                        .addMember("example", "$S", f.getExample()).build())
+                        .addMember(NAME, "$S", f.getVarName())
+                        .addMember(EXAMPLE, "$S", f.getExample()).build())
                 .build()).toList();
     }
 
@@ -96,6 +105,7 @@ public class RequestInformation {
     public MethodSpec makeDBMethod(String funcName, Type type) {
         MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(type.getRequestType().toString() + funcName)
                 .addModifiers(Modifier.PUBLIC);
+        methodBuilder=addReturns(methodBuilder,type);
         if (isParamsExist(type)) {
             methodBuilder.addParameter(REQUEST_PARAMS, REQUEST_PARAM_NAME);
         }
@@ -108,8 +118,13 @@ public class RequestInformation {
         for (var filter : getFilterDBNamesParameters()) {
             methodBuilder.addParameter(filter);
         }
-        if(type.getRequestType().equals(GET)) {
+        if(type.isPorts()) {
             methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, LIMIT).build());
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, OFFSET).build());
+        }
+        if(type.isPorts()) {
+            methodBuilder.addParameter(ParameterSpec.builder(STRING_CLASS, SORT).build());
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.BOOLEAN,DIRECTION).build());
         }
         return type.getInterpretDb().makeMethodBody(methodBuilder).build();
     }
@@ -118,10 +133,10 @@ public class RequestInformation {
         if (isParamsExist(type)) {
             methodBuilder.addParameter(ParameterSpec.builder(REQUEST_PARAMS, REQUEST_PARAM_NAME)
                     .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
-                            .addMember("defaultValue", "$S", "{}").build())
+                            .addMember(DEFAULT_VALUE, "$S", "{}").build())
                     .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
-                            .addMember("name", "$S",REQUEST_PARAM_NAME )
-                            .addMember("example", "$S", type.getExampleParams()).build())
+                            .addMember(NAME, "$S",REQUEST_PARAM_NAME )
+                            .addMember(EXAMPLE, "$S", type.getExampleParams()).build())
                     .build());
         }
         for (VarInfo parameterSpec : varInfos) {
@@ -130,21 +145,43 @@ public class RequestInformation {
         if (type.isParamsBodyExist()) {
             methodBuilder.addParameter(ParameterSpec.builder(PARAMETRIZED_MAP, REQUEST_PARAM_BODY)
                     .addAnnotation(AnnotationSpec.builder(REQUEST_BODY_ANNOTATION_CLASS)
-                            .addMember("required", "true").build())
+                            .addMember(REQUIRED, "true").build())
                     .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
-                            .addMember("name", "$S",REQUEST_PARAM_BODY )
-                            .addMember("example", "$S", type.getExampleEntity())
-                            /*.addMember("schema", "$L",AnnotationSpec.builder(SCHEMA_ANNOTATION_CLASS)
-                                    .addMember("example","$S",type.getExampleEntity()).build())*/
+                            .addMember(NAME, "$S",REQUEST_PARAM_BODY )
+                            .addMember(EXAMPLE, "$S", type.getExampleEntity())
                             .build()).build());
         }
         for (var filter : getFilterControllerNameParameters()) {
             methodBuilder.addParameter(filter);
         }
-        if(type.getRequestType().equals(GET)){
+        if(type.isPorts()){
             methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, LIMIT)
+                            .addAnnotation(AnnotationSpec.builder(MIN_PARAM_ANNOTATION_CLASS)
+                                    .addMember(VALUE,"0").build())
                     .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
-                            .addMember("defaultValue","$S", "-1").build()).build());
+                            .addMember(DEFAULT_VALUE,"$S", "9223372036854775807").build())
+                    .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
+                            .addMember(NAME, "$S", LIMIT)
+                            .addMember(EXAMPLE, "$S", "1").build()).build());
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.LONG, OFFSET)
+                    .addAnnotation(AnnotationSpec.builder(MIN_PARAM_ANNOTATION_CLASS)
+                            .addMember(VALUE,"0").build())
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
+                            .addMember(DEFAULT_VALUE,"$S", "0").build()).build());
+        }
+        if(type.isSort()){
+            methodBuilder.addParameter(ParameterSpec.builder(STRING_CLASS,SORT)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS).build())
+                    .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
+                            .addMember(NAME, "$S", SORT)
+                            .addMember(EXAMPLE, "$S", "fieldName").build()).build());
+            methodBuilder.addParameter(ParameterSpec.builder(TypeName.BOOLEAN,DIRECTION)
+                    .addAnnotation(AnnotationSpec.builder(REQUEST_PARAM_ANNOTATION_CLASS)
+                            .addMember(DEFAULT_VALUE,"$S", "true").build())
+                    .addAnnotation(AnnotationSpec.builder(PARAMETER_ANNOTATION_CLASS)
+                            .addMember(NAME, "$S", DIRECTION)
+                            .addMember(EXAMPLE, "$S", "true")
+                            .addMember(DESCRIPTION, "$S", "desc=true, asc=false").build()).build());
         }
         return methodBuilder;
     }
@@ -171,9 +208,15 @@ public class RequestInformation {
         if(!filterParams.isEmpty()) {
             params = addACommaIfBuilderIsNotEmpty(params).append(filterParams);
         }
-        if(type.getRequestType().equals(GET)){
+        if(type.isPorts()){
             params = addACommaIfBuilderIsNotEmpty(params).append(LIMIT);
+            params = addACommaIfBuilderIsNotEmpty(params).append(OFFSET);
         }
+        if(type.isSort()) {
+            params = addACommaIfBuilderIsNotEmpty(params).append(SORT);
+            params = addACommaIfBuilderIsNotEmpty(params).append(DIRECTION);
+        }
+
         return params;
     }
 
@@ -183,7 +226,7 @@ public class RequestInformation {
                 .addModifiers(Modifier.PUBLIC).addAnnotation(type.getMapping(request))
                 .addAnnotation(type.getResponseStatus()).addAnnotation(type.getOperation());
         methodBuilder = addParametersToControllerMethod(methodBuilder, type);
-        return addReturns(methodBuilder, type).addStatement(getReturnIfGet(type) + beanName + "." + type.getRequestType().toString() + funcName +
+        return addReturns(methodBuilder, type).addStatement(getReturnIfNotVoid(type) + beanName + "." + type.getRequestType().toString() + funcName +
                 "(" + addParametersToCallBDMethodInController(type) + ")").build();
     }
 
@@ -200,6 +243,10 @@ public class RequestInformation {
     public void generateVarInfos() {
         types.getTypeList().get(0).getInterpretDb().addParams(varInfos, filterInfos);
         filterInfos = filterInfos.stream().distinct().toList();
+        request=request.replace(">","")
+                        .replace("<","");
+        filterInfos.stream().filter(FilterInfo::isNameInRequestAndFilterNameIdent)
+                 .forEach(f->request=request.replace("["+f.getFilterName()+"]",f.getNameInRequest()));
     }
 
     public List<MethodSpec> makeDBMethods(String funcName) {
@@ -211,17 +258,14 @@ public class RequestInformation {
         return methodSpecs;
     }
 
-    String getReturnIfGet(Type type) {
-        if (type.getRequestType().equals(GET)) {
+    String getReturnIfNotVoid(Type type) {
+        if (!type.returnParam().equals(TypeName.VOID)) {
             return "return ";
         }
         return "";
     }
 
     MethodSpec.Builder addReturns(MethodSpec.Builder builder, Type type) {
-        if (type.getRequestType().equals(GET)) {
-            builder.returns(PARAMETERIZED_LIST);
-        }
-        return builder;
+        return builder.returns(type.returnParam());
     }
 }

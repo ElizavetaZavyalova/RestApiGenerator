@@ -9,7 +9,6 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import javax.lang.model.element.Modifier;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
@@ -18,18 +17,18 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.*;
 
-public class ListOneParamFilter extends ListFilter<CodeBlock> {
+public class ListOneParamFilter extends ListFilter {
     String func;
-    boolean isNot=false;
+    boolean isNot;
 
-    public ListOneParamFilter(FilterNames name, List<String> val, String filter) {
-        super(name, val, filter);
+    public ListOneParamFilter(FilterNames name,String key, List<String> val, String filter,String nameInRequest) {
+        super(name,key, val, filter,nameInRequest);
         if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
         } else if (FilterNames.isAnd(name)) {
             func = "and";
         }
-        isNot=FilterNames.isNot(name);
+        isNot = FilterNames.isNot(name);
     }
 
     public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
@@ -40,18 +39,19 @@ public class ListOneParamFilter extends ListFilter<CodeBlock> {
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
                 .returns(CONDITION_CLASS)
                 .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", LIST_CLASS, CONDITION_CLASS, ARRAY_LIST_CLASS)
-                        .beginControlFlow("if("+REQUEST_PARAM_NAME+"containsKey.($S))",filterName);
-        val.forEach(v -> methodBuilder.addCode(new BodyFuncFilterOneParam(v, parent,filterName).interpret()));
+                .beginControlFlow("if(" + REQUEST_PARAM_NAME + "containsKey.($S))", filterName);
+        val.forEach(v -> methodBuilder.addCode(new BodyFuncFilterOneParam(v, parent, filterName).interpret()));
         methodBuilder.addStatement(makeCondition());
         methodBuilder.endControlFlow();
         return methodBuilder.build();
     }
-    CodeBlock makeCondition(){
-        CodeBlock.Builder block= CodeBlock.builder();
+
+    CodeBlock makeCondition() {
+        CodeBlock.Builder block = CodeBlock.builder();
         block.add(CONDITION_LIST_IN_FILTER + ".stream().reduce($T::" + func + ")\n" +
                 ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()", CONDITION_CLASS);
-        if(isNot){
-            return CodeBlock.builder().add("return $T.not(",DSL_CLASS).add(block.build()).add(")").build();
+        if (isNot) {
+            return CodeBlock.builder().add("return $T.not(", DSL_CLASS).add(block.build()).add(")").build();
         }
         return CodeBlock.builder().add("return ").add(block.build()).build();
     }
@@ -61,9 +61,9 @@ public class ListOneParamFilter extends ListFilter<CodeBlock> {
     }
 
     @Override
-    protected String createExample(){
-        example="{\""+filterName+"\":\""+val.stream().map(BodyFuncFilterOneParam::new).map(BaseBodyFuncFilter::defaultValue)
-                .collect(Collectors.joining(", "))+"\"}";
+    protected String createExample() {
+        example = "{\"" + filterName + "\":\"" + val.stream().map(BodyFuncFilterOneParam::new).map(BaseBodyFuncFilter::defaultValue)
+                .collect(Collectors.joining(", ")) + "\"}";
         return example;
     }
 

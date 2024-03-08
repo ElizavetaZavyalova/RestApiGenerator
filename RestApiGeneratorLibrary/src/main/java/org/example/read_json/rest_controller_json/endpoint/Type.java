@@ -1,13 +1,12 @@
 package org.example.read_json.rest_controller_json.endpoint;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.example.analize.request.BaseRequest;
 
+import org.example.read_json.rest_controller_json.JsonKeyWords;
 import org.example.read_json.rest_controller_json.MakeCast;
 
 import java.util.*;
@@ -18,7 +17,9 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.TYPE;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.*;
 
+import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.Ports.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.RequestType._GET;
+import static org.example.read_json.rest_controller_json.endpoint.RequestType.*;
 import static org.example.read_json.rest_controller_json.endpoint.Type.RegExp.*;
 
 @Getter
@@ -26,15 +27,18 @@ import static org.example.read_json.rest_controller_json.endpoint.Type.RegExp.*;
 public class Type {
     final RequestType requestType;
     List<String> paramsBody = new ArrayList<>();
+    List<String> returnParams=new ArrayList<>();
     String operationSummary = "";
     String httpOk = "OK";
+    boolean ports=false;
+    boolean sort=false;
     @Setter
-    BaseRequest<CodeBlock, MethodSpec.Builder> interpretDb;
+    BaseRequest<CodeBlock, MethodSpec.Builder, TypeName> interpretDb;
     public boolean isParamsBodyExist(){
-        return !paramsBody.isEmpty()&&!requestType.equals(RequestType.GET);
+        return !paramsBody.isEmpty()&&!requestType.equals(GET);
     }
     public boolean isGetParamsExist(){
-        return requestType.equals(RequestType.GET)&&!paramsBody.isEmpty();
+        return requestType.equals(GET)&&!paramsBody.isEmpty();
     }
     public String getExampleParams(){
         return interpretDb.getExampleParams();
@@ -43,22 +47,35 @@ public class Type {
         return  interpretDb.getExampleEntity();
     }
 
+    public TypeName returnParam() {
+        return interpretDb.returnParam();
+    }
 
     public record RegExp() {
         public static final String SPLIT_PARAMS = "[|]";
         public static final String SPLIT_TYPE = ":";
+        public static final String SPLIT_RETURN = "->";
         public static final int TYPE_PORT = 0;
         public static final int ENTITY_PORT = 1;
         public static final int MAX_PORT_COUNT = 2;
+        public static final int MIN_PORT_COUNT = 1;
 
     }
 
-
     public static Type makeType(Map<String, Object> map,Endpoint parent) throws IllegalArgumentException {
         Map<String, String> result = new HashMap<>();
-        String[] typePorts = MakeCast.makeString(map.get(TYPE), TYPE).split(SPLIT_TYPE);
+        String[] type=MakeCast.makeString(map.get(TYPE), TYPE).split(SPLIT_RETURN);
+        String request=type[TYPE_PORT];
+        if (type.length > MAX_PORT_COUNT) {
+            throw new IllegalArgumentException(map.get(TYPE) + "must be like: request:field1|field2...");
+        } else if (type.length == MAX_PORT_COUNT) {
+            result.put(RETURN, type[ENTITY_PORT]);
+        } else {
+            result.put(RETURN, "");
+        }
+        String[] typePorts = request.split(SPLIT_TYPE);
         if (typePorts.length > MAX_PORT_COUNT) {
-            throw new IllegalArgumentException(map.get(TYPE) + "MUST BE LIKE: request:field1|field2...");
+            throw new IllegalArgumentException(map.get(TYPE) + "must be like: request:field1|field2...");
         } else if (typePorts.length == MAX_PORT_COUNT) {
             result.put(ENTITY, typePorts[ENTITY_PORT]);
         } else {
@@ -89,7 +106,7 @@ public class Type {
                 mapping = AnnotationSpec.builder(DELETE_MAPPING_ANNOTATION_CLASS);
                 break;
             }
-            default : {//GET
+            default/*GET*/: {
                 mapping = AnnotationSpec.builder(GET_MAPPING_ANNOTATION_CLASS);
                 break;
             }
@@ -106,16 +123,48 @@ public class Type {
         AnnotationSpec.Builder mapping = AnnotationSpec.builder(OPERATION_ANNOTATION_CLASS);
         return mapping.addMember("summary", "$S", operationSummary).build();
     }
+    void setGetReturn(Map<String, String> info) {
+            String[] result = info.get(RETURN).split(SPLIT_PARAMS);
+            if (result.length == MAX_PORT_COUNT) {
+                if ((result[0].equals(SORT) && result[1].equals(LIMIT)) ||
+                        (result[1].equals(SORT) && result[0].equals(LIMIT))) {
+                    ports = true;
+                    sort = true;
+                    return;
+                }
+            }
+            if (result.length == MIN_PORT_COUNT) {
+                if (result[0].equals(SORT)) {
+                    sort = true;
+                    return;
+                } else if (result[0].equals(LIMIT)) {
+                    ports = true;
+                    return;
+                }else if(result[0].isEmpty()){
+                    return;
+                }
+            }
+            throw new IllegalArgumentException(RETURN+" must be like limit|sort or sort|limit or sort or limit ");
+    }
 
-
+    void setReturn(Map<String, String> info,Endpoint parent) throws IllegalArgumentException{
+        if (info.containsKey(RETURN)) {
+            if (requestType.equals(GET)) {
+                setGetReturn(info);
+                return;
+            }
+            createReturnParams(info, parent);
+        }
+    }
     public Type(String type, Map<String, String> info,Endpoint parent) throws IllegalArgumentException {
         try {
             requestType = RequestType.fromName(type);
+            setReturn(info,parent);
             setDefaultStatus();
             setInfo(info);
-            createParams(info,parent);
-        }catch (IllegalArgumentException ex){
-            throw new IllegalArgumentException("In: "+type+" "+ex.getMessage());
+            createParams(info, parent);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("In: " + type + " " + ex.getMessage());
         }
     }
 
@@ -124,14 +173,23 @@ public class Type {
         paramsBody = Arrays.stream(paramList.split(SPLIT_PARAMS)).filter(s -> !s.isEmpty())
                 .map(parent::getEntity).flatMap(List::stream).toList();
         if (!requestType.equals(RequestType.DELETE)) {
-            if (requestType.equals(RequestType.GET)&& !isHaveParams()) {
+            if (requestType.equals(GET)&& !isHaveParams()) {
                 return;
             } else if (paramsBody.isEmpty()) {
-                throw new IllegalArgumentException(paramList + "MUST be paramsBody in request post patch put");
+                throw new IllegalArgumentException(paramList + "must be paramsBody in request post patch put");
             }
         }
         if (requestType.equals(RequestType.DELETE) && isHaveParams()) {
-            throw new IllegalArgumentException(paramList + "MUST be empty for delete");
+            throw new IllegalArgumentException(paramList + "must be empty for delete");
+        }
+    }
+
+    void createReturnParams(Map<String, String> info,Endpoint parent) {
+        String paramList = Optional.ofNullable(info.get(RETURN)).orElse("");
+        returnParams = Arrays.stream(paramList.split(SPLIT_PARAMS)).filter(s -> !s.isEmpty())
+                .map(parent::getEntity).flatMap(List::stream).toList();
+       if((!returnParams.isEmpty())&&(requestType.equals(DELETE)||requestType.equals(GET))){
+           throw new IllegalArgumentException(RETURN + ":must be like: return:field1|field2...");
         }
     }
     private boolean isHaveParams(){
