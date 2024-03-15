@@ -198,8 +198,6 @@ TRestApiGeneratorLibrary/src/main/java/org/example/analize/request/LoggerCreator
 dRestApiGeneratorLibrary/src/main/java/org/example/read_json/rest_controller_json/RequestFactory.java,8\3\83f078058cf8b16b60fabd1605b9f06289189818
 ù
 mRestApiGeneratorLibrary/src/test/java/org/example/analize/premetive/fields_cond/StringFieldConditionTest.java,a\3\a3363891230f11b5c063e2eab29c0ff312ba356e
-ê
-`TestOfWorkingGenerateCode/src/test/java/org/example/controller/TestOneRequestControllerTest.java,6\2\62a49bb83c1205d9c1fdd393238555e9c69b4637
 |
 LTestOfWorkingGenerateCode/src/test/java/org/example/controller/BaseTest.java,d\6\d6a998222630ce4562fa6ea68f9da4c1032e576c
 |
@@ -272,15 +270,3 @@ bRestApiGeneratorLibrary/src/main/java/org/example/analize/request/update/update
 åRestApiGeneratorLibrary/src/main/java/org/example/read_json/rest_controller_json/filter/filters_vies/filters/list_filter/BaseListFilter.java,3\6\36750072542998c4032b4f3eb7aec7797019f31c
 Ñ
 TTestOfWorkingGenerateCode/src/test/java/org/example/controller/TestOneTableTest.java,a\3\a32884b9103737a91c2ef9772ae52911f301d0b5
-o
-?TestOfWorkingGenerateCode/src/main/java/org/example/Config.java,f\3\f3e46c8cc1a7c1d3c13750c922c64783b666ffad
-s
-CTestOfWorkingGenerateCode/src/main/java/org/example/JooqConfig.java,9\1\9106e7cdcc17d22c9257bc25471128ea3e72b296
-ë
-aTestOfWorkingGenerateCode/src/main/java/org/example/repository/TestOneToMany1TableRepository.java,7\a\7a507b8f473a0648d9ca3571c57a9d90b67d2574
-ã
-[TestOfWorkingGenerateCode/src/main/java/org/example/repository/TestOneToManyRepository.java,0\6\06367d935efa8d549075a110fba94a1e000d35d1
-ì
-cTestOfWorkingGenerateCode/src/main/java/org/example/repository/TestManyToMany2TablesRepository.java,2\0\2034c19019d33663517f9b962d414158b9f01a85
-ä
-ZTestOfWorkingGenerateCode/src/main/java/org/example/repository/TestOneTableRepository.java,7\d\7d9e75aa362b62299ec5ecef4017bc728dbe1fcc
