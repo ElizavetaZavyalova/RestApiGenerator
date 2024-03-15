@@ -12,22 +12,20 @@ import org.example.analize.request.get.select.Get;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 import org.example.read_json.rest_controller_json.endpoint.RequestType;
-import org.jooq.Field;
-import org.jooq.SortField;
-import org.jooq.impl.DSL;
+
 
 import java.util.List;
-import java.util.Map;
+
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.RESULT_NAME;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.SORT_FIELD_CLASS;
+
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.Ports.*;
 
 public class GetRequest extends BaseGetRequest<CodeBlock,MethodSpec.Builder, TypeName>{
-    public GetRequest(String url, List<String> fields, Endpoint parent,boolean isPorts,boolean isSort) throws IllegalArgumentException {
-        super(url, fields, parent,isPorts,isSort);
+    public GetRequest(String url, List<String> fields, Endpoint parent,boolean isPorts,boolean isSort,boolean isFields) throws IllegalArgumentException {
+        super(url, fields, parent,isPorts,isSort,isFields);
     }
     @Override
     protected BaseAddress<CodeBlock> make(String url, Endpoint parent) {
@@ -41,12 +39,12 @@ public class GetRequest extends BaseGetRequest<CodeBlock,MethodSpec.Builder, Typ
 
     @Override
     public MethodSpec.Builder makeMethodBody(MethodSpec.Builder method) {
-        method=select.createFieldsPort(method);
+        method=select.createFieldsPort(method,isFields);
         CodeBlock.Builder result=CodeBlock.builder().add(select.interpret());
         if(isSort){
             result.add(".orderBy(").add(DIRECTION).add("?")
-                    .add("$T.field(",DSL_CLASS).add(SORT).add(").desc():")
-                    .add("$T.field(",DSL_CLASS).add(SORT).add(").asc()")
+                    .add("$T.field(",DSL_CLASS).add(SORT).add(").asc():")
+                    .add("$T.field(",DSL_CLASS).add(SORT).add(").desc()")
                     .add(")");
         }
         if(isPorts){

@@ -26,7 +26,7 @@ public class Select extends PortRequestWithCondition<CodeBlock> {
         block.add(CONTEXT + ".select(").add(makeField())
                 .add(").from($T.table($S)",DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
-            block.add(".as($S)", tableName);
+            block.add(".asTable($S)", tableName);
         }
         block.add(")");
         block.add(WereInterpret.makeWhere(where, selectNext, tableName, ref));
@@ -38,13 +38,13 @@ public class Select extends PortRequestWithCondition<CodeBlock> {
         CodeBlock.Builder block= CodeBlock.builder();
         switch (aggregationFunction) {
             case MAX -> {
-                return block.add("$T.max(" + choseField + ")",DSL_CLASS,DSL_CLASS, tableName + "." + id).build();
+                return block.add("$T.max(" + choseField + ")",DSL_CLASS,DSL_CLASS,  id).build();
             }
             case MIN -> {
-                return block.add("$T.min(" + choseField + ")",DSL_CLASS,DSL_CLASS, tableName + "." + id).build();
+                return block.add("$T.min(" + choseField + ")",DSL_CLASS,DSL_CLASS,  id).build();
             }
             default -> {
-                return block.add(choseField,DSL_CLASS, tableName + "." + id).build();
+                return block.add(choseField,DSL_CLASS,  id).build();
             }
         }
     }

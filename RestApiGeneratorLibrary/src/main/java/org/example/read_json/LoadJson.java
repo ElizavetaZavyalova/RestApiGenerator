@@ -4,5 +4,5 @@ import java.io.IOException;
 
 
 public interface LoadJson<R> {
-    public R  load(String jsonPath) throws IOException;
+    R load(String jsonPath) throws IOException;
 }

@@ -14,7 +14,7 @@ public abstract class BaseListFilter<R,M> extends Filter<R> {
     protected List<String> val;
     protected String example;
     protected BaseListFilter(FilterNames names,String key, List<String> val, String filter, String nameInRequest) {
-        super(names,key,filter,nameInRequest);
+        super(names,filter,nameInRequest,key);
         this.val=val;
     }
     public abstract M makeFilterMethod(Endpoint parent);

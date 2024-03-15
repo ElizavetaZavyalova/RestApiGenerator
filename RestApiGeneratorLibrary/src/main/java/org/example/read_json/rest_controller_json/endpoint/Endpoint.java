@@ -2,6 +2,7 @@ package org.example.read_json.rest_controller_json.endpoint;
 
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+
 import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import org.example.read_json.rest_controller_json.filter.EndpointFilters;
 import org.example.read_json.rest_controller_json.filter.Filters;
 
 import org.example.read_json.rest_controller_json.filter.filters_vies.Filtering;
-import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.BaseListFilter;
+
 import org.example.read_json.rest_controller_json.filter.filters_vies.filters.list_filter.ListFilter;
 import org.example.read_json.rest_controller_json.pseudonyms.EndpointPseudonyms;
 import org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms;
@@ -70,7 +71,7 @@ public class Endpoint {
     }
 
     public List<MethodSpec> getControllerMethods(String beanName) throws IllegalArgumentException {
-        return requestInformation.makeControllerMethods(funcName, beanName);
+         return requestInformation.makeControllerMethods(funcName, beanName);
     }
 
     public Filtering<CodeBlock> getFilter(String key) throws IllegalArgumentException {

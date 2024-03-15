@@ -10,10 +10,8 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.FIELDS_NAME;
-
-public abstract class BaseUpdateRequest<R,M,N,P> extends BaseRequest<R,M,P> {
-    protected BaseUpdate<R,N> update;
+public abstract class BaseUpdateRequest<R,M,P,S> extends BaseRequest<R,M,P> {
+    protected BaseUpdate<R,S> update;
     protected BaseUpdateRequest(String url, List<String> fields,List<String> returnFields, Endpoint parent) throws IllegalArgumentException {
         super(url, parent);
         update=makeUpdate(address.getEndUrl(),fields,returnFields,address.getSelectCurrent(),parent);
@@ -29,5 +27,5 @@ public abstract class BaseUpdateRequest<R,M,N,P> extends BaseRequest<R,M,P> {
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
         update.addParams(params,filters);
     }
-    protected abstract BaseUpdate<R,N> makeUpdate(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent);
+    protected abstract BaseUpdate<R,S> makeUpdate(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent);
 }

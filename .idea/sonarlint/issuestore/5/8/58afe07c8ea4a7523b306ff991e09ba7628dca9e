@@ -1,13 +1,0 @@
-
-Y
-java:S1128"<Remove this unused import 'com.squareup.javapoet.CodeBlock'.(˜šíº8 Ÿ¡×á1
-b
-java:S1128"@Remove this unused import 'jakarta.xml.bind.annotation.XmlType'.(õêÔ‚ıÿÿÿÿ8 Ÿ¡×á1
-G
-java:S1128"*Remove this unused import 'lombok.Getter'.(ùÒµÙ8 Ÿ¡×á1
-c
-java:S1128"GRemove this unused import 'org.example.analize.premetive.fields.Field'.(´ç¦^8 Ÿ¡×á1
-b
-java:S1128"@Remove this unused import 'org.example.analize.where.BaseWhere'.(×û£Şùÿÿÿÿ8¡Ÿ¡×á1
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8¡Ÿ¡×á1

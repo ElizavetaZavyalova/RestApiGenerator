@@ -1,0 +1,46 @@
+{
+  "pseudonyms": {
+    "entity": {
+      "table1": ["fieldStr1-s=str"],
+      "table2": ["fieldStr2-s=str"]
+    },
+    "fields": {
+      "fieldStr1": ["FStr1","s1"],
+      "fieldStr2":  ["FStr2","s2"]
+    },
+    "tables": {
+      "table1": ["T1","t1"],
+      "table2": ["T2","t2"]
+    },
+    "joins": {
+      "table1:table2":["table12_ref"]
+    }
+  },
+  "http": {
+    "GetAllFromTable2WhereTable1Id": {
+      "get": "table1|id->limit|sort",
+      "request": "table1/{id}/table2",
+      "tags": "MANY_TO_MANY"
+    } ,
+    "DeleteFromTable2ByIdTable1": {
+      "type": "delete",
+      "request": "table1/{id}/table2",
+      "tags": "MANY_TO_MANY"
+    },
+    "PostFromTable2ByIdTable1": {
+      "post": "table2->id",
+      "request": "table1/{id}/table2",
+      "tags": "MANY_TO_MANY"
+    },
+    "PatchFromTable2ByIdTable1": {
+      "patch": "table2->id",
+      "request": "table1/{id}/table2",
+      "tags": "MANY_TO_MANY"
+    },
+    "PutFromTable2ByIdTable1": {
+      "put": "table2->id",
+      "request": "table1/{id}/table2",
+      "tags": "MANY_TO_MANY"
+    }
+  }
+}

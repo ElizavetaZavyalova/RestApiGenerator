@@ -39,10 +39,10 @@ public class ListOneParamFilter extends ListFilter {
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
                 .returns(CONDITION_CLASS)
                 .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", LIST_CLASS, CONDITION_CLASS, ARRAY_LIST_CLASS)
-                .beginControlFlow("if(" + REQUEST_PARAM_NAME + "containsKey.($S))", filterName);
-        val.forEach(v -> methodBuilder.addCode(new BodyFuncFilterOneParam(v, parent, filterName).interpret()));
-        methodBuilder.addStatement(makeCondition());
+                .beginControlFlow("if(" + REQUEST_PARAM_NAME + ".containsKey($S))", filterName);
+        val.forEach(v -> methodBuilder.addStatement(new BodyFuncFilterOneParam(v, parent, filterName).interpret()));
         methodBuilder.endControlFlow();
+        methodBuilder.addStatement(makeCondition());
         return methodBuilder.build();
     }
 

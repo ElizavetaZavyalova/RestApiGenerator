@@ -16,6 +16,8 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.VALUE;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.CONTEXT;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.CONTEXT_CLASS;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.ExceptionOfSQL.*;
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.ExceptionOfSQL.ERROR_MASSAGE_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.createClass;
 
 
@@ -30,7 +32,6 @@ public class Endpoints {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             endpoint.put(entry.getKey(), new Endpoint(MakeCast.makeMap(entry.getValue(), entry.getKey()), this, entry.getKey()));
         }
-
     }
 
     public TypeSpec createRepository(String repositoryName, String beanName) throws IllegalArgumentException {
@@ -57,6 +58,17 @@ public class Endpoints {
         methods.forEach(repository::addMethod);
         return repository.build();
     }
+    static MethodSpec makeBedRequestMethod(){
+        final String exception="exception";
+        return MethodSpec.methodBuilder("sqlExceptionMethod")
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(AnnotationSpec.builder(EXCEPTION_HANDLER_CLASS)
+                        .addMember("value","$T.class",SQL_EXCEPTION_CLASS).build())
+                .returns(PARAMETERIZED_RESPONSE_ENTITY_CLASS)
+                .addParameter(ParameterSpec.builder(SQL_EXCEPTION_CLASS,exception).build())
+                .addStatement("return $T.status($T.BAD_REQUEST).body(new $T("+exception+".getLocalizedMessage()))",
+                        RESPONSE_ENTITY_CLASS,HTTP_STATUS_CLASS,ERROR_MASSAGE_CLASS ).build();
+    }
 
     void generate() {
         endpoint.entrySet().parallelStream().forEach(e -> e.getValue().generate());
@@ -77,6 +89,7 @@ public class Endpoints {
                         .addStatement("this." + repositoryBean + " = " + repositoryBean)
                         .build());
         methods.forEach(controller::addMethod);
+        controller.addMethod(makeBedRequestMethod());
         return controller.build();
     }
 

@@ -10,9 +10,9 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.List;
 
-public abstract class BasePostRequest<R,M,N,P> extends BaseRequest<R,M,P> {
+public abstract class BasePostRequest<R,M,P,S> extends BaseRequest<R,M,P> {
 
-    protected BaseInsert<R,N,List<R>,M> insert;
+    protected BaseInsert<R,S,List<R>,M> insert;
 
     protected BasePostRequest(String url, List<String> params,List<String> returnParams ,Endpoint parent) throws IllegalArgumentException {
         super();
@@ -29,6 +29,6 @@ public abstract class BasePostRequest<R,M,N,P> extends BaseRequest<R,M,P> {
         this.insert.addParams(params,filters);
     }
 
-    abstract BaseInsert<R,N,List<R>,M> makeBaseInsertRequest(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent);
+    abstract BaseInsert<R,S,List<R>,M> makeBaseInsertRequest(String request, List<String> fields,List<String> returnFields, PortRequestWithCondition<R> select, Endpoint parent);
 
 }

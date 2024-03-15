@@ -27,8 +27,8 @@ public class Put extends Update {
     }
 
     CodeBlock makeValue(BaseFieldInsertUpdate<CodeBlock, ClassName> fieldReal) {
-        return CodeBlock.builder().add("$T.val(" + REQUEST_PARAM_BODY + ".containsKey($S)?" + REQUEST_PARAM_BODY + ".get($S):" + fieldReal.getDefaultValue() + ")",
-                        DSL_CLASS, fieldReal.getName(), fieldReal.getName())
+        return CodeBlock.builder().add("$T.val(",DSL_CLASS).add(REQUEST_PARAM_BODY).add(".containsKey($S)?",fieldReal.getName()).add( REQUEST_PARAM_BODY)
+                .add(".get($S)",fieldReal.getName()).add(":").add(fieldReal.getDefaultValue()).add(")")
                 .build();
     }
 

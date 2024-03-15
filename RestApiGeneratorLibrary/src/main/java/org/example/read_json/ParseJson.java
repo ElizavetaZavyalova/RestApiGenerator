@@ -20,29 +20,29 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.VALUE_ANNOTATION_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.INFO_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.SwaggerConfig.OPEN_API_CLASS;
-import  org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.Swagger;
+
+import org.example.read_json.rest_controller_json.JsonKeyWords.ApplicationProperties.Swagger;
 
 
 @Getter
 @Slf4j
 public class ParseJson {
-    static LoadJson<Map<String, Object>> loadJson = new ReadJson();
+    static ReadJson loadJson = new ReadJson();
     List<RestJson> restsJson = new ArrayList<>();
     static final String BEAN = "dsl";
-
     public ParseJson(String jsonPath) {
         try {
             loadJson.load(jsonPath).forEach(
-                    (key, object) -> restsJson.add(new RestJson(MakeCast.makeMap(object, jsonPath), key,BEAN)));
-        } catch (IOException | IllegalArgumentException ex) {
+                    (key, object) -> restsJson.add(new RestJson( loadJson.loadRest(object, jsonPath), key, BEAN)));
+        } catch (IllegalArgumentException ex) {
             log.debug(ex.getMessage());
             AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
         }
     }
-    public void generate(){
+
+    public void generate() {
         restsJson.parallelStream().forEach(RestJson::generate);
     }
-
 
 
     static MethodSpec makeSwaggerConfiguration() {
@@ -52,7 +52,7 @@ public class ParseJson {
                                 .addMember(VALUE, "$S", "${" + Swagger.getParam(Swagger.title) + "}").build()).build())
                 .addParameter(ParameterSpec.builder(STRING_CLASS, Swagger.description)
                         .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
-                                .addMember(VALUE, "$S", "${" +  Swagger.getParam(Swagger.description) + "}").build()).build())
+                                .addMember(VALUE, "$S", "${" + Swagger.getParam(Swagger.description) + "}").build()).build())
                 .addParameter(ParameterSpec.builder(STRING_CLASS, Swagger.version)
                         .addAnnotation(AnnotationSpec.builder(VALUE_ANNOTATION_CLASS)
                                 .addMember(VALUE, "$S", "${" + Swagger.getParam(Swagger.version) + "}").build()).build())

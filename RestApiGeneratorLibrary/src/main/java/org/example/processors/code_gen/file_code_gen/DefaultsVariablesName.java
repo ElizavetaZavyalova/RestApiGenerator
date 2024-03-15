@@ -3,6 +3,8 @@ package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
+import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.webBindAnnotations;
+
 
 public record DefaultsVariablesName() {
     public static boolean DEBUG = false;
@@ -20,7 +22,6 @@ public record DefaultsVariablesName() {
     public record Filter() {
         public static final String TABLE_NAME_IN_FILTER = "table";
         public static final String REQUEST_PARAM_NAME = "returnFields";
-        public static final String USER_FILTER_NAME = "userFilter";
         public static final String REQUEST_PARAM_BODY = "entity";
         public static final String CONDITION_LIST_IN_FILTER = "conditions";
         public static final String DEFAULT_CONDITION_IN_FILTER = "defaultCondition";
@@ -38,7 +39,9 @@ public record DefaultsVariablesName() {
         public record SwaggerConfig() {
             private static final String swaggerV3OasModels = "io.swagger.v3.oas.models";
             private static final String swaggerV3OasAnnotations = "io.swagger.v3.oas.annotations";
+            private static final String swaggerV3OasAnnotationsMedia = "io.swagger.v3.oas.annotations.media";
             private static final String swaggerV3OasModelsInfo = "io.swagger.v3.oas.models.info";
+            public static final ClassName SCHEMA_ANNOTATION_CLASS = createClass( swaggerV3OasAnnotationsMedia, "Schema");
             public static final ClassName OPERATION_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Operation");
             public static final ClassName PARAMETER_ANNOTATION_CLASS = createClass(swaggerV3OasAnnotations, "Parameter");
             public static final ClassName INFO_CLASS = createClass(swaggerV3OasModelsInfo, "Info");
@@ -46,8 +49,10 @@ public record DefaultsVariablesName() {
         }
 
         public record Controller() {
-            private static final String webBindAnnotations = "org.springframework.web.bind.annotation";
+            static final String webBindAnnotations = "org.springframework.web.bind.annotation";
+            private static final String transactionAnnotation = "org.springframework.transaction.annotation";
             private static final String springStereotype = "org.springframework.stereotype";
+            public static final ClassName TRANSACTIONAL_ANNOTATION_CLASS = createClass(transactionAnnotation, "Transactional");
             private static final String http = "org.springframework.http";
             private static final String validConstants = "jakarta.validation.constraints";
             public static final ClassName HTTP_STATUS_CLASS = createClass(http, "HttpStatus");
@@ -78,11 +83,7 @@ public record DefaultsVariablesName() {
             private static final String javaUtilLogging = "java.util.logging";
             public static final String LOG_NAME = "log";
             public static final String RESULT_NAME = "result";
-            public static final String RESULT_LIST = "resultList";
             public static final String RESULT_MAP = "resultMap";
-            public static final String RESULT_NAME_ORDER = "resultOrder";
-            public static final String RESULT_NAME_OFFSET = "resultOffset";
-            public static final String RESULT_NAME_LIMIT = "resultLimit";
             public static final String LOG_LEVE_NAME = "INFO";
             public static final String FIELDS_NAME="fieldsName";
             public static final String LIST_NAME="list";
@@ -92,17 +93,18 @@ public record DefaultsVariablesName() {
             public static final ClassName MAP_CLASS = createClass(javaUtil, "Map");
             public static final ClassName HASH_MAP_CLASS = createClass(javaUtil, " HashMap");
             public static final ClassName LIST_CLASS = createClass(javaUtil, "List");
-            public static final ClassName ARRAYS_CLASS = createClass(javaUtil, "Arrays");
             public static final ClassName STRING_CLASS = createClass(javaLang, "String");
             public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
             public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
             public static final ClassName LONG_CLASS = createClass(javaLang, "Long");
+            public static final ClassName FLOAT_CLASS = createClass(javaLang, "Float");
+            public static final ClassName DOUBLE_CLASS = createClass(javaLang, "Double");
             public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");
             public static final ClassName OBJECT_CLASS = createClass(javaLang, "Object");
             public static final ParameterizedTypeName PARAMETRIZED_MAP = ParameterizedTypeName.get(MAP_CLASS,
                     STRING_CLASS, OBJECT_CLASS);
-            //HttpServletRequest request
-            private static final String springUtil="org.springframework.util";//org.springframework.util.MultiValueMap
+
+            private static final String springUtil="org.springframework.util";
             public static final ClassName MULTI_VALUE_MAP_CLASS = createClass(springUtil, "MultiValueMap");
             public static final ParameterizedTypeName REQUEST_PARAMS  = ParameterizedTypeName.get(MULTI_VALUE_MAP_CLASS,
                     STRING_CLASS, STRING_CLASS);
@@ -113,7 +115,7 @@ public record DefaultsVariablesName() {
     }
 
 
-    public record DB() {
+    public record DB() {//java.sql.SQLException
        public record LoggerColor(){
            public static final String _DELETE_COLOR="\n\u001B[35m";
            public static final String _GET_COLOR="\n\u001B[34m";
@@ -122,16 +124,24 @@ public record DefaultsVariablesName() {
            public static final String _PATCH_COLOR="\n\u001B[36m";
            public static final String _RESET_COLOR="\n\u001B[0m";
         }
-        private static final String orgJooq = "org.jooq";//org.jooq.SortField;
-        private static final String orgJooqIml = "org.jooq.impl";//Field
+        private static final String javaSql = "java.sql";
+        private static final String orgJooq = "org.jooq";
+        private static final String orgJooqIml = "org.jooq.impl";
         public static final ClassName FIELD_CLASS=createClass(orgJooq, "Field");
-        public static final ClassName SORT_FIELD_CLASS=createClass(orgJooq, "SortField");
-        public static final ClassName SELECT_CLASS=createClass(orgJooq, "Select");
         public static final ClassName CONTEXT_CLASS = createClass(orgJooq, "DSLContext");
         public static final ClassName DSL_CLASS = createClass(orgJooqIml, "DSL");
         public static final ClassName CONDITION_CLASS = createClass(orgJooq, "Condition");
-        public static final ClassName RECORD_CLASS = createClass("", "?");
-        public static final ClassName RESULT_CLASS = createClass(orgJooq, "Result");
-        public static final ParameterizedTypeName RESULT_OF_RECORD_CLASS = ParameterizedTypeName.get(RESULT_CLASS, RECORD_CLASS);
+        public  record ExceptionOfSQL(){
+
+           static final String http="org.springframework.http";
+            static final String springDocApi="org.springdoc.api";
+            public static final ClassName RESPONSE_ENTITY_CLASS=createClass(http, "ResponseEntity");
+            public static final ClassName SQL_EXCEPTION_CLASS=createClass(javaSql, "SQLException");
+            public static final ClassName EXCEPTION_HANDLER_CLASS=createClass(webBindAnnotations, "ExceptionHandler");
+            public static final ClassName ERROR_MASSAGE_CLASS=createClass(springDocApi, "ErrorMessage");
+            public static final ParameterizedTypeName PARAMETERIZED_RESPONSE_ENTITY_CLASS =
+                    ParameterizedTypeName.get(RESPONSE_ENTITY_CLASS,
+                            ERROR_MASSAGE_CLASS);
+        }
     }
 }

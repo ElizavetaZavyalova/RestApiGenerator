@@ -21,41 +21,38 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.*;
 @Slf4j
 public class RestJson {
     @Getter
-    private  final String locationName;
-    private  final Endpoints http;
+    private final String locationName;
+    private final Endpoints http;
     @Getter
-    private  final RestJsonPseudonyms pseudonyms;
+    private final RestJsonPseudonyms pseudonyms;
     @Getter
-    private  final RestJsonFilters filters;
-    private  final String beanName;
-    private  final  String mappingPrefix;
-
-
+    private final RestJsonFilters filters;
+    private final String beanName;
+    private final String mappingPrefix;
     ReadJson readeJson = new ReadJson();
 
     public RestJson(Map<String, Object> map, String locationName, String beanName) throws IllegalArgumentException {
-       try {
-           this.locationName = locationName;
-           this.beanName = beanName;
-           this.mappingPrefix = MakeCast.makeStringIfContainsKeyMap(map, ADDRESS_PREFIX, false);
-           pseudonyms = new RestJsonPseudonyms(readeJson.loadPseudonyms(map), this);
-           filters = new RestJsonFilters(readeJson.loadFilters(map), this);
-           http = new Endpoints(readeJson.loadEndpoints(map), this);
-       }catch (IllegalArgumentException ex){
-           throw new IllegalArgumentException("in: "+locationName+" "+ex.getMessage());
-       }
+        try {
+            this.locationName = locationName;
+            this.beanName = beanName;
+            this.mappingPrefix = MakeCast.makeStringIfContainsKeyMap(map, ADDRESS_PREFIX, false);
+            pseudonyms = new RestJsonPseudonyms(readeJson.loadPseudonyms(map), this);
+            filters = new RestJsonFilters(readeJson.loadFilters(map), this);
+            http = new Endpoints(readeJson.loadEndpoints(map), this);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("in: " + locationName + " " + ex.getMessage());
+        }
     }
 
 
-    public JavaFile getJavaRepository(String className, String packageName)  throws IllegalArgumentException {
+    public JavaFile getJavaRepository(String className, String packageName) throws IllegalArgumentException {
         TypeSpec typeSpec = http.createRepository(className, beanName);
         typeSpec = addRepositoryAnnotation(typeSpec);
         return JavaFile.builder(packageName, typeSpec)
                 .addStaticImport(HTTP_STATUS_CLASS, "*").build();
-
-
     }
-    public void generate(){
+
+    public void generate() {
         http.generate();
     }
 
@@ -75,13 +72,10 @@ public class RestJson {
     private static TypeSpec addRestAnnotation(TypeSpec typeSpec) {
         return typeSpec.toBuilder().addAnnotation(AnnotationSpec.builder(REST_CONTROLLER_ANNOTATION_CLASS).build()).build();
     }
-
     public JavaFile getJavaController(String className, String packageName, String repositoryName, String repositoryPath) throws IllegalArgumentException {
         TypeSpec typeSpec = http.createController(className, repositoryName, repositoryPath);
         typeSpec = addMappingPrefix(typeSpec);
         typeSpec = addRestAnnotation(typeSpec);
         return JavaFile.builder(packageName, typeSpec).build();
     }
-
-
 }

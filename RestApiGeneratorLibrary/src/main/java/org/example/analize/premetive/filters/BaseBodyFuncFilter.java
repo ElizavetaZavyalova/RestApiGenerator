@@ -27,6 +27,8 @@ public abstract class BaseBodyFuncFilter extends BaseFieldParser<CodeBlock> {
             case STRING -> STRING_CLASS;
             case BOOLEAN -> BOOLEAN_CLASS;
             case INTEGER -> INTEGER_CLASS;
+            case FLOAT -> FLOAT_CLASS;
+            case DOUBLE -> DOUBLE_CLASS;
             default -> LONG_CLASS;
         };
     }

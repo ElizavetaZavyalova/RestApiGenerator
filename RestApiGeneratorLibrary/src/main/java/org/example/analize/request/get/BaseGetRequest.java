@@ -14,12 +14,14 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 
 public abstract class BaseGetRequest<R,M,P> extends BaseRequest<R,M,P> {
     BaseGet<R,M> select;
-    boolean isPorts=false;
-    boolean isSort=false;
-    protected BaseGetRequest(String url, List<String> fields, Endpoint parent, boolean isPorts, boolean isSort) throws IllegalArgumentException {
+   final boolean isPorts;
+   final boolean isSort;
+   final boolean isFields;
+    protected BaseGetRequest(String url, List<String> fields, Endpoint parent, boolean isPorts, boolean isSort,boolean isFields) throws IllegalArgumentException {
         super(url, parent);
         this.isPorts=isPorts;
         this.isSort=isSort;
+        this.isFields=isFields;
         select=makeSelect(address.getEndUrl(),fields,address.getSelectCurrent(),parent);
     }
     @Override

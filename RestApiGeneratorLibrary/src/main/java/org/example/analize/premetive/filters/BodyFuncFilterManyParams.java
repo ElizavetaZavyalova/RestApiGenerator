@@ -38,7 +38,7 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
         return makeTypeOfDefaultValue(CodeBlock.builder().add("$S:",fieldName));
     }
     protected CodeBlock makeCondition() {
-        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).", DSL_CLASS, "." + realFieldName);
+        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field($S).", DSL_CLASS,  realFieldName);
         switch (action) {
             case IN:{
                 builder.add("in");
@@ -66,6 +66,14 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
             }
             case GT: {
                 builder.add("gt");
+                break;
+            }
+            case REG: {
+                builder.add("likeRegex");
+                break;
+            }
+            case NOT_REG: {
+                builder.add("notLikeRegex");
                 break;
             }
             case LIKE: {

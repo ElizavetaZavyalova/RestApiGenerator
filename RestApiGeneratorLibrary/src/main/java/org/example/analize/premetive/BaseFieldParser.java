@@ -3,6 +3,7 @@ package org.example.analize.premetive;
 import org.example.analize.interpretation.Interpretation;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
+
 import java.util.Optional;
 
 import static org.example.analize.premetive.BaseFieldParser.Action.*;
@@ -20,6 +21,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         BOOLEAN(_BOOLEAN),
 
         INTEGER(_INTEGER),
+        DOUBLE(_DOUBLE),
+        FLOAT(_FLOAT),
 
         LONG(_LONG);
         final String ident;
@@ -45,7 +48,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         }
 
         public static boolean isTypeDigit(Type type) {
-            return type.equals(INTEGER) || type.equals(LONG);
+            return type.equals(INTEGER) || type.equals(LONG)
+                    ||type.equals(FLOAT)||type.equals(DOUBLE);
         }
 
         public static String deleteType(String string, Type type) {
@@ -66,6 +70,8 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         NE(_NE),
         LIKE(_LIKE),
         NOT_LIKE(_NOT_LIKE),
+        REG(_REG),
+        NOT_REG(_NOT_REG),
         GE(_GE),
         GT(_GT),
         LE(_LE),
@@ -136,8 +142,9 @@ public abstract class BaseFieldParser<R> implements Interpretation<R> {
         if (type.equals(Type.BOOLEAN) && !(action.equals(EQ) || action.equals(NE))) {
             throw new IllegalArgumentException("type boolean must be eq or ne");
         }
-        if (Type.isTypeDigit(type) && (action.equals(LIKE) || action.equals(NOT_LIKE))) {
-            throw new IllegalArgumentException("type number can't be like or not_like");
+        if (Type.isTypeDigit(type) && (action.equals(LIKE) || action.equals(NOT_LIKE)
+                ||action.equals(REG) || action.equals(NOT_REG))) {
+            throw new IllegalArgumentException("type number can't be like or not_like or reg or not_reg");
         }
     }
 }

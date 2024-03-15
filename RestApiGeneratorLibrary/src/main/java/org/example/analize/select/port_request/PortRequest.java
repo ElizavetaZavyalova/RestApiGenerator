@@ -17,7 +17,7 @@ public class PortRequest extends PortRequestWithCondition<CodeBlock> {
     @Override
     public CodeBlock interpret() {
         var block = CodeBlock.builder();
-        block.add(CONTEXT + ".select(").add("$T.field($S)", DSL_CLASS, tableName + "." + id)
+        block.add(CONTEXT + ".select(").add("$T.field($S)", DSL_CLASS,   id)
                 .add(").from($T.table($S)",DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);

@@ -2,6 +2,8 @@ package org.example.read_json;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import lombok.extern.slf4j.Slf4j;
 import org.example.read_json.rest_controller_json.MakeCast;
 
 import java.io.File;
@@ -11,25 +13,36 @@ import java.util.Map;
 
 import static org.example.read_json.rest_controller_json.JsonKeyWords.*;
 import static org.example.read_json.rest_controller_json.JsonKeyWords.PSEUDONYMS;
-
-public class ReadJson implements LoadJson<Map<String,Object>> {
+@Slf4j
+public class ReadJson implements LoadJson<Map<String, Object>> {
 
     @Override
-    public  Map<String,Object> load(String jsonPath) throws IllegalArgumentException {
-        ObjectMapper objectMapper=new ObjectMapper();
+    public Map<String, Object> load(String jsonPath) throws IllegalArgumentException {
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(new File(jsonPath), new TypeReference<>(){});
+             return objectMapper.readValue(new File(jsonPath), new TypeReference<>() {});
         } catch (IOException e) {
-            throw new IllegalArgumentException("not found file:"+jsonPath);
+            throw new IllegalArgumentException("not found file:" + jsonPath);
         }
     }
-    public Map<String,Object> loadEndpoints(Map<String, Object> map) throws IllegalArgumentException{
-        String path= MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map,HTTP);
-        if(path.isEmpty()) {
+    public Map<String, Object> loadRest(Object object,String jsonPath) throws IllegalArgumentException {
+        String path = MakeCast.makeStringOrDefaultEmpty(object);
+        if (path.isEmpty()) {
+            return MakeCast.makeMap(object, jsonPath);
+        }
+        log.info(path);
+        return load(path);
+    }
+
+
+    public Map<String, Object> loadEndpoints(Map<String, Object> map) throws IllegalArgumentException {
+        String path = MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map, HTTP);
+        if (path.isEmpty()) {
             return MakeCast.makeMapAndCheckKey(map, HTTP);
         }
         return load(path);
     }
+
     public Map<String, String> loadFilters(Map<String, Object> map) throws IllegalArgumentException {
         String path = MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map, FILTERS);
         if (path.isEmpty()) {
@@ -38,12 +51,12 @@ public class ReadJson implements LoadJson<Map<String,Object>> {
         return MakeCast.makeStringMap(Map.of(FILTERS, load(path)), FILTERS, false);
     }
 
-    public Map<String, Map<String, List<String>>> loadPseudonyms(Map<String, Object> map) throws IllegalArgumentException{
-        String path=MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map,PSEUDONYMS);
-        if(path.isEmpty()) {
+    public Map<String, Map<String, List<String>>> loadPseudonyms(Map<String, Object> map) throws IllegalArgumentException {
+        String path = MakeCast.makeStringIfContainsKeyMapElseReturnEmpty(map, PSEUDONYMS);
+        if (path.isEmpty()) {
             return MakeCast.makeMapOfMapOfList(map, PSEUDONYMS, false);
         }
-        return MakeCast.makeMapOfMapOfList(Map.of(PSEUDONYMS,load(path)), PSEUDONYMS, false);
+        return MakeCast.makeMapOfMapOfList(Map.of(PSEUDONYMS, load(path)), PSEUDONYMS, false);
     }
 
 }

@@ -1,17 +1,14 @@
 package org.example.analize.request.post.insert;
 
-import com.squareup.javapoet.CodeBlock;
-import jakarta.xml.bind.annotation.XmlType;
-import lombok.Getter;
+
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.BaseFieldInsertUpdate;
-import org.example.analize.premetive.fields.Field;
+
 import org.example.analize.select.port_request.BasePortRequest;
 import org.example.analize.select.port_request.PortRequestWithCondition;
-import org.example.analize.where.BaseWhere;
+
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,10 +34,10 @@ public abstract class BaseInsert<R, N, I,M> extends BasePortRequest<R, I> {
     }
 
     protected enum InsertType {
-        ONLY_INSERT,//[1]Insert=return-
-        MANY_TO_MANY,//[1]Insert(<ref>+return)->[2]Insert from select-
-        ONE_TO_MANY,//[1]Insert from select=return-
-        MANY_TO_ONE;//[1]Insert(return)->[2]update<ref>-
+        ONLY_INSERT,
+        MANY_TO_MANY,
+        ONE_TO_MANY,
+        MANY_TO_ONE
     }
     public boolean isFetchOne(){
         return !insertType.equals(ONE_TO_MANY);

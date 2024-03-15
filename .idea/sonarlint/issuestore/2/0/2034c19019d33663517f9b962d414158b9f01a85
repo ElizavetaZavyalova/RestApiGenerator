@@ -1,0 +1,48 @@
+
+n
+java:S1192""LDefine a constant instead of duplicating this literal "table5R.id" 10 times.(•ŞÀ‘úÿÿÿÿ8É¶ûã1
+j
+java:S1192""HDefine a constant instead of duplicating this literal "table5" 10 times.(•ŞÀ‘úÿÿÿÿ8‘É¶ûã1
+m
+java:S1192""KDefine a constant instead of duplicating this literal "table5L.id" 7 times.(•ŞÀ‘úÿÿÿÿ8‘É¶ûã1
+j
+java:S1192""HDefine a constant instead of duplicating this literal "table5L" 4 times.(•ŞÀ‘úÿÿÿÿ8’É¶ûã1
+m
+java:S1192."KDefine a constant instead of duplicating this literal "fieldStr5" 11 times.(¹§¡›ûÿÿÿÿ8“É¶ûã1
+x
+java:S1192""VDefine a constant instead of duplicating this literal "Table5_ref.table5R_id" 4 times.(•ŞÀ‘úÿÿÿÿ8”É¶ûã1
+m
+java:S1192""KDefine a constant instead of duplicating this literal "Table5_ref" 5 times.(•ŞÀ‘úÿÿÿÿ8”É¶ûã1
+x
+java:S1192""VDefine a constant instead of duplicating this literal "Table5_ref.table5L_id" 4 times.(•ŞÀ‘úÿÿÿÿ8•É¶ûã1
+g
+java:S1192&"JDefine a constant instead of duplicating this literal "\u001b[0m" 6 times.(£¶·‚8•É¶ûã1
+j
+java:S1192""HDefine a constant instead of duplicating this literal "table5R" 5 times.(•ŞÀ‘úÿÿÿÿ8–É¶ûã1
+r	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ×İĞûÿÿÿÿ8—É¶ûã1
+E
+java:S5411#"(Use a primitive boolean expression here.(’ÒÇâ8›É¶ûã1
+E
+java:S54110"(Use a primitive boolean expression here.(’ÒÇâ8›É¶ûã1
+E
+java:S5411<"(Use a primitive boolean expression here.(’ÒÇâ8œÉ¶ûã1
+E
+java:S5411G"(Use a primitive boolean expression here.(’ÒÇâ8É¶ûã1
+E
+java:S5411O"(Use a primitive boolean expression here.(’ÒÇâ8É¶ûã1
+E
+java:S5411^"(Use a primitive boolean expression here.(’ÒÇâ8É¶ûã1
+>
+java:S1116"Remove this empty statement.(šÚ””ÿÿÿÿÿ8çÉ¶ûã1
+m
+java:S3457$"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ìÉ¶ûã1
+m
+java:S34571"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ñÉ¶ûã1
+m
+java:S3457="KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8øÉ¶ûã1
+m
+java:S3457H"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ıÉ¶ûã1
+m
+java:S3457P"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8Ê¶ûã1
+m
+java:S3457_"KFormat specifiers or lambda should be used instead of string concatenation.(„’šóşÿÿÿÿ8ŠÊ¶ûã1

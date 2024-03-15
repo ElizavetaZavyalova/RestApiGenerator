@@ -4,7 +4,8 @@ import com.squareup.javapoet.CodeBlock;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
-import org.jooq.impl.DSL;
+
+
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
             case INTEGER -> CodeBlock.builder().add(code, INTEGER_CLASS).build();
             case LONG -> CodeBlock.builder().add(code, LONG_CLASS).build();
             case BOOLEAN -> CodeBlock.builder().add(code, BOOLEAN_CLASS).build();
+            case FLOAT ->CodeBlock.builder().add(code,  FLOAT_CLASS).build();
+            case DOUBLE -> CodeBlock.builder().add(code, DOUBLE_CLASS).build();
             default -> CodeBlock.builder().build();
         };
 
@@ -30,13 +33,16 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
 
     @Override
     public CodeBlock interpret() {
-        var block = CodeBlock.builder().add("$T.field($S)", DSL_CLASS, tableName + "." + realFieldName);
+        var block = CodeBlock.builder().add("$T.field($S)", DSL_CLASS, realFieldName);
         switch (action) {
+
             case NE -> block.add(".ne(" + fieldName + ")");
             case LE -> block.add(".le(" + fieldName + ")");
             case LT -> block.add(".lt(" + fieldName + ")");
             case GE -> block.add(".ge(" + fieldName + ")");
             case GT -> block.add(".gt(" + fieldName + ")");
+            case REG -> block.add(".likeRegex(" + fieldName + ")");
+            case NOT_REG -> block.add(".notLikeRegex(" + fieldName + ")");
             case LIKE -> block.add(".like(" + fieldName + ")");
             case NOT_LIKE -> block.add(".notLike(" + fieldName + ")");
             case IN -> block.add(".in(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");

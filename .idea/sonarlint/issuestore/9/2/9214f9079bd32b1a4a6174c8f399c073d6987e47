@@ -1,19 +1,0 @@
-
-p
-java:S1192ƒ"MDefine a constant instead of duplicating this literal "$T.field($S)" 3 times.(şÏ¹¤şÿÿÿÿ8ÄúÏÔá1
-p
-java:S1192"MDefine a constant instead of duplicating this literal ".insertInto(" 3 times.(¢²Ÿ‚şÿÿÿÿ8ÅúÏÔá1
-r
-java:S1192—"ODefine a constant instead of duplicating this literal ", $T.field($S)" 3 times.(ÂöËÿÿÿÿÿ8ÅúÏÔá1
-p
-java:S1192–"MDefine a constant instead of duplicating this literal "$T.table($S)" 3 times.(Ğ€Âƒşÿÿÿÿ8ÅúÏÔá1
-j
-java:S1192x"HDefine a constant instead of duplicating this literal ".as($S)" 3 times.(¿´ê‡ûÿÿÿÿ8ÆúÏÔá1
-K
-java:S1128".Remove this unused import 'org.jooq.impl.DSL'.(…áôÖ8¯Á€Øá1
-Œ
-java:S1128"oRemove this unused import 'org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.FIELD_CLASS'.(Î«°ş8¯Á€Øá1
-œ
-java:S1128"zRemove this unused import 'org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Filter.REQUEST_PARAM_NAME'.(‰ï§İøÿÿÿÿ8¯Á€Øá1
-Œ
-java:S1128"jRemove this unused import 'org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Types.FIELDS'.(ò¨¼Øÿÿÿÿÿ8¯Á€Øá1

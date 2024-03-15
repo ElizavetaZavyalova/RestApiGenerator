@@ -25,14 +25,14 @@ public class ListManyParamsFilter extends ListFilter {
     String func;
     boolean isNot;
 
-    public ListManyParamsFilter(FilterNames name, String key,List<String> val, String filter,String nameInRequest) {
-        super(name,key, val, filter,nameInRequest);
+    public ListManyParamsFilter(FilterNames name, String key, List<String> val, String filter, String nameInRequest) {
+        super(name, key, val, filter, nameInRequest);
         if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
         } else if (FilterNames.isAnd(name)) {
             func = "and";
         }
-        isNot=FilterNames.isNot(name);
+        isNot = FilterNames.isNot(name);
     }
 
     public MethodSpec makeFilterMethod(Endpoint parent) throws IllegalArgumentException {
@@ -47,12 +47,13 @@ public class ListManyParamsFilter extends ListFilter {
         methodBuilder.addStatement(makeCondition());
         return methodBuilder.build();
     }
-    CodeBlock makeCondition(){
-        CodeBlock.Builder block= CodeBlock.builder();
+
+    CodeBlock makeCondition() {
+        CodeBlock.Builder block = CodeBlock.builder();
         block.add(CONDITION_LIST_IN_FILTER + ".stream().reduce($T::" + func + ")\n" +
                 ".ofNullable(" + DEFAULT_CONDITION_IN_FILTER + ").get()", CONDITION_CLASS);
-        if(isNot){
-            return CodeBlock.builder().add("return $T.not(",DSL_CLASS).add(block.build()).add(")").build();
+        if (isNot) {
+            return CodeBlock.builder().add("return $T.not(", DSL_CLASS).add(block.build()).add(")").build();
         }
         return CodeBlock.builder().add("return ").add(block.build()).build();
     }
@@ -60,17 +61,18 @@ public class ListManyParamsFilter extends ListFilter {
     String getFuncName(String funcName) {
         return filterName + "Of" + (funcName).substring(0, 1).toUpperCase() + (funcName).substring(1);
     }
+
     @Override
-    protected String createExample(){
-        example="{"+val.stream().map(BodyFuncFilterManyParams::new).map(BaseBodyFuncFilter::defaultValue)
-                .collect(Collectors.joining(", "))+"}";
+    protected String createExample() {
+        example = "{" + val.stream().map(BodyFuncFilterManyParams::new).map(BaseBodyFuncFilter::defaultValue)
+                .collect(Collectors.joining(", ")) + "}";
         return example;
     }
 
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + filterName + ", $S, ",  args[1])
+                .add("(" + filterName + ", $S, ", args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }

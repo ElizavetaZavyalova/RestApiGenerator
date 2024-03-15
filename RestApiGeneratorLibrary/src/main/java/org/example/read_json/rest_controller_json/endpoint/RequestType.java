@@ -14,6 +14,7 @@ public enum RequestType {
     PATCH(_PATCH,_PATCH_COLOR);
     @Getter
     private static final String RESET=_RESET_COLOR;
+    @Getter
     private final String type;
     @Getter
     private final String typeColor;

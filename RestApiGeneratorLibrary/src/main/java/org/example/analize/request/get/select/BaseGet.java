@@ -1,6 +1,6 @@
 package org.example.analize.request.get.select;
 
-import com.squareup.javapoet.MethodSpec;
+
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.select.port_request.PortRequestWithCondition;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -17,7 +17,7 @@ public abstract class BaseGet<R,M> extends PortRequestWithCondition<R> {
     public String getExampleFields(){
         return fields.stream().map(BaseField::getName).map(f->"\""+f+"\"").collect(Collectors.joining(", "));
     }
-    public abstract M createFieldsPort(M method);
+    public abstract M createFieldsPort(M method,boolean isFieldsExist);
     protected boolean isFieldsExist(){
         return !fields.isEmpty();
     }

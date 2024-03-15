@@ -15,7 +15,7 @@ import java.util.List;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-public class PostRequest extends BasePostRequest<CodeBlock, MethodSpec.Builder, ClassName,TypeName> {
+public class PostRequest extends BasePostRequest<CodeBlock, MethodSpec.Builder,TypeName,ClassName> {
 
 
     public PostRequest(String url, List<String> params,List<String> returnParams, Endpoint parent) throws IllegalArgumentException {

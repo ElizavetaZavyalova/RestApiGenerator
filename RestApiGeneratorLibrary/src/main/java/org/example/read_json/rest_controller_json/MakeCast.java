@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 @SuppressWarnings("unchecked")
 public record MakeCast() {
 
@@ -92,6 +93,14 @@ public record MakeCast() {
         }
 
     }
+    public static String makeStringOrDefaultEmpty(Object configJson){
+        try {
+            return (String) Optional.ofNullable(configJson).orElse("");
+        } catch (ClassCastException ex) {
+            return "";
+        }
+
+    }
 
     public static Boolean makeBoolean(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
@@ -105,6 +114,7 @@ public record MakeCast() {
         }
         throw new IllegalArgumentException("no " + keyWord);
     }
+
     public static Map<String, Map<String, List<String>>> makeMapOfMapOfList(Map<String, Object> configJson, String keyWord, boolean requiredParameter) throws IllegalArgumentException {
         try {
             if (configJson.containsKey(keyWord)) {

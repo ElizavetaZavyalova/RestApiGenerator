@@ -7,5 +7,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface InterpretationParams  {
-    public void addParams(List<VarInfo> params,List<FilterInfo> filters);
+    void addParams(List<VarInfo> params,List<FilterInfo> filters);
 }

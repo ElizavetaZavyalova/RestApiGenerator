@@ -5,8 +5,9 @@ import org.example.read_json.rest_controller_json.endpoint.Endpoint;
 
 import java.util.Map;
 
+@Getter
 public class EndpointFilters extends Filters {
-    @Getter
+
     Endpoint parent;
 
     public EndpointFilters(Map<String, String> filters, Endpoint parent) throws IllegalArgumentException {

@@ -1,55 +1,65 @@
---Many to many Ref
+--One table
+CREATE TABLE IF NOT EXISTS Table0
+(
+    id         SERIAL PRIMARY KEY,
+    fieldStr  VARCHAR(50),
+    fieldName  VARCHAR(50),
+    fieldInt  INT,
+    fieldBool BOOLEAN,
+    fieldFloat FLOAT
+);
+--Many to Many
 CREATE TABLE IF NOT EXISTS Table1
 (
     id         SERIAL PRIMARY KEY,
-    fieldStr1  VARCHAR(50),
-    fieldInt1  INT,
-    fieldBool1 BOOLEAN
+    fieldStr1  VARCHAR(50)
 );
 CREATE TABLE IF NOT EXISTS Table2
 (
     id         SERIAL PRIMARY KEY,
-    fieldStr2  VARCHAR(50),
-    fieldInt2  INT,
-    fieldBool2 BOOLEAN
+    fieldStr2  VARCHAR(50)
 );
 CREATE TABLE IF NOT EXISTS Table12_ref
 (
     Table1_id INT,
     Table2_id INT,
-    FOREIGN KEY (Table1_id) REFERENCES Table1 (id),
-    FOREIGN KEY (Table2_id) REFERENCES Table2 (id)
+    FOREIGN KEY (Table1_id) REFERENCES Table1 (id) ON DELETE CASCADE,
+    FOREIGN KEY (Table2_id) REFERENCES Table2 (id)  ON DELETE CASCADE
+);
+--One to Many or Many to One
+CREATE TABLE IF NOT EXISTS Table4
+(
+    id  SERIAL PRIMARY KEY,
+    fieldStr4  VARCHAR(50)
+
 );
 CREATE TABLE IF NOT EXISTS Table3
 (
     id         SERIAL PRIMARY KEY,
-    Table2_id  INT,
-    FOREIGN KEY (Table2_id) REFERENCES Table1 (id),
-    fieldStr3  VARCHAR(50),
-    fieldInt3  INT,
-    fieldBool3 BOOLEAN
+    Table4_id  INT,
+    FOREIGN KEY (Table4_id) REFERENCES Table4 (id)  ON DELETE SET NULL,
+    fieldStr3  VARCHAR(50)
 );
-CREATE TABLE IF NOT EXISTS Table3_ref
+
+--Many to Many 2 tables
+CREATE TABLE IF NOT EXISTS Table5
 (
     id         SERIAL PRIMARY KEY,
-    Table31_id INT,
-    FOREIGN KEY (Table31_id) REFERENCES Table3 (id),
-    Table32_id INT,
-    FOREIGN KEY (Table32_id) REFERENCES Table3 (id)
+    fieldStr5  VARCHAR(50)
 );
-CREATE TABLE IF NOT EXISTS Table4
+CREATE TABLE IF NOT EXISTS Table5_ref
 (
-    id  SERIAL PRIMARY KEY,
-    Table4_id INT,
-    FOREIGN KEY (Table4_id) REFERENCES Table4 (id)
-
+    Table5R_id INT,
+    Table5L_id INT,
+    FOREIGN KEY (Table5R_id) REFERENCES Table5 (id) ON DELETE CASCADE,
+    FOREIGN KEY (Table5L_id) REFERENCES Table5 (id) ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS Table7
+--One to Many Or Many to One 1-table
+CREATE TABLE IF NOT EXISTS Table6
 (
-    id  SERIAL PRIMARY KEY,
-    fieldStr7  VARCHAR(50),
-    fieldInt7  INT,
-    Table1_id INT,
-    FOREIGN KEY (Table1_id) REFERENCES Table1 (id)
-
+    id SERIAL PRIMARY KEY,
+    table6_id INT,
+    FOREIGN KEY (Table6_id) REFERENCES Table6 (id) ON DELETE SET NULL ,
+    fieldStr6  VARCHAR(50)
 );
+

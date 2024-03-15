@@ -26,7 +26,7 @@ public class BodyFuncFilterOneParam extends BaseBodyFuncFilter{
         return makeCondition();
     }
     protected CodeBlock makeCondition() {
-        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field(" + TABLE_NAME_IN_FILTER + "+$S).", DSL_CLASS, "." + realFieldName);
+        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field($S).", DSL_CLASS, realFieldName);
         switch (action) {
             case NE: {
                 builder.add("ne");
@@ -54,6 +54,14 @@ public class BodyFuncFilterOneParam extends BaseBodyFuncFilter{
             }
             case NOT_LIKE: {
                 builder.add("notLike");
+                break;
+            }
+            case REG: {
+                builder.add("likeRegex");
+                break;
+            }
+            case NOT_REG: {
+                builder.add("notLikeRegex");
                 break;
             }
             default:{

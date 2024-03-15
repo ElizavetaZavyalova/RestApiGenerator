@@ -22,7 +22,7 @@ class RestTest extends BaseTest {
                             .content(body)
                     )
                     .andDo(print())
-                    .andExpect(status().isOk());
+                    .andExpect(status().isCreated());
         } catch (Exception ex) {
             log.info(ex.getMessage());
             assert false;
@@ -59,7 +59,7 @@ class RestTest extends BaseTest {
         try {
             this.mockMvc.perform(delete(request))
                     .andDo(print())
-                    .andExpect(status().isOk());
+                    .andExpect(status().isNoContent());
         } catch (Exception ex) {
             log.info(ex.getMessage());
             assert false;

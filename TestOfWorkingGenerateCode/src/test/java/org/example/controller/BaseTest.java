@@ -77,7 +77,7 @@ class BaseTest {
         dataSource = Optional.ofNullable(dataSource).orElse(createConnectionPool());
         try {
             dsl= Optional.ofNullable(dsl).orElse(createContext());
-            executeScript("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\test\\resources\\init.sql");
+            executeScript("src\\test\\resources\\init.sql");
         } catch (SQLException e) {
             log.info(e.getMessage());
             assert false;
@@ -100,7 +100,7 @@ class BaseTest {
        }
     }
     void clear(){
-        executeScript("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\test\\resources\\clear.sql");
+        executeScript("src\\test\\resources\\clear.sql");
     }
 
     protected HikariDataSource createConnectionPool() {

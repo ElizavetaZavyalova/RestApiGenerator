@@ -3,8 +3,12 @@ package org.example.read_json.rest_controller_json;
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
-    public static final String ADDRESS_PREFIX = "httpPrefix";
+    public static final String ADDRESS_PREFIX = "http_prefix";
     public static final String HTTP = "http";
+    public record Tag() {
+        public static final String NAME = "name";
+        public static final String DESCRIPTION = "description";
+    }
 
     public record FilterSuffix() {
         public static final String _AND = ":and";
@@ -22,14 +26,17 @@ public record JsonKeyWords() {
         public static final String TABLES = "tables";
         public static final String FIELDS = "fields";
         public static final String JOINS = "joins";
-        public static final String REFS = "refs";
+
     }
-    public record ApplicationProperties(){
+
+    public record ApplicationProperties() {
         public static final String restApi = "restApi";
         public static final String showSql = "showSql";
+
         public static String getParamShowSql() {
-            return restApi + "." + showSql+":false";
+            return restApi + "." + showSql + ":false";
         }
+
         public record Swagger() {
             public static final String title = "title";
             public static final String openApi = "openApi";
@@ -37,7 +44,7 @@ public record JsonKeyWords() {
             public static final String version = "version";
 
             public static String getParam(String param) {
-                return restApi+"."+openApi + "." + param+":";
+                return restApi + "." + openApi + "." + param + ":";
             }
         }
     }
@@ -56,18 +63,17 @@ public record JsonKeyWords() {
                 public static final String _PATCH = "patch";
 
             }
+
             public record Ports() {
-                public static final String LIMIT="limit";
-                public static final String OFFSET="offset";
-                public static final String SORT="sort";
-                public static final String DIRECTION="direction";
-                public static final String PORTS = "ports";
-                public static final String USE = "use";
-                public static final String NOT_USE = "!use";
+                public static final String LIMIT = "limit";
+                public static final String OFFSET = "offset";
+                public static final String SORT = "sort";
+                public static final String DIRECTION = "asc";
             }
+
             public static final String HTTP_OK = "httpOk";
-            public static final String OPERATION = "operation";
-            public static final String HTTP_EXCEPTION = "httpException";
+            public static final String TAGS = "tags";
+            public static final String SUMMARY = "summary";
             public static final String ENTITY = "entity";
             public static final String RETURN = "return";
 
@@ -85,9 +91,9 @@ public record JsonKeyWords() {
             public static final String RIGHT_CURLY_BRACKET = "}";
 
             public record TableRef() {
-                public static final String _MANY_TO_ONE = ">";
+                public static final String _MANY_TO_ONE = "<";
                 public static final String _DEFAULT = "";
-                public static final String _ONE_TO_MANY = "<";
+                public static final String _ONE_TO_MANY = ">";
                 public static final String _IN_ONE_WAY = "!";
 
             }
@@ -103,13 +109,15 @@ public record JsonKeyWords() {
                 public static final String _NE = "ne";
                 public static final String _LIKE = "like";
                 public static final String _NOT_LIKE = "not_like";
+                public static final String _NOT_REG = "not_reg";
+                public static final String _REG = "reg";
                 public static final String _GE = "ge";
                 public static final String _GT = "gt";
                 public static final String _LE = "le";
                 public static final String _LT = "lt";
                 public static final String _IN = "in";
-                public static final String _NOT_IN="not_in";
-                public static final String _DEFAULT="_";
+                public static final String _NOT_IN = "not_in";
+                public static final String _DEFAULT = "_";
 
             }
 
@@ -117,6 +125,8 @@ public record JsonKeyWords() {
                 public static final String _STRING = "-s";
                 public static final String _INTEGER = "-i";
                 public static final String _LONG = "-l";
+                public static final String _DOUBLE = "-d";
+                public static final String _FLOAT = "-f";
                 public static final String _BOOLEAN = "-b";
             }
 

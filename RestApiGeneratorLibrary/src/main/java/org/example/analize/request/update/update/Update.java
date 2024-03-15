@@ -60,7 +60,7 @@ public abstract class Update extends BaseUpdate<CodeBlock, ClassName> {
 
 
     @Override
-    protected BaseFieldInsertUpdate<CodeBlock, ClassName> makeField(String name, String table, Endpoint parent) {
+    protected BaseFieldInsertUpdate<CodeBlock,ClassName> makeField(String name, String table, Endpoint parent) {
         return new FieldFieldInsertUpdate(name, table, parent);
     }
 

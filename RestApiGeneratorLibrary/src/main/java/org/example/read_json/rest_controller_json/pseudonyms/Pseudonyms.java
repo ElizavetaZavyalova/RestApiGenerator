@@ -2,6 +2,7 @@ package org.example.read_json.rest_controller_json.pseudonyms;
 
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.example.analize.deicstra.Dijkstra;
 
 
@@ -13,7 +14,7 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.T
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Pseudonym.*;
 import static org.example.read_json.rest_controller_json.pseudonyms.Pseudonyms.RegExp.*;
 
-
+@Slf4j
 @ToString
 public abstract class Pseudonyms {
     Map<String, String> tablesPseudonyms = new HashMap<>();
@@ -22,7 +23,6 @@ public abstract class Pseudonyms {
     Map<String, List<String>> entityPseudonyms = new HashMap<>();
     Map<String, List<String>> refGraph = new HashMap<>();
     Map<String, List<String>> refGraphReal = new HashMap<>();
-
 
     Pseudonyms(Map<String, Map<String, List<String>>> pseudonyms) throws IllegalArgumentException {
         try {
@@ -45,12 +45,13 @@ public abstract class Pseudonyms {
         if (pseudonyms.containsKey(ENTITY)) {
             addPseudonymsToEntity(pseudonyms.get(ENTITY));
         }
+        log.info(joinsPseudonyms.toString());
     }
 
     private void addPseudonymsToEntity(Map<String, List<String>> entity) {
         entity.forEach((k, v) -> {
             throwExceptionIfNameIsNotCorrect(k);
-            v.parallelStream().map(n->n.split("[-=]",2)[0]).forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
+            v.parallelStream().map(n -> n.split("[-=]", 2)[0]).forEach(Pseudonyms::throwExceptionIfNameIsNotCorrect);
         });
         entityPseudonyms = entity;
     }
@@ -100,7 +101,7 @@ public abstract class Pseudonyms {
         if (splitKey.length != 2) {
             throw new IllegalArgumentException(key + "in joins  is must be like table1:table2");
         }
-        if (splitKey[T1].isEmpty() || splitKey[T2].isEmpty()||splitKey[T1].equals(splitKey[T2])) {
+        if (splitKey[T1].isEmpty() || splitKey[T2].isEmpty() || splitKey[T1].equals(splitKey[T2])) {
             throw new IllegalArgumentException(key + "in joins  is must be like table1:table2");
         }
         if (values.size() != 2 && values.size() != 1) {

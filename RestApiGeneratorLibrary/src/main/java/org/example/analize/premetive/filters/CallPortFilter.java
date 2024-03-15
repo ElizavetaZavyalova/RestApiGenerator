@@ -1,6 +1,7 @@
 package org.example.analize.premetive.filters;
 
 import com.squareup.javapoet.CodeBlock;
+import lombok.extern.slf4j.Slf4j;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.read_json.rest_controller_json.endpoint.Endpoint;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
-
+@Slf4j
 public class CallPortFilter implements FilterInterpretation<CodeBlock> {
     CodeBlock result;
     String filterName;
@@ -35,10 +36,10 @@ public class CallPortFilter implements FilterInterpretation<CodeBlock> {
         result =filtering.makeFilter(parent.getFuncName(),table, def);
         example=filtering.getExample();
         varName=filtering.getVarName();
-        nameInRequest=filtering.getNameInRequest();
+        nameInRequest=Optional.ofNullable(filtering.getNameInRequest()).orElse(filterName);
     }
     @Override
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        filters.add(new FilterInfo(filterName,example,varName,nameInRequest));
+        filters.add(new FilterInfo(filterName,nameInRequest,example,varName));
     }
 }

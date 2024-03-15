@@ -12,16 +12,19 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.STRING_CLASS;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-public class Field extends BaseFieldInsertUpdate<CodeBlock, ClassName>{
+public class Field extends BaseFieldInsertUpdate<CodeBlock, ClassName> {
     public Field(String name, String tableName, Endpoint parent) {
         super(name, tableName, parent);
     }
+
 
     @Override
     public ClassName getType() {
         return switch (type) {
             case LONG -> LONG_CLASS;
             case BOOLEAN -> BOOLEAN_CLASS;
+            case FLOAT -> FLOAT_CLASS;
+            case DOUBLE -> DOUBLE_CLASS;
             case INTEGER -> INTEGER_CLASS;
             default -> STRING_CLASS;
         };
@@ -29,17 +32,14 @@ public class Field extends BaseFieldInsertUpdate<CodeBlock, ClassName>{
 
     @Override
     public CodeBlock interpret() {
-        var block= CodeBlock.builder().add("$T.field($S)",DSL_CLASS, tableName + "." + realFieldName);
-       // if(!realFieldName.equals(name)){
-            block.add(".as($S)",name);
-       // }
-        return  block.build();
+        var block = CodeBlock.builder().add("$T.field($S)", DSL_CLASS,  realFieldName);
+        block.add(".as($S)", name);
+        return block.build();
     }
 
 
-
     @Override
-    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
+    public void addParams(List<VarInfo> params, List<FilterInfo> filters) {
         //Not use in request
     }
 }

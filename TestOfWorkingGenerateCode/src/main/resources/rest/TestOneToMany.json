@@ -1,0 +1,46 @@
+{
+  "pseudonyms": {
+    "entity": {
+      "table3": ["fieldStr3-s=str"],
+      "table4": ["fieldStr4-s=str"]
+    },
+    "fields": {
+      "fieldStr4": ["FStr4","s4"],
+      "fieldStr3":  ["FStr3","s3"]
+    },
+    "tables": {
+      "table3": ["T3","t3"],
+      "table4": ["T4","t4"]
+    },
+    "joins": {
+      "table4:table3":["<"]
+    }
+  },
+  "http": {
+    "GetAllFromTable4WhereTable3Id": {
+      "get": "table3|id->limit|sort",
+      "request": "table4/{id}/table3",
+      "tags": "ONE_TO_MANY"
+    },
+    "DeleteFromTable4ByIdTable3": {
+      "type": "delete",
+      "request": "table4/{id}/table3",
+      "tags": "ONE_TO_MANY"
+    },
+    "PostFromTable4ByIdTable3": {
+      "post": "table3->id",
+      "request": "table4/{id}/table3",
+      "tags": "ONE_TO_MANY"
+    },
+    "PatchFromTable4ByIdTable3": {
+      "patch": "table3->id",
+      "request": "table4/{id}/table3",
+      "tags": "ONE_TO_MANY"
+    },
+    "PutFromTable4ByIdTable3": {
+      "put": "table3->id",
+      "request": "table4/{id}/table3",
+      "tags": "ONE_TO_MANY"
+    }
+  }
+}

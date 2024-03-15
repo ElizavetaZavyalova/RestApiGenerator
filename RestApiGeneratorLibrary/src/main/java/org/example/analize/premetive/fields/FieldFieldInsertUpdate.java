@@ -22,6 +22,8 @@ public class FieldFieldInsertUpdate extends BaseFieldInsertUpdate<CodeBlock,Clas
             case LONG -> LONG_CLASS;
             case BOOLEAN -> BOOLEAN_CLASS;
             case INTEGER -> INTEGER_CLASS;
+            case FLOAT -> FLOAT_CLASS;
+            case DOUBLE -> DOUBLE_CLASS;
             default -> STRING_CLASS;
         };
     }

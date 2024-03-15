@@ -17,7 +17,7 @@ import static org.example.analize.select.port_request.BasePortRequest.TableRef.M
 import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.Request.TableRef.*;
 
 @Slf4j
-public abstract class BasePortRequest<R,I> implements Interpretation<I> {
+public abstract class BasePortRequest<R, I> implements Interpretation<I> {
     @Getter
     protected PortRequestWithCondition<R> selectNext;
     @Getter
@@ -29,18 +29,19 @@ public abstract class BasePortRequest<R,I> implements Interpretation<I> {
     @Getter
     protected String ref;
     @Getter
-    boolean refAddressPortIsManyToMay=false;
-    boolean isRefByRealName=true;
+    boolean refAddressPortIsManyToMay = false;
+    boolean isRefByRealName = true;
     TableRef tableRef = TableRef.DEFAULT;
 
 
     protected String getRefNameTable() {
-       if(isRefByRealName) {
-           return realTableName;
-       }
-       return tableName;
+        if (isRefByRealName) {
+            return realTableName;
+        }
+        return tableName;
     }
-    protected boolean isTableRefManyToOne(){
+
+    protected boolean isTableRefManyToOne() {
         return tableRef.equals(MANY_TO_ONE);
     }
 
@@ -125,6 +126,20 @@ public abstract class BasePortRequest<R,I> implements Interpretation<I> {
             selectNext.id = makeDefaultNextId();
             return;
         }
+        setJoinsAndRef(joins);
+    }
+
+    boolean isRef(List<String> joins) {
+        return joins.size() == 1;
+    }
+
+    void setJoinsAndRef(List<String> joins) {
+        if (isRef(joins)) {
+            tableRef = TableRef.getTableRef(joins.get(JOIN_TABLE_PORT));
+            ref = makeDefaultRef();
+            selectNext.id = makeDefaultNextId();
+            return;
+        }
         selectNext.id = joins.get(JOIN_PREVIOUS_REF_PORT).equals(JOIN_SPLIT) ?
                 (makeDefaultNextId()) : joins.get(JOIN_PREVIOUS_REF_PORT);
         ref = joins.get(JOIN_CURRENT_REF_PORT).equals(JOIN_SPLIT) ?
@@ -147,7 +162,7 @@ public abstract class BasePortRequest<R,I> implements Interpretation<I> {
         if (tableRef.equals(TableRef.DEFAULT)) {
             tableRef = MANY_TO_ONE;
         }
-        refAddressPortIsManyToMay=true;
+        refAddressPortIsManyToMay = true;
         selectNext = makePortRequest(tableName, selectNext, parent, true);
     }
 
@@ -193,10 +208,11 @@ public abstract class BasePortRequest<R,I> implements Interpretation<I> {
             tryFindJoinsEndSetResult(parent, isPathFound);
         }
     }
-    protected String getRealTableNameAndSetRef(Endpoint parent){
-        String realName=parent.getRealTableName(tableName);
-        if(realName.startsWith(_IN_ONE_WAY)){
-            this.isRefByRealName=false;
+
+    protected String getRealTableNameAndSetRef(Endpoint parent) {
+        String realName = parent.getRealTableName(tableName);
+        if (realName.startsWith(_IN_ONE_WAY)) {
+            this.isRefByRealName = false;
             return realName.substring(_IN_ONE_WAY.length());
         }
         return realName;

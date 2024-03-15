@@ -10,14 +10,14 @@ public record WereInterpret() {
     public static CodeBlock makeWhere(BaseWhere<CodeBlock> where, PortRequestWithCondition<CodeBlock> selectNext, String tableName, String ref) {
         var block = CodeBlock.builder().add(".where(");
         if (isWhereExist(where) && isSelectExist(selectNext)) {
-            return block.add("$T.and($T.field($S)",DSL_CLASS,DSL_CLASS, tableName + "." + ref)
+            return block.add("$T.and($T.field($S)",DSL_CLASS,DSL_CLASS, ref)
                     .add(".in(").add(selectNext.interpret()).add("), (").add(where.interpret()).add(")))").build();
         }
         if (isWhereExist(where)) {
             return block.add(where.interpret()).add(")").build();
         }
         if (isSelectExist(selectNext)) {
-            return block.add("$T.field($S)",DSL_CLASS, tableName + "." + ref)
+            return block.add("$T.field($S)",DSL_CLASS,  ref)
                     .add(".in(").add(selectNext.interpret()).add("))").build();
 
         }

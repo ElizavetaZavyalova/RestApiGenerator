@@ -16,7 +16,7 @@ import java.util.List;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 
 
-public abstract class UpdateRequest extends BaseUpdateRequest<CodeBlock, MethodSpec.Builder, ClassName, TypeName> {
+public abstract class UpdateRequest extends BaseUpdateRequest<CodeBlock, MethodSpec.Builder, TypeName,ClassName> {
     protected UpdateRequest(String url, List<String> fields, List<String> returnFields, Endpoint parent) throws IllegalArgumentException {
         super(url, fields,returnFields, parent);
     }
