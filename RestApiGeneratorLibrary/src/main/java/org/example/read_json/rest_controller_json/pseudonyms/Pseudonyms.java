@@ -45,7 +45,6 @@ public abstract class Pseudonyms {
         if (pseudonyms.containsKey(ENTITY)) {
             addPseudonymsToEntity(pseudonyms.get(ENTITY));
         }
-        log.info(joinsPseudonyms.toString());
     }
 
     private void addPseudonymsToEntity(Map<String, List<String>> entity) {
@@ -83,6 +82,7 @@ public abstract class Pseudonyms {
     private void addRefGraph(String vertex, String value, Map<String, List<String>> graph) {
         if (isVertexInGraph(vertex, graph)) {
             graph.get(vertex).add(value);
+            return;
         }
         graph.put(vertex, new ArrayList<>(List.of(value)));
     }

@@ -1,4 +1,4 @@
-{
+{  "TestBooks": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\testBooks.json",
   "TestOneToMany1Table":"P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany1Table.json",
   "TestOneToMany": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany.json",
   "TestManyToOne":"P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToOne.json",

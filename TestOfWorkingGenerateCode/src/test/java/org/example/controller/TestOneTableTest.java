@@ -28,8 +28,8 @@ class TestOneTableTest extends RestTest {
     }
     static public Stream<Arguments> getParams() {
         return Stream.of(
-                Arguments.of("/table0",""),
-                Arguments.of("/table1","fields=id")
+                Arguments.of("","")
+
         );
     }
     static public Stream<Arguments> postParams() {

@@ -1,14 +1,12 @@
 package org.example.read_json.rest_controller_json;
 
+
 public record JsonKeyWords() {
     public static final String PSEUDONYMS = "pseudonyms";
     public static final String FILTERS = "filters";
     public static final String ADDRESS_PREFIX = "http_prefix";
     public static final String HTTP = "http";
-    public record Tag() {
-        public static final String NAME = "name";
-        public static final String DESCRIPTION = "description";
-    }
+
 
     public record FilterSuffix() {
         public static final String _AND = ":and";

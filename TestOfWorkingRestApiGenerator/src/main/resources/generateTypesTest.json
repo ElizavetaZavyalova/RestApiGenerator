@@ -17,7 +17,8 @@
             "entity": "f1"
           }
         },
-        "request": "user/{id}/{name}/info/{eq_id}/{born}/about"
+        "request": "user/{id}/{name}/info/{eq_id}/{born}/about",
+
       }
     }
   },

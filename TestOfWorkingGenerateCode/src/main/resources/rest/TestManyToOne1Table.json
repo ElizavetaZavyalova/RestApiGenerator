@@ -10,7 +10,7 @@
       "table6": ["table6M"]
     },
     "joins": {
-      "table6:table6M":["<"]
+      "table6:table6M":[">"]
     }
   },
   "http": {

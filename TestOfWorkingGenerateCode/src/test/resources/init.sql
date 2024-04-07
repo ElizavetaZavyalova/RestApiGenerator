@@ -104,8 +104,3 @@ VALUES ('String1',null),
        ('String8',1),
        ('String9',6),
        ('String10',8);
-
-insert into Table6 (fieldStr6, Table6_id)
-SELECT  'hi' ,3  where  not exists(select fieldStr6, Table6_id from Table6 as "t" where id= 8 )
-union select fieldStr6, Table6_id from Table6 as "t" where id= 8  ;
-select * from table6;

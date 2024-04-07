@@ -1,12 +1,5 @@
 package org.example.processors;
 
-import com.sun.tools.javac.api.JavacTrees;
-import com.sun.tools.javac.processing.JavacProcessingEnvironment;
-
-import com.sun.tools.javac.tree.TreeMaker;
-import com.sun.tools.javac.util.Context;
-
-import com.sun.tools.javac.util.Names;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,19 +16,14 @@ public class AST {
     @Setter
     protected RoundEnvironment roundEnvironment;
     protected Messager messager;
-    protected JavacTrees trees;
-    protected TreeMaker treeMaker;
-    protected Names names;
-    protected Context context;
+
     protected ProcessingEnvironment processingEnv;
     protected Filer filer;
 
     AST(ProcessingEnvironment processingEnv) {
-        this.context = ((JavacProcessingEnvironment) processingEnv).getContext();
+
         this.messager = processingEnv.getMessager();
-        this.trees = JavacTrees.instance(processingEnv);
-        this.treeMaker = TreeMaker.instance(context);
-        this.names = Names.instance(context);
+
         this.processingEnv = processingEnv;
         this.filer = processingEnv.getFiler();
     }

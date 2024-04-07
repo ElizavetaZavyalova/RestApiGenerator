@@ -30,7 +30,6 @@ public class ReadJson implements LoadJson<Map<String, Object>> {
         if (path.isEmpty()) {
             return MakeCast.makeMap(object, jsonPath);
         }
-        log.info(path);
         return load(path);
     }
 

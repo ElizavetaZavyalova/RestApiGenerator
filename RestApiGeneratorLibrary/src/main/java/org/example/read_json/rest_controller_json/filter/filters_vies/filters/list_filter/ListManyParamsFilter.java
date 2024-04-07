@@ -44,6 +44,11 @@ public class ListManyParamsFilter extends ListFilter {
                 .returns(CONDITION_CLASS)
                 .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", LIST_CLASS, CONDITION_CLASS, ARRAY_LIST_CLASS);
         val.forEach(v -> methodBuilder.addCode(new BodyFuncFilterManyParams(v, parent).interpret()));
+        if (isNot) {
+            methodBuilder.beginControlFlow("if(" + CONDITION_LIST_IN_FILTER + ".isEmpty())");
+            methodBuilder.addStatement("return "+DEFAULT_CONDITION_IN_FILTER);
+            methodBuilder.endControlFlow();
+        }
         methodBuilder.addStatement(makeCondition());
         return methodBuilder.build();
     }
@@ -72,7 +77,7 @@ public class ListManyParamsFilter extends ListFilter {
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + filterName + ", $S, ", args[1])
+                .add("(" + nameInRequest + ", $S, ", args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }

@@ -63,3 +63,4 @@ CREATE TABLE IF NOT EXISTS Table6
     fieldStr6  VARCHAR(50)
 );
 
+

@@ -1,0 +1,18 @@
+{
+  "pseudonyms": {
+    "tables": {
+      "users": ["!author","!reader"]
+    },
+    "joins": {
+      "books:author":[">"],
+      "reader:books": ["reader_of_books"]
+    }
+  },
+  "http": {
+    "readerAuthor": {
+      "get": "name|id->limit|sort",
+      "put": "",
+      "request": "reader/{id}/books/{id}"
+    }
+  }
+}

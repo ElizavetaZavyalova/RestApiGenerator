@@ -76,7 +76,7 @@ public class RequestInformation {
         void throwExceptionIfRequestIsNotCorrect(Map<String, Object> enpointMap) throws IllegalArgumentException {
             if (isMoreThenOneParamInRequest(enpointMap)) {
                 throw new IllegalArgumentException("not use:" +
-                        TYPES + " and " + TYPE + "and ["
+                        TYPES + " and " + TYPE + " and ["
                         + _DELETE + " " + _GET + " " + _PUT + " " + _PATCH + " " + _POST + "] in one endpoint");
             }
             if (!enpointMap.containsKey(TYPE) && enpointMap.containsKey(SUMMARY)) {

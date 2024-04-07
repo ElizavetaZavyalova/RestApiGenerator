@@ -13,13 +13,14 @@
       "table4": ["T4","t4"]
     },
     "joins": {
-      "table4:table3":["<"]
+      "table3:table4":[">"]
     }
   },
-  "http": {
+  "http_prefix": "world/",
+    "http": {
     "GetAllFromTable3WhereTable4Id": {
-      "get": "table4|id->limit|sort",
-      "request": "table3/{id}/table4",
+      "get": "table4|id",
+      "request": "table3/{in_id}/table4",
       "tags": "MANY_TO_ONE"
     },
     "DeleteFromTable3ByIdTable4": {
@@ -28,7 +29,7 @@
       "tags": "MANY_TO_ONE"
     },
     "PostFromTable3ByIdTable4": {
-      "post": "table4->id",
+      "post": "table4->table4",
       "request": "table3/{id}/table4",
       "tags": "MANY_TO_ONE"
     },

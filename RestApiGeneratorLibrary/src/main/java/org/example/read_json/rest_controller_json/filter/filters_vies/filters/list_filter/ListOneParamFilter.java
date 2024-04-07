@@ -22,7 +22,7 @@ public class ListOneParamFilter extends ListFilter {
     boolean isNot;
 
     public ListOneParamFilter(FilterNames name,String key, List<String> val, String filter,String nameInRequest) {
-        super(name,key, val, filter,nameInRequest);
+        super(name, key, val, filter, nameInRequest);
         if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
         } else if (FilterNames.isAnd(name)) {
@@ -39,9 +39,14 @@ public class ListOneParamFilter extends ListFilter {
                 .addParameter(CONDITION_CLASS, DEFAULT_CONDITION_IN_FILTER)
                 .returns(CONDITION_CLASS)
                 .addStatement("$T<$T> " + CONDITION_LIST_IN_FILTER + "=new $T<>()", LIST_CLASS, CONDITION_CLASS, ARRAY_LIST_CLASS)
-                .beginControlFlow("if(" + REQUEST_PARAM_NAME + ".containsKey($S))", filterName);
-        val.forEach(v -> methodBuilder.addStatement(new BodyFuncFilterOneParam(v, parent, filterName).interpret()));
+                .beginControlFlow("if(" + REQUEST_PARAM_NAME + ".containsKey($S))", key);
+        val.forEach(v -> methodBuilder.addStatement(new BodyFuncFilterOneParam(v, parent, key).interpret()));
         methodBuilder.endControlFlow();
+        if (isNot) {
+            methodBuilder.beginControlFlow("if(" + CONDITION_LIST_IN_FILTER + ".isEmpty())");
+            methodBuilder.addStatement("return "+DEFAULT_CONDITION_IN_FILTER);
+            methodBuilder.endControlFlow();
+        }
         methodBuilder.addStatement(makeCondition());
         return methodBuilder.build();
     }
@@ -62,7 +67,7 @@ public class ListOneParamFilter extends ListFilter {
 
     @Override
     protected String createExample() {
-        example = "{\"" + filterName + "\":\"" + val.stream().map(BodyFuncFilterOneParam::new).map(BaseBodyFuncFilter::defaultValue)
+        example = "{\"" + nameInRequest + "\":\"" + val.stream().map(BodyFuncFilterOneParam::new).map(BaseBodyFuncFilter::defaultValue)
                 .collect(Collectors.joining(", ")) + "\"}";
         return example;
     }
@@ -70,7 +75,7 @@ public class ListOneParamFilter extends ListFilter {
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + filterName + ", $S, ", args[1])
+                .add("(" + nameInRequest + ", $S, ", args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }

@@ -3,6 +3,8 @@ package org.example.processors.code_gen.file_code_gen;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
+import java.util.Arrays;
+
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.webBindAnnotations;
 
 
@@ -97,6 +99,8 @@ public record DefaultsVariablesName() {
             public static final ClassName ARRAY_LIST_CLASS = createClass(javaUtil, "ArrayList");
             public static final ClassName INTEGER_CLASS = createClass(javaLang, "Integer");
             public static final ClassName LONG_CLASS = createClass(javaLang, "Long");
+
+            public static final ClassName ARRAYS_CLASS=createClass(javaUtil, " Arrays");
             public static final ClassName FLOAT_CLASS = createClass(javaLang, "Float");
             public static final ClassName DOUBLE_CLASS = createClass(javaLang, "Double");
             public static final ClassName BOOLEAN_CLASS = createClass(javaLang, "Boolean");

@@ -49,6 +49,35 @@
       }
     }
   },
+  "GroupEndpoint": {
+    "filters": {
+      "filterCall:call": "org.example.filter#CallClass#make",
+      "filterAnd:and": "field1|field2",
+      "filterOr:or": "field1|field2",
+      "filterNotAnd:!and": "field1|field2",
+      "filterNotOr:!or": "field1|field2",
+      "filterAndOne:1-and": "field1|field2",
+      "filterOrOne:1-or": "field1|field2",
+      "filterNotAndOne:!1-and": "field1|field2",
+      "filterNotOrOne:!1-or": "field1|field2"
+    },
+    "http": {
+      "Endpoint": {
+        "request": "table/[filterCall]/[filterAnd]/[filterOr]/[filterNotOr]/[filterNotAnd]/[filterAndOne]/[filterOrOne]/[filterNotOrOne]/[filterNotAndOne]",
+        "filters": {
+          "filterCall:call": "org.example.filter#CallClass#make",
+          "filterAnd:and": "field1|field2",
+          "filterOr:or": "field1|field2",
+          "filterNotAnd:!and": "field1|field2",
+          "filterNotOr:!or": "field1|field2",
+          "filterAndOne:1-and": "field1|field2",
+          "filterOrOne:1-or": "field1|field2",
+          "filterNotAndOne:!1-and": "field1|field2",
+          "filterNotOrOne:!1-or": "field1|field2"
+        }
+      }
+    }
+  },
   "FilterInEndpointAndInController": {
     "filters": {
       "filterCall:call": "org.example.filter#CallClass#makeMain",

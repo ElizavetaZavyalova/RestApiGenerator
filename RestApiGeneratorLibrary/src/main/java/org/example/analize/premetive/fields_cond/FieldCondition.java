@@ -45,8 +45,8 @@ public class FieldCondition extends BaseFieldCondition<CodeBlock> {
             case NOT_REG -> block.add(".notLikeRegex(" + fieldName + ")");
             case LIKE -> block.add(".like(" + fieldName + ")");
             case NOT_LIKE -> block.add(".notLike(" + fieldName + ")");
-            case IN -> block.add(".in(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");
-            case NOT_IN -> block.add(".notIn(Arrays.stream(" + fieldName + ".split(", ")").add(codeBlockIn()).add("))");
+            case IN -> block.add(".in($T.stream(" + fieldName + ".split(\", \"))",ARRAYS_CLASS).add(codeBlockIn()).add(")");
+            case NOT_IN -> block.add(".notIn($T.stream(" + fieldName + ".split(\", \"))",ARRAYS_CLASS).add(codeBlockIn()).add(")");
             default ->  block.add(".eq(" + fieldName + ")");
         }
         return block.build();

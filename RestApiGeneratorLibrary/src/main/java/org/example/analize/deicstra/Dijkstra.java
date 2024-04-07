@@ -1,11 +1,12 @@
 package org.example.analize.deicstra;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 import static org.example.analize.deicstra.Dijkstra.PathCost.*;
-
+@Slf4j
 
 public class Dijkstra {
     private final Map<String, Vertex> graph = new HashMap<>();

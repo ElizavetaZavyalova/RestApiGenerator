@@ -44,9 +44,7 @@ public abstract class Update extends BaseUpdate<CodeBlock, ClassName> {
         }
         return CodeBlock.builder().build();
     }
-
-    @Override
-    public CodeBlock interpret() {
+    CodeBlock interpretNoRefs(){
         var block = CodeBlock.builder().add(CONTEXT + ".update($T.table($S)", DSL_CLASS, realTableName);
         if (!realTableName.equals(tableName)) {
             block.add(".as($S)", tableName);
@@ -54,6 +52,23 @@ public abstract class Update extends BaseUpdate<CodeBlock, ClassName> {
         block.add(makeChooseFields());
         block.add(WereInterpret.makeWhere(where, selectNext, tableName, ref));
         return block.add(makeReturnPort()).build();
+    }
+    CodeBlock interpretRefs(){
+        var block = CodeBlock.builder().add(CONTEXT + ".update($T.table($S)", DSL_CLASS, realTableName);
+        if (!realTableName.equals(tableName)) {
+            block.add(".as($S)", tableName);
+        }
+        block.add(makeChooseFields());
+        block.add(WereInterpret.makeWhere(where, selectNext, tableName, ref));
+        return block.add(makeReturnPort()).build();
+    }
+
+    @Override
+    public CodeBlock interpret() {
+      if(!isRefs()){
+          interpretNoRefs();
+      }
+      return null;
     }
 
     protected abstract CodeBlock makeChooseFields();
