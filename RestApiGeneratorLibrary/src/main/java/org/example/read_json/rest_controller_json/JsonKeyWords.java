@@ -59,6 +59,7 @@ public record JsonKeyWords() {
                 public static final String _PUT = "put";
                 public static final String _DELETE = "delete";
                 public static final String _PATCH = "patch";
+                public static final String _REFS = "refs";
 
             }
 

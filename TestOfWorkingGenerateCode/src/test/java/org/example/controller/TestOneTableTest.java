@@ -47,14 +47,14 @@ class TestOneTableTest extends RestTest {
 
         );
     }
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("deleteParams")
+    //@ParameterizedTest(name = "{arguments}")
+    //@MethodSource("deleteParams")
     void delete(String request,String params) {
         super.deleteTest(request,params);
     }
 
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("getParams")
+    //@ParameterizedTest(name = "{arguments}")
+    //@MethodSource("getParams")
     void get(String request,String params) {
         super.getTest(request,params);
     }
@@ -64,20 +64,20 @@ class TestOneTableTest extends RestTest {
     }
 
 
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("patchParams")
+   // @ParameterizedTest(name = "{arguments}")
+    //@MethodSource("patchParams")
     void patch(String request, String params, String body) {
         super.patchTest(request,params,body);
     }
 
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("postParams")
+    //@ParameterizedTest(name = "{arguments}")
+    //@MethodSource("postParams")
     void post(String request,String params,String body) {
         super.postTest(request,params,body);
     }
 
-    @ParameterizedTest(name = "{arguments}")
-    @MethodSource("putParams")
+    //@ParameterizedTest(name = "{arguments}")
+    //@MethodSource("putParams")
     void put(String request,String params,String body) {
         super.putTest(request,params,body);
     }

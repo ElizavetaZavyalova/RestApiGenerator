@@ -14,6 +14,7 @@ import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesNam
 public class FieldFieldInsertUpdate extends BaseFieldInsertUpdate<CodeBlock,ClassName> {
     public FieldFieldInsertUpdate(String name, String tableName, Endpoint parent) {
         super(name, tableName, parent);
+
     }
 
     @Override

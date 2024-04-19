@@ -1,0 +1,8 @@
+{
+  "Authorization": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\authorization.json",
+  "Search": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\search.json",
+  "Comments": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\comments.json",
+  "CreateBook": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\createBook.json",
+  "Collection": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\useBooks.json",
+  "Recommendation" : "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\recomendation.json"
+}

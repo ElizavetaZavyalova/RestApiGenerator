@@ -35,7 +35,7 @@ public abstract class BaseFieldInsertUpdate<C,N> extends BaseField<C> {
 
     }
    String deleteEndSetDefaultValue(String name) throws IllegalArgumentException{
-        String[] ports=name.split(SPLIT_EQUAL);
+        String[] ports=name.split(SPLIT_EQUAL,-1);
         if(ports.length==LENGTH_IF_CONTAINS_PORT){
             defaultValue=ports[INFO_PORT].replace(REPLACE_EQUAL,EQUAL);
             return ports[NAME_PORT];

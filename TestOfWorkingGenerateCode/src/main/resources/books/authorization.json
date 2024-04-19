@@ -1,0 +1,44 @@
+{
+  "pseudonyms": {
+    "tables": {
+      "users": ["signIn","!user","registration"]
+    },
+    "entity": {
+      "user": ["name-s=","age-i=18","login-s","kode-i"],
+      "info": ["name-s=","age-i=18"],
+      "NewPseudonym": ["pseudonym-s","kode-i"],
+      "pseudonym": ["pseudonym-s"]
+    },
+    "joins": {
+      "pseudonyms:users": ["user_id","id"]
+    }
+  },
+  "http_prefix": "account/",
+  "http": {
+    "Registration": {
+      "post": "user->user|id",
+      "request": "registration"
+    },
+    "SignIn": {
+      "get": "user|id",
+      "request": "signIn/{login-s}/{kode-i}"
+    },
+    "Settings": {
+      "patch": "info",
+      "delete": "",
+      "request": "user/{id}"
+    },
+    "Pseudonym": {
+      "post": "pseudonym->id",
+      "get": "pseudonym|id",
+      "delete": "",
+      "request": "users/{id}/<pseudonyms"
+    },
+    "PseudonymById": {
+      "patch": "pseudonym",
+      "delete": "",
+      "get": "pseudonym|id",
+      "request": "pseudonyms/{id}"
+    }
+  }
+}

@@ -17,15 +17,7 @@ public abstract class BaseUpdate<R,N> extends PortRequestWithCondition<R> {
         this.fields=fields.stream().map(fieldName->makeField(fieldName,tableName,parent)).toList();
         this.returnFields=returnFields.stream().map(fieldName->makeReturnField(fieldName,tableName,parent)).toList();
     }
-    protected boolean isRefs(){
-        return fields.isEmpty();
-    }
-    protected  isSelectExistThrowException() throws IllegalArgumentException{
-        if(selectNext==null){
-            throw new IllegalArgumentException("no fields and no address");
-        }
-        return ;
-    }
+
     public boolean isReturnSomething(){
         return !returnFields.isEmpty();
     }
