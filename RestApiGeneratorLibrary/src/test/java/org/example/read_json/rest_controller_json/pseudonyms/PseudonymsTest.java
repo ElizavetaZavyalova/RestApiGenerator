@@ -31,7 +31,7 @@ class PseudonymsTest {
     @SneakyThrows
     static void loadJson() {
         ReadJson readJson = new ReadJson();
-        json = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\pseudonyms\\pseudonyms.json");
+        json = readJson.load("src\\test\\resources\\pseudonyms\\pseudonyms.json");
     }
 
     Endpoint create() {

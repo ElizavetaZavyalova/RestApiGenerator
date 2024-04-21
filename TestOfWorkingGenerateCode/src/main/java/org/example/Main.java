@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-@RestApiGenerator(jsonPath = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\main.json")
+@RestApiGenerator(jsonPath = "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\main.json")
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);

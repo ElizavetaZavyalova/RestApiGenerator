@@ -77,28 +77,28 @@ public class TestWasWritingCorrect {
         }
     }
     static public Stream<Arguments> postTest() {
-        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\postTest.json";
+        String fileName = "src\\test\\resources\\generationTest\\postTest.json";
         return new ParseJson(fileName).getRestsJson().stream()
                 .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }
     static public Stream<Arguments> filtersTest() {
-        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\filtersTest.json";
+        String fileName = "src\\test\\resources\\generationTest\\filtersTest.json";
         return new ParseJson(fileName).getRestsJson().stream()
                 .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }
     static public Stream<Arguments> pseudonimsTest() {
-        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\generatePseudonimsTest.json";
+        String fileName = "src\\test\\resources\\generationTest\\generatePseudonimsTest.json";
         return new ParseJson(fileName).getRestsJson().stream()
                 .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }
 
     static public Stream<Arguments> typeTest() {
-        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\generateTypeTest.json";
+        String fileName = "src\\test\\resources\\generationTest\\generateTypeTest.json";
         return new ParseJson(fileName).getRestsJson().stream()
                 .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }
     static public Stream<Arguments> typesTest() {
-        String fileName = "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\generationTest\\generateTypesTest.json";
+        String fileName = "src\\test\\resources\\generationTest\\generateTypesTest.json";
         return new ParseJson(fileName).getRestsJson().stream()
                 .map(rest -> Arguments.of(rest.getLocationName(), rest));
     }

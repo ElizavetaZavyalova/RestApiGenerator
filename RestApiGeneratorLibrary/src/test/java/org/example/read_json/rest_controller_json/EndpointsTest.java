@@ -77,8 +77,8 @@ class EndpointsTest {
     @SneakyThrows
     static void loadJson(){
         ReadJson readJson=new ReadJson();
-        json=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoints\\endpoints.json");
-        postJson=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoints\\postTest.json");
+        json=readJson.load("src\\test\\resources\\endpoints\\endpoints.json");
+        postJson=readJson.load("src\\test\\resources\\endpoints\\postTest.json");
     }
     void test(Map<String, Object> object,String name){
         log.info(name);

@@ -29,7 +29,7 @@ class RequestInformationTest {
     @SneakyThrows
     static void loadJson(){
         ReadJson readJson=new ReadJson();
-        json=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\requestInformation\\requestInformationTest.json");
+        json=readJson.load("src\\test\\resources\\requestInformation\\requestInformationTest.json");
     }
 
     @ParameterizedTest(name = "{arguments} test")

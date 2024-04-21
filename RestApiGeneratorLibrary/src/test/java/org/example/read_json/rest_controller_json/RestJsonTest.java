@@ -33,7 +33,7 @@ class RestJsonTest {
     @SneakyThrows
     static void loadJson() {
         ReadJson readJson = new ReadJson();
-        json = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\rest\\rest.json");
+        json = readJson.load("src\\test\\resources\\rest\\rest.json");
     }
 
     void test(Map<String, Object> object, String name) {

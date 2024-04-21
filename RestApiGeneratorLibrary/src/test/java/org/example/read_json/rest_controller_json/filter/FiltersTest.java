@@ -30,7 +30,7 @@ class FiltersTest {
     @SneakyThrows
     static void loadJson(){
         ReadJson readJson=new ReadJson();
-        json=readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\filters\\filters.json");
+        json=readJson.load("src\\test\\resources\\filters\\filters.json");
     }
     Endpoint createEndpoint(){
         Endpoint point= Mockito.mock(Endpoint.class);

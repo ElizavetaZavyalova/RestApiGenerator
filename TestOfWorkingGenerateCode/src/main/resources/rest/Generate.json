@@ -1,10 +1,10 @@
-{  "TestBooks": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\testBooks.json",
-  "TestOneToMany1Table":"P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany1Table.json",
-  "TestOneToMany": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany.json",
-  "TestManyToOne":"P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToOne.json",
-  "TestManyToMany2Tables":"P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\ManyToMany2Tables.json",
-  "TestManyToOne1Table": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToOne1Table.json",
-  "GetAll": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\GetAll.json",
-  "TestOneTable": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneTable.json",
-  "TestManyToMany": "P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToMany.json"
+{  "TestBooks": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\testBooks.json",
+  "TestOneToMany1Table":"P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany1Table.json",
+  "TestOneToMany": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneToMany.json",
+  "TestManyToOne":"P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToOne.json",
+  "TestManyToMany2Tables":"P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\ManyToMany2Tables.json",
+  "TestManyToOne1Table": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToOne1Table.json",
+  "GetAll": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\GetAll.json",
+  "TestOneTable": "P:\\Projects\\JIntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestOneTable.json",
+  "TestManyToMany": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\rest\\TestManyToMany.json"
 }

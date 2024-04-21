@@ -80,9 +80,9 @@ class EndpointTest {
     @SneakyThrows
     static void loadJson() {
         ReadJson readJson = new ReadJson();
-        jsonEndpoint = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\endpoint\\endpoint.json");
-        jsonRequest = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\requestInformation\\requestInformationTest.json");
-        jsonPseudonyms = readJson.load("P:\\Projects\\JetBrains\\IntelliJIDEA\\vkr\\RestApiGenerator\\RestApiGeneratorLibrary\\src\\test\\resources\\pseudonyms\\pseudonyms.json");
+        jsonEndpoint = readJson.load("src\\test\\resources\\endpoint\\endpoint.json");
+        jsonRequest = readJson.load("src\\test\\resources\\requestInformation\\requestInformationTest.json");
+        jsonPseudonyms = readJson.load("src\\test\\resources\\pseudonyms\\pseudonyms.json");
     }
 
     @ParameterizedTest(name = "{arguments} test")
