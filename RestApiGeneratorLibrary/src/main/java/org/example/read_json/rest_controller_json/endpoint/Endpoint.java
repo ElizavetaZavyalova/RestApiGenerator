@@ -36,9 +36,9 @@ public class Endpoint {
         try {
             this.funcName = funcName;
             this.parent = parent;
-            ReadJson readeJson = new ReadJson();
-            filters = new EndpointFilters(readeJson.loadFilters(enpointMap), this);
-            pseudonyms = new EndpointPseudonyms(readeJson.loadPseudonyms(enpointMap), this);
+            ReadJson readJson = new ReadJson();
+            filters = new EndpointFilters(readJson.loadFilters(enpointMap), this);
+            pseudonyms = new EndpointPseudonyms(readJson.loadPseudonyms(enpointMap), this);
             requestInformation = new RequestInformation(enpointMap,this);
         }catch (IllegalArgumentException ex){
             throw new IllegalArgumentException("In: "+funcName+" "+ex.getMessage());

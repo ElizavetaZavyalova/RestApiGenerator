@@ -1,6 +1,6 @@
 package org.example.analize.premetive.fields;
 
-import com.squareup.javapoet.CodeBlock;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +18,5 @@ public abstract class BaseField<R> implements Interpretation<R> {
         this.name=name;
         this.realFieldName=parent.getRealFieldName(name);
     }
-    public CodeBlock makeNameInfo(){
-        return CodeBlock.builder().add("$S, $S",name,realFieldName).build();
-    }
+    public abstract R makeNameInfo();
 }

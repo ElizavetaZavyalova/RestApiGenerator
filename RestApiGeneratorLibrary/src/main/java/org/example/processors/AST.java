@@ -16,14 +16,11 @@ public class AST {
     @Setter
     protected RoundEnvironment roundEnvironment;
     protected Messager messager;
-
     protected ProcessingEnvironment processingEnv;
     protected Filer filer;
 
     AST(ProcessingEnvironment processingEnv) {
-
         this.messager = processingEnv.getMessager();
-
         this.processingEnv = processingEnv;
         this.filer = processingEnv.getFiler();
     }

@@ -44,7 +44,7 @@ public class Endpoints {
         repository.addField(FieldSpec.builder(BOOLEAN_CLASS, ApplicationProperties.showSql, Modifier.PRIVATE, Modifier.FINAL).build());
         repository.addField(FieldSpec.builder(CONTEXT_CLASS, CONTEXT, Modifier.PRIVATE, Modifier.FINAL).build())
                 .addField(FieldSpec.builder(LOGGER_CLASS, LOG_NAME, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer("$T.getLogger(" + repositoryName + ".class.getName());", LOGGER_CLASS).build())
+                        .initializer("$T.getLogger(" + repositoryName + ".class.getName())", LOGGER_CLASS).build())
                 .addMethod(MethodSpec.constructorBuilder()
                         .addAnnotation(AnnotationSpec.builder(AUTOWIRED_ANNOTATION_CLASS).build())
                         .addParameter(ParameterSpec.builder(CONTEXT_CLASS, beanName).build())

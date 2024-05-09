@@ -36,8 +36,6 @@ public abstract class BaseBodyFuncFilter extends BaseFieldParser<CodeBlock> {
     public abstract String defaultValue();
 
 
-
-
     @Override
     public void addParams(List<VarInfo> params, List<FilterInfo> filters) {
         //not in request

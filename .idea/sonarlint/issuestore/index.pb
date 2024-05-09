@@ -16,8 +16,6 @@ q
 ATestOfWorkingRestApiGenerator/src/main/java/org/example/Main.java,4\0\404d7782705bcfd3d488e139f52748fdb704d1e3
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 Z
 *TestOfWorkingRestApiGenerator/build.gradle,e\1\e106ee998dbd02704e835f478aa844c348deeb6c
 T
@@ -210,8 +208,6 @@ NRestApiGeneratorLibrary/src/main/java/org/example/analize/address/Address.java
 PRestApiGeneratorLibrary/src/main/java/org/example/analize/condition/Operand.java,7\3\73531dc11dca731c63cb525a798c23320672a727
 …
 URestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/Field.java,0\4\04ae2bbb4471967c8214c5eaa3a625aa45f7f7ce
-–
-fRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/FieldFieldInsertUpdate.java,a\4\a4e09523ad193ebbab07e0add147e739d1a89765
 “
 cRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields_cond/FieldCondition.java,3\3\33e49d301a4a3c1894df5d06f2036204df7b4ef4
 z
@@ -270,3 +266,5 @@ bRestApiGeneratorLibrary/src/main/java/org/example/analize/request/update/update
 ŒRestApiGeneratorLibrary/src/main/java/org/example/read_json/rest_controller_json/filter/filters_vies/filters/list_filter/BaseListFilter.java,3\6\36750072542998c4032b4f3eb7aec7797019f31c
 „
 TTestOfWorkingGenerateCode/src/test/java/org/example/controller/TestOneTableTest.java,a\3\a32884b9103737a91c2ef9772ae52911f301d0b5
+‘
+aRestApiGeneratorLibrary/src/main/java/org/example/analize/premetive/fields/FieldInsertUpdate.java,1\b\1b14d51d45f2ad92210f4227032ef5d93369cabd

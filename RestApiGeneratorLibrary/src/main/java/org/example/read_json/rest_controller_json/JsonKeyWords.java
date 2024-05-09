@@ -59,7 +59,6 @@ public record JsonKeyWords() {
                 public static final String _PUT = "put";
                 public static final String _DELETE = "delete";
                 public static final String _PATCH = "patch";
-                public static final String _REFS = "refs";
 
             }
 
@@ -94,7 +93,6 @@ public record JsonKeyWords() {
                 public static final String _DEFAULT = "";
                 public static final String _ONE_TO_MANY = ">";
                 public static final String _IN_ONE_WAY = "!";
-
             }
 
             public record AggregationFunction() {

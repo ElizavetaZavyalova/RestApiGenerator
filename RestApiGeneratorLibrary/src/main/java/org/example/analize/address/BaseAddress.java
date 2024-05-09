@@ -14,6 +14,7 @@ public abstract class BaseAddress<R> implements Interpretation<R> {
     record RegExp() {
         static final String SPLIT = "/(?![{\\[(])";
         static final int START = 0;
+        static final int NO_URL=0;
     }
 
 
@@ -27,7 +28,7 @@ public abstract class BaseAddress<R> implements Interpretation<R> {
     BaseAddress(String url, Endpoint parent) throws IllegalArgumentException {
         String[] urlPorts = Arrays.stream(url.split(SPLIT))
                 .filter(urlPort -> !urlPort.isEmpty()).toArray(String[]::new);
-        if (urlPorts.length == 0) {
+        if (urlPorts.length == NO_URL) {
             throw new IllegalArgumentException("no url");
         }
         final int LAST_PORT = urlPorts.length - 1;

@@ -68,6 +68,7 @@ public class Get extends BaseGet<CodeBlock, MethodSpec.Builder> {
                 .orElse(fields.get(0).interpret()).toBuilder().build();
     }
 
+
     @Override
     public MethodSpec.Builder createFieldsPort(MethodSpec.Builder method,boolean isFields) {
        final String parametrizedList="$T<$T<$T>>";

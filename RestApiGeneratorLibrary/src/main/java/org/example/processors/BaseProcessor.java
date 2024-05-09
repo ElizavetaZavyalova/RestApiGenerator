@@ -15,6 +15,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
         super.init(processingEnv);
         AST.setAst(new AST(processingEnv));
     }
+
     @Override
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latestSupported();

@@ -16,7 +16,7 @@
   "http": {
     "GetAllFromTable6MWhereTable6Id": {
       "get": "table6|id->limit|sort",
-      "request": "table6M/{id}/table6",
+      "request": "table6M/{id}/table6/",
       "tags": "MANY_TO_ONE-1_TABLE"
     },
     "DeleteFromTable6MByIdTable6": {

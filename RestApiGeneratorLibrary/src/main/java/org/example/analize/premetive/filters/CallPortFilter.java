@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
+
 @Slf4j
 public class CallPortFilter implements FilterInterpretation<CodeBlock> {
     CodeBlock result;
     String filterName;
-    String example="";
+    String example = "";
     String varName;
     String nameInRequest;
 
@@ -31,15 +32,16 @@ public class CallPortFilter implements FilterInterpretation<CodeBlock> {
 
     @Override
     public void makeFilter(Endpoint parent, CodeBlock def, String table) {
-        def = Optional.ofNullable(def).orElse(CodeBlock.builder().add("$T.trueCondition()",DSL_CLASS).build());
-        Filtering<CodeBlock> filtering=parent.getFilter(filterName);
-        result =filtering.makeFilter(parent.getFuncName(),table, def);
-        example=filtering.getExample();
-        varName=filtering.getVarName();
-        nameInRequest=Optional.ofNullable(filtering.getNameInRequest()).orElse(filterName);
+        def = Optional.ofNullable(def).orElse(CodeBlock.builder().add("$T.trueCondition()", DSL_CLASS).build());
+        Filtering<CodeBlock> filtering = parent.getFilter(filterName);
+        result = filtering.makeFilter(parent.getFuncName(), table, def);
+        example = filtering.getExample();
+        varName = filtering.getVarName();
+        nameInRequest = Optional.ofNullable(filtering.getNameInRequest()).orElse(filterName);
     }
+
     @Override
-    public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
-        filters.add(new FilterInfo(filterName,nameInRequest,example,varName));
+    public void addParams(List<VarInfo> params, List<FilterInfo> filters) {
+        filters.add(new FilterInfo(filterName, nameInRequest, example, varName));
     }
 }

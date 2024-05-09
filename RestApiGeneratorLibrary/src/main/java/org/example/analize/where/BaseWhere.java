@@ -14,11 +14,9 @@ import static org.example.read_json.rest_controller_json.JsonKeyWords.Endpoint.R
 
 public abstract class BaseWhere<R> implements Interpretation<R> {
     ArrayList<Interpretation<R>> ports = new ArrayList<>();
-
     record RegExp() {
         static final String SPLIT = "/";
     }
-
     BaseWhere(String where, String table, Endpoint parent) {
         String[] wherePorts = where.split(SPLIT);
         for (String port : wherePorts) {

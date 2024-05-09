@@ -32,7 +32,7 @@ public class MainProcessor extends BaseProcessor {
             GeneratingCode generatingCode = new GeneratorOfCode(element);
             generatingCode.generate();
         }
-        log.info(LoggerColor.BRIGHT_CYAN+"Compiling....."+LoggerColor.RESET);
+        log.info(LoggerColor.BRIGHT_CYAN + "Compiling....." + LoggerColor.RESET);
         return true;
     }
 

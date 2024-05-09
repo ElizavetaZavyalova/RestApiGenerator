@@ -32,7 +32,8 @@ public class GeneratorOfCode implements GeneratingCode {
         public static final String CONFIG = "ConfigRest";
         public static final String CONFIG_PACKAGE = ".config";
     }
-    public record LoggerColor(){
+
+    public record LoggerColor() {
         public static final String RESET = "\u001B[0m";
         public static final String GREEN = "\u001B[32m";
         public static final String YELLOW = "\u001B[33m";
@@ -56,8 +57,8 @@ public class GeneratorOfCode implements GeneratingCode {
                 generateController(rest);
             });
             generateBeans();
-        }catch (IllegalArgumentException ex){
-            AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR,ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            AST.instance().getMessager().printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
         }
     }
 
@@ -71,7 +72,7 @@ public class GeneratorOfCode implements GeneratingCode {
 
         JavaFile file = rest.getJavaController(className, controllerPackage, classRepository, repositoryPackage);
         writeClass(location, file);
-        log.info(LIGHT_GREEN+"-GENERATE CONTROLLER-"+YELLOW+controllerPackage+"."+GREEN+className+RESET);
+        log.info(LIGHT_GREEN + "-GENERATE CONTROLLER-" + YELLOW + controllerPackage + "." + GREEN + className + RESET);
     }
 
     void writeClass(String location, JavaFile file) {
@@ -92,7 +93,7 @@ public class GeneratorOfCode implements GeneratingCode {
         String location = repositoryPackage + "." + className;
         JavaFile file = rest.getJavaRepository(className, repositoryPackage);
         writeClass(location, file);
-        log.info(LIGHT_BLUE+"-GENERATE REPOSITORY-"+YELLOW+ repositoryPackage+"."+BLUE+className+RESET);
+        log.info(LIGHT_BLUE + "-GENERATE REPOSITORY-" + YELLOW + repositoryPackage + "." + BLUE + className + RESET);
     }
 
     void generateBeans() {
@@ -101,7 +102,7 @@ public class GeneratorOfCode implements GeneratingCode {
         String location = configPackage + "." + className;
         JavaFile file = parseJson.getConfiguration(className, configPackage);
         writeClass(location, file);
-        log.info(LIGHT_PURPLE+"-GENERATE SWAGGER CONFIG-"+YELLOW+configPackage+"."+PURPLE+className+RESET);
+        log.info(LIGHT_PURPLE + "-GENERATE SWAGGER CONFIG-" + YELLOW + configPackage + "." + PURPLE + className + RESET);
     }
 
     public GeneratorOfCode(Element element) {

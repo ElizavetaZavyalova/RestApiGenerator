@@ -12,9 +12,11 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
     public BodyFuncFilterManyParams(String variable, Endpoint parent) throws IllegalArgumentException {
         super(variable, parent);
     }
+
     public BodyFuncFilterManyParams(String variable) throws IllegalArgumentException {
         super(variable);
     }
+
     @Override
     public CodeBlock interpret() {
         return CodeBlock.builder()
@@ -23,28 +25,32 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
                 .endControlFlow()
                 .build();
     }
-    CodeBlock makeArray(){
-        return  CodeBlock.builder().add(REQUEST_PARAM_NAME+".get($S).stream().map(t-> $T.val(t, $T.class))",fieldName,DSL_CLASS,makeType()).build();
+
+    CodeBlock makeArray() {
+        return CodeBlock.builder().add(REQUEST_PARAM_NAME + ".get($S).stream().map(t-> $T.val(t, $T.class))", fieldName, DSL_CLASS, makeType()).build();
     }
+
     public String makeTypeOfDefaultValue(CodeBlock.Builder builder) {
         return switch (type) {
-            case STRING -> builder.add("$S","String").build().toString();
+            case STRING -> builder.add("$S", "String").build().toString();
             case BOOLEAN -> builder.add("true").build().toString();
             default -> builder.add("0").build().toString();
         };
     }
+
     @Override
-    public String defaultValue(){
-        return makeTypeOfDefaultValue(CodeBlock.builder().add("$S:",fieldName));
+    public String defaultValue() {
+        return makeTypeOfDefaultValue(CodeBlock.builder().add("$S:", fieldName));
     }
+
     protected CodeBlock makeCondition() {
-        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field($S).", DSL_CLASS,  realFieldName);
+        CodeBlock.Builder builder = CodeBlock.builder().add(CONDITION_LIST_IN_FILTER + ".add($T.field($S).", DSL_CLASS, realFieldName);
         switch (action) {
-            case IN:{
+            case IN: {
                 builder.add("in");
                 return builder.add("(").add(makeArray()).add(")").build();
             }
-            case NOT_IN:{
+            case NOT_IN: {
                 builder.add("notIn");
                 return builder.add("(").add(makeArray()).add(")").build();
             }
@@ -84,11 +90,11 @@ public class BodyFuncFilterManyParams extends BaseBodyFuncFilter {
                 builder.add("notLike");
                 break;
             }
-            default:{
+            default: {
                 builder.add("eq");
                 break;
             }
         }
-        return builder.add("($T.val(",DSL_CLASS).add(REQUEST_PARAM_NAME + ".getFirst($S), $T.class)))",fieldName,makeType()).build();
+        return builder.add("($T.val(", DSL_CLASS).add(REQUEST_PARAM_NAME + ".getFirst($S), $T.class)))", fieldName, makeType()).build();
     }
 }

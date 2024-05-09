@@ -17,6 +17,11 @@ public class Field extends BaseFieldInsertUpdate<CodeBlock, ClassName> {
         super(name, tableName, parent);
     }
 
+    @Override
+    public CodeBlock makeNameInfo(){
+        return CodeBlock.builder().add("$S, $S",name,realFieldName).build();
+    }
+
 
     @Override
     public ClassName getType() {

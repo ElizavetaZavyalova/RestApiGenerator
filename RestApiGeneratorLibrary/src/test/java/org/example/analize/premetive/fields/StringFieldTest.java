@@ -20,6 +20,7 @@ class StringFieldTest {
         Endpoint endpoint = Mockito.mock(Endpoint.class);
         Mockito.doReturn(realFieldName).when(endpoint).getRealFieldName(fieldName);
         Field stringField=new Field(fieldName,tableName,endpoint);
+        log.info("parse");
         log.info(stringField.interpret().toString());
     }
 }

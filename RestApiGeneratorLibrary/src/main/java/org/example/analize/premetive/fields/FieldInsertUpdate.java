@@ -11,8 +11,8 @@ import java.util.List;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.Annotations.Controller.*;
 import static org.example.processors.code_gen.file_code_gen.DefaultsVariablesName.DB.DSL_CLASS;
 
-public class FieldFieldInsertUpdate extends BaseFieldInsertUpdate<CodeBlock,ClassName> {
-    public FieldFieldInsertUpdate(String name, String tableName, Endpoint parent) {
+public class FieldInsertUpdate extends BaseFieldInsertUpdate<CodeBlock,ClassName> {
+    public FieldInsertUpdate(String name, String tableName, Endpoint parent) {
         super(name, tableName, parent);
 
     }
@@ -40,5 +40,10 @@ public class FieldFieldInsertUpdate extends BaseFieldInsertUpdate<CodeBlock,Clas
 
     public void addParams(List<VarInfo> params,List<FilterInfo> filters) {
        //not use in request
+    }
+
+    @Override
+    public CodeBlock makeNameInfo() {
+        return CodeBlock.builder().add("$S, $S",name,realFieldName).build();
     }
 }

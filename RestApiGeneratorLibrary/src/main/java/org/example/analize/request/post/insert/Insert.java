@@ -7,7 +7,7 @@ import org.example.analize.interpretation.InterpretationBd;
 import org.example.analize.premetive.fields.BaseField;
 import org.example.analize.premetive.fields.BaseFieldInsertUpdate;
 import org.example.analize.premetive.fields.Field;
-import org.example.analize.premetive.fields.FieldFieldInsertUpdate;
+import org.example.analize.premetive.fields.FieldInsertUpdate;
 import org.example.analize.premetive.info.FilterInfo;
 import org.example.analize.premetive.info.VarInfo;
 import org.example.analize.select.Select;
@@ -91,7 +91,7 @@ public class Insert extends BaseInsert<CodeBlock, ClassName, List<CodeBlock>, Me
 
     @Override
     protected BaseFieldInsertUpdate<CodeBlock,ClassName> makeField(String name, String table, Endpoint parent) {
-        return new FieldFieldInsertUpdate(name, table, parent);
+        return new FieldInsertUpdate(name, table, parent);
     }
 
 
