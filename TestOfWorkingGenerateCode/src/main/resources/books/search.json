@@ -34,7 +34,7 @@
     },
     "VoiceoverBooks": {
       "get": "book|id->limit|sort",
-      "request": "voiceover/[authorName]/books/[bookInfo]&[nameInfo]",
+      "request": "voiceover/[authorName]/books/[bookInfo]&[nameInfo]/",
       "tags": "audio|search"
     },
     "BookById": {

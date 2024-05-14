@@ -119,7 +119,7 @@ public record DefaultsVariablesName() {
     }
 
 
-    public record DB() {//java.sql.SQLException
+    public record DB() {
        public record LoggerColor(){
            public static final String _DELETE_COLOR="\n\u001B[35m";
            public static final String _GET_COLOR="\n\u001B[34m";

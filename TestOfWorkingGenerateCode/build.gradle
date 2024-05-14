@@ -40,9 +40,9 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
 tasks.named('compileJava') {
     inputs.dir 'src/main'
-
 }
 
 
