@@ -1,0 +1,33 @@
+{
+  "pseudonyms": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\info.json",
+  "filters": {
+    "bs:or=search": "like_name-s|like_description-s"
+  },
+  "http": {
+    "CommitsByBookId": {
+      "get": "commit|id",
+      "delete": "",
+      "request": "commit/{book_id}/[bs]",
+      "tags": "COMMIT_ACTIONS"
+    },
+    "CommitsByUserId": {
+      "get": "commit|id",
+      "delete": "",
+      "request": "commit/{user_id}&{book_id}",
+      "tags": "COMMIT_ACTIONS"
+    },
+    "CommitsById": {
+      "get": "commit|id",
+      "delete": "",
+      "patch": "commit",
+      "put": "commit",
+      "request": "commit/{id}",
+      "tags": "COMMIT_ACTIONS"
+    },
+    "CommitToBook": {
+      "post": "commit",
+      "request": "book/{id}/commit",
+      "tags": "COMMIT_ACTIONS"
+    }
+  }
+}

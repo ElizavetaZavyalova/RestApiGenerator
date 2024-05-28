@@ -116,6 +116,7 @@
     }
   },
   "REFS": {
+  "RefsExample":{
     "pseudonyms": {
       "joins": {
         "books:users": ["author_id", "id"],
@@ -142,5 +143,6 @@
         "request": "types/{id}/books"
       }
     }
+  }
   }
 }

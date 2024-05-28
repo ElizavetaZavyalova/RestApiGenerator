@@ -1,72 +1,66 @@
 CREATE TABLE IF NOT EXISTS Users
 (
-    id        SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     ROLE varchar(50),
-    Login  VARCHAR(50) UNIQUE,
-    KODE varchar(50) UNIQUE,
-    Age INT,
-    Name VARCHAR(50)
+    NAME varchar(50),
+    LOGIN  VARCHAR(50) UNIQUE,
+    PASSWORD VARCHAR(50)
 );
-CREATE TABLE IF NOT EXISTS Pseudonyms
+CREATE TABLE IF NOT EXISTS URL
 (
-    id  SERIAL PRIMARY KEY,
-    KODE varchar(50) UNIQUE,
-    Pseudonym varchar(50),
-    user_id INT DEFAULT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE SET NULL
+    id SERIAL PRIMARY KEY,
+    URL VARCHAR(50)
 );
-CREATE TABLE IF NOT EXISTS Books
+CREATE TABLE IF NOT EXISTS BOOKS
 (
-    id        SERIAL PRIMARY KEY,
-    BookName  VARCHAR(50),
-    Annotation varchar(250),
-    TextRef varchar(250) DEFAULT NULL,
-    PageCount INT,
-    Year INT,
+    id SERIAL PRIMARY KEY,
+    PRISE INT,
+    NAME varchar(50),
+    DESCRIPTION varchar(50),
+    URL_ID INT,
     author_id INT,
-    FOREIGN KEY (author_id) REFERENCES AuthorsPseudonyms (id) ON DELETE CASCADE
+    FOREIGN KEY (author_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (url_id) REFERENCES URL (id) ON DELETE SET NULL
 );
-CREATE TABLE IF NOT EXISTS Comments
+CREATE TABLE IF NOT EXISTS AUDIO
 (
     id SERIAL PRIMARY KEY,
-    parent_id INT DEFAULT NULL,
+    PRISE INT,
+    URL_ID INT,
+    book_id INT,
+    reader_id INT,
+    FOREIGN KEY (reader_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES BOOKS (id) ON DELETE CASCADE,
+    FOREIGN KEY (url_id) REFERENCES URL (id) ON DELETE SET NULL
+);
+CREATE TABLE IF NOT EXISTS COLLECTION
+(
+    url_id INT,
+    FOREIGN KEY (url_id) REFERENCES URL (id) ON DELETE CASCADE,
     user_id INT,
-    chat_id INT,
-    INFO varchar(250),
-    FOREIGN KEY (chat_id) REFERENCES Books(id) ON DELETE CASCADE,
-    FOREIGN KEY (USER_id) REFERENCES Users(id) ON DELETE CASCADE ,
-    FOREIGN KEY (parent_id) REFERENCES Comments(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
 );
-CREATE TABLE IF NOT EXISTS Audio
-(
-    id  SERIAL PRIMARY KEY,
-    Duration INT,
-    AudioRef varchar(250),
-    book_id INT,
-    voiceover_id INT,
-    FOREIGN KEY (voiceover_id) REFERENCES AuthorsPseudonyms (id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES Books (id) ON DELETE CASCADE
-);
-CREATE TABLE IF NOT EXISTS Reading
+CREATE TABLE IF NOT EXISTS KEY_WORDS
 (
     id SERIAL PRIMARY KEY,
-    LastPage INT,
-    book_id INT,
-    reader_id INT,
-    FOREIGN KEY (reader_id) REFERENCES Users (id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES Books (id) ON DELETE CASCADE
+    NAME varchar(50)
 );
-CREATE TABLE IF NOT EXISTS Listening
+CREATE TABLE IF NOT EXISTS BOOK_HAS_KEY_WORD
+(
+    word_id INT,
+    FOREIGN KEY (word_id) REFERENCES KEY_WORDS (id) ON DELETE CASCADE,
+    book_id INT,
+    FOREIGN KEY (book_id) REFERENCES BOOKS (id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS COMMITS
 (
     id SERIAL PRIMARY KEY,
-    LastChapter INT,
-    MinuteIndex INT,
-    audio_id INT,
-    reader_id INT,
-    FOREIGN KEY (reader_id) REFERENCES Users (id) ON DELETE CASCADE,
-    FOREIGN KEY (audio_id) REFERENCES Audio (id) ON DELETE CASCADE
+    book_id INT,
+    message varchar(50),
+    open_id INT,
+    user_id INT,
+    FOREIGN KEY (book_id) REFERENCES BOOKS (id) ON DELETE CASCADE,
+    FOREIGN KEY (open_id) REFERENCES COMMITS (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
 );
-
-
-
 

@@ -21,7 +21,7 @@ public class ListOneParamFilter extends ListFilter {
     String func;
     boolean isNot;
 
-    public ListOneParamFilter(FilterNames name,String key, List<String> val, String filter,String nameInRequest) {
+    public ListOneParamFilter(FilterNames name, String key, List<String> val, String filter, String nameInRequest) {
         super(name, key, val, filter, nameInRequest);
         if (FilterNames.isOr(Objects.requireNonNull(name))) {
             func = "or";
@@ -44,7 +44,7 @@ public class ListOneParamFilter extends ListFilter {
         methodBuilder.endControlFlow();
         if (isNot) {
             methodBuilder.beginControlFlow("if(" + CONDITION_LIST_IN_FILTER + ".isEmpty())");
-            methodBuilder.addStatement("return "+DEFAULT_CONDITION_IN_FILTER);
+            methodBuilder.addStatement("return " + DEFAULT_CONDITION_IN_FILTER);
             methodBuilder.endControlFlow();
         }
         methodBuilder.addStatement(makeCondition());
@@ -72,10 +72,11 @@ public class ListOneParamFilter extends ListFilter {
         return example;
     }
 
+
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + nameInRequest + ", $S, ", args[1])
+                .add("(" + getParam() + ", $S, ", args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }

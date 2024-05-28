@@ -25,7 +25,7 @@ public class FilterInfo {
     }
 
     public String replaceRequest(String request){
-        if(isNameInRequestAndFilterNameIdent()){
+        if(!isNameInRequestAndFilterNameIdent()){
             String name="["+filterName+"]";
             if(nameInRequest.isEmpty()){
                 return request.replace("&"+name,"")

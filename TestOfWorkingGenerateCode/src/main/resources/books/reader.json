@@ -1,0 +1,16 @@
+{
+  "pseudonyms": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\info.json",
+  "filters": {
+    "book_search:1-or": "like_name|like_description"
+  },
+  "http": {
+    "readerBookById": {
+      "get": "audio|id",
+      "delete": "",
+      "patch": "audio",
+      "put": "audio",
+      "request": "audio/{id}&{reader_id}",
+      "tags": "READER_ACTIONS"
+    }
+  }
+}

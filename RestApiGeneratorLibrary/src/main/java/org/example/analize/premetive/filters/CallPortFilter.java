@@ -34,10 +34,10 @@ public class CallPortFilter implements FilterInterpretation<CodeBlock> {
     public void makeFilter(Endpoint parent, CodeBlock def, String table) {
         def = Optional.ofNullable(def).orElse(CodeBlock.builder().add("$T.trueCondition()", DSL_CLASS).build());
         Filtering<CodeBlock> filtering = parent.getFilter(filterName);
+        nameInRequest = Optional.ofNullable(filtering.getNameInRequest()).orElse(filterName);
         result = filtering.makeFilter(parent.getFuncName(), table, def);
         example = filtering.getExample();
         varName = filtering.getVarName();
-        nameInRequest = Optional.ofNullable(filtering.getNameInRequest()).orElse(filterName);
     }
 
     @Override

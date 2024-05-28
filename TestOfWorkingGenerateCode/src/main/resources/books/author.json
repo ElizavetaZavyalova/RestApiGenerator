@@ -1,0 +1,46 @@
+{
+  "pseudonyms": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\info.json",
+  "http": {
+    "authorBookById": {
+      "get": "book|id",
+      "delete": "",
+      "patch": "book",
+      "put": "book",
+      "request": "book/{id}&{author_id}",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "authorBookByAuthorId": {
+      "get": "book|id->limit|sort",
+      "delete": "",
+      "request": "book/{author_id}",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "Book": {
+      "post": "book",
+      "request": "book",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "url": {
+      "post": "url",
+      "get": "url|id",
+      "request": "book/{id}&{author_id}/url",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "Word": {
+      "get": "word|id->limit|sort",
+      "request": "word",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "keyWord": {
+      "post": "word",
+      "request": "book/{id}&{author_id}/word",
+      "tags": "AUTHOR_ACTIONS"
+    },
+    "setKeyWord": {
+      "post": "setWord",
+      "delete": "",
+      "request": "book/{id}&{author_id}/setWord",
+      "tags": "AUTHOR_ACTIONS"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "pseudonyms": "P:\\Projects\\IntellijIDEA\\vkr\\RestApiGenerator\\TestOfWorkingGenerateCode\\src\\main\\resources\\books\\info.json",
+  "http": {
+    "UserLogIn": {
+      "get": "user|id->limit|sort",
+      "request": "user/{login-s}&{password-s}",
+      "tags": "LOG_IN"
+    },
+    "UserById": {
+      "get": "user|id",
+      "delete": "",
+      "patch": "user",
+      "put": "user",
+      "request": "user/{id}",
+      "tags": "CRUD_USER"
+    },
+    "User": {
+      "post": "user",
+      "request": "user",
+      "tags": "CRUD_USER"
+    }
+  }
+}

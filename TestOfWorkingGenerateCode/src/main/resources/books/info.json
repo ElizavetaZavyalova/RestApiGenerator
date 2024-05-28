@@ -1,0 +1,32 @@
+{
+  "tables": {
+    "users": ["!reader","!author","!user"],
+    "books": ["!book"],
+    "key_words": ["!word"],
+    "commits": ["!commit","!open"],
+    "book_has_key_word": ["setWord"]
+  },
+  "entity": {
+    "url": ["URL-s=nothing"],
+    "word": ["NAME-s="],
+    "setWord": ["word_id","book_id"],
+    "book": ["url_id","prise-i=0","name-s","description-s","author_id"],
+    "user": ["role-s","name-s","login-s","password-s"]
+  },
+  "joins": {
+    "author:book": ["id","author_id"],
+    "book:url": ["url_id","id"],
+    "url:audio": ["id","url_id"],
+    "book:audio": ["id","book_id"],
+    "reader:audio": ["id","reader_id"],
+    "collection:user": ["user_id","id"],
+    "collection:url": ["url_id","id"],
+    "url:user": ["collection"],
+    "word:setWord": ["id","word_id"],
+    "book:setWord":["id","book_id"],
+    "word:book": ["setWord"],
+    "commit:open": ["id","open_id"],
+    "commit:user": ["user_id","id"],
+    "commit:book": ["book_id","id"]
+  }
+}

@@ -77,7 +77,7 @@ public class ListManyParamsFilter extends ListFilter {
     @Override
     public CodeBlock makeFilter(Object... args) {
         return CodeBlock.builder().add(getFuncName((String) args[0]))
-                .add("(" + nameInRequest + ", $S, ", args[1])
+                .add("(" + getParam() + ", $S, ", args[1])
                 .add((CodeBlock) args[2]).add(")").build();
     }
 }
