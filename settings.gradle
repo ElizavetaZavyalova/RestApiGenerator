@@ -1,5 +1,4 @@
 rootProject.name = 'RestApiGenerator'
 include 'RestApiGeneratorLibrary'
-include 'TestOfWorkingRestApiGenerator'
 include 'TestOfWorkingGenerateCode'
 
