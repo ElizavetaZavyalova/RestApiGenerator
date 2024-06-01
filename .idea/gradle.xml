@@ -10,7 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/RestApiGeneratorLibrary" />
             <option value="$PROJECT_DIR$/TestOfWorkingGenerateCode" />
-            <option value="$PROJECT_DIR$/TestOfWorkingRestApiGenerator" />
           </set>
         </option>
       </GradleProjectSettings>
