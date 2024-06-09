@@ -1,4 +1,5 @@
- 
+# В модуле RestApiGeneratorLibrary приведен код библиотеки
+# В модуле TestOfWorkingGenerateCode приведен пример работы библиотеки
 <img src="./img/kwl2u02w.png"
 style="width:8.26389in;height:11.68664in" />
 
