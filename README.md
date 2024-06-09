@@ -1,3 +1,4 @@
+#Настройки Grudle
 <img src="./img/kwl2u02w.png"
 style="width:8.26389in;height:11.68664in" />
 
